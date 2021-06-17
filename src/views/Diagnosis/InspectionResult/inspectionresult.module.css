@@ -1,0 +1,17 @@
+.left_list_size{
+  height: 100%; 
+  width: 50%;
+}
+
+.title{
+  background-color: #CCE3F7; 
+  border:1px solid lightgray;
+}
+
+.inspection_container{
+  border: 1px solid lightgray; 
+  height: 25vh; 
+  width: 100%; 
+  background-color: white; 
+  overflow: auto;
+}

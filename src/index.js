@@ -5,9 +5,18 @@ import App from './App';
 import "bootstrap/dist/css/bootstrap.min.css";
 import { BrowserRouter } from "react-router-dom";
 
+import { composeWithDevTools } from "redux-devtools-extension";
+import { createStore } from 'redux';
+import rootReducer from "redux/root-reducer";
+import { Provider } from 'react-redux';
+
+const store = createStore(rootReducer, composeWithDevTools());
+
 ReactDOM.render(
   <BrowserRouter>
-    <App />
+    <Provider store={store}>
+      <App />
+    </Provider>
   </BrowserRouter>
   ,document.getElementById('root')
 );
