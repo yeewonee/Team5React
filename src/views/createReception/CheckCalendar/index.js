@@ -15,7 +15,7 @@ function CheckCalendar(props) {
 
 
   return(
-    <div className={style.calendar_box} style={{marginBottom: '5px'}}>
+    <div className={style.calendar_box} style={{marginBottom: '10px'}}>
         <Calendar
         className="calstyle"
         onChange={ChangeDate}

@@ -19,7 +19,7 @@ function CheckTime(props) {
 
   return(
     <div className={style.time_box}>
-      <div style={{marginTop:'20px', marginLeft:'20px'}}>
+      <div style={{marginTop:'20px', textAlign:'center'}}>
         <div className={style.radios}>
           <label style={{backgroundColor: state.time==='9:00' ? '#adb5bd' : ''}}>
             <input type="radio" name="time" value="9:00" onChange={handleRadio} checked={state.time === '9:00'}/>
@@ -53,9 +53,9 @@ function CheckTime(props) {
             <input type="radio" name="time" value="방문접수" onChange={handleRadio} checked={state.time === '방문접수'}/>
             방문접수
           </label>
-          <div>선택된 시간: {state.time}</div>
         </div>
       </div>
+      <div>선택된 시간: {state.time}</div>
     </div>
   );
 }
