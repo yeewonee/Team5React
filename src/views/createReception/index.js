@@ -3,7 +3,7 @@ import DoctorList from "./DoctorList";
 import CheckCalendar from "./CheckCalendar";
 import CheckTime from "./CheckTime";
 import AddReception from "./AddReception";
-function Reception(props) {
+function createReception(props) {
   return(
     <>
       <div style={{marginLeft:'10px', paddingTop: '5px', paddingBottom: '5px'}}>
@@ -29,4 +29,4 @@ function Reception(props) {
   );
 }
 
-export default Reception;
+export default createReception;

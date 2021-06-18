@@ -1,0 +1,32 @@
+.donut{
+  width:29%;
+  height: 200px;
+  background-color: white;
+  border: 1px solid lightgray;
+  padding-left:35px ;
+  padding-bottom:50px ;
+  padding-top:20px ;
+  
+}
+
+.span{
+  background-color: white;
+  padding-left:70px ;
+  padding-top:10px ;
+  
+}
+
+.square1{
+  border: 1px ;
+  margin-top: 7px;
+  width:10px;
+  height: 10px;
+  background-color: orange;
+}
+
+.square2{
+  margin-top: 7px;
+  width:10px;
+  height: 10px;
+  background-color: skyblue;
+}

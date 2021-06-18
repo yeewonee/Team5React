@@ -1,0 +1,45 @@
+.idate{
+    line-height:5vh;
+    margin:7px auto;
+    border-radius: 10px;
+    width:95%;
+    height:5vh;
+    background-color: #d0ebff;
+    text-align: center;
+}
+
+
+#myChart{
+    margin: 0 50px;
+}
+
+.doughnut_data{
+    width:50%;
+    position: relative;
+}
+
+.ready1{
+    position: absolute;
+    top:50px;
+}
+
+.ready2{
+    position: absolute;
+    top:80px;
+}
+.ready3{
+    position: absolute;
+    top:110px;
+}
+
+.box{
+    margin-top: 4px;
+    margin-right: 11px;
+    width:35px; 
+    height:15px;
+}
+
+canvas{
+    width:220px;
+    height:150px;
+}

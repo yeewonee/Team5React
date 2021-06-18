@@ -1,0 +1,13 @@
+.graph{
+  background-color: white;
+  border: 1px solid lightgray;
+}
+
+.label{
+  background-color: #F2F2F2; 
+  height: 38px; 
+  padding-top: 4px; 
+  border-radius: 3px;
+  border: 1px solid lightgray;
+  width: 1493px;
+}

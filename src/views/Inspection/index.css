@@ -1,0 +1,32 @@
+.middle{
+    display:flex;
+    margin: 15px 15px;  
+    font-family: "DoHyeon-Regular"; 
+}
+
+.middle-left{
+    border-radius: 7px;
+    overflow:auto;
+    width:40%;
+    height:90vh;
+    background-color: #fff;
+    border:1px solid black;
+    margin-right: 20px;
+}
+
+.middle-right{
+    width:60%;
+    height:90vh;
+}
+
+
+.middle-left::-webkit-scrollbar {
+    width:10px;
+    border-radius: 15px;
+  }
+
+  .middle-left::-webkit-scrollbar-thumb {
+    border-radius: 15px;
+    background-color: #ced4da; /*스크롤바의 색상*/
+}
+

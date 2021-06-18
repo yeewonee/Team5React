@@ -1,8 +1,8 @@
 import { getPatientList } from "./data";
 import style from "./style.module.css";
-import CommonTable from "views/Component/table/CommonTable";
-import CommonTableColumn from "views/Component/table/CommonTableColumn";
-import CommonTableRow from "views/Component/table/ComonTableRow";
+import CommonTable from "views/table/CommonTable";
+import CommonTableRow from "views/table/CommonTableRow";
+import CommonTableColumn from "views/table/CommonTableColumn";
 import { createSetPatient } from "redux/reception-reducer";
 import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
