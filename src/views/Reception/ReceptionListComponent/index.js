@@ -80,7 +80,7 @@ function ReceptionList(props){
           <Modal.Title>예약확인</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <table calss="table">
+          <table className="table">
             <tbody>
               <tr className={style.table}>
                 <th className={style.detailth}>&nbsp;예약번호</th>
@@ -125,53 +125,61 @@ function ReceptionList(props){
           </Button>
         </Modal.Footer>
       </Modal>
-
       <h5 className={style.label}>&nbsp;접수 목록</h5> 
-    
-      <Row className={style.back}>
-        <Col className="col-1 mt-1">
-          <Calendar/>
-        </Col>
-        <Col className="col-7 mt-1 ml-4">
-          <SearchBar/>
-        </Col>
-        <Col className="mt-1">
-          <Button className={style.button} onClick={buttonModal}>환자 등록</Button>
-          <Button className={style.button}><Link to="/createReception">예약/접수</Link></Button>
-          <Button className={style.button}>예약 취소</Button>
-          <Button className={style.button}>접수 완료</Button>
-        </Col>
-        <table class="table">
-            <thead>
-              <tr className={style.listtitle}>
-                <th scope="col"><input type="checkbox"></input></th>
-                <th scope="col">예약 번호</th>
-                <th scope="col">이름</th>
-                <th scope="col">생년월일</th>
-                <th scope="col">전화번호</th>
-                <th scope="col">예약 날짜</th>
-                <th scope="col">예약 시간</th>
-                <th scope="col">접수 상태</th>
-              </tr>
-            </thead>
-            <tbody>
-              {patientList.map((list) => {
-              return (
-                <tr key={list.r_id} className={style.list} onClick={buttonModal1}>
-                  <td><input type="checkbox"></input></td>
-                  <td>{list.r_id}</td>
-                  <td>{list.patient_name}</td>
-                  <td>{list.patient_ssn1}</td>
-                  <td>{list.patient_phone}</td>
-                  <td>{list.r_date}</td> 
-                  <td>{list.r_time}</td>
-                  <td>{list.r_status}</td>              
+      
+      <div className={style.location}>
+        
+        <Row className={style.back}>
+          <div className={style.margin1}>
+            <div className={style.margin2}>
+              <Calendar/>
+            </div>
+            <div className={style.margin3}>
+              <SearchBar/>
+            </div>
+          </div>
+          <div className={style.buttonlocation}>
+            <Col className={style.button1}>
+              <Button className={style.button} onClick={buttonModal}>환자 등록</Button>
+              <Button className={style.button}><Link to="/createReception">예약/접수</Link></Button>
+              <Button className={style.button}>예약 취소</Button>
+              <Button className={style.button}>접수 완료</Button>
+            </Col>
+          </div>
+          <div className={style.tablewidth}>
+          <table className="table">
+              <thead>
+                <tr className={style.listtitle}>
+                  <th scope="col"><input type="checkbox"></input></th>
+                  <th scope="col">예약 번호</th>
+                  <th scope="col">이름</th>
+                  <th scope="col">생년월일</th>
+                  <th scope="col">전화번호</th>
+                  <th scope="col">예약 날짜</th>
+                  <th scope="col">예약 시간</th>
+                  <th scope="col">접수 상태</th>
                 </tr>
-              );
-            })}               
-            </tbody>
-          </table>
-      </Row>
+              </thead>
+              <tbody>
+                {patientList.map((list) => {
+                return (
+                  <tr key={list.r_id} className={style.list} onClick={buttonModal1}>
+                    <td><input type="checkbox"></input></td>
+                    <td>{list.r_id}</td>
+                    <td>{list.patient_name}</td>
+                    <td>{list.patient_ssn1}</td>
+                    <td>{list.patient_phone}</td>
+                    <td>{list.r_date}</td> 
+                    <td>{list.r_time}</td>
+                    <td>{list.r_status}</td>              
+                  </tr>
+                );
+              })}               
+              </tbody>
+            </table>
+            </div>
+        </Row>
+      </div>
     </>
     
   )
