@@ -2,15 +2,7 @@
 const initialState = { //처음에 컴포넌트가 전역데이터를 읽을 때
   doctor_id: '',
   patient_id: '',
-  // patient_name: '',
-  // patient_age: '',
-  // patient_sex: '',
-  // patient_ssn1: '',
-  // patient_ssn2: '',
-  // patient_phone: '',
-  // zip: '',
-  // address: '',
-  // address_detail: ''
+
 };
 
 //액션 타입 선언

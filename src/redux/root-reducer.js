@@ -1,5 +1,5 @@
 import { combineReducers } from "redux";
-import receptionReducer from "./reception-reducer";
+import createreceptionReducer from "./createReception-reducer";
 import inspectReducer from './inspection_Reducer';
 import diagnosisReducer from './diagnosis-reducer';
 
@@ -9,7 +9,7 @@ const rootReducer = combineReducers({
     inspectReducer,
     diagnosisReducer,
     pastrecordReducer,
-    receptionReducer
+    createreceptionReducer
 });
 
 export default rootReducer;

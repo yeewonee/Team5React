@@ -12,8 +12,8 @@ function AddReception(props) {
 
   return(
     <>
-      <div style={{border: 'solid #adb5bd', height: '82.6vh', fontSize: '15px', marginBottom: '20px'}}>
-      <table className="table table-bordered" style={{backgroundColor: 'white', height:'82vh'}}>
+      <div>
+      <table className="table table-bordered" style={{backgroundColor: 'white', border: '1px solid red'}}>
         <tbody className={style.tb}>
           <tr>
             <th scope="col">환자번호</th>
@@ -45,7 +45,7 @@ function AddReception(props) {
           </tr>
           <tr>
             <th>성별/나이</th>
-            <td>{patient?.patient_sex}/{patient?.patient_age}</td>
+            <td>{patient?.patient_sex} {patient?.patient_age}</td>
           </tr>
           <tr>
             <th>담당의사</th>

@@ -4,7 +4,7 @@ import CommonTable from "views/table/CommonTable";
 import CommonTableRow from "views/table/CommonTableRow";
 import CommonTableColumn from "views/table/CommonTableColumn";
 import { useDispatch, useSelector } from "react-redux";
-import { createSetDoctor } from "redux/reception-reducer";
+import { createSetDoctor } from "redux/createReception-reducer";
 import { useState } from "react";
 
 function DoctorList(props) {

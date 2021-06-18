@@ -3,25 +3,26 @@ import style from "./style.module.css";
 import CommonTable from "views/table/CommonTable";
 import CommonTableRow from "views/table/CommonTableRow";
 import CommonTableColumn from "views/table/CommonTableColumn";
-import { createSetPatient } from "redux/reception-reducer";
+import { createSetPatient } from "redux/createReception-reducer";
 import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
 
 function PatientList(props) {
   const patientList = getPatientList();
   const dispatch = useDispatch();
-
-  const arr = Array.from({length: patientList.length}, () => false);
   
+  const arr = Array.from({length: patientList.length}, () => false); //환자리스트의 길이만큼의 false로 채워진 배열 
   const [checkArray,setCheckArray] = useState(arr);
-  const changeCheck = (event,index,id) =>{
-    let checkarray = checkArray
-    if(event.target.value==="on"){
-      dispatch(createSetPatient(id));
-      checkarray = arr;
-      checkarray[index] = true;
+  
+  const changeCheck = (event, index, id) =>{
+    let checkarray = checkArray;
+
+    if(event.target.value==="on"){ //체크박스가 체크되면
+      dispatch(createSetPatient(id)); //createSetPatient를 호출해서 액션객체를 얻는다
+      checkarray = arr; //리스트개수만큼 false로 채워진 배열
+      checkarray[index] = true; //체크된 index의 값을 true로 바꿈
     }
-    setCheckArray(checkarray);
+    setCheckArray(checkarray); //그리고 바뀐 checkarray 상태값 저장
   }
 
   const patient_id = useSelector((state) => {
