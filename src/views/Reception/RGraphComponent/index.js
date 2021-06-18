@@ -37,7 +37,7 @@ export default class RGraph extends PureComponent {
           <h5 className={style.label}>&nbsp;금일 시간대별 예약현황</h5> 
         </div>
         <LineChart className={style.graph}
-          width={1066}
+          width={1058}
           height={200}
           data={data}
           margin={{

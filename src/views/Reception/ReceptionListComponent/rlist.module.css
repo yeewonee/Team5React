@@ -1,6 +1,12 @@
+
+.location{
+  margin-left: 1%;
+  width: 100%;
+}
+
 .back{
   background-color: white;
-  width: 99.5%;
+  width: 100%;
   height: 300px;
   border: 1px solid lightgray;
 }
@@ -11,10 +17,31 @@
   padding-top: 4px; 
   border-radius: 3px;
   border: 1px solid lightgray;
-  width: 1493px;
+  width: 100%;
   margin-right: 21px;
-  margin-left: -12px;
   
+}
+
+.buttonlocation{
+  margin-left: 18%;
+}
+
+.tablewidth{
+  width: 100%;
+}
+
+.margin1{
+  width: 40%;
+  margin-left: 1%;
+}
+
+.margin2{
+  float: left;
+}
+
+.margin3{
+  float: right;
+  margin-right: 31%;
 }
 
 .row1{
@@ -39,6 +66,13 @@
   margin-bottom: 5px;
 }
 
+.button1{
+  margin-left:27%;
+}
+
+.click{
+  cursor: pointer;
+}
 
 .listtitle{
   background-color: #A4E6FF;
@@ -140,7 +174,7 @@
 */
 
 .detailth{
-  width: 110px;
+  width: 200px;
   height: 50px;
   border: 1px solid lightgray;
 }

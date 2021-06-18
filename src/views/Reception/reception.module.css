@@ -1,8 +1,43 @@
 .back{
+  font-family: "DoHyeon-Regular"; 
   background-color: #E7E6E6;
-  height: 631px;
+  height: 100%;
+}
+
+.font{
+  font-family: "DoHyeon-Regular"; 
+  
 }
 
 .reception{
-  margin-left: 100px;
+  margin-left: 5%;
+}
+
+.upperline{
+  width: 100%;
+}
+
+.test{
+  width: 100%;
+  border: 1px solid black;
+}
+
+.border1{
+  margin-left: 1%;
+  width: 69%;
+  height: 100%;
+  float:left;
+
+}
+
+.border2{
+  width: 28%;
+  float:right;
+  margin-right: 1%;
+}
+
+.border3{
+  clear: both;
+  margin-left: 1%;
+  margin-right: 1%;  
 }

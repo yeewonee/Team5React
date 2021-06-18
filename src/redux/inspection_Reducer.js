@@ -7,8 +7,8 @@ const initialState = {
 
 //액션 타입 선언
 const SET_PATIENT = "patient/setPatient"
-const SET_CHECKDOWN = "patient/setCheckDown"
-const SET_CHECKUP = "patient/setCheckUp"
+const SET_CHECKDOWN = "inspection/setCheckDown"
+const SET_CHECKUP = "inspection/setCheckUp"
 
 //액션 생성 함수 선언
 export const createSetPatientAction = (pno) =>{

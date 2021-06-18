@@ -1,14 +1,13 @@
-import { Row } from 'react-bootstrap';
 import { PieChart } from 'react-minimal-pie-chart';
 import style from './donut.module.css';
 function RDonut(props){
   return(
     <>
-      <Row className={style.donut}>
+      <div className={style.donut}>
         <PieChart
         data={[
-        { title: '접수 대기', value: 30, color: 'orange' },
-        { title: '접수 완료', value: 70, color: 'skyblue' },
+        { title: '접수 대기', value: 30, color: 'orange', key:'orange' },
+        { title: '접수 완료', value: 70, color: 'skyblue', key:'skyblue'},
         ]}
         lineWidth={80}
         animate={true}
@@ -18,8 +17,8 @@ function RDonut(props){
             y={y}
             dx={dx}
             dy={dy}
-            dominant-baseline="central"
-            text-anchor="middle"
+            dominantBaseline="central"
+            textAnchor="middle"
             style={{
               fontSize: '10px',
               fontFamily: 'sans-serif'
@@ -29,13 +28,13 @@ function RDonut(props){
           </text>
         )}
         />
-        <Row className={style.span}>
-            <div className={style.square1}></div>&nbsp;접수 대기 : 30&emsp;&emsp;
-        </Row>
-        <Row className={style.span}>
-            <div className={style.square2}></div>&nbsp;접수 완료 : 70
-        </Row>
-      </Row>
+        <div className={style.span1}>
+            <div className={style.square1}></div><div>&nbsp;접수 대기 : 30</div>
+        </div>
+        <div className={style.span1}>
+            <div className={style.square2}></div><div>&nbsp;접수 완료 : 70</div>
+        </div>
+      </div>
 
     </>
   );

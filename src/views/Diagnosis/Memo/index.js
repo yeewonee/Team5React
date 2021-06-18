@@ -15,7 +15,7 @@ export const Memo = () => {
     <>
         <div className={`${style.memo} m-1`}>
           <div className={style.title}>
-            <p className="ml-2 mt-1 mb-1 font-weight-bold">환자 메모</p>
+            <p className={`${style.title_p} font-weight-bold ml-1 mb-0`}>환자 메모</p>
           </div>
           <div className={style.memo_write}>
             <textarea onChange={handleChange} className={style.textarea_style} placeholder="입력하세요"></textarea>

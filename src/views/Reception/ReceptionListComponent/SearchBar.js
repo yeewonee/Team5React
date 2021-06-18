@@ -1,12 +1,9 @@
-
 function SearchBar(props){
   return(
-    <form>
-      <label className="ml-5 ">        
-        <input type="text" name="name" />
-      </label>
-      <input type="submit" value="Submit" />
-    </form>
+    <div className="input-group ml-5">
+      <input  type="text" name="name" />
+      <button className="btn btn-sm btn-info">검색</button>
+    </div>
   )
 }
 
