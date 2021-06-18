@@ -2,7 +2,7 @@
   background-color: white;
   border-style: solid;
   border-color: #adb5bd;
-  height: 43.8vh;
+  height: 43vh;
 }
 .radios input[type=radio]{
   display: none;
@@ -11,7 +11,7 @@ label{
   display: inline-block;
   cursor: pointer;
   height: 25px;
-  width: 90px;
+  width: 80px;
   border: 1px solid #333;
   line-height: 22px;
   text-align: center;
@@ -19,11 +19,3 @@ label{
   font-size:15px;
   margin-right: 5px;
 }
-/* .radios input[type=radio]+label{
-  background-color: #fff;
-  color: #495057;
-}
-.radios input[type=radio]:checked+label{
-  background-color: #495057;
-  color: #fff;
-} */

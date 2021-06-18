@@ -12,8 +12,8 @@ function AddReception(props) {
 
   return(
     <>
-      <div style={{border: 'solid #adb5bd', height: '82.1vh', fontSize: '17px', marginBottom: '20px'}}>
-      <table className="table table-bordered" style={{backgroundColor: 'white'}}>
+      <div style={{border: 'solid #adb5bd', height: '82.6vh', fontSize: '15px', marginBottom: '20px'}}>
+      <table className="table table-bordered" style={{backgroundColor: 'white', height:'82vh'}}>
         <tbody className={style.tb}>
           <tr>
             <th scope="col">환자번호</th>
