@@ -4,13 +4,13 @@ import './index.css';
 import App from './App';
 import "bootstrap/dist/css/bootstrap.min.css";
 import { BrowserRouter } from "react-router-dom";
+import { createStore } from "redux";
+import { Provider } from "react-redux";
+import {composeWithDevTools} from 'redux-devtools-extension'
+import rootReducer from 'redux/root-Reducer';
 
-import { composeWithDevTools } from "redux-devtools-extension";
-import { createStore } from 'redux';
-import rootReducer from "redux/root-reducer";
-import { Provider } from 'react-redux';
+const store = createStore(rootReducer,composeWithDevTools());
 
-const store = createStore(rootReducer, composeWithDevTools());
 
 ReactDOM.render(
   <BrowserRouter>

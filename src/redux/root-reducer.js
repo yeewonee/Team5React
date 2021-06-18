@@ -1,11 +1,14 @@
-import { combineReducers } from "redux";
+import {combineReducers} from 'redux';
+import inspectReducer from './inspection_Reducer';
+import diagnosisReducer from './diagnosis-reducer';
 
-import diagnosisReducer from "redux/diagnosis-reducer";
-import pastrecordReducer from "./pastrecord-reducer";
+import pastrecordReducer from './pastrecord-reducer';
 
 const rootReducer = combineReducers({
-  diagnosisReducer,
-  pastrecordReducer
+    inspectReducer,
+    diagnosisReducer,
+    pastrecordReducer
+
 });
 
 export default rootReducer;

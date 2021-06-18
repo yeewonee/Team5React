@@ -12,7 +12,6 @@
 }
 
 
-
 .user{
   display:flex;
   align-items: center;
@@ -28,5 +27,11 @@ nav{
 }
 
 .menu{
+  font-family: "DoHyeon-Regular"; 
   color:white;
+}
+
+@font-face {
+  font-family: "DoHyeon-Regular";         
+  src: url("./fonts/DoHyeon-Regular.ttf"); 
 }
