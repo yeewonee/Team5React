@@ -1,4 +1,5 @@
 import AppHeader from 'AppHeader';
+import AppRoute from 'AppRoute';
 import { AppMenu } from 'AppMenu';
 import './App.css';
 
@@ -7,6 +8,7 @@ function App() {
     <>
       <AppHeader/>
       <AppMenu/>
+      <AppRoute/>
     </>
   );
 }

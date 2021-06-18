@@ -1,0 +1,12 @@
+.i_list{
+  background-color: white;
+  border-style: solid;
+  border-color: #adb5bd;
+  height: 42.9vh;
+  text-align: center;
+}
+
+.table_wrapper{
+  height: 39vh;
+  overflow: auto;
+}
