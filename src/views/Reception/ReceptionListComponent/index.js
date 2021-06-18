@@ -5,6 +5,24 @@ import { Row, Col, Button, Modal } from 'react-bootstrap';
 import { useState } from "react";
 
 function ReceptionList(props){
+  const [patientBoard, setPatientBoard] = useState({
+    r_id: 0,
+    patient_name: "",
+    patient_ssn1: 123456,
+    patient_phone: "123-4567-8902",
+    r_date: "",
+    r_time: "",
+    r_status:""
+  });
+
+  const patientList = [
+    { r_id: 4, patient_name: "정예원", patient_ssn1: 950211, patient_phone: "010-4567-8902", r_date: "21.06.15", r_time: "11:30", r_status:"접수대기"},
+    { r_id: 3, patient_name: "정윤환", patient_ssn1: 960123, patient_phone: "010-2987-2701", r_date: "21.06.15", r_time: "10:30", r_status:"접수완료"},
+    { r_id: 2, patient_name: "김명휘", patient_ssn1: 980403, patient_phone: "010-3820-3321", r_date: "21.06.15", r_time: "10:00", r_status:"접수완료"},
+    { r_id: 1, patient_name: "박소라", patient_ssn1: 930516, patient_phone: "010-5921-0192", r_date: "21.06.15", r_time: "09:30", r_status:"접수완료"}
+  
+  ]
+
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const buttonModal = () => setShow(true);
@@ -136,46 +154,20 @@ function ReceptionList(props){
               </tr>
             </thead>
             <tbody>
-              <tr className={style.list} onClick={buttonModal1}>
-                <td><input type="checkbox"></input></td>
-                <td>4</td>
-                <td>이수빈</td>
-                <td>950629</td>
-                <td>01012345678</td>
-                <td>21.06.15</td>
-                <td>10:30</td>
-                <td>접수대기</td>
-              </tr>
-              <tr className={style.list2}>
-                <td><input type="checkbox"></input></td>
-                <td>3</td>
-                <td>이수빈</td>
-                <td>950629</td>
-                <td>01012345678</td>
-                <td>21.06.15</td>
-                <td>10:30</td>
-                <td>접수대기</td>
-              </tr>
-              <tr className={style.list}>
-                <td><input type="checkbox"></input></td>
-                <td>2</td>
-                <td>이수빈</td>
-                <td>950629</td>
-                <td>01012345678</td>
-                <td>21.06.15</td>
-                <td>10:30</td>
-                <td>접수대기</td>
-              </tr>
-              <tr className={style.list2}>
-                <td><input type="checkbox"></input></td>
-                <td>1</td>
-                <td>이수빈</td>
-                <td>950629</td>
-                <td>01012345678</td>
-                <td>21.06.15</td>
-                <td>10:30</td>
-                <td>접수대기</td>
-              </tr>                
+              {patientList.map((list) => {
+              return (
+                <tr key={list.r_id} className={style.list} onClick={buttonModal1}>
+                  <td><input type="checkbox"></input></td>
+                  <td>{list.r_id}</td>
+                  <td>{list.patient_name}</td>
+                  <td>{list.patient_ssn1}</td>
+                  <td>{list.patient_phone}</td>
+                  <td>{list.r_date}</td> 
+                  <td>{list.r_time}</td>
+                  <td>{list.r_status}</td>              
+                </tr>
+              );
+            })}               
             </tbody>
           </table>
       </Row>
