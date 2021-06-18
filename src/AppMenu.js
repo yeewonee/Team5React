@@ -7,19 +7,19 @@ export const AppMenu = () => {
         <div className="collapse navbar-collapse" id="navbarNav">
           <ul className="navbar-nav">
             <li className="nav-item" style={{margin:'30px'}}>
-              <a className="nav-link menu" href="#">
+              <Link to="/inspection" className="nav-link menu">
                 예약/접수
-              </a>
+              </Link>
             </li>
             <li className="nav-item" style={{margin:'30px'}}>
-              <a className="nav-link menu " href="#">
-                진료
-              </a>
+            <Link to="/inspection" className="nav-link menu">
+                예약/접수
+              </Link>
             </li>
             <li className="nav-item" style={{margin:'30px'}}>
-              <a className="nav-link menu" href="#">
-                검사/치료
-              </a>
+            <Link to="/inspection" className="nav-link menu">
+                예약/접수
+              </Link>
             </li>
           </ul>
         </div>
