@@ -1,0 +1,8 @@
+.patientlist_container{
+  border: 1px solid lightgray; 
+  height: 50vh; 
+  width: 100%; 
+  background-color:white; 
+  overflow:auto;
+}
+

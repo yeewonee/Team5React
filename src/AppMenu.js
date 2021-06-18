@@ -13,12 +13,12 @@ export const AppMenu = () => {
               </Link>
             </li>
             <li className="nav-item" style={{margin:'30px'}}>
-              <Link to="/" className="nav-link menu " >
+            <Link to="/diagnosis" className="nav-link menu">
                 진료
               </Link>
             </li>
             <li className="nav-item" style={{margin:'30px'}}>
-              <Link to="#" className="nav-link menu">
+            <Link to="/inspection" className="nav-link menu">
                 검사/치료
               </Link>
             </li>
