@@ -29,6 +29,11 @@ body{
 
 .title{
   background-color: #CCE3F7; border:1px solid lightgray;
+  height: 3vh;
+}
+
+.title_p{
+  font-size: 0.8em;
 }
 
 .patientlist{

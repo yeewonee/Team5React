@@ -1,5 +1,6 @@
 .title{
   background-color: #CCE3F7; border:1px solid lightgray;
+  height: 3vh;
 }
 
 .memo{
@@ -8,7 +9,7 @@
 
 .memo_write{
   border: 1px solid lightgray; 
-  height: 37vh; 
+  height: 40vh; 
   width: 100%;
 }
 
@@ -19,3 +20,6 @@
   border:none;
 }
 
+.title_p{
+  font-size: 0.8em;
+}

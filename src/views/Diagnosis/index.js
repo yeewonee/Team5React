@@ -37,7 +37,7 @@ function Diagnosis(props) {
           <div className={style.right_container}>
             <div className={`${style.patientlist} m-1`}>
               <div className={style.title}>
-                <p className="ml-2 mt-1 mb-1 font-weight-bold">환자 리스트</p>
+              <p className={`${style.title_p} font-weight-bold ml-1 mb-0`}>환자 리스트</p>
               </div>
               <PatientList />
               <PastRecord />
