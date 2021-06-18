@@ -3,6 +3,7 @@ import Calendar from "./Calendar";
 import SearchBar from './SearchBar';
 import { Row, Col, Button, Modal } from 'react-bootstrap';
 import { useState } from "react";
+import {Link} from "react-router-dom";
 
 function ReceptionList(props){
   const [patientBoard, setPatientBoard] = useState({
@@ -136,7 +137,7 @@ function ReceptionList(props){
         </Col>
         <Col className="mt-1">
           <Button className={style.button} onClick={buttonModal}>환자 등록</Button>
-          <Button className={style.button}>예약/접수</Button>
+          <Button className={style.button}><Link to="/createReception">예약/접수</Link></Button>
           <Button className={style.button}>예약 취소</Button>
           <Button className={style.button}>접수 완료</Button>
         </Col>
