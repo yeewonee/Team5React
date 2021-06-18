@@ -5,7 +5,7 @@ import style from "./style.module.css";
 
 function AddReception(props) {
   const patient_id = useSelector((state) => {
-    return state.receptionReducer.patient_id
+    return state.createReceptionReducer.patient_id
   });
   const patient = getPatient(patient_id);
 

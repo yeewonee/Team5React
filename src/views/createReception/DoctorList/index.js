@@ -24,7 +24,7 @@ function DoctorList(props) {
   }
 
   const doctor_id = useSelector((state) => {
-    return state.receptionReducer.doctor_id
+    return state.createReceptionReducer.doctor_id
   });
 
 

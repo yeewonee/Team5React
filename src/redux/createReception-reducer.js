@@ -19,7 +19,7 @@ export const createSetPatient = (patient_id) => {
 };
 
 //리듀스 선언
-const receptionReducer = (state=initialState, action) => {//값이 주어지지않으면 initialState(디폴트 값) 사용
+const createReceptionReducer = (state=initialState, action) => {//값이 주어지지않으면 initialState(디폴트 값) 사용
   if(action.type === SET_DOCTOR) {
     return {...state, doctor_id: action.doctor_id};
   } else if(action.type === SET_PATIENT) {
@@ -29,4 +29,4 @@ const receptionReducer = (state=initialState, action) => {//값이 주어지지�
   }
 };
 
-export default receptionReducer;
+export default createReceptionReducer;
