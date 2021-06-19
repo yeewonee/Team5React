@@ -1,8 +1,11 @@
 .title{
-  background-color: #CCE3F7; 
-  border:1px solid lightgray;
+  background-color: #CCE3F7; border:1px solid lightgray;
+  height: 3vh;
 }
 
+.title_p{
+  font-size: 1em;
+}
 .past_container{
   width:100%; 
   height: 30vh;
@@ -15,7 +18,7 @@
 
 .past_table_container{
   border: 1px solid lightgray; 
-  height: 30vh; 
+  height: 40vh; 
   width: 100%; 
   background-color: white; 
   overflow: auto;

@@ -74,7 +74,7 @@ export const InspectionList = () => {
     <>
       <div className={`${style.left_list_size} m-1`}>
         <div className={style.title}>
-          <p className="ml-2 mt-1 mb-1 font-weight-bold">검사 목록</p>
+        <p className={`${style.title_p} font-weight-bold ml-1 mb-0 pt-1`}>검사 목록</p>
         </div>
         <div className={style.i_list_container}>
           <div className="d-flex justify-content-between">
@@ -91,7 +91,8 @@ export const InspectionList = () => {
               <input type="button" className="btn btn-primary btn-sm" value="추가" onClick={addInspection} />
             </div>
           </div>
-
+          
+          <div className={style.i_list}>
           <table className="table text-center table-sm">
             <thead>
               <tr>
@@ -110,6 +111,7 @@ export const InspectionList = () => {
               ))}
             </tbody>
           </table>
+          </div>
         </div>
       </div>
     </>

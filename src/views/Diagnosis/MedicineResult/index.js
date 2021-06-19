@@ -1,41 +1,49 @@
 import React from "react";
-import { useEffect } from "react";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import style from "./medicineresult.module.css";
 import { createSetMlistAction } from "redux/diagnosis-reducer";
-
+import { useEffect } from "react";
 
 export const MedicineResult = () => {
+
   const mResult = useSelector((state) => {
     return state.diagnosisReducer.mlist;
   });
+ 
+  console.log("aaaa", mResult);
 
   const [list, setList] = useState({
     mlist: mResult
   });
 
+  console.log("mm" + JSON.stringify(list));
+
   const dispatch = useDispatch();
+
   const deleteMedicine = (event, mid) => {
-    console.log("삭제 실행");
-    setList((prevList) => {
-      return {
-        ...list,
-        mlist: list.mlist.filter((item) => {
-          return item.mId !== mid;
-        }),
-      };
-    });
-    dispatch(createSetMlistAction(list.mlist));
+    console.log("삭제 실행", mid);
+      setList((prevList) => {
+        return {
+          ...list,
+          mlist: list.mlist.filter((item) => {
+            return item.mId !== mid;
+          }),
+        };
+      });
+    
   };
 
- 
+  useEffect(() => {
+    console.log("dispatch 실행");
+    dispatch(createSetMlistAction(list.mlist));
+  }, [list]);
 
   return (
     <>
       <div className={`${style.left_list_size} m-1`}>
         <div className={style.title}>
-          <p className="ml-2 mt-1 mb-1 font-weight-bold">약 처방</p>
+          <p className={`${style.title_p} font-weight-bold ml-1 mb-0 pt-1`}>약 처방</p>
         </div>
         <div className={style.medicine_container}>
           <div className={style.m_list}>
@@ -57,7 +65,14 @@ export const MedicineResult = () => {
                     <td>{medicine.mCategory}</td>
                     <td>{medicine.mUnit}</td>
                     <td>
-                      <button className="btn btn-danger btn-sm" onClick={(event)=>{deleteMedicine(event, medicine.mId)}}>삭제</button>
+                      <button
+                        className="btn btn-danger btn-sm"
+                        onClick={(event) => {
+                          deleteMedicine(event, medicine.mId);
+                        }}
+                      >
+                        삭제
+                      </button>
                     </td>
                   </tr>
                 ))}

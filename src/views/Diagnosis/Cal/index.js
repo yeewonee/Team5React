@@ -24,8 +24,8 @@ export const Cal = () => {
       <div className={`${cal.calendar_container} m-1`}>
         <div className={cal.calendar}>
           <div className="d-flex justify-content-between">
-          <p className={`${cal.title_p} font-weight-bold ml-1 mb-0`}>환자 메모</p>
-            <p className={`${cal.title_p} m-0 pr-1`}><b>{day}</b></p>
+          <p className={`${cal.title_p} font-weight-bold ml-1 mb-0 pt-1`}>달력</p>
+            <p className={`${cal.title_p} m-0 pr-1 pt-1`}><b>{day}</b></p>
           </div>
         </div>
         <div className={cal.calendar_box}>

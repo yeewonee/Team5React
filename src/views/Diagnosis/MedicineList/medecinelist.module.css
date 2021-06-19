@@ -1,5 +1,10 @@
 .title{
   background-color: #CCE3F7; border:1px solid lightgray;
+  height: 3vh;
+}
+
+.title_p{
+  font-size: 1em;
 }
 
 .left_list_size{
@@ -9,13 +14,13 @@
 
 .m_list_container{
   border: 1px solid lightgray; 
-  height: 20vh; 
+  height: 30vh; 
   width: 100%; 
   background-color:white; 
 }
 
 .m_list{
   overflow: auto;
-  height: 15vh; 
+  height: 25vh; 
   width: 100%; 
 }

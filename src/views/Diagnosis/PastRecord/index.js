@@ -19,7 +19,7 @@ export const PastRecord = () => {
         <div className="d-flex justify-content-center">
           <div className={`${style.past_container2} mt-1`}>
             <div className={style.title}>
-              <p className="ml-2 mt-1 mb-1 font-weight-bold">과거 기록</p>
+            <p className={`${style.title_p} font-weight-bold ml-1 mb-0 pt-1`}>과거 기록</p>
             </div>
             <div className={style.past_table_container}>
               <table className="table table-striped text-center table-sm">

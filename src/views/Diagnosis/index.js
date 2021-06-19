@@ -12,7 +12,7 @@ import { PatientList } from "./PatientList";
 
 function Diagnosis(props) {
   return (
-    <>
+    <div style={{fontFamily:"DoHyeon-Regular"}}>
       <div className={style.d_container}>
         <div className="d-flex justify-content-center">
           <div className={style.left_container}>
@@ -36,9 +36,7 @@ function Diagnosis(props) {
 
           <div className={style.right_container}>
             <div className={`${style.patientlist} m-1`}>
-              <div className={style.title}>
-              <p className={`${style.title_p} font-weight-bold ml-1 mb-0`}>환자 리스트</p>
-              </div>
+            
               <PatientList />
               <PastRecord />
             
@@ -47,7 +45,7 @@ function Diagnosis(props) {
 
         </div>
       </div>
-    </>
+    </div>
   );
 }
 

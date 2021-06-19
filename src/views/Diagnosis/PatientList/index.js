@@ -26,6 +26,9 @@ export const PatientList = () => {
 
   return (
     <div>
+        <div className={style.title}>
+              <p className={`${style.title_p} font-weight-bold ml-1 mb-0 pt-1`}>환자 리스트</p>
+        </div>
       <div className={style.patientlist_container}>
         <div className="input-group m-1">
           <input type="text" name="keyword" onChange={keywordChange} value={keyword}/>
@@ -37,6 +40,7 @@ export const PatientList = () => {
           </div>
         </div>
 
+        <div className={style.p_list}>
         <table className="table table-striped text-center table-sm">
           <thead>
             <tr>
@@ -59,6 +63,7 @@ export const PatientList = () => {
             ))}
           </tbody>
         </table>
+        </div>
       </div>
     </div>
   );

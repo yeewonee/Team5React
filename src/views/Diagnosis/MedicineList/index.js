@@ -41,6 +41,7 @@ export const MedicineList = () => {
     mlist: resultMlist,
   });
 
+  console.log("mm" + JSON.stringify(list));
 
   const medicineClick = (event, m) => {
     if (event.target.checked) {
@@ -75,7 +76,7 @@ export const MedicineList = () => {
       <div className={`${style.left_list_size} m-1`}>
        
         <div className={style.title}>
-          <p className="ml-2 mt-1 mb-1 font-weight-bold">약 목록 </p>
+        <p className={`${style.title_p} font-weight-bold ml-1 mb-0 pt-1`}>약 목록</p>
         </div>
         <div className={style.m_list_container}>
           <div className="d-flex justify-content-between">
