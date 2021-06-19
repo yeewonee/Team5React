@@ -30,6 +30,7 @@ function PatientTable(props) {
                 pno: event.target.value,
             }
       });
+      
     }
   };
 
