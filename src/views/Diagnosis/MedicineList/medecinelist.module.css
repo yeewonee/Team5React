@@ -1,21 +1,22 @@
 .title{
   background-color: #CCE3F7; border:1px solid lightgray;
+  height: 3vh;
 }
 
-.left_list_size{
-  height: 100%; 
-  width: 50%;
+.title_p{
+  font-size: 1em;
 }
+
 
 .m_list_container{
   border: 1px solid lightgray; 
-  height: 20vh; 
+  height: 30vh; 
   width: 100%; 
   background-color:white; 
 }
 
 .m_list{
   overflow: auto;
-  height: 15vh; 
+  height: 25vh; 
   width: 100%; 
 }

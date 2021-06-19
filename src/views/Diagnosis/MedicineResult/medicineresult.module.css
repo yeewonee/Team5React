@@ -1,5 +1,11 @@
+
 .title{
   background-color: #CCE3F7; border:1px solid lightgray;
+  height: 3vh;
+}
+
+.title_p{
+  font-size: 1em;
 }
 
 .left_list_size{
@@ -9,7 +15,7 @@
 
 .medicine_container{
   border: 1px solid lightgray; 
-  height: 25vh; 
+  height: 30vh; 
   width: 100%; 
   background-color: white; 
   overflow: auto;

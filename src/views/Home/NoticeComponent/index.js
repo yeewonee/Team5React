@@ -40,7 +40,7 @@ function Notice(props){
         <Modal.Title>공지사항</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-      <table class="table" className={style.table2}>
+      <table className="table" className={style.table2}>
               <thead>
                 <tr >
                   <th scope="col" className={style.table2}>공지번호</th>

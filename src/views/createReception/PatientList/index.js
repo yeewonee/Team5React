@@ -3,7 +3,7 @@ import style from "./style.module.css";
 import CommonTable from "views/table/CommonTable";
 import CommonTableRow from "views/table/CommonTableRow";
 import CommonTableColumn from "views/table/CommonTableColumn";
-import { createSetPatient } from "redux/reception-reducer";
+import { createSetPatient } from "redux/createReception-reducer";
 import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
 
@@ -25,7 +25,7 @@ function PatientList(props) {
   }
 
   const patient_id = useSelector((state) => {
-    return state.receptionReducer.patient_id
+    return state.createReceptionReducer.patient_id
   });
 
   

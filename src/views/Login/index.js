@@ -3,6 +3,7 @@ import style from "./login.module.css";
 
 function Login(props){
   return(
+    <div className={style.test}>
     <Container fluid className={style.back}>
     <Row>
       <Col className={style.col1}></Col>
@@ -14,24 +15,25 @@ function Login(props){
     </Row>
     <Row>
       <form className={style.box}>
-        <div class="form-group mt-3">
-          <label for="exampleInputEmail1">병원 코드</label>
-          <input type="text" class="form-control"/>
+        <div className="form-group mt-3">
+          <label >병원 코드</label>
+          <input type="text" className="form-control"/>
         </div>
-        <div class="form-group">
-          <label for="exampleInputEmail1">User ID</label>
-          <input type="text" class="form-control"/>
+        <div className="form-group">
+          <label >User ID</label>
+          <input type="text" className="form-control"/>
         </div>
-        <div class="form-group mt-3">
-          <label for="exampleInputEmail1">User Password</label>
-          <input type="text" class="form-control"/>
+        <div className="form-group mt-3">
+          <label >Password</label>
+          <input type="text" className="form-control"/>
         </div>
         <div className={style.button}>
-          <button type="submit" class="btn btn-primary">Login</button>
+          <button type="submit" className="btn btn-primary">Login</button>
         </div>
       </form>
     </Row>
     </Container>
+    </div>
   )
 }
 

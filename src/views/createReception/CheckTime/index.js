@@ -19,7 +19,7 @@ function CheckTime(props) {
 
   return(
     <div className={style.time_box}>
-      <div style={{marginTop:'20px', textAlign:'center'}}>
+      <div style={{marginTop:'20px', marginLeft:'19px'}}>
         <div className={style.radios}>
           <label style={{backgroundColor: state.time==='9:00' ? '#adb5bd' : ''}}>
             <input type="radio" name="time" value="9:00" onChange={handleRadio} checked={state.time === '9:00'}/>
