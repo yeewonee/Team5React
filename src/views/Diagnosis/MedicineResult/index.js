@@ -4,17 +4,19 @@ import { useDispatch, useSelector } from "react-redux";
 import style from "./medicineresult.module.css";
 import { createSetMlistAction } from "redux/diagnosis-reducer";
 import { useEffect } from "react";
+import CommonTable from "views/table/CommonTable";
+import CommonTableRow from "views/table/CommonTableRow";
+import CommonTableColumn from "views/table/CommonTableColumn";
 
 export const MedicineResult = () => {
-
   const mResult = useSelector((state) => {
     return state.diagnosisReducer.mlist;
   });
- 
+
   console.log("aaaa", mResult);
 
   const [list, setList] = useState({
-    mlist: mResult
+    mlist: mResult,
   });
 
   console.log("mm" + JSON.stringify(list));
@@ -23,15 +25,14 @@ export const MedicineResult = () => {
 
   const deleteMedicine = (event, mid) => {
     console.log("삭제 실행", mid);
-      setList((prevList) => {
-        return {
-          ...list,
-          mlist: list.mlist.filter((item) => {
-            return item.mId !== mid;
-          }),
-        };
-      });
-    
+    setList((prevList) => {
+      return {
+        ...list,
+        mlist: list.mlist.filter((item) => {
+          return item.mId !== mid;
+        }),
+      };
+    });
   };
 
   useEffect(() => {
@@ -41,44 +42,28 @@ export const MedicineResult = () => {
 
   return (
     <>
-      <div className={`${style.left_list_size} m-1`}>
-        <div className={style.title}>
-          <p className={`${style.title_p} font-weight-bold ml-1 mb-0 pt-1`}>약 처방</p>
-        </div>
-        <div className={style.medicine_container}>
-          <div className={style.m_list}>
-            <table className="table text-center table-sm">
-              <thead>
-                <tr>
-                  <th>코드</th>
-                  <th>명칭</th>
-                  <th>구분</th>
-                  <th>단위</th>
-                  <th></th>
-                </tr>
-              </thead>
-              <tbody>
-                {mResult.map((medicine, index) => (
-                  <tr key={medicine.mId}>
-                    <td>{medicine.mId}</td>
-                    <td>{medicine.mName}</td>
-                    <td>{medicine.mCategory}</td>
-                    <td>{medicine.mUnit}</td>
-                    <td>
-                      <button
-                        className="btn btn-danger btn-sm"
-                        onClick={(event) => {
-                          deleteMedicine(event, medicine.mId);
-                        }}
-                      >
-                        삭제
-                      </button>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
+      <div className={style.medicine_container}>
+        <div className={style.m_list}>
+          <CommonTable headersName={["코드", "명칭", "구분", "단위", ""]}>
+            {mResult.map((medicine, index) => (
+              <CommonTableRow key={medicine.mId}>
+                <CommonTableColumn>{medicine.mId}</CommonTableColumn>
+                <CommonTableColumn>{medicine.mName}</CommonTableColumn>
+                <CommonTableColumn>{medicine.mCategory}</CommonTableColumn>
+                <CommonTableColumn>{medicine.mUnit}</CommonTableColumn>
+                <CommonTableColumn>
+                  <button
+                    className="btn btn-danger btn-sm"
+                    onClick={(event) => {
+                      deleteMedicine(event, medicine.mId);
+                    }}
+                  >
+                    삭제
+                  </button>
+                </CommonTableColumn>
+              </CommonTableRow>
+            ))}
+          </CommonTable>
         </div>
       </div>
     </>

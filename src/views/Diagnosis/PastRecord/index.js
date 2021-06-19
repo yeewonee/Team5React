@@ -15,38 +15,21 @@ export const PastRecord = () => {
 
   return (
     <div>
-      <div className={`${style.past_container} mr-2`}>
-        <div className="d-flex justify-content-center">
-          <div className={`${style.past_container2} mt-1`}>
-            <div className={style.title}>
-            <p className={`${style.title_p} font-weight-bold ml-1 mb-0 pt-1`}>과거 기록</p>
-            </div>
-            <div className={style.past_table_container}>
-              <table className="table table-striped text-center table-sm">
-                <thead>
-                  <tr>
-                    <th>진료 날짜</th>
-                    <th>상세</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>2021-06-15</td>
-                    <td>
-                      <button type="button" className="btn btn-dark btn-sm" onClick={openModal}>
-                        상세보기
-                      </button>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
-        </div>
-        <div className="d-flex flex-row-reverse bd-highlight pt-3">
-          <button className="btn btn-outline-dark mr-3">전달</button>
-          <button className="btn btn-outline-dark mr-3">임시 저장</button>
-        </div>
+      <div className={style.past_table_container}>
+        {/* <CommonTable headersName={["진료 날짜", "상세"]}>
+                {pastList.map((pastrecord, index) => (
+                  <CommonTableRow key={pastrecord.}>
+                    <CommonTableColumn>{pastrecord.}</CommonTableColumn>
+                    <CommonTableColumn>
+                      <button type="button" className="btn btn-dark btn-sm" onClick={openModal}>상세보기</button>
+                    </CommonTableColumn>
+                  </CommonTableRow>
+                ))}
+              </CommonTable> */}
+      </div>
+      <div className="d-flex flex-row-reverse bd-highlight pt-3">
+        <button className="btn btn-outline-dark mr-3">전달</button>
+        <button className="btn btn-outline-dark mr-3">임시 저장</button>
       </div>
 
       {/* 과거기록 상세보기 modal */}
@@ -84,7 +67,7 @@ export const PastRecord = () => {
             </tr>
           </tbody>
         </table>
-        
+
         <div className={style.past_title}>결과 확인</div>
         <hr />
 
@@ -128,7 +111,7 @@ export const PastRecord = () => {
             <tr>
               <td>NIZA15</td>
               <td>AXID Cap 150mg</td>
-              <td>내복약	</td>
+              <td>내복약 </td>
               <td>C</td>
             </tr>
           </tbody>

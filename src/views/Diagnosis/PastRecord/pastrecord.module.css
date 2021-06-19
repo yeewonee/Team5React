@@ -6,15 +6,7 @@
 .title_p{
   font-size: 1em;
 }
-.past_container{
-  width:100%; 
-  height: 30vh;
-}
 
-.past_container2{
-  height: 100%; 
-  width: 100%;
-}
 
 .past_table_container{
   border: 1px solid lightgray; 
