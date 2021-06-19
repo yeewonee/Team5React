@@ -2,15 +2,7 @@
 const initialState = { //처음에 컴포넌트가 전역데이터를 읽을 때
   doctor_id: '',
   patient_id: '',
-  // patient_name: '',
-  // patient_age: '',
-  // patient_sex: '',
-  // patient_ssn1: '',
-  // patient_ssn2: '',
-  // patient_phone: '',
-  // zip: '',
-  // address: '',
-  // address_detail: ''
+
 };
 
 //액션 타입 선언
@@ -27,7 +19,7 @@ export const createSetPatient = (patient_id) => {
 };
 
 //리듀스 선언
-const receptionReducer = (state=initialState, action) => {//값이 주어지지않으면 initialState(디폴트 값) 사용
+const createReceptionReducer = (state=initialState, action) => {//값이 주어지지않으면 initialState(디폴트 값) 사용
   if(action.type === SET_DOCTOR) {
     return {...state, doctor_id: action.doctor_id};
   } else if(action.type === SET_PATIENT) {
@@ -37,4 +29,4 @@ const receptionReducer = (state=initialState, action) => {//값이 주어지지�
   }
 };
 
-export default receptionReducer;
+export default createReceptionReducer;

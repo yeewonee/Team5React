@@ -17,7 +17,8 @@ function ReceptionList(props){
   });
 
   const patientList = [
-    { r_id: 4, patient_name: "정예원", patient_ssn1: 950211, patient_phone: "010-4567-8902", r_date: "21.06.15", r_time: "11:30", r_status:"접수대기"},
+    { r_id: 5, patient_name: "김명휘", patient_ssn1: 980403, patient_phone: "010-3820-3321", r_date: "21.06.15", r_time: "11:30", r_status:"접수대기"},
+    { r_id: 4, patient_name: "정예원", patient_ssn1: 950211, patient_phone: "010-4567-8902", r_date: "21.06.15", r_time: "11:00", r_status:"접수대기"},
     { r_id: 3, patient_name: "정윤환", patient_ssn1: 960123, patient_phone: "010-2987-2701", r_date: "21.06.15", r_time: "10:30", r_status:"접수완료"},
     { r_id: 2, patient_name: "김명휘", patient_ssn1: 980403, patient_phone: "010-3820-3321", r_date: "21.06.15", r_time: "10:00", r_status:"접수완료"},
     { r_id: 1, patient_name: "박소라", patient_ssn1: 930516, patient_phone: "010-5921-0192", r_date: "21.06.15", r_time: "09:30", r_status:"접수완료"}
@@ -32,8 +33,8 @@ function ReceptionList(props){
   const handleClose1 = () => setShow1(false);
   const buttonModal1 = () => setShow1(true);
   return(
-    <>
-      <Modal show={show} onHide={handleClose}>
+    <div className={style.font}>
+      <Modal show={show} onHide={handleClose} className={style.font}>
         <Modal.Header closeButton>
           <Modal.Title>신규환자 등록</Modal.Title>
         </Modal.Header>
@@ -53,7 +54,7 @@ function ReceptionList(props){
               </tr>
               <tr>
                 <th className={style.tr1}>&nbsp;우편번호<input type="text" className={style.inputtext1}/></th>
-                <th className={style.tr1}>&nbsp;<div class="btn btn-sm btn-outline-secondary">우편번호 찾기</div></th>  
+                <th className={style.tr1}>&nbsp;<div className="btn btn-sm btn-outline-secondary">우편번호 찾기</div></th>  
               </tr>
               <tr>
                 <th colSpan="2" className={style.tr1}>&nbsp;주소<input type="text" className={style.inputaddress}/></th>
@@ -163,10 +164,10 @@ function ReceptionList(props){
               <tbody>
                 {patientList.map((list) => {
                 return (
-                  <tr key={list.r_id} className={style.list} onClick={buttonModal1}>
+                  <tr key={list.r_id} className={style.list}>
                     <td><input type="checkbox"></input></td>
                     <td>{list.r_id}</td>
-                    <td>{list.patient_name}</td>
+                    <td onClick={buttonModal1} className={style.click}>{list.patient_name}</td>
                     <td>{list.patient_ssn1}</td>
                     <td>{list.patient_phone}</td>
                     <td>{list.r_date}</td> 
@@ -180,7 +181,7 @@ function ReceptionList(props){
             </div>
         </Row>
       </div>
-    </>
+    </div>
     
   )
 }
