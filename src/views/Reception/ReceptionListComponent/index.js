@@ -34,7 +34,7 @@ function ReceptionList(props){
   const buttonModal1 = () => setShow1(true);
   return(
     <div className={style.font}>
-      <Modal show={show} onHide={handleClose} className={style.font}>
+      <Modal show={show} onHide={handleClose} className={style.font} dialogClassName="custom-modal">
         <Modal.Header closeButton>
           <Modal.Title>신규환자 등록</Modal.Title>
         </Modal.Header>
@@ -73,10 +73,16 @@ function ReceptionList(props){
             완료
           </Button>
         </Modal.Footer>
+        <style jsx global>{`
+            .custom-modal {
+              font-family: "DoHyeon-Regular"; 
+            }
+          `}
+        </style>
       </Modal>
 
 
-      <Modal show={show1} onHide={handleClose1}>
+      <Modal show={show1} onHide={handleClose1} dialogClassName="custom-modal">
         <Modal.Header closeButton>
           <Modal.Title>예약확인</Modal.Title>
         </Modal.Header>
@@ -125,6 +131,12 @@ function ReceptionList(props){
             닫기
           </Button>
         </Modal.Footer>
+        <style jsx global>{`
+            .custom-modal {
+              font-family: "DoHyeon-Regular"; 
+            }
+          `}
+        </style>
       </Modal>
       <h5 className={style.label}>&nbsp;접수 목록</h5> 
       
@@ -142,7 +154,7 @@ function ReceptionList(props){
           <div className={style.buttonlocation}>
             <Col className={style.button1}>
               <Button className={style.button} onClick={buttonModal}>환자 등록</Button>
-              <Button className={style.button}><Link to="/createReception">예약/접수</Link></Button>
+              <Button className={style.button}><Link to="/createReception" className={style.link}>예약/접수</Link></Button>
               <Button className={style.button}>예약 취소</Button>
               <Button className={style.button}>접수 완료</Button>
             </Col>
