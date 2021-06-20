@@ -40,8 +40,6 @@ export const MedicineList = () => {
     mlist: resultMlist,
   });
 
-  console.log("mm" + JSON.stringify(list));
-
   const medicineClick = (event, m) => {
     if (event.target.checked) {
       setList((prevList) => {

@@ -13,32 +13,28 @@ export const MedicineResult = () => {
     return state.diagnosisReducer.mlist;
   });
 
-  console.log("aaaa", mResult);
+  // const [list, setList] = useState({
+  //   mlist: mResult,
+  // });
 
-  const [list, setList] = useState({
-    mlist: mResult,
-  });
-
-  console.log("mm" + JSON.stringify(list));
-
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
 
   const deleteMedicine = (event, mid) => {
-    console.log("삭제 실행", mid);
-    setList((prevList) => {
-      return {
-        ...list,
-        mlist: list.mlist.filter((item) => {
-          return item.mId !== mid;
-        }),
-      };
-    });
+    // console.log("삭제 실행", mid);
+    // setList((prevList) => {
+    //   return {
+    //     ...list,
+    //     mlist: list.mlist.filter((item) => {
+    //       return item.mId !== mid;
+    //     }),
+    //   };
+    // });
   };
 
-  useEffect(() => {
-    console.log("dispatch 실행");
-    dispatch(createSetMlistAction(list.mlist));
-  }, [list]);
+  // useEffect(() => {
+  //   console.log("dispatch 실행");
+  //   dispatch(createSetMlistAction(list.mlist));
+  // }, [list]);
 
   return (
     <>
