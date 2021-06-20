@@ -1,17 +1,20 @@
 import style from "./style.module.css";
 import Calendar from 'react-calendar';
-import { useState } from "react";
 import 'react-calendar/dist/Calendar.css';
 import moment from 'moment';
 import receptionCalStyle from "./receptionCalStyle.css";
+import { useDispatch, useSelector } from "react-redux";
+import { createSetDate } from "redux/createReception-reducer";
 
 function CheckCalendar(props) {
-  const [date, setDateState] = useState(new Date());
+  const dispatch = useDispatch();
 
   const ChangeDate = (event) => {
-    setDateState(event);
+    dispatch(createSetDate(event));
   }
-
+  const date = useSelector((state) => {
+    return state.createReceptionReducer.date
+  })
 
   return(
     <div className={style.calendar_box} style={{marginBottom: '10px', overflow:'auto'}}>
@@ -20,7 +23,6 @@ function CheckCalendar(props) {
         locale="en-US"
         value={date}
         />
-<p className="m-0 p-0">선택 날짜: <b>{moment(date).format('YYYY-MM-DD')}</b></p>
 
     </div>
   );

@@ -11,15 +11,15 @@ function PatientList(props) {
   const patientList = getPatientList();
   const dispatch = useDispatch();
 
-  const arr = Array.from({length: patientList.length}, () => false);
+  const arr = Array.from({length: patientList.length}, () => false); // 환자리스트의 리스트개수만큼 false로 채워진 배열 생성
   
   const [checkArray,setCheckArray] = useState(arr);
   const changeCheck = (event,index,id) =>{
     let checkarray = checkArray
-    if(event.target.value==="on"){
-      dispatch(createSetPatient(id));
-      checkarray = arr;
-      checkarray[index] = true;
+    if(event.target.value==="on"){ //checkbox가 check되면
+      dispatch(createSetPatient(id)); //createSetPatient를 호출해서 액션객체를 얻고
+      checkarray = arr; 
+      checkarray[index] = true; // 체크된 환자의 배열값을 true로!!
     }
     setCheckArray(checkarray);
   }
@@ -36,7 +36,6 @@ function PatientList(props) {
       <input type="text" placeholder="환자 검색"></input>
       <div className="input-group-append">
           <button className="btn btn-outline-secondary btn-sm" type="button">검색</button>
-          <div> 선택된 환자번호: {patient_id}</div>
       </div>
     </div>
     <div className={style.table_wrapper}>

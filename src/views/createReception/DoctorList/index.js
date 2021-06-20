@@ -34,7 +34,6 @@ function DoctorList(props) {
             <input type="text" placeholder="의사 검색"></input>
             <div className="input-group-append">
                 <button className="btn btn-outline-secondary btn-sm" type="button">검색</button>
-                <div>{doctor_id}</div>
             </div>
           </div>
           <div className={style.table_wrapper}>

@@ -1,15 +1,25 @@
-import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { getDoctor } from "../DoctorList/data";
 import { getPatient } from "../PatientList/data";
 import style from "./style.module.css";
+import moment from 'moment';
 
 function AddReception(props) {
   const patient_id = useSelector((state) => {
     return state.createReceptionReducer.patient_id
   });
+  const doctor_id = useSelector((state) => {
+    return state.createReceptionReducer.doctor_id
+  });
+  const time = useSelector((state)=>{
+    return state.createReceptionReducer.time
+  });
+  const date = useSelector((state) => {
+    return state.createReceptionReducer.date
+  })
+
   const patient = getPatient(patient_id);
-
-
+  const doctor = getDoctor(doctor_id);
   return(
     <>
       <div>
@@ -49,23 +59,31 @@ function AddReception(props) {
           </tr>
           <tr>
             <th>담당의사</th>
-            <td></td>
+            <td>{doctor?.doctor_name}</td>
           </tr>
           <tr>
             <th>진료실</th>
-            <td></td>
+            <td>{doctor?.doctor_office}</td>
           </tr>
           <tr>
             <th>예약날짜</th>
-            <td></td>
+            <td>{moment(date).format('YYYY-MM-DD')}</td>
           </tr>
           <tr>
             <th>예약시간</th>
-            <td></td>
+            {time === '방문접수'?
+            <td>{moment().format('HH:mm')}</td>
+          :
+            <td>{time}</td>
+          }
           </tr>
           <tr>
             <th>예약여부</th>
-            <td></td>
+            {time === '방문접수'?
+            <td>방문접수</td>
+          :
+            <td>예약접수</td>
+          }
           </tr>
         </tbody>
       </table>
