@@ -12,7 +12,7 @@ function HomeMenu(props) {
 
   return (
     <>
-    <Modal show={show} onHide={handleClose}>
+    <Modal show={show} onHide={handleClose} dialogClassName="custom-modal">
       <Modal.Header closeButton>
         <Modal.Title>알림</Modal.Title>
       </Modal.Header>
@@ -22,6 +22,12 @@ function HomeMenu(props) {
           Close
         </Button>
       </Modal.Footer>
+      <style jsx global>{`
+      .custom-modal {
+        font-family: "DoHyeon-Regular"; 
+      }
+      `}
+      </style>
     </Modal>
     <Col className={style.col3}>
       <div onClick={buttonModal} className={style.bLocation}>

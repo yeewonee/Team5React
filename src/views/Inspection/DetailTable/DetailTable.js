@@ -4,16 +4,17 @@ import style from "./DetailTable.module.css";
 import CommonTable from "views/table/CommonTable";
 import CommonTableRow from "views/table/CommonTableRow";
 import CommonTableColumn from "views/table/CommonTableColumn";
-import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { createSetCheckDownAction,createSetCheckUpAction } from "redux/inspection_Reducer";
-import { useEffect } from "react";
+import { StateButton } from "./StateButton";
+
 
 const cx = classNames.bind(style);
 
 function DetailTable(props) {
   const inspectList = props.data;
   const dispatch = useDispatch();
+  
   // const [checkedInputs, setCheckedInputs] = useState([]);
  
 
@@ -29,15 +30,15 @@ function DetailTable(props) {
   //   console.log(checkedInputs);
 
   const checkedInputs = useSelector((state) => state.inspectReducer.checked);
-  console.log(checkedInputs)
+   console.log(checkedInputs)
  
-  const changeHandler = (checked, id) => {
-      console.log(id)
+  const changeHandler = (checked, id,board) => {
+      console.log(checked)
     if (checked) {
-      dispatch(createSetCheckDownAction(id));
+      dispatch(createSetCheckDownAction(board));
     } else {
       // 체크 해제
-      dispatch(createSetCheckUpAction(id));
+      dispatch(createSetCheckUpAction(board));
     }
   };
 
@@ -45,24 +46,23 @@ function DetailTable(props) {
     <div>
       <div className={cx(style.middle_right_bottom)}>
         <div className={cx(style.buttonBox)}>
-          <button>바코드 출력</button>
-          <button>접수 취소</button>
-          <button>엑셀 저장</button>
-          <button>채혈 완료</button>
+          <StateButton value={'바코드 출력'} change={'접수'}></StateButton>
+          <StateButton value={'접수 취소'} change={'대기'}></StateButton>
+          <StateButton value={'채혈 완료'} change={'완료'}></StateButton>
+           
         </div>
         <div className="right-table">
           <CommonTable headersName={["", "묶음코드", "처방코드", "검사명", "단위", "검사자", "상태"]}>
-            {inspectList.map((board, index) => (
-              <CommonTableRow key={index}>
+            {inspectList.map((board, index) =>  (
+              <CommonTableRow key={board.ino}>
                 <CommonTableColumn>
                   <input
                     id={board.ino}
                     type="checkbox"
                     onChange={(e) => {
-                      changeHandler(e.currentTarget.checked, board.ino);
+                      changeHandler(e.currentTarget.checked, board.ino,board);
                     }}
-                     checked={checkedInputs?.includes(board.ino) ? true : false}
-                   
+                    
                   />
                 </CommonTableColumn>
                 <CommonTableColumn>{board.bno}</CommonTableColumn>

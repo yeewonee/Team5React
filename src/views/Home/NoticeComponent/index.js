@@ -35,12 +35,12 @@ function Notice(props){
   ]
   return(
     <>
-    <Modal show={show} onHide={handleClose}>
+    <Modal show={show} onHide={handleClose} dialogClassName="custom-modal">
       <Modal.Header closeButton>
         <Modal.Title>공지사항</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-      <table className="table" className={style.table2}>
+      <table className="table">
               <thead>
                 <tr >
                   <th scope="col" className={style.table2}>공지번호</th>
@@ -52,11 +52,11 @@ function Notice(props){
               <tbody>
                 <tr>
                   <td className={style.table2}>제목</td>
-                  <td colspan="3" className={style.table2}>{board.btitle}</td>
+                  <td colSpan="3" className={style.table2}>{board.btitle}</td>
                 </tr>
                 <tr>
                   <td className={style.table2}>내용</td>
-                  <td colspan="3" className={style.table2}>{board.bcontent}</td>
+                  <td colSpan="3" className={style.table2}>{board.bcontent}</td>
                 </tr>
               </tbody>
             </table>
@@ -66,6 +66,12 @@ function Notice(props){
           Close
         </Button>
       </Modal.Footer>
+      <style jsx global>{`
+      .custom-modal {
+        font-family: "DoHyeon-Regular"; 
+      }
+      `}
+      </style>
     </Modal>
   
     <Col className={style.col}>

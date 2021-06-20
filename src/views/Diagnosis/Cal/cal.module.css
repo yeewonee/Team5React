@@ -1,14 +1,3 @@
-.calendar_container{
-  height: 100%; 
-  width: 40%;
-}
-
-.calendar{
-  background-color: #CCE3F7; 
-  border:1px solid lightgray;
-  height: 3vh;
-}
-
 .calendar_box{
   border: 1px solid lightgray; 
   height: 40vh; 
@@ -16,8 +5,9 @@
   background-color: white;
 }
 
+
 .title_p{
-  font-size: 0.8em;
+  font-size: 1em;
 }
 
 

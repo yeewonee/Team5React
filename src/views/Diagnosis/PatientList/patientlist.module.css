@@ -1,8 +1,13 @@
 .patientlist_container{
   border: 1px solid lightgray; 
-  height: 50vh; 
+  height: 60vh; 
   width: 100%; 
   background-color:white; 
   overflow:auto;
 }
 
+.p_list{
+  overflow: auto;
+  height: 55vh; 
+  width: 100%; 
+}

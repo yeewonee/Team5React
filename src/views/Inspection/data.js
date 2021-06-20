@@ -55,3 +55,5 @@ export function getBoardList() {
     const inspectList = data2.filter(idata=>idata.pno===pno);
     return inspectList;
   };
+
+  

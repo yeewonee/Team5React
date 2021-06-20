@@ -24,6 +24,7 @@ export const createSetDayAction = (day) => {
 };
 
 export const createSetMlistAction = (mlist) => {
+  console.log(mlist);
   return {type:SET_MLIST, mlist};
 };
 
@@ -33,7 +34,6 @@ export const createSetIlistAction = (ilist) => {
 
 //리듀스 선언
 const diagnosisReducer = (state=initialState, action) => {
-  console.log("실행");
   if(action.type === SET_COMMENT){
     return {...state, comment: action.comment};
   }else if(action.type === SET_DAY){
