@@ -2,6 +2,7 @@ import React from "react";
 import style from "./pastrecord.module.css";
 import Modal from "./pastModal";
 import { useState } from "react";
+import CommonTable from "views/table/CommonTable";
 
 export const PastRecord = () => {
   const [modalOpen, setModalOpen] = useState(false);
@@ -16,16 +17,16 @@ export const PastRecord = () => {
   return (
     <div>
       <div className={style.past_table_container}>
-        {/* <CommonTable headersName={["진료 날짜", "상세"]}>
-                {pastList.map((pastrecord, index) => (
+        <CommonTable headersName={["진료 날짜", "상세"]}>
+                {/* {pastList.map((pastrecord, index) => (
                   <CommonTableRow key={pastrecord.}>
                     <CommonTableColumn>{pastrecord.}</CommonTableColumn>
                     <CommonTableColumn>
                       <button type="button" className="btn btn-dark btn-sm" onClick={openModal}>상세보기</button>
                     </CommonTableColumn>
                   </CommonTableRow>
-                ))}
-              </CommonTable> */}
+                ))} */}
+        </CommonTable> 
       </div>
       <div className="d-flex flex-row-reverse bd-highlight pt-3">
         <button className="btn btn-outline-dark mr-3">전달</button>

@@ -1,14 +1,16 @@
 import { PieChart } from 'react-minimal-pie-chart';
 import style from './donut.module.css';
 function RDonut(props){
+  const piedata =[
+    { title: '접수 대기', value: 30, color: 'orange'},
+    { title: '접수 완료', value: 70, color: 'skyblue'},
+    ]
+  
   return(
     <>
       <div className={style.donut}>
         <PieChart
-        data={[
-        { title: '접수 대기', value: 30, color: 'orange', key:'orange' },
-        { title: '접수 완료', value: 70, color: 'skyblue', key:'skyblue'},
-        ]}
+        data={piedata}
         lineWidth={80}
         animate={true}
         label={({ x, y, dx, dy, dataEntry }) => (
