@@ -1,4 +1,4 @@
-import { getPatientList } from "./data";
+import { getPatientList, getPatientListBySearch } from "./data";
 import style from "./style.module.css";
 import CommonTable from "views/table/CommonTable";
 import CommonTableRow from "views/table/CommonTableRow";
@@ -8,13 +8,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
 
 function PatientList(props) {
-  const patientList = getPatientList(); //환자리스트 가져오기
+  const originPatientList = getPatientList(); //환자리스트 가져오기
+  const [patientList, setPatientList] = useState(originPatientList);
+
   const dispatch = useDispatch();
 
-  const arr = Array.from({length: patientList.length}, () => false); // 환자리스트의 리스트개수만큼 false로 채워진 배열 생성
-  console.log(arr);
+  let arr = Array.from({length: patientList.length}, () => false); // 환자리스트의 리스트개수만큼 false로 채워진 배열 생성
   const [checkArray,setCheckArray] = useState(arr);
-  console.log(checkArray);
 
   const changeCheck = (event,index,id) =>{
     let checkarray = checkArray
@@ -26,16 +26,32 @@ function PatientList(props) {
     setCheckArray(checkarray);
   }
 
+  const [searchword, setSearchword] = useState('');
+  const serachChange = (event) => {
+    setSearchword(event.target.value);
+  };
+
+  const searchPatient = (event) => {
+    const patientBySearch = getPatientListBySearch(searchword);
+    setCheckArray(arr);
+    dispatch(createSetPatient('')); //검색버튼 누르면 이전에 체크됐던 값 지워줌
+    if(searchword===''){ //검색어가 없으면
+      setPatientList(originPatientList); //list에 전체 목록 넣어주고
+    }else{ //검색어가 있으면
+      setPatientList(patientBySearch); //list에 검색어에 맞는 목록 넣음
+    }
+  };
   useSelector((state) => {
     return state.createReceptionReducer.patient_id
   });
 
+
   return(
     <div className={style.p_list}>
     <div className="input-group m-2">
-      <input type="text" placeholder="환자 검색"></input>
+      <input type="text" name="searchword" placeholder="환자 검색" onChange={serachChange} value={searchword}></input>
       <div className="input-group-append">
-          <button className="btn btn-outline-secondary btn-sm" type="button">검색</button>
+          <button className="btn btn-outline-secondary btn-sm" type="button" onClick={searchPatient}>검색</button>
       </div>
     </div>
     <div className={style.table_wrapper}>

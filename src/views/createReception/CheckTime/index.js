@@ -23,13 +23,25 @@ function CheckTime(props) {
             <input type="radio" name="time" value="9:00" onChange={handleRadio} checked={time === '9:00'}/>
             9:00
           </label>
+          <label style={{backgroundColor: time==='9:30' ? '#006edc' : ''}}>
+            <input type="radio" name="time" value="9:30" onChange={handleRadio} checked={time === '9:30'}/>
+            9:30
+          </label>
           <label style={{backgroundColor: time==='10:00' ? '#006edc' : ''}}>
             <input type="radio" name="time" value="10:00" onChange={handleRadio} checked={time === '10:00'}/>
             10:00
           </label>
+          <label style={{backgroundColor: time==='10:30' ? '#006edc' : ''}}>
+            <input type="radio" name="time" value="10:30" onChange={handleRadio} checked={time === '10:30'}/>
+            10:30
+          </label>
           <label style={{backgroundColor: time==='11:00' ? '#006edc' : ''}}>
             <input type="radio" name="time" value="11:00" onChange={handleRadio} checked={time === '11:00'}/>
             11:00
+          </label>
+          <label style={{backgroundColor: time==='11:30' ? '#006edc' : ''}}>
+            <input type="radio" name="time" value="11:30" onChange={handleRadio} checked={time === '11:30'}/>
+            11:30
           </label>
           <label style={{backgroundColor: time==='12:00' ? '#006edc' : ''}}>
             <input type="radio" name="time" value="12:00" onChange={handleRadio} checked={time === '12:00'}/>

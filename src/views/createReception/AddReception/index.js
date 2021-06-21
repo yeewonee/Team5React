@@ -3,6 +3,7 @@ import { getDoctor } from "../DoctorList/data";
 import { getPatient } from "../PatientList/data";
 import style from "./style.module.css";
 import moment from 'moment';
+import { Link } from "react-router-dom";
 
 function AddReception(props) {
   const patient_id = useSelector((state) => {
@@ -20,6 +21,7 @@ function AddReception(props) {
 
   const patient = getPatient(patient_id);
   const doctor = getDoctor(doctor_id);
+
 
   return(
     <>
@@ -90,7 +92,7 @@ function AddReception(props) {
       </table>
   </div>
   <div style={{display: 'flex', justifyContent: 'flex-end'}}>
-    <button className="btn btn-outline-dark btn-sm" style={{marginRight:'5px'}}>뒤로 가기</button>
+    <Link to="/reception" className="btn btn-outline-dark btn-sm" style={{marginRight:'5px'}}>뒤로 가기</Link>
     <button className="btn btn-outline-dark btn-sm" style={{marginRight:'5px'}}>예약 완료</button>
     <button className="btn btn-outline-dark btn-sm">접수 완료</button>
   </div> 

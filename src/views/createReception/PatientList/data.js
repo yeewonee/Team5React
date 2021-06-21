@@ -13,7 +13,8 @@ let data = [
   {patient_id: "12356", patient_name: "고윤정", patient_age: "34", patient_sex:"Female", patient_ssn1: "900000", patient_ssn2: "2000000", patient_phone: "010-1234-1234", zip:"05578", address:"서울특별시 송파구 삼전로 37 (잠실동)", address_detail:"홍익빌딩"},
   {patient_id: "12357", patient_name: "정은지", patient_age: "28", patient_sex:"Female", patient_ssn1: "900000", patient_ssn2: "2000000", patient_phone: "010-1234-1234", zip:"05578", address:"서울특별시 송파구 삼전로 37 (잠실동)", address_detail:"홍익빌딩"},
   {patient_id: "12358", patient_name: "이지은", patient_age: "29", patient_sex:"Female", patient_ssn1: "900000", patient_ssn2: "2000000", patient_phone: "010-1234-1234", zip:"05578", address:"서울특별시 송파구 삼전로 37 (잠실동)", address_detail:"홍익빌딩"},
-  {patient_id: "12359", patient_name: "권진아", patient_age: "25", patient_sex:"Female", patient_ssn1: "900000", patient_ssn2: "2000000", patient_phone: "010-1234-1234", zip:"05578", address:"서울특별시 송파구 삼전로 37 (잠실동)", address_detail:"홍익빌딩"}
+  {patient_id: "12359", patient_name: "권진아", patient_age: "25", patient_sex:"Female", patient_ssn1: "900000", patient_ssn2: "2000000", patient_phone: "010-1234-1234", zip:"05578", address:"서울특별시 송파구 삼전로 37 (잠실동)", address_detail:"홍익빌딩"},
+  {patient_id: "12535", patient_name: "송중기", patient_age: "30", patient_sex:"Male", patient_ssn1: "900000", patient_ssn2: "1000000", patient_phone: "010-1234-1234", zip:"05578", address:"서울특별시 송파구 삼전로 37 (잠실동)", address_detail:"냠냠빌딩"}
 ];
 
 export function getPatientList(){
@@ -24,4 +25,9 @@ export function getPatientList(){
 export function getPatient(patient_id) {
   const patient = data.find(patient => patient.patient_id === patient_id);
   return patient;
+}
+
+export function getPatientListBySearch(patient_name){
+  const patientBySearch = data.filter(patient => patient.patient_name === patient_name);
+  return patientBySearch
 }

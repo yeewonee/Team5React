@@ -16,3 +16,8 @@ export function getDoctor(doctor_id){
   const doctor = data.find(doctor => doctor.doctor_id===doctor_id);
   return doctor; 
 }
+
+export function getDoctorListBySearch(doctor_name){
+  const doctorBySearch = data.filter(doctor => doctor.doctor_name === doctor_name);
+  return doctorBySearch
+}
