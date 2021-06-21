@@ -10,15 +10,16 @@ import { useSelector } from 'react-redux';
 
 function Inspection(props) {
 
-     const state = useSelector(state => state.inspectReducer.pno);
+     const state = useSelector(state => state.inspectReducer.patient);
+     console.log(state)
      const boardList = getBoardList();
-     const inspectList = getInspectList(state);
+    //  const inspectList = getInspectList(state?.pno);
      let user 
-   
+    
     if(!state){
        user=getUser(boardList[0].pno)
     }else{
-        user=getUser(state);
+        user=getUser(state.pno);
     }
     
 
@@ -30,7 +31,7 @@ function Inspection(props) {
             </div>
             <div className="middle-right">
                 <Progress data={user}/>
-                <DetailTable data={inspectList}/>
+                <DetailTable data={state}/>
             </div>
         </div>
     )

@@ -6,37 +6,41 @@ import CommonTable from "views/table/CommonTable";
 import CommonTableRow from "views/table/CommonTableRow";
 import CommonTableColumn from "views/table/CommonTableColumn";
 import { useDispatch, useSelector } from "react-redux";
-import { createSetPatientAction } from "redux/inspection_Reducer";
+import { createSetPatientAction, UpdatePstatusAction } from "redux/inspection_Reducer";
 import { useEffect } from "react";
 
 const cx = classNames.bind(style);
 
 function PatientTable(props) {
-  const boardList = props.data;
+  const patientList = props.data;
 
   const dispatch = useDispatch();
 
   const [check, setCheck] = useState({
-    pno:"",
+    pno:'',
+    tstatus:''
   });
 
-  const [status, setStatus] = useState("대기");
 
   const getCheck = (event) => {
+    const value = patientList.find(value => event.target.value===value.pno);
     if (event.target.checked) {
-      setCheck(prevCheck=>{
+       setCheck(prevCheck=>{
             return{
                 ...prevCheck,
                 pno: event.target.value,
+                tstatus:value.tstatus
             }
       });
-      
     }
   };
+  
+
 
   useEffect(()=>{
-    dispatch(createSetPatientAction(check.pno));
-  },[getCheck])
+    dispatch(createSetPatientAction(check));
+    console.log("리렌더링")
+  },[check.pno])
 
   return (
     <div>
@@ -64,7 +68,7 @@ function PatientTable(props) {
       </div>
       <div className={cx(style.left_table)}>
         <CommonTable headersName={["", "순서", "환자번호", "성명", "성별/나이", "예약시간", "상태"]}>
-          {boardList.map((board) => (
+          {patientList.map((board) => (
             <CommonTableRow key={board.sequence}>
               <CommonTableColumn>
                 <input type="checkbox" name="patient" value={board.pno} checked={board.pno ===check.pno} onChange={getCheck} />
@@ -76,7 +80,7 @@ function PatientTable(props) {
                 {board.sex}/{board.age}
               </CommonTableColumn>
               <CommonTableColumn>{board.rtime}</CommonTableColumn>
-              <CommonTableColumn>{status}</CommonTableColumn>
+              <CommonTableColumn>{board.tstatus}</CommonTableColumn>
             </CommonTableRow>
           ))}
         </CommonTable>
