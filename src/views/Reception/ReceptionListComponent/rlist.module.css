@@ -1,6 +1,6 @@
 
 .location{
-  margin-left: 1%;
+  margin-left: 0.8%;
   width: 100%;
 }
 
@@ -11,14 +11,17 @@
   border: 1px solid lightgray;
 }
 
+.labeldiv{
+  border: 4px soile green;
+}
+
 .label{
   background-color: #F2F2F2; 
   height: 38px; 
-  padding-top: 4px; 
+  padding-top: 6px; 
   border-radius: 3px;
   border: 1px solid lightgray;
   width: 100%;
-  margin-right: 21px;
   
 }
 
@@ -32,18 +35,19 @@
 
 .margin1{
   width: 45%;
-  margin-left: 0.5%;
   float:left;
 }
 
 .margin2{
+  margin-top: 1%;
   margin-left: 1%;
   float: left;
 }
 
 .margin3{
   float: right;
-  margin-right: 40%;
+  margin-top: 1%;
+  margin-right: 55%;
 }
 
 .width{
@@ -78,7 +82,8 @@
 }
 
 .button1{
-  margin-left:27%;
+  margin-top: 0.7%;
+  margin-left:45%;
 }
 
 .click{
