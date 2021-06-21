@@ -62,6 +62,14 @@ function ReceptionList(props){
     })
     setShow1(true)
   };
+
+  const [searchName, setSearchName] = useState("");
+  console.log("props : "+props.searchName)
+  
+  const handleButton = (e, searchName) =>{
+    console.log("data2 : "+searchName)
+  }
+
   return(
     <div className={style.font}>
       <Modal show={show} onHide={handleClose} className={style.font} dialogClassName="custom-modal">
@@ -168,10 +176,10 @@ function ReceptionList(props){
           `}
         </style>
       </Modal>
-      <h5 className={style.label}>&nbsp;접수 목록</h5> 
-      
+      <div className={style.label}>
+        <h5>&nbsp;접수 목록</h5> 
+      </div>
       <div className={style.location}>
-        
         <Row className={style.back}>
           <div className={style.width}>
             <div className={style.margin1}>
@@ -179,7 +187,7 @@ function ReceptionList(props){
                 <Calendar/>
               </div>
               <div className={style.margin3}>
-                <SearchBar/>
+                <SearchBar handleButton={handleButton}/>
               </div>
             </div>
             <div className={style.buttonlocation}>

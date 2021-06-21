@@ -33,17 +33,17 @@ export default class RGraph extends PureComponent {
   render() {  
     return (
       <>
-        <div> 
-          <h5 className={style.label}>&nbsp;금일 시간대별 예약현황</h5> 
+        <div className={style.label}> 
+          <h5>&nbsp;금일 시간대별 예약현황</h5> 
         </div>
         <div className={style.width}>
           <LineChart className={style.graph}
             style={{width:'100%'}}
-            width={1050}
+            width={1300}
             height={200}
             data={data}
             margin={{
-              top: 20, bottom: 5, right:50
+              top: 20, bottom: 5, right:30
             }}
           >
             <CartesianGrid strokeDasharray="3 3" />
