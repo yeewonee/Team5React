@@ -32,11 +32,11 @@ function Progress(props){
                 </div>
                 <div className={cx(style.patientInfo)}>
                     <div className={cx(style.info,'mt-3')}>
-                        <div className="ml-3 mb-1">번호 : {user.pno} </div>
-                        <div className="ml-3 mb-1">성명: {user.pname}</div>
-                        <div className="ml-3 mb-1">성별 : {user.sex}</div>
-                        <div className="ml-3 mb-1">나이 : {user.age}</div>
-                        <div className="ml-3 mb-1">예약시간 : {user.rtime}</div>
+                        <div className="ml-3 mb-1">번호 : {user?.pno} </div>
+                        <div className="ml-3 mb-1">성명: {user?.pname}</div>
+                        <div className="ml-3 mb-1">성별 : {user?.sex}</div>
+                        <div className="ml-3 mb-1">나이 : {user?.age}</div>
+                        <div className="ml-3 mb-1">예약시간 : {user?.rtime}</div>
                       </div>
             </div>
         </div>

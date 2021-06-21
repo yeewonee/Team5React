@@ -5,35 +5,46 @@ import CommonTable from "views/table/CommonTable";
 import CommonTableRow from "views/table/CommonTableRow";
 import CommonTableColumn from "views/table/CommonTableColumn";
 import { useDispatch, useSelector } from "react-redux";
-import { createSetCheckDownAction,createSetCheckUpAction } from "redux/inspection_Reducer";
+import { createSetCheckDownAction,createSetCheckUpAction, UpdatePstatusAction } from "redux/inspection_Reducer";
 import { StateButton } from "./StateButton";
+import { useState } from "react";
+import { getInspectList } from "../data";
 
 
 const cx = classNames.bind(style);
 
 function DetailTable(props) {
-  const inspectList = props.data;
-  const dispatch = useDispatch();
+  const state = props.data;
+  const inspectList = getInspectList(state?.pno);
+  console.log(inspectList.length)
   
-  // const [checkedInputs, setCheckedInputs] = useState([]);
- 
+  const arr = Array.from({ length: inspectList.length }, () => false);
+  const [checkArray, setCheckArray] = useState(arr);
+  console.log(checkArray)
+  const checkList = useSelector(state => state.inspectReducer.checked);
+  
 
-    // const changeHandler = (checked, id) => {
-    //   if (checked) {
-    //    setCheckedInputs([...checkedInputs, id]);
-    //   } else {
-    //     // 체크 해제
-    //     setCheckedInputs(checkedInputs.filter((el) => el !== id));
-    //   }
-    // };
+  const changeCheck = (event, index) => {
+    let check = checkArray;
+    if (event.target.checked) {
+      check[index] = true;
+    } else {
+      check[index] = false;
+    }
+    setCheckArray(check);
+  };
 
-  //   console.log(checkedInputs);
+  const checkState=()=>{
+    checkArray.splice(0,checkArray.length)
+  }
+  // const arr =[]
 
-  const checkedInputs = useSelector((state) => state.inspectReducer.checked);
-   console.log(checkedInputs)
- 
-  const changeHandler = (checked, id,board) => {
-      console.log(checked)
+  const dispatch = useDispatch();
+
+
+
+
+  const changeHandler = (checked,board) => {
     if (checked) {
       dispatch(createSetCheckDownAction(board));
     } else {
@@ -42,13 +53,23 @@ function DetailTable(props) {
     }
   };
 
+  // for(let i=0; i<inspectList?.length; i++){
+  //   if(inspectList[i].istatus === '완료'){
+  //     arr.push(inspectList[i])
+  //   }
+  // }
+  // // if(arr.length === inspectList.length){
+  //   // dispatch(UpdatePstatusAction({pno:patient?.pno,tstatus:'완료'}))
+  //   dispatch(UpdatePstatusAction('완료')) 
+  // }
+
   return (
     <div>
       <div className={cx(style.middle_right_bottom)}>
         <div className={cx(style.buttonBox)}>
-          <StateButton value={'바코드 출력'} change={'접수'}></StateButton>
-          <StateButton value={'접수 취소'} change={'대기'}></StateButton>
-          <StateButton value={'채혈 완료'} change={'완료'}></StateButton>
+          <StateButton value={'바코드 출력'} change={'접수'} check={checkArray} checkfun={checkState}></StateButton>
+          <StateButton value={'접수 취소'} change={'대기'} check={checkArray} checkfun={checkState}></StateButton>
+          <StateButton value={'채혈 완료'} change={'완료'} check={checkArray} checkfun={checkState}></StateButton>
            
         </div>
         <div className="right-table">
@@ -59,10 +80,11 @@ function DetailTable(props) {
                   <input
                     id={board.ino}
                     type="checkbox"
-                    onChange={(e) => {
-                      changeHandler(e.currentTarget.checked, board.ino,board);
+                    onChange={(event) => {
+                      changeHandler(event.currentTarget.checked,board);
+                       changeCheck(event,index)
                     }}
-                    
+                    checked={checkArray[index]}
                   />
                 </CommonTableColumn>
                 <CommonTableColumn>{board.bno}</CommonTableColumn>
