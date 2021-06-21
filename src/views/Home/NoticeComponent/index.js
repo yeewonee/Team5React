@@ -9,7 +9,6 @@ function Notice(props){
   const handleClose = () => setShow(false);
   const noticeModal = (event, board) => {
     setBoard({
-      ...board,
       bno: board.bno,
       btitle: board.btitle,
       bcontent: board.bcontent,
@@ -74,7 +73,7 @@ function Notice(props){
       </style>
     </Modal>
   
-    <Col className={style.col}>
+    <div className={style.col}>
       <div className={style.bLocation}>
         <div className={style.notice}>
           <div className={style.bContent1}><img src={photo4} alt="photo4"/><b>공지사항</b></div>
@@ -103,7 +102,7 @@ function Notice(props){
           </Table>
         </div> 
       </div>
-    </Col>
+    </div>
     </>
   );
 }

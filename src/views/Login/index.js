@@ -4,7 +4,7 @@ import style from "./login.module.css";
 function Login(props){
   return(
     <div className={style.test}>
-    <Container fluid className={style.back}>
+    <Container fluid>
     <Row>
       <Col className={style.col1}></Col>
     </Row>

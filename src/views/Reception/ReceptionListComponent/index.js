@@ -4,6 +4,8 @@ import SearchBar from './SearchBar';
 import { Row, Col, Button, Modal } from 'react-bootstrap';
 import { useState } from "react";
 import {Link} from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { setReception } from 'redux/reception-reducer';
 
 function ReceptionList(props){
   const [patientBoard, setPatientBoard] = useState({
@@ -16,14 +18,32 @@ function ReceptionList(props){
     r_status:""
   });
 
+
   const patientList = [
-    { r_id: 5, patient_name: "김명휘", patient_ssn1: 980403, patient_phone: "010-3820-3321", r_date: "21.06.15", r_time: "11:30", r_status:"접수대기"},
-    { r_id: 4, patient_name: "정예원", patient_ssn1: 950211, patient_phone: "010-4567-8902", r_date: "21.06.15", r_time: "11:00", r_status:"접수대기"},
-    { r_id: 3, patient_name: "정윤환", patient_ssn1: 960123, patient_phone: "010-2987-2701", r_date: "21.06.15", r_time: "10:30", r_status:"접수완료"},
-    { r_id: 2, patient_name: "김명휘", patient_ssn1: 980403, patient_phone: "010-3820-3321", r_date: "21.06.15", r_time: "10:00", r_status:"접수완료"},
-    { r_id: 1, patient_name: "박소라", patient_ssn1: 930516, patient_phone: "010-5921-0192", r_date: "21.06.15", r_time: "09:30", r_status:"접수완료"}
+    { r_id: 5, patient_name: "김명휘", patient_ssn1: 980403, patient_phone: "01038203321", r_date: "21.06.15", r_time: "11:30", r_status:"접수대기"},
+    { r_id: 4, patient_name: "정예원", patient_ssn1: 950211, patient_phone: "01045678902", r_date: "21.06.15", r_time: "11:00", r_status:"접수대기"},
+    { r_id: 3, patient_name: "정윤환", patient_ssn1: 960123, patient_phone: "01029872701", r_date: "21.06.15", r_time: "10:30", r_status:"접수완료"},
+    { r_id: 2, patient_name: "김명휘", patient_ssn1: 980403, patient_phone: "01038203321", r_date: "21.06.15", r_time: "10:00", r_status:"접수완료"},
+    { r_id: 1, patient_name: "박소라", patient_ssn1: 930516, patient_phone: "01059210192", r_date: "21.06.15", r_time: "09:30", r_status:"접수완료"}
   
   ]
+
+  const dispatch = useDispatch();
+  const arr = Array.from({length: patientList.length}, () => false); //patientList길이만큼 새로 만들어서 false로 채움
+  const [checkArray,setCheckArray] = useState(arr); //상태
+  const changeCheck = (event,index,r_id) =>{ //map에 있는 index, r_id
+    let checkarray = checkArray //arr값이 들어감
+    if(event.target.value==="on"){ //체크되면
+      dispatch(setReception(r_id)); //redux
+      checkarray = arr;
+      checkarray[index] = true; //특정 index만 true
+    }
+    setCheckArray(checkarray);
+  }
+
+  useSelector((state) => {
+    return state.receptionReducer.r_id
+  });
 
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
@@ -31,7 +51,17 @@ function ReceptionList(props){
 
   const [show1, setShow1] = useState(false);
   const handleClose1 = () => setShow1(false);
-  const buttonModal1 = () => setShow1(true);
+  const buttonModal1 = (event, list) => {
+    setPatientBoard({
+      patient_name: list.patient_name,
+      patient_ssn1: list.patient_ssn1,
+      patient_phone: list.patient_phone,
+      r_date: list.r_date,
+      r_time: list.r_time
+      
+    })
+    setShow1(true)
+  };
   return(
     <div className={style.font}>
       <Modal show={show} onHide={handleClose} className={style.font} dialogClassName="custom-modal">
@@ -97,13 +127,13 @@ function ReceptionList(props){
               </tr>
               <tr>
                 <th className={style.detailth}>&nbsp;환자명</th>
-                <td className={style.detailtd}>&nbsp;정예원</td>
+                <td className={style.detailtd}>&nbsp;{patientBoard.patient_name}</td>
                 <th className={style.detailth}>&nbsp;주민번호</th>
-                <td className={style.detailtd}>&nbsp;971205-2122291</td>
+                <td className={style.detailtd}>&nbsp;{patientBoard.patient_ssn1}</td>
               </tr>
               <tr>
                 <th className={style.detailth}>&nbsp;전화번호</th>
-                <td className={style.detailtd}>&nbsp;01052962942</td>
+                <td className={style.detailtd}>&nbsp;{patientBoard.patient_phone}</td>
                 <th className={style.detailth}>&nbsp;담당의사</th>
                 <td className={style.detailtd}>&nbsp;김철수</td>
               </tr>
@@ -115,9 +145,9 @@ function ReceptionList(props){
               </tr>
               <tr>
                 <th className={style.detailth}>&nbsp;예약날짜</th>
-                <td className={style.detailtd}>&nbsp;2021-06-16</td>
+                <td className={style.detailtd}>&nbsp;{patientBoard.r_date}</td>
                 <th className={style.detailth}>&nbsp;예약시간</th>
-                <td className={style.detailtd}>&nbsp;13:55</td>
+                <td className={style.detailtd}>&nbsp;{patientBoard.r_time}</td>
               </tr>
 
             </tbody>
@@ -143,27 +173,29 @@ function ReceptionList(props){
       <div className={style.location}>
         
         <Row className={style.back}>
-          <div className={style.margin1}>
-            <div className={style.margin2}>
-              <Calendar/>
+          <div className={style.width}>
+            <div className={style.margin1}>
+              <div className={style.margin2}>
+                <Calendar/>
+              </div>
+              <div className={style.margin3}>
+                <SearchBar/>
+              </div>
             </div>
-            <div className={style.margin3}>
-              <SearchBar/>
+            <div className={style.buttonlocation}>
+              <div className={style.button1}>
+                <Button className={style.button} onClick={buttonModal}>환자 등록</Button>
+                <Button className={style.button}><Link to="/createReception" className={style.link}>예약/접수</Link></Button>
+                <Button className={style.button}>예약 취소</Button>
+                <Button className={style.button}>접수 완료</Button>
+              </div>
             </div>
-          </div>
-          <div className={style.buttonlocation}>
-            <Col className={style.button1}>
-              <Button className={style.button} onClick={buttonModal}>환자 등록</Button>
-              <Button className={style.button}><Link to="/createReception" className={style.link}>예약/접수</Link></Button>
-              <Button className={style.button}>예약 취소</Button>
-              <Button className={style.button}>접수 완료</Button>
-            </Col>
-          </div>
+          </div> 
           <div className={style.tablewidth}>
           <table className="table">
               <thead>
                 <tr className={style.listtitle}>
-                  <th scope="col"><input type="checkbox"></input></th>
+                  <th scope="col"></th>
                   <th scope="col">예약 번호</th>
                   <th scope="col">이름</th>
                   <th scope="col">생년월일</th>
@@ -174,12 +206,12 @@ function ReceptionList(props){
                 </tr>
               </thead>
               <tbody>
-                {patientList.map((list) => {
+                {patientList.map((list, index) => {
                 return (
                   <tr key={list.r_id} className={style.list}>
-                    <td><input type="checkbox"></input></td>
+                    <td><input type="checkbox" onChange={(event)=>{changeCheck(event, index, list.r_id)}}  checked={checkArray[index]}></input></td>
                     <td>{list.r_id}</td>
-                    <td onClick={buttonModal1} className={style.click}>{list.patient_name}</td>
+                    <td onClick={(event) => {buttonModal1(event, list)}} className={style.click}>{list.patient_name}</td>
                     <td>{list.patient_ssn1}</td>
                     <td>{list.patient_phone}</td>
                     <td>{list.r_date}</td> 

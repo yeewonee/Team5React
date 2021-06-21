@@ -23,7 +23,7 @@
 }
 
 .buttonlocation{
-  margin-left: 18%;
+ margin-left: 55%;
 }
 
 .tablewidth{
@@ -31,17 +31,23 @@
 }
 
 .margin1{
-  width: 40%;
-  margin-left: 1%;
+  width: 45%;
+  margin-left: 0.5%;
+  float:left;
 }
 
 .margin2{
+  margin-left: 1%;
   float: left;
 }
 
 .margin3{
   float: right;
-  margin-right: 31%;
+  margin-right: 40%;
+}
+
+.width{
+  width: 100%;
 }
 
 .row1{

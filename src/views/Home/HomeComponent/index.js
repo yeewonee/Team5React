@@ -29,7 +29,7 @@ function HomeMenu(props) {
       `}
       </style>
     </Modal>
-    <Col className={style.col3}>
+    <Col className={style.col1}>
       <div onClick={buttonModal} className={style.bLocation}>
         <div className={style.button1}>
           <div className={style.bContent1}><img src={photo1} alt="photo1"/><b>예약 / 접수</b></div>

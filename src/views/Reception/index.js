@@ -6,7 +6,7 @@ import ReceptionList from "./ReceptionListComponent";
 function Reception(props) { 
   return (
     <div className={style.back}>
-      <div>
+      <div className={style.width}>
         <div className={style.border1}>
           <RGraph/>
         </div>

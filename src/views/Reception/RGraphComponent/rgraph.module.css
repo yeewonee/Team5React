@@ -1,4 +1,5 @@
 .graph{
+  width: 100%;
   background-color: white;
   border: 1px solid lightgray;
 }
@@ -9,5 +10,9 @@
   padding-top: 4px; 
   border-radius: 3px;
   border: 1px solid lightgray;
-  width: 1058px;
+  width: 100%;
+}
+
+.width{
+  width: 100%;
 }

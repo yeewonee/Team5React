@@ -36,21 +36,24 @@ export default class RGraph extends PureComponent {
         <div> 
           <h5 className={style.label}>&nbsp;금일 시간대별 예약현황</h5> 
         </div>
-        <LineChart className={style.graph}
-          width={1058}
-          height={200}
-          data={data}
-          margin={{
-            top: 20, bottom: 5, right:50
-          }}
-        >
-          <CartesianGrid strokeDasharray="3 3" />
-          <XAxis dataKey="name" />
-          <YAxis />
-          <Tooltip />
-          <Legend />
-          <Line type="monotone" dataKey="예약 환자 수" stroke="#82ca9d"/>
-        </LineChart>
+        <div className={style.width}>
+          <LineChart className={style.graph}
+            style={{width:'100%'}}
+            width={1050}
+            height={200}
+            data={data}
+            margin={{
+              top: 20, bottom: 5, right:50
+            }}
+          >
+            <CartesianGrid strokeDasharray="3 3" />
+            <XAxis dataKey="name" />
+            <YAxis />
+            <Tooltip />
+            <Legend />
+            <Line type="monotone" dataKey="예약 환자 수" stroke="#82ca9d"/>
+          </LineChart>
+          </div>
       </>
     );
   }

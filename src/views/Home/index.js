@@ -2,7 +2,6 @@ import { Col, Container, Row } from "react-bootstrap";
 import HomeMenu from "./HomeComponent";
 import Notice from "./NoticeComponent";
 import style from "./home.module.css";
-import Test from "./Test";
 
 function Home(props){
   return(
@@ -16,10 +15,10 @@ function Home(props){
         </Col>
       </Row>
       <Row>
-        <Col>
+        <Col xs={5} className="ml-4">
           <HomeMenu/>
         </Col>
-        <Col>
+        <Col className="mr-3">
           <Notice/>
         </Col>
       </Row>
