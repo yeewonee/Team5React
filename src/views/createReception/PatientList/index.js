@@ -8,12 +8,14 @@ import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
 
 function PatientList(props) {
-  const patientList = getPatientList();
+  const patientList = getPatientList(); //환자리스트 가져오기
   const dispatch = useDispatch();
 
   const arr = Array.from({length: patientList.length}, () => false); // 환자리스트의 리스트개수만큼 false로 채워진 배열 생성
-  
+  console.log(arr);
   const [checkArray,setCheckArray] = useState(arr);
+  console.log(checkArray);
+
   const changeCheck = (event,index,id) =>{
     let checkarray = checkArray
     if(event.target.value==="on"){ //checkbox가 check되면
@@ -24,11 +26,9 @@ function PatientList(props) {
     setCheckArray(checkarray);
   }
 
-  const patient_id = useSelector((state) => {
+  useSelector((state) => {
     return state.createReceptionReducer.patient_id
   });
-
-  
 
   return(
     <div className={style.p_list}>

@@ -23,7 +23,7 @@ function DoctorList(props) {
     setCheckArray(checkarray);
   }
 
-  const doctor_id = useSelector((state) => {
+  useSelector((state) => {
     return state.createReceptionReducer.doctor_id
   });
 

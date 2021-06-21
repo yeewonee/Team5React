@@ -20,6 +20,7 @@ function AddReception(props) {
 
   const patient = getPatient(patient_id);
   const doctor = getDoctor(doctor_id);
+
   return(
     <>
       <div>
@@ -35,7 +36,7 @@ function AddReception(props) {
           </tr>
           <tr>
             <th>주민등록번호</th>
-            <td>{patient?.patient_ssn1}-{patient?.patient_ssn2}</td>
+            <td>{patient?.patient_ssn1} {patient?.patient_ssn2}</td>
           </tr>
           <tr>
             <th>전화번호</th>
