@@ -3,8 +3,13 @@ import style from "./pastrecord.module.css";
 import Modal from "./pastModal";
 import { useState } from "react";
 import CommonTable from "views/table/CommonTable";
+import { getPastRecord } from "../data";
+import CommonTableRow from "views/table/CommonTableRow";
+import CommonTableColumn from "views/table/CommonTableColumn";
+import { useEffect } from "react";
+import { useSelector } from "react-redux";
 
-export const PastRecord = () => {
+export const PastRecord = (props) => {
   const [modalOpen, setModalOpen] = useState(false);
 
   const openModal = () => {
@@ -14,18 +19,20 @@ export const PastRecord = () => {
     setModalOpen(false);
   };
 
+  const pList = getPastRecord(props.patientId);
+
   return (
     <div>
       <div className={style.past_table_container}>
         <CommonTable headersName={["진료 날짜", "상세"]}>
-                {/* {pastList.map((pastrecord, index) => (
-                  <CommonTableRow key={pastrecord.}>
-                    <CommonTableColumn>{pastrecord.}</CommonTableColumn>
+                {pList.map((plist, index) => (
+                  <CommonTableRow key={plist.dDate}>
+                    <CommonTableColumn>{plist.dDate}</CommonTableColumn>
                     <CommonTableColumn>
                       <button type="button" className="btn btn-dark btn-sm" onClick={openModal}>상세보기</button>
                     </CommonTableColumn>
                   </CommonTableRow>
-                ))} */}
+                ))}
         </CommonTable> 
       </div>
       <div className="d-flex flex-row-reverse bd-highlight pt-3">

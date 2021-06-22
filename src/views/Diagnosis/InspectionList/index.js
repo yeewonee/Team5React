@@ -1,14 +1,14 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getInspectionList } from "../data";
+import { getInspectionList, getInspection } from "../data";
 import style from "./inspectionlist.module.css";
-import { createSetIlistAction } from "redux/diagnosis-reducer";
+import { createSetAddIlistAction } from "redux/diagnosis-reducer";
 import CommonTable from "views/table/CommonTable";
 import CommonTableRow from "views/table/CommonTableRow";
 import CommonTableColumn from "views/table/CommonTableColumn";
 
-export const InspectionList = () => {
+export const InspectionList = (props) => {
   const inspectionList = getInspectionList();
 
   //DB에서 약 목록 size 받아오기
@@ -31,32 +31,36 @@ export const InspectionList = () => {
   };
 
   const keywordButton = (event) => {
-    //검색 버튼을 눌렀을 때 back-end로 전달
+    //검색 버튼을 눌렀을 때`   back-end로 전달
   };
 
-  //추가된 약 목록
-  const resultIlist = useSelector((state) => {
-    return state.diagnosisReducer.ilist;
-  });
-
   const [list, setList] = useState({
-    ilist: resultIlist,
+    iList: []
   });
 
-  const inspectionClick = (event, i) => {
+  useEffect(() => {
+    setList({
+      iList: props.iList,
+    });
+  }, [props]);
+
+  const inspectionClick = (event, bundleCode) => {
     if (event.target.checked) {
+      let temp = getInspection(bundleCode);
+      console.log("ilist", list.iList);
+      console.log("temp", temp)
       setList((prevList) => {
         return {
           ...prevList,
-          ilist: prevList.ilist.concat(i),
+          iList: prevList.iList.concat(temp)
         };
       });
     } else {
       setList((prevList) => {
         return {
           ...list,
-          ilist: list.ilist.filter((item) => {
-            return item.bundleCode !== i.bundleCode;
+          iList: list.iList.filter((item) => {
+            return item.bundleCode !== bundleCode;
           }),
         };
       });
@@ -65,7 +69,8 @@ export const InspectionList = () => {
 
   const dispatch = useDispatch();
   const addInspection = (event) => {
-    dispatch(createSetIlistAction(list.ilist));
+    console.log("체크된 리스트", list.iList);
+    dispatch(createSetAddIlistAction(list.iList));
     //DB에서 size 가져오기
     let checkarray = arr;
     setCheckArray(checkarray);
@@ -100,7 +105,7 @@ export const InspectionList = () => {
                       changeCheck(event, index);
                     }}
                     checked={checkArray[index]}
-                    onClick={(event) => inspectionClick(event, inspection)}
+                    onClick={(event) => inspectionClick(event, inspection.bundleCode)}
                   />
                 </CommonTableColumn>
                 <CommonTableColumn>{inspection.bundleCode}</CommonTableColumn>

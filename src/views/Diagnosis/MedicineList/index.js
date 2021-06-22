@@ -3,12 +3,13 @@ import style from "./medecinelist.module.css";
 import { getMedicineList } from "../data";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { createSetMlistAction } from "redux/diagnosis-reducer";
+import { createSetAddMlistAction } from "redux/diagnosis-reducer";
 import CommonTableRow from "views/table/CommonTableRow";
 import CommonTableColumn from "views/table/CommonTableColumn";
 import CommonTable from "views/table/CommonTable";
+import { useEffect } from "react";
 
-export const MedicineList = () => {
+export const MedicineList = (props) => {
   const medicineList = getMedicineList();
 
   //DB에서 약 목록 size 받아오기
@@ -31,15 +32,17 @@ export const MedicineList = () => {
 
   const keywordButton = (event) => {};
 
-  //추가된 약 목록
-  const resultMlist = useSelector((state) => {
-    return state.diagnosisReducer.mlist;
-  });
-
   const [list, setList] = useState({
-    mlist: resultMlist,
+    mlist: []
   });
 
+  //props가 변경되었을 때 mlist를 업데이트
+  useEffect(() => {
+    setList({
+      mlist: props.mList
+    });
+  }, [props]);
+  
   const medicineClick = (event, m) => {
     if (event.target.checked) {
       setList((prevList) => {
@@ -62,7 +65,7 @@ export const MedicineList = () => {
 
   const dispatch = useDispatch();
   const addMedicine = (event) => {
-    dispatch(createSetMlistAction(list.mlist));
+    dispatch(createSetAddMlistAction(list.mlist));
     //DB에서 size 가져오기
     let checkarray = arr;
     setCheckArray(checkarray);

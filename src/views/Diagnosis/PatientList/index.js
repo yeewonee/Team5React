@@ -8,8 +8,9 @@ import CommonTable from "views/table/CommonTable";
 import CommonTableRow from "views/table/CommonTableRow";
 import CommonTableColumn from "views/table/CommonTableColumn";
 
-export const PatientList = () => {
-  const patientList = getPatientList();
+export const PatientList = (props) => {
+
+  const patientList = getPatientList(props.day);
 
   const [keyword, setKeyword] = useState("");
   const keywordChange = (event) => {
