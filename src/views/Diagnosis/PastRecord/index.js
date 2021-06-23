@@ -3,11 +3,10 @@ import style from "./pastrecord.module.css";
 import Modal from "./pastModal";
 import { useState } from "react";
 import CommonTable from "views/table/CommonTable";
-import { getPastRecord } from "../data";
+import { getPastRecord, getPatient, getResultIList, getResultMList } from "../data";
 import CommonTableRow from "views/table/CommonTableRow";
 import CommonTableColumn from "views/table/CommonTableColumn";
 import { useEffect } from "react";
-import { useSelector } from "react-redux";
 
 export const PastRecord = (props) => {
   const [modalOpen, setModalOpen] = useState(false);
@@ -19,21 +18,36 @@ export const PastRecord = (props) => {
     setModalOpen(false);
   };
 
-  const pList = getPastRecord(props.patientId);
+  //날짜, 상세보기
+  let pList = getPastRecord(props.patientId);
+  const [pastList, setPastList] = useState(pList);
+
+  useEffect(() => {
+    setPastList(pList);
+  }, [props.patientId]);
+
+  //환자 정보
+  let patient = getPatient(props.patientId);
+
+  let iResultList = getResultIList(props.patientId);
+
+  let mResultList = getResultMList(props.patientId);
 
   return (
     <div>
       <div className={style.past_table_container}>
         <CommonTable headersName={["진료 날짜", "상세"]}>
-                {pList.map((plist, index) => (
-                  <CommonTableRow key={plist.dDate}>
-                    <CommonTableColumn>{plist.dDate}</CommonTableColumn>
-                    <CommonTableColumn>
-                      <button type="button" className="btn btn-dark btn-sm" onClick={openModal}>상세보기</button>
-                    </CommonTableColumn>
-                  </CommonTableRow>
-                ))}
-        </CommonTable> 
+          {pastList.map((plist, index) => (
+            <CommonTableRow key={plist.dDate}>
+              <CommonTableColumn>{plist.dDate}</CommonTableColumn>
+              <CommonTableColumn>
+                <button type="button" className="btn btn-dark btn-sm" onClick={openModal}>
+                  상세보기
+                </button>
+              </CommonTableColumn>
+            </CommonTableRow>
+          ))}
+        </CommonTable>
       </div>
       <div className="d-flex flex-row-reverse bd-highlight pt-3">
         <button className="btn btn-outline-dark mr-3">전달</button>
@@ -43,87 +57,49 @@ export const PastRecord = (props) => {
       {/* 과거기록 상세보기 modal */}
       <Modal open={modalOpen} close={closeModal} header="검사결과 확인">
         <div className={style.past_title}>환자 정보</div>
-        <table className="table table-bordered text-center">
-          <thead>
-            <tr>
-              <th>환자번호</th>
-              <th>환자이름</th>
-              <th>주민번호</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>121651</td>
-              <td>김명휘</td>
-              <td>951115-1xxxxxx</td>
-            </tr>
-          </tbody>
-        </table>
+        <CommonTable headersName={["환자번호", "환자이름", "주민번호"]}>
+          <CommonTableRow key={patient.patientId}>
+            <CommonTableColumn>{patient.patientId}</CommonTableColumn>
+            <CommonTableColumn>{patient.patientName}</CommonTableColumn>
+            <CommonTableColumn>{patient.patientSsn1}</CommonTableColumn>
+          </CommonTableRow>
+        </CommonTable>
 
         <div className={style.past_title}>내원일 정보</div>
-        <table className="table table-bordered text-center">
-          <thead>
-            <tr>
-              <th>내원일자</th>
-              <th>진료실</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>2021-06-16</td>
-              <td>1진료실</td>
-            </tr>
-          </tbody>
-        </table>
+        <CommonTable headersName={["내원일자"]}>
+          <CommonTableRow>
+            <CommonTableColumn>{pList[0]?.dDate}</CommonTableColumn>
+          </CommonTableRow>
+        </CommonTable>
 
         <div className={style.past_title}>결과 확인</div>
         <hr />
 
         <div className={style.past_title2}>검사 결과</div>
-        <table className="table table-bordered text-center">
-          <thead>
-            <tr>
-              <th>처방코드</th>
-              <th>검사명</th>
-              <th>검사담당자</th>
-              <th>결과</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>E7401</td>
-              <td>순환기능검사</td>
-              <td>정예원</td>
-              <td>17</td>
-            </tr>
-            <tr>
-              <td>D0012</td>
-              <td>백혈구백분율</td>
-              <td>정예원</td>
-              <td>45</td>
-            </tr>
-          </tbody>
-        </table>
+        <CommonTable headersName={["처방코드", "검사명", "검사담당자", "결과"]}>
+          {iResultList.map((iResultList, index) => (
+            <CommonTableRow key={iResultList.iId}>
+              <CommonTableColumn>{iResultList.iId}</CommonTableColumn>
+              <CommonTableColumn>{iResultList.iName}</CommonTableColumn>
+              <CommonTableColumn>{iResultList.inspector}</CommonTableColumn>
+              <CommonTableColumn>{iResultList.iResult}</CommonTableColumn>
+            </CommonTableRow>
+          ))}
+        </CommonTable>
 
         <div className={style.past_title2}>약 처방</div>
-        <table className="table table-bordered text-center">
-          <thead>
-            <tr>
-              <th>코드</th>
-              <th>명칭</th>
-              <th>구분</th>
-              <th>단위</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>NIZA15</td>
-              <td>AXID Cap 150mg</td>
-              <td>내복약 </td>
-              <td>C</td>
-            </tr>
-          </tbody>
-        </table>
+        <div className={style.past_title2}>검사 결과</div>
+        <CommonTable headersName={["코드", "명칭", "구분", "단위"]}>
+          {mResultList.map((mResultList, index) => (
+            <CommonTableRow key={mResultList.mId}>
+              <CommonTableColumn>{mResultList.mId}</CommonTableColumn>
+              <CommonTableColumn>{mResultList.mName}</CommonTableColumn>
+              <CommonTableColumn>{mResultList.mCategory}</CommonTableColumn>
+              <CommonTableColumn>{mResultList.mUnit}</CommonTableColumn>
+            </CommonTableRow>
+          ))}
+        </CommonTable>
+        
       </Modal>
     </div>
   );

@@ -8,6 +8,16 @@ let patientList = [
   {patientId:"4", patientName:"정윤환4", patientSsn1:"950624", patientPhone:"01012345674", dDate: "2021-06-21"}
 ];
 
+export function getPatient(pid) {
+  let patient = {};
+  for(var p=0; p<patientList.length; p++){
+    if(patientList[p].patientId === (pid+"")){
+      patient = patientList[p];
+    }
+  }
+  return patient;
+};
+
 export function getPatientList(day) {
   let list = [];
   for(var d=0; d<patientList.length; d++){
@@ -17,6 +27,16 @@ export function getPatientList(day) {
   }
   return list;
 };
+
+export function getPatientSearchList(day, keyword){
+  let list = [];
+  for(var d2=0; d2<patientList.length; d2++){
+    if(patientList[d2].dDate === day && (patientList[d2].patientName).includes(keyword)){
+      list.push(patientList[d2]);
+    }
+  }
+  return list;
+}
 
 //약 목록
 let medicineList = [];
@@ -32,6 +52,16 @@ export function getMedicineList() {
   return medicineList;
 };
 
+export function getMedicineSearchList(keyword){
+  let list = [];
+  for(var m=0; m<patientList.length; m++){
+    if((medicineList[m].mName).includes(keyword)){
+      list.push(medicineList[m]);
+    }
+  }
+  return list;
+}
+
 //검사 목록
 let inspectionList = [];
 for(var i3=1; i3<=size; i3++) {
@@ -43,6 +73,16 @@ for(var i3=1; i3<=size; i3++) {
 export function getInspectionList() {
   return inspectionList;
 };
+
+export function getInspectionSearchList(keyword){
+  let list = [];
+  for(var i6=0; i6<inspectionList.length; i6++){
+    if((inspectionList[i6].bundleName).includes(keyword)){
+      list.push(inspectionList[i6]);
+    }
+  }
+  return list;
+}
 
 const iData = [
   {bundleCode: "L2001", iId:"검사id", iName: "검사name"},
@@ -82,5 +122,46 @@ export function getPastRecord(patientId){
   return list;
 }
 
+let resultIList = [
+  {pId:"1", dDate: "2021-06-20", iId:"검사id", iName:"검사name", inspector:"정예원", iResult:"17"},
+  {pId:"1", dDate: "2021-06-20", iId:"검사id2", iName:"검사name2", inspector:"정예원", iResult:"45"}
+]
+
+export function getResultIList(id) {
+  let list = [];
+  for(var i=0; i<resultIList.length; i++){
+    if(resultIList[i].pId === (id+"")){
+      list.push(resultIList[i]);
+    }
+  }
+  return list;
+};
+
+let resultMList = [
+  {pId:"1", dDate: "2021-06-20",  mId:"NIZA1", mName:"AXID Cap 1 mg", mCategory:"내복약", mUnit:"C"},
+]
+
+export function getResultMList(id) {
+  let list = [];
+  for(var i=0; i<resultMList.length; i++){
+    if(resultMList[i].pId === (id+"")){
+      list.push(resultMList[i]);
+    }
+  }
+  return list;
+};
 
 
+
+//test
+let receptionTime = [
+  {rDate: "2021-06-23 09:00"},
+  {rDate: "2021-06-23 10:00"},
+  {rDate: "2021-06-23 11:00"},
+  {rDate: "2021-06-23 13:00"},
+  {rDate: "2021-06-23 14:00"},
+]
+
+export function getTime() {
+  return receptionTime;
+};

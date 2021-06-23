@@ -1,6 +1,5 @@
 import React from "react";
 import style from "./inspectionresult.module.css";
-
 import CommonTable from "views/table/CommonTable";
 import CommonTableRow from "views/table/CommonTableRow";
 import CommonTableColumn from "views/table/CommonTableColumn";

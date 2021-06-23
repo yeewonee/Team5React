@@ -1,9 +1,7 @@
 import React from "react";
-import { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import style from "./medicineresult.module.css";
 import { createSetRemoveMlistAction } from "redux/diagnosis-reducer";
-import { useEffect } from "react";
 import CommonTable from "views/table/CommonTable";
 import CommonTableRow from "views/table/CommonTableRow";
 import CommonTableColumn from "views/table/CommonTableColumn";

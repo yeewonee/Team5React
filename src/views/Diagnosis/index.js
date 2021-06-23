@@ -1,7 +1,6 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import { Cal } from "./Cal";
-import { Communication } from "./Communication";
 import style from "./diagnosis.module.css";
 import { InspectionList } from "./InspectionList";
 import { InspectionResult } from "./InspectionResult";
@@ -28,7 +27,7 @@ function Diagnosis(props) {
 
   //환자 선택
   const patientId = useSelector((state) => {
-    return state.pastrecordReducer.pId;
+    return state.diagnosisReducer.pId;
   })
 
   return (
@@ -43,12 +42,7 @@ function Diagnosis(props) {
                 </div>
                 <Memo />
               </div>
-              <div className={`${style.communication} m-1`}>
-                <div className={style.title}>
-                  <p className={style.title_p}>의사소통 메모</p>
-                </div>
-                <Communication />
-              </div>
+          
               <div className={`${style.calendar_container} m-1`}>
                 <div className={style.calendar}>
                   <div className="d-flex justify-content-between">
@@ -106,7 +100,7 @@ function Diagnosis(props) {
                     <div className={style.title}>
                       <p className={style.title_p}>과거 기록</p>
                     </div>
-                    <PastRecord patientId={patientId} />
+                    <PastRecord patientId={patientId} day={day} />
                   </div>
                 </div>
               </div>

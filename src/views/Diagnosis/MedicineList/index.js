@@ -1,8 +1,8 @@
 import React from "react";
 import style from "./medecinelist.module.css";
-import { getMedicineList } from "../data";
+import { getMedicineList, getMedicineSearchList } from "../data";
 import { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { createSetAddMlistAction } from "redux/diagnosis-reducer";
 import CommonTableRow from "views/table/CommonTableRow";
 import CommonTableColumn from "views/table/CommonTableColumn";
@@ -10,7 +10,10 @@ import CommonTable from "views/table/CommonTable";
 import { useEffect } from "react";
 
 export const MedicineList = (props) => {
-  const medicineList = getMedicineList();
+
+  const originMList = getMedicineList();
+  const [medicineList, setMedicineList] = useState(originMList)
+
 
   //DB에서 약 목록 size 받아오기
   const arr = Array.from({ length: medicineList.length }, () => false);
@@ -30,7 +33,18 @@ export const MedicineList = (props) => {
     setKeyword(event.target.value);
   };
 
-  const keywordButton = (event) => {};
+  const keywordButton = (event) => {
+    const keywordMedicine = getMedicineSearchList(keyword);
+    setCheckArray(arr);
+    if(keyword===''){ //검색어가 없으면
+      setMedicineList(originMList); //list에 전체 목록 넣어주고
+    }else{ //검색어가 있으면
+      setMedicineList(keywordMedicine); //list에 검색어에 맞는 목록 넣음
+    }
+    setList({
+      mlist: props.mList
+    });
+  };
 
   const [list, setList] = useState({
     mlist: []
@@ -41,7 +55,7 @@ export const MedicineList = (props) => {
     setList({
       mlist: props.mList
     });
-  }, [props]);
+  }, [props, keyword]);
   
   const medicineClick = (event, m) => {
     if (event.target.checked) {
@@ -81,7 +95,6 @@ export const MedicineList = (props) => {
               <button className="btn btn-outline-secondary btn-sm" type="button" onClick={keywordButton}>
                 검색
               </button>
-              <p>{keyword}</p>
             </div>
           </div>
           <div className="mr-1 mt-1">
@@ -99,7 +112,7 @@ export const MedicineList = (props) => {
                     onChange={(event) => {
                       changeCheck(event, index);
                     }}
-                    checked={checkArray[index]}
+                    checked={checkArray[index] || ''}
                     onClick={(event) => medicineClick(event, medicine)}
                   />
                 </CommonTableColumn>

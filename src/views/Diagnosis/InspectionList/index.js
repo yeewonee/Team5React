@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { getInspectionList, getInspection } from "../data";
+import { useDispatch } from "react-redux";
+import { getInspectionList, getInspection, getInspectionSearchList } from "../data";
 import style from "./inspectionlist.module.css";
 import { createSetAddIlistAction } from "redux/diagnosis-reducer";
 import CommonTable from "views/table/CommonTable";
@@ -9,7 +9,8 @@ import CommonTableRow from "views/table/CommonTableRow";
 import CommonTableColumn from "views/table/CommonTableColumn";
 
 export const InspectionList = (props) => {
-  const inspectionList = getInspectionList();
+  const originIList = getInspectionList();
+  const [inspectionList, setInspectionList] = useState(originIList);
 
   //DB에서 약 목록 size 받아오기
   const arr = Array.from({ length: inspectionList.length }, () => false);
@@ -31,7 +32,16 @@ export const InspectionList = (props) => {
   };
 
   const keywordButton = (event) => {
-    //검색 버튼을 눌렀을 때`   back-end로 전달
+    const keywordInspection = getInspectionSearchList(keyword);
+    setCheckArray(arr);
+    if(keyword===''){ //검색어가 없으면
+      setInspectionList(originIList); //list에 전체 목록 넣어주고
+    }else{ //검색어가 있으면
+      setInspectionList(keywordInspection); //list에 검색어에 맞는 목록 넣음
+    }
+    setList({
+      iList: props.iList,
+    });
   };
 
   const [list, setList] = useState({
@@ -42,13 +52,11 @@ export const InspectionList = (props) => {
     setList({
       iList: props.iList,
     });
-  }, [props]);
+  }, [props, keyword]);
 
   const inspectionClick = (event, bundleCode) => {
     if (event.target.checked) {
       let temp = getInspection(bundleCode);
-      console.log("ilist", list.iList);
-      console.log("temp", temp)
       setList((prevList) => {
         return {
           ...prevList,
@@ -69,7 +77,6 @@ export const InspectionList = (props) => {
 
   const dispatch = useDispatch();
   const addInspection = (event) => {
-    console.log("체크된 리스트", list.iList);
     dispatch(createSetAddIlistAction(list.iList));
     //DB에서 size 가져오기
     let checkarray = arr;
@@ -83,10 +90,9 @@ export const InspectionList = (props) => {
           <div className="input-group m-1">
             <input type="text" name="keyword" onChange={keywordChange} value={keyword} />
             <div className="input-group-append">
-              <button className="btn btn-outline-secondary btn-sm" type="button">
+              <button className="btn btn-outline-secondary btn-sm" type="button" onClick={keywordButton}>
                 검색
               </button>
-              <p>{keyword}</p>
             </div>
           </div>
           <div className="mr-1 mt-1">
@@ -104,7 +110,7 @@ export const InspectionList = (props) => {
                     onChange={(event) => {
                       changeCheck(event, index);
                     }}
-                    checked={checkArray[index]}
+                    checked={checkArray[index]||''}
                     onClick={(event) => inspectionClick(event, inspection.bundleCode)}
                   />
                 </CommonTableColumn>

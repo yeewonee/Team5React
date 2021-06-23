@@ -80,7 +80,7 @@
 
 .react-datepicker {
   font-family: "DoHyeon-Regular"; 
-  font-size: 0.8rem;
+  font-size: 1rem;
   background-color: #fff;
   width:100%;
   color: #000;
@@ -445,7 +445,7 @@
 .react-datepicker__time-name {
   color: #000;
   display: inline-block;
-  width: 1.7rem;
+  width: 3.0rem;
   line-height: 1.7rem;
   text-align: center;
   margin: 0.2rem;

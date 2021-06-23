@@ -7,7 +7,8 @@ const initialState = {
   mlist: [],
   mId: "",
   ilist: [],
-  iId: ""
+  iId: "",
+  pId:""
 };
 
 //액션 타입 선언
@@ -17,8 +18,13 @@ const SET_ADDMLIST = "diagnosis/setMlist";
 const SET_REMOVEMLIST = "diagnosis/setRemoveMlist";
 const SET_ADDILIST = "diagnosis/setAddIlist";
 const SET_REMOVEILIST = "diagnosis/setRemoveIlist";
+const SET_PID = "diagnosis/setPid";
 
 //액션 생성 함수 선언
+export const createSetPidAction = (pid) => {
+  return {type:SET_PID, pid};
+};
+
 export const createSetMemoAction = (comment) => {
   return {type:SET_COMMENT, comment};
 };
@@ -58,6 +64,8 @@ const diagnosisReducer = (state=initialState, action) => {
     return {...state, ilist: action.ilist};
   }else if(action.type === SET_REMOVEILIST){
     return {...state, ilist: state.ilist.filter((ilist) => ilist.iId !== action.iid)};
+  }else if(action.type === SET_PID){
+    return {...state, pId: action.pid};
   }else{
     return state;
   }
