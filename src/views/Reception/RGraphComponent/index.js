@@ -40,7 +40,7 @@ export default class RGraph extends PureComponent {
           <LineChart className={style.graph}
             style={{width:'100%'}}
             width={1300}
-            height={200}
+            height={207}
             data={data}
             margin={{
               top: 20, bottom: 5, right:30

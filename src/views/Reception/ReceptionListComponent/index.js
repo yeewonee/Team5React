@@ -1,11 +1,12 @@
 import style from './rlist.module.css';
-import Calendar from "./Calendar";
-import SearchBar from './SearchBar';
+import Calendar from "./CalendarComponent/Calendar";
+import SearchBar from './SearchBarComponent/SearchBar';
 import { Row, Col, Button, Modal } from 'react-bootstrap';
 import { useState } from "react";
 import {Link} from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { setReception } from 'redux/reception-reducer';
+import { getPatientList } from './data';
 
 function ReceptionList(props){
   const [patientBoard, setPatientBoard] = useState({
@@ -18,16 +19,7 @@ function ReceptionList(props){
     r_status:""
   });
 
-
-  const patientList = [
-    { r_id: 5, patient_name: "김명휘", patient_ssn1: 980403, patient_phone: "01038203321", r_date: "21.06.15", r_time: "11:30", r_status:"접수대기"},
-    { r_id: 4, patient_name: "정예원", patient_ssn1: 950211, patient_phone: "01045678902", r_date: "21.06.15", r_time: "11:00", r_status:"접수대기"},
-    { r_id: 3, patient_name: "정윤환", patient_ssn1: 960123, patient_phone: "01029872701", r_date: "21.06.15", r_time: "10:30", r_status:"접수완료"},
-    { r_id: 2, patient_name: "김명휘", patient_ssn1: 980403, patient_phone: "01038203321", r_date: "21.06.15", r_time: "10:00", r_status:"접수완료"},
-    { r_id: 1, patient_name: "박소라", patient_ssn1: 930516, patient_phone: "01059210192", r_date: "21.06.15", r_time: "09:30", r_status:"접수완료"}
-  
-  ]
-
+  const patientList = getPatientList();
   const dispatch = useDispatch();
   const arr = Array.from({length: patientList.length}, () => false); //patientList길이만큼 새로 만들어서 false로 채움
   const [checkArray,setCheckArray] = useState(arr); //상태
@@ -51,6 +43,7 @@ function ReceptionList(props){
 
   const [show1, setShow1] = useState(false);
   const handleClose1 = () => setShow1(false);
+  //환자상세정보
   const buttonModal1 = (event, list) => {
     setPatientBoard({
       patient_name: list.patient_name,
@@ -63,13 +56,19 @@ function ReceptionList(props){
     setShow1(true)
   };
 
-  const [searchName, setSearchName] = useState("");
-  console.log("props : "+props.searchName)
-  
-  const handleButton = (e, searchName) =>{
-    console.log("data2 : "+searchName)
+  //검색창
+  const [ searchValue, setSearchValue ] = useState({
+    value: ""
+  });
+  const [boards, setBoards] = useState(patientList);
+  var newBoards = boards; 
+  if(searchValue.value === ""){
+    newBoards = boards.filter(board => board.patient_name !== searchValue.value);
+  }else{
+    newBoards = boards.filter(board => board.patient_name === searchValue.value);
   }
 
+  
   return(
     <div className={style.font}>
       <Modal show={show} onHide={handleClose} className={style.font} dialogClassName="custom-modal">
@@ -187,7 +186,7 @@ function ReceptionList(props){
                 <Calendar/>
               </div>
               <div className={style.margin3}>
-                <SearchBar handleButton={handleButton}/>
+                <SearchBar setSearchValue={setSearchValue}/>
               </div>
             </div>
             <div className={style.buttonlocation}>
@@ -214,7 +213,7 @@ function ReceptionList(props){
                 </tr>
               </thead>
               <tbody>
-                {patientList.map((list, index) => {
+                {newBoards.map((list, index) => {
                 return (
                   <tr key={list.r_id} className={style.list}>
                     <td><input type="checkbox" onChange={(event)=>{changeCheck(event, index, list.r_id)}}  checked={checkArray[index]}></input></td>
