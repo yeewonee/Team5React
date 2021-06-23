@@ -54,7 +54,7 @@ export const UpdatePstatusAction = (status) =>{
 const inspectionReducer = (state=initialState,action) => {
 
     if(action.type === SET_PATIENT){
-        return {...state,patient:action.patient}
+        return {...state,patient:action.patient,checked:[]}
     }if(state.checked===undefined){
         state.checked=[]
     }

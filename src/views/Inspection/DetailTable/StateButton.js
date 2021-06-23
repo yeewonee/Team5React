@@ -4,6 +4,7 @@ import style from "./StateButton.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import { UpdatePstatusAction, UpdateStatusAction } from "redux/inspection_Reducer";
 import { patientInspect, updateaInspect, updateInspect } from "../data";
+import { useState } from "react";
 
 const cx = classNames.bind(style);
 
@@ -16,8 +17,8 @@ export const StateButton = (props) => {
   const patient = useSelector((state) => state.inspectReducer.patient);
 
   const inspectList = props.list;
-  const changeState = (props) => {
 
+  const changeState = (props) => {
     //버튼 예외처리
     if (patient.tstatus === "완료") {
       console.log("완료");
@@ -31,7 +32,7 @@ export const StateButton = (props) => {
         return;
       }
     }
-   
+
     if (checkList.length > 1) {
       console.log("여러개");
       if (changeValue === "접수") {
@@ -41,6 +42,12 @@ export const StateButton = (props) => {
     }
 
     for (let i = 0; i < checkList?.length; i++) {
+      if (inspectList[i].istatus === "접수") {
+        if (changeValue === "접수") {
+          alert("현재 검사가 진행중입니다.");
+          return;
+        }
+      }
       if (checkList[i].istatus === "대기") {
         if (changeValue === "완료") {
           alert("검사를 먼저 진행해주세요");
@@ -48,10 +55,14 @@ export const StateButton = (props) => {
         }
       }
       if (checkList[i].istatus === "완료") {
-        if (changeValue === "대기"||changeValue === "접수") {
+        if (changeValue === "대기" || changeValue === "접수") {
           alert("완료된 검사입니다");
           return;
         }
+      }
+      //Modal
+      if (changeValue === "접수") {
+        props.openModal();
       }
     }
 
@@ -84,15 +95,12 @@ export const StateButton = (props) => {
       value = "대기";
       dispatch(UpdatePstatusAction(value));
     }
-    console.log(value)
-   
+    console.log(value);
   };
-  
-  
 
   return (
     <div>
-      <input type="button" className={cx(style.stateButton)} value={buttonName} onClick={changeState} />
+      <input type="button" className={cx(style.stateButton)} value={buttonName} onClick={() => changeState(props)} />
     </div>
   );
 };
