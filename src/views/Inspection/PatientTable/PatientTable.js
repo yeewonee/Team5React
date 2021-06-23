@@ -15,7 +15,7 @@ function PatientTable(props) {
   const patientList = props.data;
 
   const dispatch = useDispatch();
-
+  const patient = useSelector(state => state.inspectReducer.patient)
   const [check, setCheck] = useState({
     pno:'',
     tstatus:''

@@ -17,25 +17,26 @@ let data = [
 ];
 
 let data2 = [
-  { pno: "12345", bno: "L2001", iname: "WBC", ino: "L2010", unit: "x10^3/mm3", inspector: "김명휘", istatus: "완료" },
-  { pno: "12345", bno: "L2001", iname: "WBC", ino: "L2011", unit: "x10^3/mm3", inspector: "김명휘", istatus: "진행중" },
-  { pno: "12345", bno: "L2001", iname: "WBC", ino: "L2012", unit: "x10^3/mm3", inspector: "김명휘", istatus: "대기" },
-  { pno: "12345", bno: "L2001", iname: "WBC", ino: "L2013", unit: "x10^3/mm3", inspector: "김명휘", istatus: "대기" },
-  { pno: "12345", bno: "L3001", iname: "WBC", ino: "L2014", unit: "x10^3/mm3", inspector: "김명휘", istatus: "대기" },
-  { pno: "546546", bno: "L3001", iname: "WBC", ino: "L2015", unit: "x10^3/mm3", inspector: "김명휘", istatus: "대기" },
-  { pno: "546546", bno: "L3001", iname: "WBC", ino: "L2016", unit: "x10^3/mm3", inspector: "김명휘", istatus: "대기" },
-  { pno: "63879", bno: "L2001", iname: "WBC", ino: "L2017", unit: "x10^3/mm3", inspector: "정윤환", istatus: "대기" },
-  { pno: "63879", bno: "L2001", iname: "WBC", ino: "L2018", unit: "x10^3/mm3", inspector: "정윤환", istatus: "대기" },
-  { pno: "63879", bno: "L2201", iname: "WBC", ino: "L2019", unit: "x10^3/mm3", inspector: "정윤환", istatus: "진행중" },
-  { pno: "63879", bno: "L2201", iname: "WBC", ino: "L2020", unit: "x10^3/mm3", inspector: "정윤환", istatus: "대기" },
-  { pno: "63879", bno: "L2201", iname: "WBC", ino: "L2021", unit: "x10^3/mm3", inspector: "정윤환", istatus: "대기" },
-  { pno: "2234", bno: "L5001", iname: "WBC", ino: "L2022", unit: "x10^3/mm3", inspector: "김명휘", istatus: "대기" },
-  { pno: "2234", bno: "L5001", iname: "WBC", ino: "L2023", unit: "x10^3/mm3", inspector: "김명휘", istatus: "대기" },
-  { pno: "2234", bno: "L5001", iname: "WBC", ino: "L2024", unit: "x10^3/mm3", inspector: "김명휘", istatus: "대기" },
-  { pno: "2234", bno: "L5001", iname: "WBC", ino: "L2025", unit: "x10^3/mm3", inspector: "김명휘", istatus: "대기" },
+  { pno: "12345", bno: "L2001", iname: "WBC", ino: "L2010", unit: "x10^3/mm3", inspector: "김명휘", istatus: "대기" },
+  { pno: "12345", bno: "L2001", iname: "RBC", ino: "L2011", unit: "x10^3/mm3", inspector: "김명휘", istatus: "대기" },
+  { pno: "12345", bno: "L2001", iname: "Hb (광전비색법)", ino: "L2012", unit: "x10^3/mm3", inspector: "김명휘", istatus: "대기" },
+  { pno: "12345", bno: "L2001", iname: "Hct(Hematocrit)", ino: "L2013", unit: "x10^3/mm3", inspector: "김명휘", istatus: "대기" },
+  { pno: "12345", bno: "L3001", iname: "Platelet", ino: "L2014", unit: "x10^3/mm3", inspector: "김명휘", istatus: "대기" },
+  { pno: "12345", bno: "L3001", iname: "Platelet", ino: "L2030", unit: "x10^3/mm3", inspector: "김명휘", istatus: "대기" },
+  { pno: "546546", bno: "L3001", iname: "II응고인자정량*(11366036)", ino: "L2015", unit: "x10^3/mm3", inspector: "김명휘", istatus: "대기" },
+  { pno: "546546", bno: "L3001", iname: "응고인자정량*(11366036)SCL", ino: "L2016", unit: "x10^3/mm3", inspector: "김명휘", istatus: "대기" },
+  { pno: "63879", bno: "L2001", iname: "VII응고인자정량*(11366036)SCL", ino: "L2017", unit: "x10^3/mm3", inspector: "정윤환", istatus: "접수" },
+  { pno: "63879", bno: "L2001", iname: "'VIII응고인자정량*(11366036)SCL", ino: "L2018", unit: "x10^3/mm3", inspector: "정윤환", istatus: "대기" },
+  { pno: "63879", bno: "L2201", iname: "IX응고인자정량*(11366036)SCL", ino: "L2019", unit: "x10^3/mm3", inspector: "정윤환", istatus: "대기" },
+  { pno: "63879", bno: "L2201", iname: "Glucose(fasting) 정량", ino: "L2020", unit: "x10^3/mm3", inspector: "정윤환", istatus: "대기" },
+  { pno: "63879", bno: "L2201", iname: "'Total protein", ino: "L2021", unit: "x10^3/mm3", inspector: "정윤환", istatus: "대기" },
+  { pno: "2234", bno: "L5001", iname: "Albumin", ino: "L2022", unit: "x10^3/mm3", inspector: "김명휘", istatus: "접수" },
+  { pno: "2234", bno: "L5001", iname: "'Bilirubin, total", ino: "L2023", unit: "x10^3/mm3", inspector: "김명휘", istatus: "대기" },
+  { pno: "2234", bno: "L5001", iname: "SGOT", ino: "L2024", unit: "x10^3/mm3", inspector: "김명휘", istatus: "대기" },
+  { pno: "2234", bno: "L5001", iname: "BUN", ino: "L2025", unit: "x10^3/mm3", inspector: "김명휘", istatus: "대기" },
 ];
 
-export function getBoardList() {
+export function getPatientList() {
   data.sort((a, b) => a.sequence - b.sequence);
   var boardList = data.slice(0, data.length);
   return boardList;
@@ -57,4 +58,13 @@ export function updateInspect(board, status) {
     const row = data2.find((row) => row.ino === board[i].ino);
     row.istatus = status;
   }
+}
+
+export function patientInspect(pno,status) {
+  
+ console.log(typeof(pno))
+  const row =data.find((row)=>row.pno===pno)
+  
+  row.tstatus = status
+  
 }
