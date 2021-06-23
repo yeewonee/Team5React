@@ -15,7 +15,7 @@
 
 .inspection_container{
   border: 1px solid lightgray; 
-  height: 30vh; 
+  height: 28vh; 
   width: 100%; 
   background-color: white; 
   overflow: auto;

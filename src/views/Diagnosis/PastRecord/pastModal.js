@@ -14,7 +14,7 @@ const pastModal = ( props ) => {
                         {header}
                         <button className="close" onClick={close}> &times; </button>
                     </header>
-                    <main>
+                    <main style={{overflow:'auto'}}>
                         {props.children}
                     </main>
                     <footer>
