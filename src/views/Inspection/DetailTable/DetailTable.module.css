@@ -22,3 +22,11 @@
     border-radius: 16px;
     background-color: #ced4da; /*스크롤바의 색상*/
 }
+
+.stateButton{
+    margin-top: 8px;
+    margin-right: 8px;
+    background-color: transparent;
+    border-radius: 4px;
+    
+}

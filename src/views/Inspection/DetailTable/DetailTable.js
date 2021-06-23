@@ -8,17 +8,26 @@ import { useDispatch, useSelector } from "react-redux";
 import { createSetCheckDownAction,createSetCheckUpAction, UpdatePstatusAction } from "redux/inspection_Reducer";
 import { StateButton } from "./StateButton";
 import { useState } from "react";
-import { getInspectList, patientInspect } from "../data";
+import { CSVLink } from "react-csv";
 import { useEffect } from "react";
+import Modal from "./Modal";
+import Barcode from "react-barcode";
+
+
+
 
 
 const cx = classNames.bind(style);
 
+
 function DetailTable(props) {
+
+ 
   const inspectList = props.data;
   
   const [checkArray, setCheckArray] = useState([]);
   const checkList = useSelector(state => state.inspectReducer.checked);
+  console.log(checkList)
   const patient = useSelector(state => state.inspectReducer.patient);
   
 
@@ -49,6 +58,8 @@ function DetailTable(props) {
 
 
 
+
+
   const changeHandler = (checked,board) => {
     if (checked) {
       dispatch(createSetCheckDownAction(board));
@@ -58,25 +69,53 @@ function DetailTable(props) {
     }
   };
 
-  // const arr =[]
-  // for(let i=0; i<inspectList?.length; i++){
-  //   if(inspectList[i].istatus === '완료'){
-  //     arr.push(inspectList[i])
-  //   }
-  // }
-  //   if(arr.length&&arr.length === inspectList.length){
-  //     patientInspect(patient?.pno,'완료')
-  // }
 
- 
+
+  const headers = [
+    { label: '환자번호', key: 'pno'},
+    { label: '묶음코드', key: 'bno'},
+    { label: '검사명', key: 'iname'},
+    { label: '검사번호', key: 'ino'},
+    { label: '단위', key: 'unit'},
+    { label: '검사자', key: 'inspector'},
+    { label: '검사상태', key: 'istatus'},
+  ];
+
+  const [ modalOpen, setModalOpen ] = useState(false);
+
+  const openModal = () => {
+      setModalOpen(true);
+  }
+  console.log(modalOpen)
+  const closeModal = () => {
+      setModalOpen(false);
+  }
+
+  
 
   return (
     <div>
       <div className={cx(style.middle_right_bottom)}>
         <div className={cx(style.buttonBox)}>
-          <StateButton value={'바코드 출력'} change={'접수'} check={checkArray} checkfun={checkState} list={inspectList}></StateButton>
+        
+
+          <StateButton value={'바코드 출력'} change={'접수'} check={checkArray} checkfun={checkState} list={inspectList} openModal={openModal}></StateButton>
+          <Modal open={ modalOpen } close={ closeModal } header="Modal heading">
+          <Barcode value="http://github.com/kciter" />
+          </Modal>
           <StateButton value={'접수 취소'} change={'대기'} check={checkArray} checkfun={checkState} list={inspectList}></StateButton>
           <StateButton value={'채혈 완료'} change={'완료'} check={checkArray} checkfun={checkState} list={inspectList}></StateButton>
+          <button className={cx(style.stateButton)}>
+      <CSVLink 
+      	headers={headers} 
+        data={checkList} 
+        filename="users.csv" 
+        target="_blank"
+        style={{color: 'black', textDecoration:'none'}}
+      >
+        엑셀 저장
+      </CSVLink>
+    </button>
            
         </div>
         <div className="right-table">
