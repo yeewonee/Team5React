@@ -1,7 +1,7 @@
 import React from 'react';
 import "./pastmodal.css";
 
-const pastModal = ( props ) => {
+const Modal = ( props ) => {
     // 열기, 닫기, 모달 헤더 텍스트를 부모로부터 받아옴
     const { open, close, header } = props;
 
@@ -26,4 +26,4 @@ const pastModal = ( props ) => {
     )
 }
 
-export default pastModal;
+export default Modal;

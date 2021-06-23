@@ -1,4 +1,4 @@
-import Modal from "./pastModal";
+import Modal from "./Modal";
 import React from 'react'
 import style from "./pastrecord.module.css";
 import CommonTable from "views/table/CommonTable";
