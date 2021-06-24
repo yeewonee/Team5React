@@ -27,7 +27,6 @@ function DetailTable(props) {
   
   const [checkArray, setCheckArray] = useState([]);
   const checkList = useSelector(state => state.inspectReducer.checked);
-  console.log(checkList)
   const patient = useSelector(state => state.inspectReducer.patient);
   
 
@@ -119,7 +118,7 @@ function DetailTable(props) {
            
         </div>
         <div className="right-table">
-          <CommonTable headersName={["", "묶음코드", "처방코드", "검사명", "단위", "검사자", "상태"]}>
+          <CommonTable headersName={["", "묶음코드", "처방코드", "검사명", "단위", "검사자", "상태"]} tstyle={"table table-sm"}>
             {inspectList.map((board, index) =>  (
               <CommonTableRow key={board.ino}>
                 <CommonTableColumn>
