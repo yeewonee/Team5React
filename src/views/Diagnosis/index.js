@@ -35,8 +35,8 @@ function Diagnosis(props) {
       <div className={style.d_container}>
         <div className="d-flex justify-content-center">
           <div className={style.left_container}>
-            <div className="d-flex justify-content-center">
-              <div className={`${style.memo} m-1`}>
+            <div className="d-flex justify-content-center" style={{height:"100%"}}>
+              <div className={`${style.memo} m-1 h-100`}>
                 <div className={style.title}>
                   <p className={style.title_p}>환자 메모</p>
                 </div>

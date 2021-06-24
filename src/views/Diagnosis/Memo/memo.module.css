@@ -1,7 +1,7 @@
 .memo_write{
   border: 1px solid lightgray; 
-  height: 29vh; 
   width: 100%;
+  height:250px;
 }
 
 .textarea_style{
