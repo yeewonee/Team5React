@@ -47,7 +47,6 @@ export const ModalPast = (props) => {
         </CommonTable>
 
         <div className={style.past_title2}>약 처방</div>
-        <div className={style.past_title2}>검사 결과</div>
         <CommonTable headersName={["코드", "명칭", "구분", "단위"]}>
           {props.mResultList.map((mResultList, index) => (
             <CommonTableRow key={mResultList.mId}>
