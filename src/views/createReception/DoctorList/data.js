@@ -12,8 +12,8 @@ export function getDoctorList(){
   return doctorList;
 };
 
-export function getDoctor(doctor_id){
-  const doctor = data.find(doctor => doctor.doctor_id===doctor_id);
+export function getDoctor(d_id){
+  const doctor = data.find(doctor => doctor.doctor_id == d_id);
   return doctor; 
 }
 
