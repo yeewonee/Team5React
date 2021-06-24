@@ -15,7 +15,7 @@
 }
 .modal > section {
     width: 90%;
-    max-width: 800px;
+    max-width: 450px;
     margin:0 auto;
     border-radius: .3rem;
     background-color: #fff;
@@ -48,12 +48,12 @@
 .modal > section > footer {
     padding: 12px 16px;
     text-align: right;
+    background-color: #4dabf7;
 }
 .modal > section > footer button {
-    padding: 12px;
-    margin-bottom: 10px;
+    padding: 6px 12px;
     color: #fff;
-    background-color: #4dabf7;;
+    background-color: #4dabf7;
     border-radius: 5px;
     font-size: 13px;
 }

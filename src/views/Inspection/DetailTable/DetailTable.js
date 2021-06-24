@@ -8,20 +8,29 @@ import { useDispatch, useSelector } from "react-redux";
 import { createSetCheckDownAction,createSetCheckUpAction, UpdatePstatusAction } from "redux/inspection_Reducer";
 import { StateButton } from "./StateButton";
 import { useState } from "react";
-import { getInspectList } from "../data";
+import { CSVLink } from "react-csv";
+import { useEffect } from "react";
+import Modal from "./Modal";
+import Barcode from "react-barcode";
+
+
+
 
 
 const cx = classNames.bind(style);
 
+
 function DetailTable(props) {
-  const state = props.data;
-  const inspectList = getInspectList(state?.pno);
-  console.log(inspectList.length)
+
+ 
+  const inspectList = props.data;
   
-  const arr = Array.from({ length: inspectList.length }, () => false);
-  const [checkArray, setCheckArray] = useState(arr);
-  console.log(checkArray)
+  const [checkArray, setCheckArray] = useState([]);
   const checkList = useSelector(state => state.inspectReducer.checked);
+  console.log(checkList)
+  const patient = useSelector(state => state.inspectReducer.patient);
+  
+
   
 
   const changeCheck = (event, index) => {
@@ -34,12 +43,19 @@ function DetailTable(props) {
     setCheckArray(check);
   };
 
+
   const checkState=()=>{
     checkArray.splice(0,checkArray.length)
   }
-  // const arr =[]
+
+  useEffect(() => {
+    setCheckArray([])
+  }, [patient.pno])
+ 
 
   const dispatch = useDispatch();
+
+
 
 
 
@@ -53,23 +69,53 @@ function DetailTable(props) {
     }
   };
 
-  // for(let i=0; i<inspectList?.length; i++){
-  //   if(inspectList[i].istatus === '완료'){
-  //     arr.push(inspectList[i])
-  //   }
-  // }
-  // // if(arr.length === inspectList.length){
-  //   // dispatch(UpdatePstatusAction({pno:patient?.pno,tstatus:'완료'}))
-  //   dispatch(UpdatePstatusAction('완료')) 
-  // }
+
+
+  const headers = [
+    { label: '환자번호', key: 'pno'},
+    { label: '묶음코드', key: 'bno'},
+    { label: '검사명', key: 'iname'},
+    { label: '검사번호', key: 'ino'},
+    { label: '단위', key: 'unit'},
+    { label: '검사자', key: 'inspector'},
+    { label: '검사상태', key: 'istatus'},
+  ];
+
+  const [ modalOpen, setModalOpen ] = useState(false);
+
+  const openModal = () => {
+      setModalOpen(true);
+  }
+  console.log(modalOpen)
+  const closeModal = () => {
+      setModalOpen(false);
+  }
+
+  
 
   return (
     <div>
       <div className={cx(style.middle_right_bottom)}>
         <div className={cx(style.buttonBox)}>
-          <StateButton value={'바코드 출력'} change={'접수'} check={checkArray} checkfun={checkState}></StateButton>
-          <StateButton value={'접수 취소'} change={'대기'} check={checkArray} checkfun={checkState}></StateButton>
-          <StateButton value={'채혈 완료'} change={'완료'} check={checkArray} checkfun={checkState}></StateButton>
+        
+
+          <StateButton value={'바코드 출력'} change={'접수'} check={checkArray} checkfun={checkState} list={inspectList} openModal={openModal}></StateButton>
+          <Modal open={ modalOpen } close={ closeModal } header="Modal heading">
+          <Barcode value="http://github.com/kciter" />
+          </Modal>
+          <StateButton value={'접수 취소'} change={'대기'} check={checkArray} checkfun={checkState} list={inspectList}></StateButton>
+          <StateButton value={'채혈 완료'} change={'완료'} check={checkArray} checkfun={checkState} list={inspectList}></StateButton>
+          <button className={cx(style.stateButton)}>
+      <CSVLink 
+      	headers={headers} 
+        data={checkList} 
+        filename="users.csv" 
+        target="_blank"
+        style={{color: 'black', textDecoration:'none'}}
+      >
+        엑셀 저장
+      </CSVLink>
+    </button>
            
         </div>
         <div className="right-table">
@@ -82,9 +128,9 @@ function DetailTable(props) {
                     type="checkbox"
                     onChange={(event) => {
                       changeHandler(event.currentTarget.checked,board);
-                       changeCheck(event,index)
+                      changeCheck(event,index)
                     }}
-                    checked={checkArray[index]}
+                    checked={checkArray[index]||''}
                   />
                 </CommonTableColumn>
                 <CommonTableColumn>{board.bno}</CommonTableColumn>

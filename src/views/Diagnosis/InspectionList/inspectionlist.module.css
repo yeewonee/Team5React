@@ -1,6 +1,6 @@
 .i_list_container{
   border: 1px solid lightgray; 
-  height: 30vh; 
+  height: 20vh; 
   width: 100%; 
   background-color: white; 
 }
@@ -22,6 +22,6 @@
 
 .i_list{
   overflow: auto;
-  height: 25vh; 
+  height: 15vh; 
   width: 100%; 
 }

@@ -1,7 +1,7 @@
 
 //상태 초기값 선언
 const initialState = {
-  pid:""
+  pId:""
 };
 
 //액션 타입 선언
@@ -16,7 +16,7 @@ export const createSetPidAction = (pid) => {
 //리듀스 선언
 const pastrecordReducer = (state=initialState, action) => {
   if(action.type === SET_PID){
-    return {...state, pid: action.pid};
+    return {...state, pId: action.pid};
   }else{
     return state;
   }
