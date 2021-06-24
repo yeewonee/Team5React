@@ -56,14 +56,6 @@ function CheckTime(props) {
         todayState = todayState.filter(List => List.time !== resultTime[k]);
       }
     }
-    // for(let j=0; j<resultTime.length; j++) {
-    //   for(let k=0; k<todayState.length; k++){
-    //     if(resultTime[j] === todayState[k].time){
-    //       todayState[k].active = false
-    //     }
-    //   }
-    // }
-
 
   return(
     <div className={style.time_box}>

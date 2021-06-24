@@ -48,9 +48,9 @@ function DoctorList(props) {
   return(
     <div className={style.i_list}>
           <div className="input-group m-2">
-            <input type="text" placeholder="의사 검색"  onChange={serachChange} value={searchword}></input>
+            <input type="text" placeholder="의사 검색" onChange={serachChange} value={searchword}></input>
             <div className="input-group-append">
-                <button className="btn btn-outline-secondary btn-sm" type="button"  onClick={searchDoctor}>검색</button>
+                <button className="btn btn-outline-secondary btn-sm" type="button" onClick={searchDoctor}>검색</button>
             </div>
           </div>
           <div className={style.table_wrapper}>
