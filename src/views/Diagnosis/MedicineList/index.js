@@ -103,7 +103,7 @@ export const MedicineList = (props) => {
         </div>
 
         <div className={style.m_list}>
-          <CommonTable headersName={["", "코드", "명칭", "구분", "단위"]}>
+          <CommonTable headersName={["", "코드", "명칭", "구분", "단위"]} tstyle={"table table-sm"}>
             {medicineList.map((medicine, index) => (
               <CommonTableRow key={medicine.mId}>
                 <CommonTableColumn>

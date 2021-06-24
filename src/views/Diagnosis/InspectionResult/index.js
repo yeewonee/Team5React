@@ -18,7 +18,7 @@ export const InspectionResult = (props) => {
   return (
     <>
         <div className={style.inspection_container}>
-        <CommonTable headersName={["검사코드", "검사이름", "그룹코드", ""]}>
+        <CommonTable headersName={["검사코드", "검사이름", "그룹코드", ""]} tstyle={"table table-sm"}>
            {props.iList.map((ilist, index) => (
               <CommonTableRow key={ilist.iId}>
                 <CommonTableColumn>{ilist.iId}</CommonTableColumn>
