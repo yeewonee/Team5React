@@ -55,7 +55,7 @@ function PatientList(props) {
       </div>
     </div>
     <div className={style.table_wrapper}>
-      <CommonTable headersName={['', '환자번호', '이름', '주민등록번호', '전화번호']}>
+      <CommonTable headersName={['', '환자번호', '이름', '주민등록번호', '전화번호']} tstyle={"table table-sm"}>
           {patientList.map((patient, index) => (
             <CommonTableRow key={patient.patient_id}>
                 <CommonTableColumn><input type="checkbox" name='patient' onChange={(event)=>{changeCheck(event, index, patient.patient_id)}} checked={checkArray[index]||''}></input></CommonTableColumn>
