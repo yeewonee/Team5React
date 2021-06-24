@@ -12,8 +12,8 @@ import CommonTableRow from 'views/table/CommonTableRow';
 import CommonTableColumn from 'views/table/CommonTableColumn';
 import FindAddr from './PostCodeComponent/FindAddr';
 import FindAddrDom from './PostCodeComponent/FindAddrDom';
-import ModalPost from './ModalPost';
 import CheckReception from './CheckReception';
+import NewRegistration from './NewRegistration';
 
 function ReceptionList(props){
   const [patientBoard, setPatientBoard] = useState({
@@ -23,50 +23,41 @@ function ReceptionList(props){
     patient_phone: "123-4567-8902",
     r_date: "",
     r_time: "",
-    r_status:""
+    r_status:"",
+    doctor_id:"",
+    patient_id:""
   });
 
+  //환자리스트
   const patientList = getPatientList();
-  // const dispatch = useDispatch();
-  // const arr = Array.from({length: patientList.length}, () => false); //patientList길이만큼 새로 만들어서 false로 채움
-  // const [checkArray,setCheckArray] = useState(arr); //상태
-  // const changeCheck = (event,index,r_id) =>{ //map에 있는 index, r_id
-  //   let checkarray = checkArray //arr값이 들어감
-  //   if(event.target.value==="on"){ //체크되면
-  //     dispatch(setReception(r_id)); //redux
-  //     checkarray = arr;
-  //     checkarray[index] = true; //특정 index만 true
-  //   }
-  //   setCheckArray(checkarray);
-  // }
-
-  // useSelector((state) => {
-  //   return state.receptionReducer.r_id
-  // });
-
+  
+  //신규환자 등록
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const buttonModal = () => setShow(true);
 
+  //환자상세정보
   const [show1, setShow1] = useState(false);
   const handleClose1 = () => setShow1(false);
-  //환자상세정보
   const buttonModal1 = (event, list) => {
     setPatientBoard({
+      r_id: list.r_id,
       patient_name: list.patient_name,
       patient_ssn1: list.patient_ssn1,
       patient_phone: list.patient_phone,
       r_date: list.r_date,
-      r_time: list.r_time
-      
+      r_time: list.r_time,
+      r_status: list.r_status,
+      doctor_id: list.doctor_id,
+      patient_id: list.patient_id,
     })
     setShow1(true)
   };
+
+  //주소찾기 모달
   const [modalOpen, setModalOpen] = useState(false);
   const openModal = () => { setModalOpen(true); };
   const closeModal = () => { setModalOpen(false); };
-
-
 
   //검색창
   const [ searchValue, setSearchValue ] = useState({
@@ -95,75 +86,21 @@ function ReceptionList(props){
   //우편번호 api
   const [isPopupOpen, setIsPopupOpen] = useState(false)
 	// 팝업창 열기
-    const openPostCode = () => {
-        setIsPopupOpen(true)
-    }
+  const openPostCode = () => { setIsPopupOpen(true) }
 	// 팝업창 닫기
-    const closePostCode = () => {
-        setIsPopupOpen(false)
-    }
-
+  const closePostCode = () => { setIsPopupOpen(false) }
 
   return(
     <div className={style.font}>
-      <Modal show={show} onHide={handleClose} className={style.font} dialogClassName="custom-modal">
-        <Modal.Header closeButton>
-          <Modal.Title>신규환자 등록</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <table calss="table">
-            <tbody>
-              <tr className={style.table}>
-                <th className={style.tr1}>&nbsp;환자이름<input type="text" className={style.inputtext1}/></th>
-                <th className={style.tr2}>&nbsp;주민번호 <input type="text" className={style.inputtext2}/>&nbsp;&nbsp;-<input type="text" className={style.inputtext2}/></th>
-              </tr>
-              <tr>
-                <th className={style.tr1}>&nbsp;성별<input type="text" className={style.inputsex}/></th>
-                <th className={style.tr1}>&nbsp;나이<input type="text" className={style.inputage}/></th>  
-              </tr>
-              <tr>
-                <th colSpan="2" className={style.tr1}>&nbsp;전화번호<input type="text" className={style.inputtext3}/></th>
-              </tr>
-              <tr>
-                <th className={style.tr1}>&nbsp;우편번호<input type="text" className={style.inputtext1}/></th>
-                <th className={style.tr1}>   
-                  <div>
-                    &nbsp;<button className="btn btn-sm btn-secondary" onClick={openPostCode}>우편번호 검색</button>
-                    <div id='FindAddrDom'>
-                        {isPopupOpen && (
-                            <FindAddrDom>
-                                <FindAddr onClose={closePostCode} />
-                            </FindAddrDom>
-                        )}
-                      </div>
-                  </div>   
-                </th>             
-              </tr>
-              <tr>
-                <th colSpan="2" className={style.tr1}>&nbsp;주소<input type="text" className={style.inputaddress}/></th>
-              </tr>
-              <tr>
-                <th colSpan="2" className={style.tr1}>&nbsp;상세주소<input type="text" className={style.inputtext3}/></th>
-              </tr>
-            </tbody>
-          </table>
-        </Modal.Body>
-        <Modal.Footer>
-          <Button variant="danger" onClick={handleClose}>
-            취소
-          </Button>
-          <Button variant="success" onClick={handleClose}>
-            완료
-          </Button>
-        </Modal.Footer>
-        <style jsx global>{`
-            .custom-modal {
-              font-family: "DoHyeon-Regular"; 
-            }
-          `}
-        </style>
-      </Modal>
-
+      {/* 신규환자 등록 */}
+      <NewRegistration 
+      show={show} 
+      handleClose={handleClose}
+      isPopupOpen={isPopupOpen}
+      openPostCode={openPostCode}
+      closePostCode={closePostCode}
+      />
+      
       {/* 예약확인 */}
       <CheckReception 
       patientBoard={patientBoard} 
@@ -171,12 +108,9 @@ function ReceptionList(props){
       handleClose1={handleClose1}
       />
       
-            
-
       <div className={style.label}>
         <h5>&nbsp;접수 목록</h5> 
       </div>
-
 
       <div className={style.location}>
         <Row className={style.back}>
