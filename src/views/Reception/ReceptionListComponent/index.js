@@ -13,6 +13,7 @@ import CommonTableColumn from 'views/table/CommonTableColumn';
 import FindAddr from './PostCodeComponent/FindAddr';
 import FindAddrDom from './PostCodeComponent/FindAddrDom';
 import ModalPost from './ModalPost';
+import CheckReception from './CheckReception';
 
 function ReceptionList(props){
   const [patientBoard, setPatientBoard] = useState({
@@ -49,10 +50,6 @@ function ReceptionList(props){
 
   const [show1, setShow1] = useState(false);
   const handleClose1 = () => setShow1(false);
-  const [modalOpen, setModalOpen] = useState(false);
-  const openModal = () => { setModalOpen(true); };
-  const closeModal = () => { setModalOpen(false); };
-
   //환자상세정보
   const buttonModal1 = (event, list) => {
     setPatientBoard({
@@ -65,6 +62,11 @@ function ReceptionList(props){
     })
     setShow1(true)
   };
+  const [modalOpen, setModalOpen] = useState(false);
+  const openModal = () => { setModalOpen(true); };
+  const closeModal = () => { setModalOpen(false); };
+
+
 
   //검색창
   const [ searchValue, setSearchValue ] = useState({
@@ -162,64 +164,13 @@ function ReceptionList(props){
         </style>
       </Modal>
 
-   
-
-      <Modal show={show1} onHide={handleClose1} dialogClassName="custom-modal">
-        <Modal.Header closeButton>
-          <Modal.Title>예약확인</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <table className="table">
-            <tbody>
-              <tr className={style.table}>
-                <th className={style.detailth}>&nbsp;예약번호</th>
-                <td className={style.detailtd}>&nbsp;0097845</td>
-                <th className={style.detailth}>&nbsp;환자번호</th>
-                <td className={style.detailtd}>&nbsp;0087845</td>
-              </tr>
-              <tr>
-                <th className={style.detailth}>&nbsp;환자명</th>
-                <td className={style.detailtd}>&nbsp;{patientBoard.patient_name}</td>
-                <th className={style.detailth}>&nbsp;주민번호</th>
-                <td className={style.detailtd}>&nbsp;{patientBoard.patient_ssn1}</td>
-              </tr>
-              <tr>
-                <th className={style.detailth}>&nbsp;전화번호</th>
-                <td className={style.detailtd}>&nbsp;{patientBoard.patient_phone}</td>
-                <th className={style.detailth}>&nbsp;담당의사</th>
-                <td className={style.detailtd}>&nbsp;김철수</td>
-              </tr>
-              <tr>
-                <th className={style.detailth}>&nbsp;우편번호</th>
-                <td className={style.detailtd}>&nbsp;04137</td>
-                <th className={style.detailth}>&nbsp;진료실</th>
-                <td className={style.detailtd}>&nbsp;제1진료실</td>
-              </tr>
-              <tr>
-                <th className={style.detailth}>&nbsp;예약날짜</th>
-                <td className={style.detailtd}>&nbsp;{patientBoard.r_date}</td>
-                <th className={style.detailth}>&nbsp;예약시간</th>
-                <td className={style.detailtd}>&nbsp;{patientBoard.r_time}</td>
-              </tr>
-
-            </tbody>
-          </table>
-        </Modal.Body>
-        <Modal.Footer>
-          <Button variant="warning" onClick={handleClose1}>
-            수정
-          </Button>
-          <Button variant="danger" onClick={handleClose1}>
-            닫기
-          </Button>
-        </Modal.Footer>
-        <style jsx global>{`
-            .custom-modal {
-              font-family: "DoHyeon-Regular"; 
-            }
-          `}
-        </style>
-      </Modal>
+      {/* 예약확인 */}
+      <CheckReception 
+      patientBoard={patientBoard} 
+      show1={show1} 
+      handleClose1={handleClose1}
+      />
+      
             
 
       <div className={style.label}>
@@ -246,39 +197,19 @@ function ReceptionList(props){
             </div>
           </div> 
           <div className={style.tablewidth}>
-          <table className="table text-center">
-              <thead>
-                <tr className={style.listtitle}>
-                  <th></th>
-                  <th >예약 번호</th>
-                  <th>이름</th>
-                  <th>생년월일</th>
-                  <th>전화번호</th>
-                  <th>예약 날짜</th>
-                  <th>예약 시간</th>
-                  <th>접수 상태</th>
-                </tr>
-              </thead>
-              <tbody>
-                {newBoards.map((list, index) => {
-                return (
-                  <tr key={list.r_id} className={style.list}>
-                    <td></td>
-                    <td className="text-center">{list.r_id}</td>
-                    <td onClick={(event) => {buttonModal1(event, list)}} className={style.click}>{list.patient_name}</td>
-                    <td>{list.patient_ssn1}</td>
-                    <td>{list.patient_phone}</td>
-                    <td>{list.r_date}</td> 
-                    <td>{list.r_time}</td>
-                    <td className={style.border}> {list.r_status}&emsp; 
-                    <button className="btn btn-sm btn-outline-warning" onClick={(event) => {cancelReception(list.r_id)}}>예약 취소</button>&nbsp;
-                    <button className="btn btn-sm btn-outline-primary" onClick={(event) => {completeReception(list, index)}}>접수 완료</button></td>              
-                    
-                  </tr>
-                );
-              })}               
-              </tbody>
-            </table>
+          <CommonTable tstyle={"table"} headersName={['예약 번호', '이름', '생년월일', '전화번호', '예약 날짜', '예약 시간', '접수 상태']}>
+            {newBoards.map((list, index) => (
+                <CommonTableRow key={list.r_id}>
+                    <CommonTableColumn>{list.r_id}</CommonTableColumn>
+                    <CommonTableColumn><div className={style.click} onClick={(event) => {buttonModal1(event, list)}}>{list.patient_name}</div></CommonTableColumn>
+                    <CommonTableColumn>{list.patient_ssn1}</CommonTableColumn>
+                    <CommonTableColumn>{list.patient_phone}</CommonTableColumn>
+                    <CommonTableColumn>{list.r_date}</CommonTableColumn>
+                    <CommonTableColumn>{list.r_time}</CommonTableColumn>
+                    <CommonTableColumn>{list.r_status} &nbsp;<button className="btn btn-sm btn-outline-warning" onClick={(event) => {cancelReception(list.r_id)}}>예약 취소</button> <button className="btn btn-sm btn-outline-primary" onClick={(event) => {completeReception(list, index)}}>접수 완료</button></CommonTableColumn>        
+                </CommonTableRow>
+                ))}
+            </CommonTable>
           </div>
         </Row>
       </div>
