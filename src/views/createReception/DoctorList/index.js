@@ -48,13 +48,13 @@ function DoctorList(props) {
   return(
     <div className={style.i_list}>
           <div className="input-group m-2">
-            <input type="text" placeholder="의사 검색"  onChange={serachChange} value={searchword}></input>
+            <input type="text" placeholder="의사 검색" onChange={serachChange} value={searchword}></input>
             <div className="input-group-append">
-                <button className="btn btn-outline-secondary btn-sm" type="button"  onClick={searchDoctor}>검색</button>
+                <button className="btn btn-outline-secondary btn-sm" type="button" onClick={searchDoctor}>검색</button>
             </div>
           </div>
           <div className={style.table_wrapper}>
-          <CommonTable headersName={['', '의사번호', '이름', '진료실', '전화번호']}>
+          <CommonTable headersName={['', '의사번호', '이름', '진료실', '전화번호']} tstyle={"table table-sm"}>
             {doctorList.map((doctor, index) => (
               <CommonTableRow key={doctor.doctor_id}>
                   <CommonTableColumn><input type="checkbox" name='doctor' onChange={(event)=>{changeCheck(event, index, doctor.doctor_id)}}  checked={checkArray[index]||''}  ></input></CommonTableColumn>

@@ -1,8 +1,11 @@
 import React from 'react';
+import { useState } from 'react';
 import DaumPostcode from "react-daum-postcode";
- 
+
 const FindAddr = (props) => {
-	// 우편번호 검색 후 주소 클릭 시 실행될 함수, data callback 용
+  const [zoneCode, setZoneCode] = useState("");
+  const [address, setAddress] = useState("");
+  // 우편번호 검색 후 주소 클릭 시 실행될 함수, data callback 용
     const handlePostCode = (data) => {
         let fullAddress = data.address;
         let extraAddress = ''; 
@@ -16,7 +19,6 @@ const FindAddr = (props) => {
           }
           fullAddress += (extraAddress !== '' ? ` (${extraAddress})` : '');
         }
-        console.log(data)
         console.log(fullAddress)
         console.log(data.zonecode)
         props.onClose()
@@ -28,14 +30,14 @@ const FindAddr = (props) => {
         top: "-5%",
         left: "-10%",
         width: "600px",
-        height: "230px",
+        height: "450px",
         padding: "7px",
       };
  
     return(
         <div>
             <DaumPostcode style={postCodeStyle} onComplete={handlePostCode} />
-            <button type='button' onClick={() => {props.onClose()}} className='postCode_btn'>닫기</button>
+            <button type='button' onClick={() => {props.onClose()}} className="btn btn-secondary">닫기</button>
         </div>
     )
 }

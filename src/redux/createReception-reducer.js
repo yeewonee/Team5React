@@ -11,6 +11,7 @@ const SET_DOCTOR = "doctor_id/setDoctor"; //이를 선언함으로써 밑에서 
 const SET_PATIENT = "patient_id/setPatient";
 const SET_TIME = "time/setTime"
 const SET_DATE = "date/setDate"
+const SET_NEWDATE = "date/setNewDate"
 
 //액션 생성 함수 선언
 export const createSetDoctor = (doctor_id) => { //얘를 호출해서 얻는 걷은? 액션객체
@@ -28,6 +29,7 @@ export const createSetTime = (time) => {
 export const createSetDate = (date) => {
   return {type:SET_DATE, date}
 }
+
 
 //리듀스 선언
 const createReceptionReducer = (state=initialState, action) => {//값이 주어지지않으면 initialState(디폴트 값) 사용
