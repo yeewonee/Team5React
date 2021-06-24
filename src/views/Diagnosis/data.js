@@ -150,18 +150,3 @@ export function getResultMList(id) {
   }
   return list;
 };
-
-
-
-//test
-let receptionTime = [
-  {rDate: "2021-06-23 09:00"},
-  {rDate: "2021-06-23 10:00"},
-  {rDate: "2021-06-23 11:00"},
-  {rDate: "2021-06-23 13:00"},
-  {rDate: "2021-06-23 14:00"},
-]
-
-export function getTime() {
-  return receptionTime;
-};
