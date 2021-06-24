@@ -1,11 +1,5 @@
 import React from 'react';
-
-import "./Modal.module.css";
-import style from "./Modal.module.css";
-import classNames from "classnames/bind";
-
-
-const cx = classNames.bind(style);
+import "./postmodal.module.css";
 
 const Modal = ( props ) => {
     // 열기, 닫기, 모달 헤더 텍스트를 부모로부터 받아옴
@@ -20,11 +14,11 @@ const Modal = ( props ) => {
                         {header}
                         <button className="close" onClick={close}> &times; </button>
                     </header>
-                    <main>
+                    <main style={{overflow:'auto'}}>
                         {props.children}
                     </main>
                     <footer>
-                        <button className={cx(style.close)} onClick={close}> 확인 </button>
+                        <button className="close" onClick={close}> close </button>
                     </footer>
                 </section>
             ) : null }
@@ -32,4 +26,4 @@ const Modal = ( props ) => {
     )
 }
 
-export default Modal
+export default Modal;

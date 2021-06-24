@@ -18,6 +18,6 @@ export function getDoctor(doctor_id){
 }
 
 export function getDoctorListBySearch(doctor_name){
-  const doctorBySearch = data.filter(doctor => doctor.doctor_name === doctor_name);
-  return doctorBySearch
+  const doctorBySearch = data.filter(doctor => doctor.doctor_name.includes(doctor_name));
+  return doctorBySearch;
 }
