@@ -10,7 +10,6 @@ const cx = classNames.bind(style);
 const Modal = ( props ) => {
     // 열기, 닫기, 모달 헤더 텍스트를 부모로부터 받아옴
     const { open, close, header } = props;
-    console.log("여기옴?")
 
     return (
         // 모달이 열릴때 openModal 클래스가 생성된다.
@@ -25,7 +24,7 @@ const Modal = ( props ) => {
                         {props.children}
                     </main>
                     <footer>
-                        <button className={cx(style.close)} onClick={close}> close </button>
+                        <button className={cx(style.close)} onClick={close}> 확인 </button>
                     </footer>
                 </section>
             ) : null }

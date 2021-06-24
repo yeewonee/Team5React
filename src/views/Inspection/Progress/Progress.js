@@ -14,8 +14,6 @@ function Progress(props){
     const state = useSelector(state => state.inspectReducer.checked)
     let progress = Math.floor((completeList.length/inspectList.length)*100 ) 
     let percent = String(progress).concat('%')
-    console.log(inspectList);
-    console.log(percent)
     
     if(!progress){
         progress=0;
@@ -23,11 +21,7 @@ function Progress(props){
     }
 
      const proceeding = inspectList.find((value)=>value.istatus==='접수')
-    // console.log(proceeding)
 
-
-
-    // setPercent(percent)
     return (
         <div>
         <div className={cx(style.middle_right_top)}>

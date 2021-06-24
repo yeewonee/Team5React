@@ -1,11 +1,11 @@
 import React from 'react';
 
 function CommonTable(props){
-    const {headersName,children} = props
+    const {headersName,children,tstyle} = props
 
     return (
-        <table className="table table-sm table-striped" style={{borderRadius: '3px'}}>
-          <thead style={{backgroundColor:'#d0ebff', textAlign:'center'}}>
+        <table className={tstyle} style={{borderRadius: '3px'}}>
+          <thead style={{backgroundColor:'#a5d8ff', textAlign:'center'}}>
             <tr>
               {
                 headersName.map((item, index) => {
