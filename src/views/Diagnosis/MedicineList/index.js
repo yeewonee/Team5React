@@ -114,6 +114,7 @@ export const MedicineList = (props) => {
                     }}
                     checked={checkArray[index] || ''}
                     onClick={(event) => medicineClick(event, medicine)}
+                    style={{zoom:'1.5', paddingTop:'2px'}}
                   />
                 </CommonTableColumn>
                 <CommonTableColumn>{medicine.mId}</CommonTableColumn>

@@ -90,8 +90,7 @@ function DetailTable(props) {
       setModalOpen(false);
   }
 
-  
-
+ 
   return (
     <div>
       <div className={cx(style.middle_right_bottom)}>
