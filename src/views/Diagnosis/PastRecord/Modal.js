@@ -14,7 +14,7 @@ const Modal = ( props ) => {
                         {header}
                         <button className="close" onClick={close}> &times; </button>
                     </header>
-                    <main style={{overflow:'auto'}}>
+                    <main style={{overflow:'auto', height:'70vh'}}>
                         {props.children}
                     </main>
                     <footer>

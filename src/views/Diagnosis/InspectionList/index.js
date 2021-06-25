@@ -101,7 +101,7 @@ export const InspectionList = (props) => {
         </div>
 
         <div className={style.i_list}>
-          <CommonTable headersName={["", "그룹코드", "그룹명"]}>
+          <CommonTable headersName={["", "그룹코드", "그룹명"]} tstyle={"table table-sm"}>
             {inspectionList.map((inspection, index) => (
               <CommonTableRow key={inspection.bundleCode}>
                 <CommonTableColumn>
@@ -112,6 +112,7 @@ export const InspectionList = (props) => {
                     }}
                     checked={checkArray[index]||''}
                     onClick={(event) => inspectionClick(event, inspection.bundleCode)}
+                    style={{zoom:'1.5', paddingTop:'2px'}}
                   />
                 </CommonTableColumn>
                 <CommonTableColumn>{inspection.bundleCode}</CommonTableColumn>

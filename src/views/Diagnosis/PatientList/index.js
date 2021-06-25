@@ -59,7 +59,7 @@ export const PatientList = (props) => {
         </div>
 
         <div className={style.p_list}>
-          <CommonTable headersName={["회원번호", "이름", "생년월일", "휴대전화번호", ""]}>
+          <CommonTable headersName={["회원번호", "이름", "생년월일", "휴대전화번호", ""]} tstyle={"table table-sm"}>
             {showPList.map((patient) => (
               <CommonTableRow key={patient.patientId}>
                 <CommonTableColumn>{patient.patientId}</CommonTableColumn>

@@ -18,7 +18,7 @@ export const MedicineResult = (props) => {
     <>
       <div className={style.medicine_container}>
         <div className={style.m_list}>
-          <CommonTable headersName={["코드", "명칭", "구분", "단위", ""]}>
+          <CommonTable headersName={["코드", "명칭", "구분", "단위", ""]} tstyle={"table table-sm"}>
             {props.mList.map((medicine, index) => (
               <CommonTableRow key={medicine.mId}>
                 <CommonTableColumn>{medicine.mId}</CommonTableColumn>

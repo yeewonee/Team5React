@@ -12,12 +12,12 @@ export function getDoctorList(){
   return doctorList;
 };
 
-export function getDoctor(doctor_id){
-  const doctor = data.find(doctor => doctor.doctor_id===doctor_id);
+export function getDoctor(d_id){
+  const doctor = data.find(doctor => doctor.doctor_id == d_id);
   return doctor; 
 }
 
 export function getDoctorListBySearch(doctor_name){
-  const doctorBySearch = data.filter(doctor => doctor.doctor_name === doctor_name);
-  return doctorBySearch
+  const doctorBySearch = data.filter(doctor => doctor.doctor_name.includes(doctor_name));
+  return doctorBySearch;
 }

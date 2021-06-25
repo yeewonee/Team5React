@@ -18,11 +18,11 @@ function AddReception(props) {
   const date = useSelector((state) => {
     return state.createReceptionReducer.date
   })
-
+console.log(doctor_id)
   const patient = getPatient(patient_id);
   const doctor = getDoctor(doctor_id);
 
-
+  console.log(doctor);
   return(
     <>
       <div>

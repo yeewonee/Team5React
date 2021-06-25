@@ -34,7 +34,7 @@ export const PastRecord = (props) => {
   return (
     <div>
       <div className={style.past_table_container}>
-        <CommonTable headersName={["진료 날짜", "상세"]}>
+        <CommonTable headersName={["진료 날짜", "상세"]} tstyle={"table table-sm"}>
           {pastList.map((plist, index) => (
             <CommonTableRow key={plist.dDate}>
               <CommonTableColumn>{plist.dDate}</CommonTableColumn>

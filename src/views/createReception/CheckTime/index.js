@@ -1,5 +1,8 @@
+import { useEffect } from "react";
+import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { createSetTime } from "redux/createReception-reducer";
+import { getReceptionDate } from "./data";
 import style from "./style.module.css";
 
 function CheckTime(props) {
@@ -15,58 +18,60 @@ function CheckTime(props) {
     }
   };
 
+  const state =[
+    {time: '9:00'},
+    {time: '9:30'},
+    {time: '10:00'},
+    {time: '10:30'},
+    {time: '11:00'},
+    {time: '11:30'},
+    {time: '12:00'},
+    {time: '14:00'},
+    {time: '14:30'},
+    {time: '15:00'},
+    {time: '15:30'},
+    {time: '16:00'},
+    {time: '방문접수'}
+  ]
+
+  const doctor_id = useSelector((state) => {
+    return state.createReceptionReducer.doctor_id
+  });
+  const r_date = useSelector((state) => {
+    return state.createReceptionReducer.date
+  });
+
+  const receptionList = getReceptionDate(doctor_id, r_date);
+  console.log(receptionList);
+
+  let resultTime = [];
+  for(let i=0; i<receptionList.length; i++){
+    resultTime.push(receptionList[i].r_time)
+  }
+
+  let todayState = state;
+
+  if(resultTime.length !== 0){
+    for(let k=0; k<todayState.length; k++){
+        todayState = todayState.filter(List => List.time !== resultTime[k]);
+      }
+    }
+
   return(
     <div className={style.time_box}>
       <div style={{marginTop:'20px', marginLeft:'19px'}}>
         <div className={style.radios}>
-          <label style={{backgroundColor: time==='9:00' ? '#006edc' : ''}}>
-            <input type="radio" name="time" value="9:00" onChange={handleRadio} checked={time === '9:00'}/>
-            9:00
-          </label>
-          <label style={{backgroundColor: time==='9:30' ? '#006edc' : ''}}>
-            <input type="radio" name="time" value="9:30" onChange={handleRadio} checked={time === '9:30'}/>
-            9:30
-          </label>
-          <label style={{backgroundColor: time==='10:00' ? '#006edc' : ''}}>
-            <input type="radio" name="time" value="10:00" onChange={handleRadio} checked={time === '10:00'}/>
-            10:00
-          </label>
-          <label style={{backgroundColor: time==='10:30' ? '#006edc' : ''}}>
-            <input type="radio" name="time" value="10:30" onChange={handleRadio} checked={time === '10:30'}/>
-            10:30
-          </label>
-          <label style={{backgroundColor: time==='11:00' ? '#006edc' : ''}}>
-            <input type="radio" name="time" value="11:00" onChange={handleRadio} checked={time === '11:00'}/>
-            11:00
-          </label>
-          <label style={{backgroundColor: time==='11:30' ? '#006edc' : ''}}>
-            <input type="radio" name="time" value="11:30" onChange={handleRadio} checked={time === '11:30'}/>
-            11:30
-          </label>
-          <label style={{backgroundColor: time==='12:00' ? '#006edc' : ''}}>
-            <input type="radio" name="time" value="12:00" onChange={handleRadio} checked={time === '12:00'}/>
-            12:00
-          </label>
-          <label style={{backgroundColor: time ==='14:00' ? '#006edc' : ''}}>
-            <input type="radio" name="time" value="14:00" onChange={handleRadio} checked={time === '14:00'}/>
-            14:00
-          </label>
-          <label style={{backgroundColor: time==='15:00' ? '#006edc' : ''}}>
-            <input type="radio" name="time" value="15:00" onChange={handleRadio} checked={time === '15:00'}/>
-            15:00
-          </label>
-          <label style={{backgroundColor: time==='16:00' ? '#006edc' : ''}}>
-            <input type="radio" name="time" value="16:00" onChange={handleRadio} checked={time === '16:00'}/>
-            16:00
-          </label>
-          <label style={{backgroundColor: time==='방문접수' ? '#006edc' : ''}}>
-            <input type="radio" name="time" value="방문접수" onChange={handleRadio} checked={time === '방문접수'}/>
-            방문접수
-          </label>
+          {todayState.map((List, index) =>(
+              <label key={index} style={{backgroundColor: List.time===time ? '#006edc' : ''}}>
+              <input type="radio" name="time" value={List.time} checked={List.time===time} onChange={handleRadio}/>
+              {List.time}
+              </label>
+          ))}
         </div>
       </div>
     </div>
   );
 }
+
 
 export default CheckTime;

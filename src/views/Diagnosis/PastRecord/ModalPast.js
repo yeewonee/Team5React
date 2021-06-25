@@ -16,7 +16,7 @@ export const ModalPast = (props) => {
       {/* 과거기록 상세보기 modal */}
       <Modal open={props.modalOpen} close={closeModal} header="검사결과 확인">
         <div className={style.past_title}>환자 정보</div>
-        <CommonTable headersName={["환자번호", "환자이름", "주민번호"]}>
+        <CommonTable headersName={["환자번호", "환자이름", "주민번호"]} tstyle={"table table-sm table-striped"}>
           <CommonTableRow key={props.patient.patientId}>
             <CommonTableColumn>{props.patient.patientId}</CommonTableColumn>
             <CommonTableColumn>{props.patient.patientName}</CommonTableColumn>
@@ -25,7 +25,7 @@ export const ModalPast = (props) => {
         </CommonTable>
 
         <div className={style.past_title}>내원일 정보</div>
-        <CommonTable headersName={["내원일자"]}>
+        <CommonTable headersName={["내원일자"]} tstyle={"table table-sm"}>
           <CommonTableRow>
             <CommonTableColumn>{props.pList[0]?.dDate}</CommonTableColumn>
           </CommonTableRow>
@@ -35,7 +35,7 @@ export const ModalPast = (props) => {
         <hr />
 
         <div className={style.past_title2}>검사 결과</div>
-        <CommonTable headersName={["처방코드", "검사명", "검사담당자", "결과"]}>
+        <CommonTable headersName={["처방코드", "검사명", "검사담당자", "결과"]} tstyle={"table table-sm table-striped"}>
           {props.iResultList.map((iResultList, index) => (
             <CommonTableRow key={iResultList.iId}>
               <CommonTableColumn>{iResultList.iId}</CommonTableColumn>
@@ -47,8 +47,7 @@ export const ModalPast = (props) => {
         </CommonTable>
 
         <div className={style.past_title2}>약 처방</div>
-        <div className={style.past_title2}>검사 결과</div>
-        <CommonTable headersName={["코드", "명칭", "구분", "단위"]}>
+        <CommonTable headersName={["코드", "명칭", "구분", "단위"]} tstyle={"table table-sm table-striped"}>
           {props.mResultList.map((mResultList, index) => (
             <CommonTableRow key={mResultList.mId}>
               <CommonTableColumn>{mResultList.mId}</CommonTableColumn>
