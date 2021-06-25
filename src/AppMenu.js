@@ -10,18 +10,18 @@ export const AppMenu = () => {
     <div>
       <nav className="navbar navbar-expand-lg">
         <div className="collapse navbar-collapse" id="navbarNav">
-          <ul className="navbar-nav">
-            <li className="nav-item" style={{margin:'30px'}}>
+          <ul className="navbar-nav" style={{height:"45px"}}>
+            <li className="nav-item" style={{margin:'0'}}>
               <NavLink activeStyle={activeStyle} to='/Reception' className="nav-link menu">
                 예약/접수
               </NavLink>
             </li>
-            <li className="nav-item" style={{margin:'30px'}}>
+            <li className="nav-item" style={{marginLeft:'30px'}}>
             <NavLink activeStyle={activeStyle} to="/diagnosis" className="nav-link menu">
                 진료
               </NavLink>
             </li>
-            <li className="nav-item" style={{margin:'30px'}}>
+            <li className="nav-item" style={{marginLeft:'30px'}}>
             <NavLink activeStyle={activeStyle} to="/inspection" className="nav-link menu">
                 검사/치료
               </NavLink>

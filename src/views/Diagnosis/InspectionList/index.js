@@ -112,6 +112,7 @@ export const InspectionList = (props) => {
                     }}
                     checked={checkArray[index]||''}
                     onClick={(event) => inspectionClick(event, inspection.bundleCode)}
+                    style={{zoom:'1.5', paddingTop:'2px'}}
                   />
                 </CommonTableColumn>
                 <CommonTableColumn>{inspection.bundleCode}</CommonTableColumn>
