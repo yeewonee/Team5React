@@ -18,11 +18,18 @@ function AddReception(props) {
   const date = useSelector((state) => {
     return state.createReceptionReducer.date
   })
-console.log(doctor_id)
+
   const patient = getPatient(patient_id);
   const doctor = getDoctor(doctor_id);
 
-  console.log(doctor);
+  const handleBooking = () => { //예약완료 버튼
+    
+  }
+
+  const handleReception = () => { //접수완료 버튼
+
+  }
+
   return(
     <>
       <div>
@@ -93,8 +100,8 @@ console.log(doctor_id)
   </div>
   <div style={{display: 'flex', justifyContent: 'flex-end'}}>
     <Link to="/reception" className="btn btn-outline-dark btn-sm" style={{marginRight:'5px'}}>뒤로 가기</Link>
-    <button className="btn btn-outline-dark btn-sm" style={{marginRight:'5px'}}>예약 완료</button>
-    <button className="btn btn-outline-dark btn-sm">접수 완료</button>
+    <button className="btn btn-outline-dark btn-sm" style={{marginRight:'5px'}} onClick={handleBooking}>예약 완료</button>
+    <button className="btn btn-outline-dark btn-sm" onClick={handleReception}>접수 완료</button>
   </div> 
 </>
   );
