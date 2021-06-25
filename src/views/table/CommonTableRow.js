@@ -1,7 +1,7 @@
 import React from 'react';
  
 const CommonTableRow = ({ children },props) => {
-    console.log(props)
+    //console.log(props)
   return (
     <tr key={props.key} >
       {

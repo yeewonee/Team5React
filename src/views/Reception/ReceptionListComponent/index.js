@@ -16,6 +16,10 @@ import CheckReception from './CheckReception';
 import NewRegistration from './NewRegistration';
 
 function ReceptionList(props){
+  const day = useSelector((state) => {
+    return state.receptionReducer.day;
+  });
+
   const [patientBoard, setPatientBoard] = useState({
     r_id: 0,
     patient_name: "",
@@ -29,7 +33,7 @@ function ReceptionList(props){
   });
 
   //환자리스트
-  const patientList = getPatientList();
+  const patientList = getPatientList(day);
   
   //신규환자 등록
   const [show, setShow] = useState(false);
