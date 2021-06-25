@@ -1,13 +1,15 @@
 
 .col1{
-  margin-top: 5%;
+  margin-top: 23px;
   margin-left: 45%;
+  height:455px;
 }
 
 .bLocation{
   margin-top: 4%;
   color: inherit;
   text-decoration: none !important;
+  height: 140px;
 }
 
 .button1{
@@ -20,14 +22,21 @@
 
 .bContent1{
   font-size: x-large;
-  padding-top: 5%;
-  padding-left: 15%;
+  padding: 5%;
+  width: 100%;
   cursor: pointer;
 }
 
 .bContent2{
   font-size: x-large;
+  padding: 4%;
+  width: 100%;
+  cursor: pointer;
+}
+
+.bContent3{
+  font-size: x-large;
   padding-top: 5%;
-  padding-left: 31%;
+  padding-left:23%;
   cursor: pointer;
 }
