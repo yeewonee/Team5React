@@ -65,7 +65,7 @@ function Notice(props){
           Close
         </Button>
       </Modal.Footer>
-      <style jsx global>{`
+      <style jsx="true" global="true">{`
       .custom-modal {
         font-family: "DoHyeon-Regular"; 
       }
@@ -77,6 +77,7 @@ function Notice(props){
       <div className={style.bLocation}>
         <div className={style.notice}>
           <div className={style.bContent1}><img src={photo4} alt="photo4"/><b>공지사항</b></div>
+          <div className={style.table1_container}>
           <Table responsive="sm" className={style.table1}>
             <thead>
               <tr>
@@ -100,6 +101,7 @@ function Notice(props){
             })}
             </tbody>
           </Table>
+          </div>
         </div> 
       </div>
     </div>

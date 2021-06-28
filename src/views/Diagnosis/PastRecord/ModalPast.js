@@ -27,7 +27,7 @@ export const ModalPast = (props) => {
         <div className={style.past_title}>내원일 정보</div>
         <CommonTable headersName={["내원일자"]} tstyle={"table table-sm"}>
           <CommonTableRow>
-            <CommonTableColumn>{props.pList[0]?.dDate}</CommonTableColumn>
+            <CommonTableColumn>{props.dDate}</CommonTableColumn>
           </CommonTableRow>
         </CommonTable>
 

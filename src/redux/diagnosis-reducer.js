@@ -45,8 +45,9 @@ export const createSetAddIlistAction = (ilist) => {
   return {type:SET_ADDILIST, ilist};
 };
 
-export const createSetRemoveIlistAction = (iid) => {
-  return {type:SET_REMOVEILIST, iid};
+export const createSetRemoveIlistAction = (iid, ibundleCode) => {
+  console.log(iid + " " + ibundleCode);
+  return {type:SET_REMOVEILIST, iid, ibundleCode};
 };
 
 
@@ -63,7 +64,7 @@ const diagnosisReducer = (state=initialState, action) => {
   }else if(action.type === SET_ADDILIST){
     return {...state, ilist: action.ilist};
   }else if(action.type === SET_REMOVEILIST){
-    return {...state, ilist: state.ilist.filter((ilist) => ilist.iId !== action.iid)};
+    return {...state, ilist: state.ilist.filter((ilist) => !(ilist.iId == action.iid && ilist.bundleCode == action.ibundleCode))};
   }else if(action.type === SET_PID){
     return {...state, pId: action.pid};
   }else{

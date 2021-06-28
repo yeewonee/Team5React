@@ -11,12 +11,15 @@ import { ModalPast } from "./ModalPast";
 export const PastRecord = (props) => {
   const [modalOpen, setModalOpen] = useState(false);
 
-  const openModal = () => {
+  const [dDate, setDdate] = useState("");
+  const openModal = (event, day) => {
+    setDdate(day);
     setModalOpen(true);
   };
   const closeModal = () => {
     setModalOpen(false);
   };
+
 
   //날짜, 상세보기
   let pList = getPastRecord(props.patientId);
@@ -28,8 +31,9 @@ export const PastRecord = (props) => {
 
   //환자 정보
   let patient = getPatient(props.patientId);
-  let iResultList = getResultIList(props.patientId);
-  let mResultList = getResultMList(props.patientId);
+  console.log(patient)
+  let iResultList = getResultIList(props.patientId, dDate);
+  let mResultList = getResultMList(props.patientId, dDate);
 
   return (
     <div>
@@ -39,7 +43,7 @@ export const PastRecord = (props) => {
             <CommonTableRow key={plist.dDate}>
               <CommonTableColumn>{plist.dDate}</CommonTableColumn>
               <CommonTableColumn>
-                <button type="button" className="btn btn-dark btn-sm" onClick={openModal}>
+                <button type="button" className="btn btn-dark btn-sm" onClick={(event, day)=>{openModal(event, plist.dDate)}}>
                   상세보기
                 </button>
               </CommonTableColumn>
@@ -59,6 +63,7 @@ export const PastRecord = (props) => {
         closeModal={closeModal}
         modalOpen={modalOpen}
         pList={pList}
+        dDate={dDate}
       />      
      
     </div>

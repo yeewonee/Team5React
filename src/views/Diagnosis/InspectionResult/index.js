@@ -10,8 +10,8 @@ export const InspectionResult = (props) => {
 
   const dispatch = useDispatch();
 
-  const deleteInspection = (event, id) => {
-    dispatch(createSetRemoveIlistAction(id));
+  const deleteInspection = (event, id, bundleCode) => {
+    dispatch(createSetRemoveIlistAction(id, bundleCode));
   };
 
 
@@ -20,7 +20,7 @@ export const InspectionResult = (props) => {
         <div className={style.inspection_container}>
         <CommonTable headersName={["검사코드", "검사이름", "그룹코드", ""]} tstyle={"table table-sm"}>
            {props.iList.map((ilist, index) => (
-              <CommonTableRow key={ilist.iId}>
+              <CommonTableRow key={index}>
                 <CommonTableColumn>{ilist.iId}</CommonTableColumn>
                 <CommonTableColumn>{ilist.iName}</CommonTableColumn>
                 <CommonTableColumn>{ilist.bundleCode}</CommonTableColumn>
@@ -28,7 +28,7 @@ export const InspectionResult = (props) => {
                   <button
                     className="btn btn-danger btn-sm"
                     onClick={(event) => {
-                      deleteInspection(event, ilist.iId);
+                      deleteInspection(event, ilist.iId, ilist.bundleCode);
                     }}
                   >
                     삭제

@@ -11,7 +11,6 @@ function RDonut(props){
       <div className={style.donut}>
         <PieChart
         data={piedata}
-        key={piedata.title}
         lineWidth={80}
         animate={true}
         label={({ x, y, dx, dy, dataEntry }) => (
@@ -20,6 +19,7 @@ function RDonut(props){
             y={y}
             dx={dx}
             dy={dy}
+            key={piedata.title}
             dominantBaseline="central"
             textAnchor="middle"
             style={{
