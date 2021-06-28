@@ -6,9 +6,12 @@ import Diagnosis from "views/Diagnosis";
 import Inspection from "views/Inspection";
 import createReception from "views/createReception";
 import Main from "views/Main/Main";
+import { useSelector } from "react-redux";
 
 function AppRoute() {
-  const test=0;
+  const test = useSelector((state) => {
+    return state.authReducer.test;
+  });
 
   return ( 
     <>

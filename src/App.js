@@ -4,6 +4,7 @@ import { AppMenu } from 'AppMenu';
 import  { createGlobalStyle } from "styled-components";
 import './App.css';
 import Main from 'views/Main/Main';
+import { useSelector } from 'react-redux';
 
 const GlobalStyle = createGlobalStyle`
   body {
@@ -11,12 +12,15 @@ const GlobalStyle = createGlobalStyle`
   }
 `;
 
-const test = 1;
-
 function App() {
+
+  const test = useSelector((state) => {
+    return state.authReducer.test;
+  });
+
   return (
     <>
-    { test === 0 ?
+    { test === 1 ?
       <>
         <AppHeader/>
         <AppMenu/>
