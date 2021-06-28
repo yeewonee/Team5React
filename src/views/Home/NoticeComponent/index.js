@@ -65,7 +65,7 @@ function Notice(props){
           Close
         </Button>
       </Modal.Footer>
-      <style jsx global>{`
+      <style jsx="true" global="true">{`
       .custom-modal {
         font-family: "DoHyeon-Regular"; 
       }

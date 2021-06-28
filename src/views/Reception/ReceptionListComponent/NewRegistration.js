@@ -9,10 +9,6 @@ const NewRegistration = (props) => {
     zoneCode: "",
     address: ""
   });
-
-  console.log("test");
-  console.log(addressValue.zoneCode);
-  console.log(addressValue.address);
   
   return(
     <Modal show={props.show} onHide={props.handleClose} className={style.font} dialogClassName="custom-modal">
@@ -34,7 +30,7 @@ const NewRegistration = (props) => {
                 <th colSpan="2" className={style.tr1}>&nbsp;전화번호<input type="text" className={style.inputtext3}/></th>
               </tr>
               <tr>
-                <th className={style.tr1}>&nbsp;우편번호<input type="text" className={style.inputtext1} value={addressValue.zoneCode}/></th>
+                <th className={style.tr1}>&nbsp;우편번호<input type="text" className={style.inputtext1} value={addressValue.zoneCode} readOnly/></th>
                 <th className={style.tr1}>   
                   <div>
                     &nbsp;<button className="btn btn-sm btn-secondary" onClick={props.openPostCode}>우편번호 검색</button>
@@ -43,7 +39,7 @@ const NewRegistration = (props) => {
                 </th>             
               </tr>
               <tr>
-                <th colSpan="2" className={style.tr1}>&nbsp;주소<input type="text" className={style.inputaddress} value={addressValue.address}/></th>
+                <th colSpan="2" className={style.tr1}>&nbsp;주소<input type="text" className={style.inputaddress} value={addressValue.address} readOnly/></th>
               </tr>
               <tr>
                 <th colSpan="2" className={style.tr1}>&nbsp;상세주소<input type="text" className={style.inputtext3}/></th>
@@ -66,7 +62,7 @@ const NewRegistration = (props) => {
             완료
           </Button>
         </Modal.Footer>
-        <style jsx global>{`
+        <style jsx="true" global="true">{`
             .custom-modal {
               font-family: "DoHyeon-Regular"; 
             }

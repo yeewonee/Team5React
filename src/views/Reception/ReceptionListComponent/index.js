@@ -145,7 +145,7 @@ function ReceptionList(props){
                     <CommonTableColumn>{list.patient_phone}</CommonTableColumn>
                     <CommonTableColumn>{list.r_date}</CommonTableColumn>
                     <CommonTableColumn>{list.r_time}</CommonTableColumn>
-                    <CommonTableColumn>{list.r_status} &nbsp;<button className="btn btn-sm btn-outline-warning" onClick={(event) => {cancelReception(list.r_id)}}>예약 취소</button> <button className="btn btn-sm btn-outline-primary" onClick={(event) => {completeReception(list, index)}}>접수 완료</button></CommonTableColumn>        
+                    <CommonTableColumn>{list.r_status} &nbsp;<button className="btn btn-sm btn-warning" onClick={(event) => {cancelReception(list.r_id)}}>예약 취소</button> <button className="btn btn-sm btn-primary" onClick={(event) => {completeReception(list, index)}}>접수 완료</button></CommonTableColumn>        
                 </CommonTableRow>
                 ))}
             </CommonTable>
