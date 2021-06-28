@@ -16,8 +16,6 @@ function Calendar (props){
   useEffect(() => {
     //날짜 설정
     dispatch(setReceptionDay(moment(startDate).format('YYYY-MM-DD')));
-    //환자id 초기화
-    dispatch(setReceptionDay(""));
   }, [startDate])
 
   return (

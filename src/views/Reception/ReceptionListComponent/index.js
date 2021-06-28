@@ -14,6 +14,7 @@ import FindAddr from './PostCodeComponent/FindAddr';
 import FindAddrDom from './PostCodeComponent/FindAddrDom';
 import CheckReception from './CheckReception';
 import NewRegistration from './NewRegistration';
+import { useEffect } from 'react';
 
 function ReceptionList(props){
   const day = useSelector((state) => {
@@ -33,7 +34,10 @@ function ReceptionList(props){
   });
 
   //환자리스트
-  const patientList = getPatientList(day);
+  const patientList = getPatientList(day);  
+  useEffect(() => {
+    setBoards(patientList)
+  }, [day])
   
   //신규환자 등록
   const [show, setShow] = useState(false);
@@ -112,28 +116,25 @@ function ReceptionList(props){
       handleClose1={handleClose1}
       />
       
-      <div className={style.label}>
-        <h5>&nbsp;접수 목록</h5> 
-      </div>
 
       <div className={style.location}>
-        <Row className={style.back}>
+        <div className={style.label}>
+          <h5>&nbsp;접수 목록</h5> 
+        </div>
+        <div className={style.back}>
           <div className={style.width}>
             <div className={style.margin1}>
-              <div className={style.margin2}>
-                <Calendar/>
-              </div>
-              <div className={style.margin3}>
-                <SearchBar setSearchValue={setSearchValue}/>
-              </div>
+              <Calendar/>
             </div>
-            <div className={style.buttonlocation}>
-              <div className={style.button1}>
-                <Button className={style.button} onClick={buttonModal}>환자 등록</Button>
-                <Button className={style.button}><Link to="/createReception" className={style.link}>예약/접수</Link></Button>
-              </div>
+            <div className={style.margin2}>
+              <SearchBar setSearchValue={setSearchValue}/>
+            </div>
+            <div className={style.button1}>
+              <Button className={style.button} onClick={buttonModal}>환자 등록</Button>
+              <Button className={style.button}><Link to="/createReception" className={style.link}>예약/접수</Link></Button>
             </div>
           </div> 
+
           <div className={style.tablewidth}>
           <CommonTable tstyle={"table"} headersName={['예약 번호', '이름', '생년월일', '전화번호', '예약 날짜', '예약 시간', '접수 상태']}>
             {newBoards.map((list, index) => (
@@ -149,7 +150,7 @@ function ReceptionList(props){
                 ))}
             </CommonTable>
           </div>
-        </Row>
+        </div>
       </div>
     </div>
     

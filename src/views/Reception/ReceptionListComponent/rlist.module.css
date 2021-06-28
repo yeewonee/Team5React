@@ -1,23 +1,18 @@
 .location{
-  margin-left: 0.8%;
   width: 100%;
 }
 
 .back{
   background-color: white;
   width: 100%;
-  height: 450px;
-  border: 1px solid lightgray;  
+  height: 44vh;
 }
 
-.labeldiv{
-  border: 4px soile green;
-}
 
 .label{
   background-color: #F2F2F2; 
   height: 38px; 
-  padding-top: 6px; 
+  padding-top: 6.5px; 
   border-radius: 3px;
   border: 1px solid lightgray;
   width: 100%;
@@ -30,29 +25,32 @@
 
 .tablewidth{
   width: 100%;
-  height: 90%;
+  height: 35vh;
   overflow: auto;
 }
 
+
 .margin1{
-  width: 45%;
-  float:left;
+  float: left;
+  margin-left: 0.5%;
+  margin-top: 0.5%;
 }
 
 .margin2{
-  margin-top: 1%;
-  margin-left: 1%;
   float: left;
+  margin-left: 0.1%;
+  margin-top: 0.5%;
 }
 
-.margin3{
+.button1{
   float: right;
-  margin-top: 1%;
-  margin-right: 55%;
+  margin-right: 0.5%;
+  margin-top: 0.4%;
 }
 
 .width{
   width: 100%;
+  height: 6vh;
 }
 
 .row1{
@@ -82,10 +80,6 @@
   text-decoration: none;
 }
 
-.button1{
-  margin-top: 0.7%;
-  margin-left:65%;
-}
 
 .click{
   cursor: pointer;
@@ -199,9 +193,4 @@
 .detailtd{
   width: 200px;
   border: 1px solid lightgray;
-}
-
-/*우편번호*/
-.postcode{
-  border: 3px soild red;
 }

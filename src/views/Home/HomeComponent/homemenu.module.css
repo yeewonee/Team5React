@@ -25,6 +25,7 @@
   padding: 5%;
   width: 100%;
   cursor: pointer;
+  text-align: center;
 }
 
 .bContent2{
@@ -32,11 +33,12 @@
   padding: 4%;
   width: 100%;
   cursor: pointer;
+  text-align: center;
 }
 
 .bContent3{
   font-size: x-large;
   padding-top: 5%;
-  padding-left:23%;
   cursor: pointer;
+  text-align: center;
 }
