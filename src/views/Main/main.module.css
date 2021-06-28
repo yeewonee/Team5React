@@ -1,0 +1,132 @@
+.mbody{
+  height: 100vh;
+  width: 100%;
+  /* background-image: url('images/main.jpg'); */
+  background-color: #dee2e6;
+  background-repeat: no-repeat;
+}
+
+.titleContainer{
+  width:100%;
+  height: 30vh;
+  position: relative;
+}
+
+.title{
+  position: absolute;
+  top: 110px;
+  left: 540px;
+  font-size: 80px;
+  font-weight: bold;
+}
+
+.contentBox{
+  height: 58vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.notice{
+  height:  50vh;
+  width: 30%;
+  box-shadow: 10px 10px 10px -5px rgba(25,42,70,0.2);
+  border-radius: 8px;
+  margin: 0 30px;
+  transition: 0.4s;
+  flex-shrink: 0;
+  background-color: white;
+  overflow: auto;
+}
+
+.notice:hover{
+  box-shadow: 10px 10px 10px 0px rgba(25,42,70,0.2);
+  transform: translate(0,-5px);
+}
+
+.rightBox{
+  height:  50vh;
+  width: 30%;
+  box-shadow: 10px 10px 10px -5px rgba(25,42,70,0.2);
+  border-radius: 8px;
+  margin: 0 30px;
+  transition: 0.4s;
+  flex-shrink: 0;
+  background-color: white;
+}
+
+.rightBox:hover{
+  box-shadow: 10px 10px 10px 0px rgba(25,42,70,0.2);
+  transform: translate(0,-5px);
+}
+.loginBox{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.loginButton{
+ width: 250px;
+ height: 40px;
+ border-radius: 18px;
+ background-color: transparent;
+ font-size: large;
+ border-color: black;
+}
+
+.header{
+  background-color: #4dabf7;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+  height: 50px;
+  color: white;
+  font-size: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.priceheader{
+  background-color:#1c7ed6;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+  height: 50px;
+  color: white;
+  font-size: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.topBox{
+  height: 90px;
+  text-align: center;
+}
+
+.middleBox{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.innerBox{
+  background-color: #e7f5ff;
+  width: 400px;
+  height: 70px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 13px;
+}
+
+.bottomBox{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 30px;
+}
+
+.loginButton:hover{
+  transform: translate(0,-5px);
+  background-color:#adb5bd;
+  color: white;
+}
