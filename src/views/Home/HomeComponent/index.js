@@ -37,12 +37,12 @@ function HomeMenu(props) {
       </div>
       <div onClick={buttonModal} className={style.bLocation}>
         <div className={style.button1}>
-          <div className={style.bContent1}><img src={photo2} alt="photo2"/><b>검사 / 치료</b></div>
+          <div className={style.bContent2}><img src={photo2} alt="photo2"/><b>검사 / 치료</b></div>
         </div> 
       </div>
       <div onClick={buttonModal} className={style.bLocation}>
         <div className={style.button1}>
-          <div className={style.bContent2}><img src={photo3} alt="photo3"/><b>진료</b></div>
+          <div className={style.bContent3}><img src={photo3} alt="photo3"/><b>진료</b></div>
         </div> 
       </div>
     </Col>

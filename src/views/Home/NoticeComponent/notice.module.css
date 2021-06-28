@@ -13,7 +13,7 @@
 .notice{
   border: 4px solid #4dabf7; 
   background-color: white; 
-  height: 455px;
+  height: 400px;
   width: 85%;
 }
 
@@ -23,8 +23,9 @@
   padding-left: 2%;
 }
 
-.table1{
-  margin-left: 4%;
+.table1_container{
+  margin-left:10px;
+  margin-right:10px;
 }
 
 .table2{

@@ -1,6 +1,6 @@
 import React from "react";
 import style from "./patientlist.module.css";
-import { getPatientList, getPatientSearchList } from "../data";
+import { getPatientList, getPatientSearchList, getPatientName } from "../data";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { createSetPidAction } from "redux/diagnosis-reducer";
@@ -41,12 +41,20 @@ export const PatientList = (props) => {
     return state.diagnosisReducer.pId;
   })
 
+  const selectPname = getPatientName(selectPatient);
+
+  const onKeyPress = (event) => {
+    if(event.key = 'Enter'){
+      keywordButton();
+    }
+  }
+
   return (
     <div>
       <div className={style.patientlist_container}>
         <div className="d-flex justify-content-between">
           <div className="input-group m-1">
-            <input type="text" name="keyword" onChange={keywordChange} value={keyword} />
+            <input type="text" name="keyword" onChange={keywordChange} value={keyword} onKeyPress={onKeyPress}/>
             <div className="input-group-append">
               <button onClick={keywordButton} className="btn btn-outline-secondary btn-sm" type="button">
                 검색
@@ -54,7 +62,7 @@ export const PatientList = (props) => {
             </div>
           </div>
           <div className="mr-1 mt-1">
-            <p style={{width:"130px", margin:"0px", marginTop:"5px"}}>선택된 환자번호: {selectPatient}</p>
+            <p style={{width:"130px", margin:"0px", marginTop:"5px"}}>선택된 환자: {selectPname}</p>
           </div>
         </div>
 
