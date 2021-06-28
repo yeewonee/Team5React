@@ -9,13 +9,11 @@
 .titleContainer{
   width:100%;
   height: 30vh;
-  position: relative;
 }
 
 .title{
-  position: absolute;
-  top: 110px;
-  left: 540px;
+  text-align: center;
+  padding-top: 13vh;
   font-size: 80px;
   font-weight: bold;
 }
