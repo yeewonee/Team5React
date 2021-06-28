@@ -83,12 +83,18 @@ export const InspectionList = (props) => {
     setCheckArray(checkarray);
   };
 
+  const onKeyPress = (event) => {
+    if(event.key = 'Enter'){
+      keywordButton();
+    }
+  }
+
   return (
     <>
       <div className={style.i_list_container}>
         <div className="d-flex justify-content-between">
           <div className="input-group m-1">
-            <input type="text" name="keyword" onChange={keywordChange} value={keyword} />
+            <input type="text" name="keyword" onChange={keywordChange} value={keyword} onKeyPress={onKeyPress}/>
             <div className="input-group-append">
               <button className="btn btn-outline-secondary btn-sm" type="button" onClick={keywordButton}>
                 검색
@@ -112,7 +118,7 @@ export const InspectionList = (props) => {
                     }}
                     checked={checkArray[index]||''}
                     onClick={(event) => inspectionClick(event, inspection.bundleCode)}
-                    style={{zoom:'1.5', paddingTop:'2px'}}
+                    style={{zoom:'1.2', paddingTop:'2px'}}
                   />
                 </CommonTableColumn>
                 <CommonTableColumn>{inspection.bundleCode}</CommonTableColumn>

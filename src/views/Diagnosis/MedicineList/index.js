@@ -85,12 +85,18 @@ export const MedicineList = (props) => {
     setCheckArray(checkarray);
   };
 
+  const onKeyPress = (event) => {
+    if(event.key = 'Enter'){
+      keywordButton();
+    }
+  }
+
   return (
     <>
       <div className={style.m_list_container}>
         <div className="d-flex justify-content-between">
           <div className="input-group m-1">
-            <input type="text" name="keyword" onChange={keywordChange} value={keyword} />
+            <input type="text" name="keyword" onChange={keywordChange} value={keyword} onKeyPress={onKeyPress}/>
             <div className="input-group-append">
               <button className="btn btn-outline-secondary btn-sm" type="button" onClick={keywordButton}>
                 검색
@@ -114,7 +120,7 @@ export const MedicineList = (props) => {
                     }}
                     checked={checkArray[index] || ''}
                     onClick={(event) => medicineClick(event, medicine)}
-                    style={{zoom:'1.5', paddingTop:'2px'}}
+                    style={{zoom:'1.2', paddingTop:'2px'}}
                   />
                 </CommonTableColumn>
                 <CommonTableColumn>{medicine.mId}</CommonTableColumn>
