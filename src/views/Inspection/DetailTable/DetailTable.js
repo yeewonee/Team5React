@@ -68,6 +68,16 @@ function DetailTable(props) {
     }
   };
 
+  let bundle = "";
+  const viewBundleCode = (bno) => {
+    if(bundle !== bno){
+      bundle = bno;
+      return bno;
+    }else{
+      return "";
+    }
+  }
+
 
 
   const headers = [
@@ -99,7 +109,7 @@ function DetailTable(props) {
 
           <StateButton value={'바코드 출력'} change={'접수'} check={checkArray} checkfun={checkState} list={inspectList} openModal={openModal}></StateButton>
           <Modal open={ modalOpen } close={ closeModal } header="Modal heading">
-          <Barcode value="http://github.com/kciter" />
+          <Barcode value={"          "+patient.pno+patient.pno+patient.pno+patient.pno+patient.pno+"      "} style={{textAlign:'center'}}/>
           </Modal>
           <StateButton value={'접수 취소'} change={'대기'} check={checkArray} checkfun={checkState} list={inspectList}></StateButton>
           <StateButton value={'채혈 완료'} change={'완료'} check={checkArray} checkfun={checkState} list={inspectList}></StateButton>
@@ -131,7 +141,7 @@ function DetailTable(props) {
                     checked={checkArray[index]||''}
                   />
                 </CommonTableColumn>
-                <CommonTableColumn>{board.bno}</CommonTableColumn>
+                <CommonTableColumn>{viewBundleCode(board.bno)}</CommonTableColumn>
                 <CommonTableColumn>{board.ino}</CommonTableColumn>
                 <CommonTableColumn>{board.iname}</CommonTableColumn>
                 <CommonTableColumn>{board.unit}</CommonTableColumn>
