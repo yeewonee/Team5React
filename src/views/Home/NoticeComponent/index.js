@@ -1,6 +1,6 @@
 import { Col, Table, Button, Modal } from "react-bootstrap";
 import style from "./notice.module.css";
-import photo4 from "images/4.png";
+import photo4 from "images/4.jpg";
 import React from "react";
 import { useState } from "react";
 import { getBoardList } from "./data.js";
@@ -96,7 +96,7 @@ function Notice(props) {
         <div>
           <div className={style.notice} style={{ overflow: "auto" }}>
             <div className={style.bContent1}>
-              <img src={photo4} alt="photo4" />
+              <img src={photo4} alt="photo4" style={{width:'35px', margin:'10px'}}/>
               <b>공지사항</b>
             </div>
             <div>
