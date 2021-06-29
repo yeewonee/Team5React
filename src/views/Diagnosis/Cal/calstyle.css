@@ -147,7 +147,7 @@
 .react-datepicker__header {
   text-align: center;
   width:100%;
-  background-color: #4dabf7;
+  background-color: #A5D8FF;
   border-bottom:none;
   border-top-left-radius: 0rem;
   padding: 8px 0;
@@ -499,6 +499,7 @@
 .react-datepicker__quarter-text--today,
 .react-datepicker__year-text--today {
   font-weight: bold;
+  border-radius: 0.3rem;
   background-color: yellow;
 }
 

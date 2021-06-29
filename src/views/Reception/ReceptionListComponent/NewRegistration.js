@@ -56,7 +56,7 @@ const NewRegistration = (props) => {
             )}
           </div>
           <Button style={{backgroundColor:'#4dabf7'}} onClick={props.handleClose}>
-            완료
+            확인
           </Button>
           <Button style={{backgroundColor:'#f74d4d'}} onClick={props.handleClose}>
             취소
