@@ -4,9 +4,9 @@ import Login from "./views/Login";
 import Reception from "./views/Reception/index";
 import Diagnosis from "views/Diagnosis";
 import Inspection from "views/Inspection";
-import CreateReception from "views/CreateReception";
 import Main from "views/Main/Main";
 import { useSelector } from "react-redux";
+import CreateReception from "views/createReception";
 
 function AppRoute() {
   const test = useSelector((state) => {
