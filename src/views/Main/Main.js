@@ -25,7 +25,7 @@ function Main(props) {
               </div>
               <div className={style.middleBox}>
                 <div className={style.innerBox}>
-                  <div style={{textAlign:'center'}}>병원에서 예약 및 접수부터 진료, 검사/치료 단계까지 사용할 수 있는 서비스입니다.</div>
+                  <div style={{textAlign:'center', fontSize:'17px'}}>병원에서 예약 및 접수부터 진료, 검사/치료 단계까지 사용할 수 있는 서비스입니다.</div>
                 </div>
               </div>
               <div className={style.bottomBox}>

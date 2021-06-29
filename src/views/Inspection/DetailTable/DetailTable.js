@@ -13,7 +13,7 @@ import Modal from "./Modal";
 import Barcode from "react-barcode";
 import { transitions, positions, Provider as AlertProvider } from 'react-alert'
 import AlertTemplate from 'react-alert-template-basic'
-import { FaSearch } from 'react-icons/fa';
+import { FaUserCheck } from 'react-icons/fa';
 
 
 
@@ -179,8 +179,8 @@ function DetailTable(props) {
 
         :<div>
           <div style={{display:'flex', justifyContent:'center', alignItems:'center',flexDirection:'column',height:'45vh'}}>
-            <div><FaSearch size={'10em'}/></div>
-            <div style={{marginTop:'15px',fontSize:'30px'}}> 환자를 선택해주세요.</div>
+            <div><FaUserCheck size={'10em'}/></div>
+            <div style={{marginTop:'15px',fontSize:'30px'}}>환자를 선택해주세요.</div>
          </div>
          </div>}
       </div>

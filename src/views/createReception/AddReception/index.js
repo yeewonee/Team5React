@@ -77,7 +77,7 @@ function AddReception(props) {
           </tr>
           <tr>
             <th>예약날짜</th>
-            <td>{moment(date).format('YYYY-MM-DD')}</td>
+            <td>{date}</td>
           </tr>
           <tr>
             <th>예약시간</th>

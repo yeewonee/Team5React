@@ -7,6 +7,7 @@ import CommonTableColumn from "views/table/CommonTableColumn";
 import { useDispatch, useSelector } from "react-redux";
 import { createSetPatientAction } from "redux/inspection_Reducer";
 import { useEffect } from "react";
+import { FaUserCheck } from 'react-icons/fa';
 
 const cx = classNames.bind(style);
 
@@ -120,6 +121,7 @@ function PatientTable(props) {
           <button onClick={searchChange}>검색</button>
         </div>
       </div>
+      {categoryArray.length!==0?
       <div className={cx(style.left_table)}>
         <CommonTable headersName={["", "순서", "환자번호", "성명", "성별/나이", "예약시간", "상태"]} tstyle={"table table-sm"}>
           {categoryArray.map((board, index) => (
@@ -140,7 +142,13 @@ function PatientTable(props) {
             // </CommonTableRow>
           ))}
         </CommonTable>
-      </div>
+      </div>:
+      <div>
+      <div style={{display:'flex', justifyContent:'center', alignItems:'center',flexDirection:'column',height:'45vh'}}>
+        <div><FaUserCheck size={'10em'}/></div>
+        <div style={{marginTop:'15px',fontSize:'30px'}}>일치하는 환자가 없습니다.</div>
+     </div>
+     </div>}
     </div>
   );
 }
