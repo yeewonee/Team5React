@@ -3,10 +3,9 @@ import style from "./PatientTable.module.css";
 import classNames from "classnames/bind";
 import { useState } from "react";
 import CommonTable from "views/table/CommonTable";
-import CommonTableRow from "views/table/CommonTableRow";
 import CommonTableColumn from "views/table/CommonTableColumn";
 import { useDispatch, useSelector } from "react-redux";
-import { createSetPatientAction, UpdatePstatusAction } from "redux/inspection_Reducer";
+import { createSetPatientAction } from "redux/inspection_Reducer";
 import { useEffect } from "react";
 
 const cx = classNames.bind(style);
@@ -16,7 +15,7 @@ function PatientTable(props) {
   const [categoryArray, setCategoryArray] = useState(patientList);
 
   const dispatch = useDispatch();
-  const patient = useSelector((state) => state.inspectReducer.patient);
+  useSelector((state) => state.inspectReducer.patient);
   const [check, setCheck] = useState({
     pno: "",
     tstatus: "",

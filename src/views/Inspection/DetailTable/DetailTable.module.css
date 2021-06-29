@@ -30,3 +30,16 @@
     border-radius: 4px;
     
 }
+
+.stateButton:hover{
+    box-shadow: 3px 3px 3px 0px rgba(25,42,70,0.2);
+    transform: translate(0,-0.5px);
+}
+
+.colorClass{
+    background-color:#e7f5ff;
+}
+
+#__react-alert__ div div div {
+    width: auto !important;
+  }

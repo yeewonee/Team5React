@@ -6,10 +6,8 @@
     
 }
 
-.stateButton{
-    margin-top: 8px;
-    margin-right: 8px;
-    background-color: transparent;
-    border-radius: 4px;
-    
+.stateButton:hover{
+    box-shadow: 3px 3px 3px 0px rgba(25,42,70,0.2);
+    transform: translate(0,-0.5px);
 }
+

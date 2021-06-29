@@ -16,6 +16,7 @@
     border-bottom: 2px solid #d0ebff;
 }
 
+
 .categoryBar ul{
     display:flex;
     flex-flow: row nowrap;
