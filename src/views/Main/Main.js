@@ -20,7 +20,7 @@ function Main(props) {
             <div className={style.rightBox}>
             <div className={style.priceheader}>PRICE</div>
               <div className={style.topBox}>
-                <div style={{marginTop:'20px', fontSize:'25px'}}> 사용자 당 월 6,000원</div>
+                <div style={{marginTop:'40px', fontSize:'25px'}}> 사용자 당 월 6,000원</div>
                 <div style={{fontSize:'13px'}}>월 기본료 30.000원 (부가세별도)</div>
               </div>
               <div className={style.middleBox}>
@@ -36,7 +36,7 @@ function Main(props) {
             </div>
           </div>
           <div className={style.loginBox}>
-          <Link to="/login" style={{textDecoration:'none', color:'black'}}><button className={style.loginButton}>LOGIN</button></Link> 
+          <Link to="/login" style={{textDecoration:'none', color:'black'}}><div className={style.loginButton}>LOGIN</div></Link> 
           </div>      
         </div>
       </div>
