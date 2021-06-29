@@ -43,18 +43,12 @@ export const PatientList = (props) => {
 
   const selectPname = getPatientName(selectPatient);
 
-  const onKeyPress = (event) => {
-    if(event.key = 'Enter'){
-      keywordButton();
-    }
-  }
-
   return (
     <div>
       <div className={style.patientlist_container}>
         <div className="d-flex justify-content-between">
           <div className="input-group m-1">
-            <input type="text" name="keyword" onChange={keywordChange} value={keyword} onKeyPress={onKeyPress}/>
+            <input type="text" name="keyword" onChange={keywordChange} value={keyword}/>
             <div className="input-group-append">
               <button onClick={keywordButton} className="btn btn-outline-secondary btn-sm" type="button">
                 검색

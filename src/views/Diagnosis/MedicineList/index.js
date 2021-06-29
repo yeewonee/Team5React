@@ -16,7 +16,11 @@ export const MedicineList = (props) => {
   //DB에서 약 목록 size 받아오기
   const arr = Array.from({ length: medicineList.length }, () => false);
   const [checkArray, setCheckArray] = useState(arr);
-  const changeCheck = (event, index) => {
+  const changeCheck = (event, index, m) => {
+    if(list.mlist.includes(m)){
+      return;
+    }
+
     let checkarray = checkArray;
     if (event.target.checked) {
       checkarray[index] = true;
@@ -59,7 +63,7 @@ export const MedicineList = (props) => {
 
   const medicineClick = (event, m) => {
     if(list.mlist.includes(m)){
-      alert('asd');
+      alert('이미 추가된 항목입니다.');
       return;
     }
 
@@ -90,18 +94,13 @@ export const MedicineList = (props) => {
     setCheckArray(checkarray);
   };
 
-  const onKeyPress = (event) => {
-    if ((event.key = "Enter")) {
-      keywordButton();
-    }
-  };
 
   return (
     <>
       <div className={style.m_list_container}>
         <div className="d-flex justify-content-between">
           <div className="input-group m-1">
-            <input type="text" name="keyword" onChange={keywordChange} value={keyword} onKeyPress={onKeyPress} />
+            <input type="text" name="keyword" onChange={keywordChange} value={keyword}/>
             <div className="input-group-append">
               <button className="btn btn-outline-secondary btn-sm" type="button" onClick={keywordButton}>
                 검색
@@ -121,7 +120,7 @@ export const MedicineList = (props) => {
                   <input
                     type="checkbox"
                     onChange={(event) => {
-                      changeCheck(event, index);
+                      changeCheck(event, index, medicine);
                     }}
                     checked={checkArray[index] || ""}
                     onClick={(event) => medicineClick(event, medicine)}
