@@ -1,10 +1,10 @@
-import React, { useEffect } from "react";
+import React from "react";
 import classNames from "classnames/bind";
 import style from "./StateButton.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import { UpdatePstatusAction, UpdateStatusAction } from "redux/inspection_Reducer";
-import { patientInspect, updateaInspect, updateInspect } from "../data";
-import { useState } from "react";
+import { patientInspect, updateInspect } from "../data";
+import { useAlert } from 'react-alert'
 
 const cx = classNames.bind(style);
 
@@ -15,6 +15,7 @@ export const StateButton = (props) => {
   const changeValue = props.change;
   const dcheck = props.checkfun;
   const patient = useSelector((state) => state.inspectReducer.patient);
+  const alert = useAlert()
 
   const inspectList = props.list;
 
@@ -22,13 +23,14 @@ export const StateButton = (props) => {
     //버튼 예외처리
     if (patient.tstatus === "완료") {
       console.log("완료");
-      alert("완료된 검사입니다");
+      // alert("완료된 검사입니다");
+      alert.show("완료된 검사입니다.")
       return;
     }
     if (patient.tstatus === "대기") {
       console.log("대기");
       if (changeValue === "완료") {
-        alert("검사를 먼저 진행해주세요");
+        alert.show("검사를 진행해주세요");
         return;
       }
     }
@@ -36,7 +38,7 @@ export const StateButton = (props) => {
     if (checkList.length > 1) {
       console.log("여러개");
       if (changeValue === "접수") {
-        alert("바코드 출력은 중복이 될 수 없습니다.");
+        alert.show("바코드 출력은 중복이 될 수 없습니다.");
         return;
       }
     }
@@ -44,19 +46,19 @@ export const StateButton = (props) => {
     for (let i = 0; i < checkList?.length; i++) {
       if (inspectList[i].istatus === "접수") {
         if (changeValue === "접수") {
-          alert("현재 검사가 진행중입니다.");
+          alert.show("검사가 진행중입니다.");
           return;
         }
       }
       if (checkList[i].istatus === "대기") {
         if (changeValue === "완료") {
-          alert("검사를 먼저 진행해주세요");
+          alert.show("검사를 진행해주세요");
           return;
         }
       }
       if (checkList[i].istatus === "완료") {
         if (changeValue === "대기" || changeValue === "접수") {
-          alert("완료된 검사입니다");
+          alert.show("완료된 검사입니다");
           return;
         }
       }

@@ -2,16 +2,17 @@ import React from "react";
 import classNames from "classnames/bind";
 import style from "./DetailTable.module.css";
 import CommonTable from "views/table/CommonTable";
-import CommonTableRow from "views/table/CommonTableRow";
 import CommonTableColumn from "views/table/CommonTableColumn";
 import { useDispatch, useSelector } from "react-redux";
-import { createSetCheckDownAction,createSetCheckUpAction, UpdatePstatusAction } from "redux/inspection_Reducer";
+import { createSetCheckDownAction,createSetCheckUpAction } from "redux/inspection_Reducer";
 import { StateButton } from "./StateButton";
 import { useState } from "react";
 import { CSVLink } from "react-csv";
 import { useEffect } from "react";
 import Modal from "./Modal";
 import Barcode from "react-barcode";
+import { transitions, positions, Provider as AlertProvider } from 'react-alert'
+import AlertTemplate from 'react-alert-template-basic'
 
 
 
@@ -55,7 +56,17 @@ function DetailTable(props) {
   const dispatch = useDispatch();
 
 
-
+  const options = {
+    // you can also just use 'bottom center'
+    position: positions.TOP_CENTER,
+    timeout: 3000,
+    offset: '20px',
+    // you can also just use 'scale'
+    transition: transitions.SCALE,
+    containerStyle: {
+      
+    }
+  }
 
 
 
@@ -106,30 +117,31 @@ function DetailTable(props) {
       <div className={cx(style.middle_right_bottom)}>
         <div className={cx(style.buttonBox)}>
         
-
+        <AlertProvider template={AlertTemplate} {...options}>
           <StateButton value={'바코드 출력'} change={'접수'} check={checkArray} checkfun={checkState} list={inspectList} openModal={openModal}></StateButton>
           <Modal open={ modalOpen } close={ closeModal } header="Modal heading">
-          <Barcode value={"          "+patient.pno+patient.pno+patient.pno+patient.pno+patient.pno+"      "} style={{textAlign:'center'}}/>
+          <Barcode value={"      "+patient.pno+patient.pno+patient.pno+patient.pno+patient.pno+"      "} style={{textAlign:'center'}}/>
           </Modal>
           <StateButton value={'접수 취소'} change={'대기'} check={checkArray} checkfun={checkState} list={inspectList}></StateButton>
           <StateButton value={'채혈 완료'} change={'완료'} check={checkArray} checkfun={checkState} list={inspectList}></StateButton>
+          </AlertProvider>
           <button className={cx(style.stateButton)}>
-      <CSVLink 
-      	headers={headers} 
-        data={checkList} 
-        filename="users.csv" 
-        target="_blank"
-        style={{color: 'black', textDecoration:'none'}}
-      >
-        엑셀 저장
-      </CSVLink>
-    </button>
+            <CSVLink 
+              headers={headers} 
+              data={checkList} 
+              filename="users.csv" 
+              target="_blank"
+              style={{color: 'black', textDecoration:'none'}}
+            >
+              엑셀 저장
+            </CSVLink>
+        </button>
            
         </div>
         <div className="right-table">
           <CommonTable headersName={["", "묶음코드", "처방코드", "검사명", "단위", "검사자", "상태"]} tstyle={"table table-sm"}>
             {inspectList.map((board, index) =>  (
-              <CommonTableRow key={board.ino}>
+              <tr key={board.ino} className={board.ino===checkList[index]?.ino? cx(style.colorClass):cx(style.ncolorClass)}>
                 <CommonTableColumn>
                   <input
                     id={board.ino}
@@ -147,7 +159,7 @@ function DetailTable(props) {
                 <CommonTableColumn>{board.unit}</CommonTableColumn>
                 <CommonTableColumn>{board.inspector}</CommonTableColumn>
                 <CommonTableColumn>{board.istatus}</CommonTableColumn>
-              </CommonTableRow>
+              </tr>
             ))}
           </CommonTable>
         </div>
