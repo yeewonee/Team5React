@@ -13,7 +13,7 @@ export const getBoardList = (pageNo) => {
   boards.sort((a, b) => b.bno-a.bno);  
   if(!pageNo) pageNo = 1;
   const start = (pageNo - 1) * 5;
-  const end = pageNo * 7;
+  const end = pageNo * 5;
   var boardList = boards.slice(start, end);
   return boardList;
 };
