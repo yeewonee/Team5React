@@ -19,6 +19,10 @@
   
 }
 
+.fontweight{
+  font-weight: bold;
+}
+
 .buttonlocation{
  margin-left: 55%;
 }
@@ -38,11 +42,12 @@
 
 .margin2{
   float: left;
-  margin-left: 0.1%;
+  margin-left: 0.6%;
   margin-top: 0.5%;
 }
 
 .button1{
+  color:rgb(49, 49, 49);
   float: right;
   margin-right: 0.5%;
   margin-top: 0.4%;
@@ -66,9 +71,11 @@
   padding-right: 100px;
 }
 
-
-
 .button{
+  background-color: #4dabf7;
+  border: none;
+  color:white;
+  border-radius: 5px;
   width: 130px;
   height: 35px;
   margin-left: 10px;
@@ -76,10 +83,14 @@
 }
 
 .link{
-  color: white;
+  color:white;
   text-decoration: none;
 }
 
+.link_white{
+  color: white;
+  text-decoration: none;
+}
 
 .click{
   cursor: pointer;
@@ -193,4 +204,36 @@
 .detailtd{
   width: 200px;
   border: 1px solid lightgray;
+}
+
+.completecolor{
+  background-color:#4dabf7;
+  outline: none;
+}
+
+.closecolor{
+  outline: none;
+  background-color:#f74d4d;
+}
+
+.buttoncolor1{
+  background-color: #fc9c43;
+  color:white;
+  border: none;
+  border-radius: 5px;
+  width: 75px;
+  height: 35px;
+  margin-left: 10px;
+  margin-bottom: 5px;
+}
+
+.buttoncolor2{
+  background-color: #4dabf7;
+  color:white;
+  border: none;
+  border-radius: 5px;
+  width: 75px;
+  height: 35px;
+  margin-left: 1px;
+  margin-bottom: 5px;
 }
