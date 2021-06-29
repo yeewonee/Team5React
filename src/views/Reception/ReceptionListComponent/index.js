@@ -17,7 +17,7 @@ import NewRegistration from './NewRegistration';
 import { useEffect } from 'react';
 import CancelModal from './CancelModal';
 import CompleteModal from './CompleteModal';
-import { createSetStatus } from 'redux/createReception-reducer';
+import { createSetDate, createSetDoctor, createSetPatient, createSetStatus, createSetTime } from 'redux/createReception-reducer';
 
 function ReceptionList(props){
   const day = useSelector((state) => {
@@ -50,7 +50,11 @@ function ReceptionList(props){
 
   // 예약/접수 버튼 클릭 시 동작
   const handleReception = (event) => {
-    dispatch(createSetStatus(1)); 
+    dispatch(createSetStatus(1));
+    dispatch(createSetPatient(''));
+    dispatch(createSetDoctor(''));
+    dispatch(createSetDate(''));
+    dispatch(createSetTime(''));
   };
 
   //환자상세정보
