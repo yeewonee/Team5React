@@ -76,6 +76,18 @@ function PatientTable(props) {
     }
   }
 
+  const viewStatus = (tstatus)=>{
+    if(tstatus === '완료'){
+      return(<div style={{color:'rgb(255, 205, 86)'}}>완료</div>)
+    }
+    if(tstatus === '대기'){
+      return(<div style={{color:'rgb(255, 99, 132)'}}>대기</div>)
+    }
+    if(tstatus === '진행중'){
+      return(<div style={{color:'rgb(54, 162, 235)'}}>진행중</div>)
+    }
+  }
+
   return (
     <div>
       <div className={cx(style.left_menu_bar)}>
@@ -123,7 +135,7 @@ function PatientTable(props) {
                 {board.sex}/{board.age}
               </CommonTableColumn>
               <CommonTableColumn>{board.rtime}</CommonTableColumn>
-              <CommonTableColumn>{board.tstatus}</CommonTableColumn>
+              <CommonTableColumn>{viewStatus(board.tstatus)}</CommonTableColumn>
             </tr>
             // </CommonTableRow>
           ))}
