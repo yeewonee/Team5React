@@ -11,7 +11,7 @@ function Progress(props){
     const user = props.data;
     const inspectList = props.list;
     const completeList=inspectList.filter((value)=>value.istatus==='완료');
-    const state = useSelector(state => state.inspectReducer.checked)
+    useSelector(state => state.inspectReducer.checked)
     let progress = Math.floor((completeList.length/inspectList.length)*100 ) 
     let percent = String(progress).concat('%')
     

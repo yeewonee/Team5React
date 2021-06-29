@@ -30,7 +30,7 @@ function DetailTable(props) {
   const checkList = useSelector(state => state.inspectReducer.checked);
   const patient = useSelector(state => state.inspectReducer.patient);
   
-
+  
   
 
   const changeCheck = (event, index) => {
@@ -43,7 +43,9 @@ function DetailTable(props) {
     setCheckArray(check);
   };
 
+  console.log(checkArray.indexOf(true))
 
+  console.log(checkArray)
   const checkState=()=>{
     checkArray.splice(0,checkArray.length)
   }
@@ -58,9 +60,9 @@ function DetailTable(props) {
 
   const options = {
     // you can also just use 'bottom center'
-    position: positions.TOP_CENTER,
+    position: positions.MIDDLE,
     timeout: 3000,
-    offset: '20px',
+    offset: '-130px',
     // you can also just use 'scale'
     transition: transitions.SCALE,
     containerStyle: {
@@ -106,11 +108,17 @@ function DetailTable(props) {
   const openModal = () => {
       setModalOpen(true);
   }
-  console.log(modalOpen)
   const closeModal = () => {
       setModalOpen(false);
   }
 
+  const checkColor = (ino) =>{
+    const arr = checkList.find((value)=>value.ino === ino);
+    console.log(arr)
+    if(arr){
+      return true;
+    }
+  }
  
   return (
     <div>
@@ -141,7 +149,7 @@ function DetailTable(props) {
         <div className="right-table">
           <CommonTable headersName={["", "묶음코드", "처방코드", "검사명", "단위", "검사자", "상태"]} tstyle={"table table-sm"}>
             {inspectList.map((board, index) =>  (
-              <tr key={board.ino} className={board.ino===checkList[index]?.ino? cx(style.colorClass):cx(style.ncolorClass)}>
+              <tr key={board.ino} className={checkColor(board?.ino)? cx(style.colorClass):cx(style.ncolorClass)}>
                 <CommonTableColumn>
                   <input
                     id={board.ino}

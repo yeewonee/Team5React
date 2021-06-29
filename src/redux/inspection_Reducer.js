@@ -1,5 +1,4 @@
 
-import { updateInspect } from "views/Inspection/data"
 
 //상태 초기값 선택
 const initialState = {
