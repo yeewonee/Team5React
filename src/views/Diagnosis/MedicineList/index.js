@@ -17,7 +17,7 @@ export const MedicineList = (props) => {
   const arr = Array.from({ length: medicineList.length }, () => false);
   const [checkArray, setCheckArray] = useState(arr);
   const changeCheck = (event, index, m) => {
-    if(list.mlist.includes(m)){
+    if(list.mlist.includes(m) && event.target.checked){
       return;
     }
 
@@ -62,7 +62,8 @@ export const MedicineList = (props) => {
   }, [props, keyword]);
 
   const medicineClick = (event, m) => {
-    if(list.mlist.includes(m)){
+    console.log("실행")
+    if(list.mlist.includes(m) && event.target.checked){
       alert('이미 추가된 항목입니다.');
       return;
     }
@@ -108,14 +109,14 @@ export const MedicineList = (props) => {
             </div>
           </div>
           <div className="mr-1 mt-1">
-            <input type="button" className="btn btn-primary btn-sm" value="추가" onClick={addMedicine} />
+            <input type="button" className="btn btn-sm" style={{backgroundColor:'#4dabf7', color:'white'}} value="추가" onClick={addMedicine} />
           </div>
         </div>
 
         <div className={style.m_list}>
           <CommonTable headersName={["", "코드", "명칭", "구분", "단위"]} tstyle={"table table-sm"}>
             {medicineList.map((medicine, index) => (
-              <CommonTableRow key={medicine.mId}>
+              <tr key={medicine.mId} className={checkArray[index] ? style.select_Color : style.basic_Color}>
                 <CommonTableColumn>
                   <input
                     type="checkbox"
@@ -131,7 +132,7 @@ export const MedicineList = (props) => {
                 <CommonTableColumn>{medicine.mName}</CommonTableColumn>
                 <CommonTableColumn>{medicine.mCategory}</CommonTableColumn>
                 <CommonTableColumn>{medicine.mUnit}</CommonTableColumn>
-              </CommonTableRow>
+              </tr>
             ))}
           </CommonTable>
         </div>

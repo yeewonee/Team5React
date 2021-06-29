@@ -27,7 +27,8 @@ export const MedicineResult = (props) => {
                 <CommonTableColumn>{medicine.mUnit}</CommonTableColumn>
                 <CommonTableColumn>
                   <button
-                    className="btn btn-danger btn-sm"
+                    style={{backgroundColor:'#f74d4d', color:'white'}}
+                    className="btn btn-sm"
                     onClick={(event) => {
                       deleteMedicine(event, medicine.mId);
                     }}

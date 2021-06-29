@@ -44,7 +44,7 @@ export const PastRecord = (props) => {
             <CommonTableRow key={plist.dDate}>
               <CommonTableColumn>{plist.dDate}</CommonTableColumn>
               <CommonTableColumn>
-                <button type="button" className="btn btn-dark btn-sm" onClick={(event, day)=>{openModal(event, plist.dDate)}}>
+                <button type="button" className="btn btn-outline-dark btn-sm" onClick={(event, day)=>{openModal(event, plist.dDate)}}>
                   상세보기
                 </button>
               </CommonTableColumn>

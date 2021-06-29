@@ -26,7 +26,8 @@ export const InspectionResult = (props) => {
                 <CommonTableColumn>{ilist.bundleCode}</CommonTableColumn>
                 <CommonTableColumn>
                   <button
-                    className="btn btn-danger btn-sm"
+                    style={{backgroundColor:'#f74d4d', color:'white'}}
+                    className="btn btn-sm"
                     onClick={(event) => {
                       deleteInspection(event, ilist.iId, ilist.bundleCode);
                     }}

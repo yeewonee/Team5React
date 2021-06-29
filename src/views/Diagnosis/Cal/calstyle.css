@@ -499,6 +499,7 @@
 .react-datepicker__quarter-text--today,
 .react-datepicker__year-text--today {
   font-weight: bold;
+  border-radius: 0.3rem;
   background-color: yellow;
 }
 
