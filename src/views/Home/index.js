@@ -5,24 +5,20 @@ import style from "./home.module.css";
 
 function Home(props){
   return(
-    <Container fluid className={style.back}>
-      <Row>
-        <Col className={style.col1}></Col>
-      </Row>
-      <Row>
-        <Col className={style.col2}>
-          <h1>WEHAGO-H</h1>
-        </Col>
-      </Row>
-      <Row>
-        <Col xs={5} className="ml-4">
+    <div className={style.back}>
+      <div className={style.title}>
+        <div style={{fontSize:'60px'}}>WEHAGO-H</div>
+       </div>
+      <div className={style.mainBody}>
+        <div className={style.menu}>
           <HomeMenu/>
-        </Col>
-        <Col className="mr-3">
+        </div>
+        <div className={style.noticeBody}>
           <Notice props={props}/>
-        </Col>
-      </Row>
-    </Container>
+        </div>
+      </div>
+
+    </div>
   )
 }
 

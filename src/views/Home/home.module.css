@@ -1,14 +1,24 @@
 .back{
   font-family: "DoHyeon-Regular"; 
 }
-.col1{
-  margin-bottom: 2%;
 
+.title{
+  padding-top: 7vh;
+  padding-bottom: 3vh;
+  text-align: center;
 }
 
-.col2{
-  margin-left: 42%;
-  margin-top:2%;
-  margin-bottom:2%;
+.mainBody{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
+.menu{
+  width: 20%;
+  margin: 0 30px;
+}
+
+.noticeBody{
+  width: 38%;
 }

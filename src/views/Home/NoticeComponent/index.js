@@ -92,14 +92,14 @@ function Notice(props) {
         </style>
       </Modal>
 
-      <div className={style.col}>
-        <div className={style.bLocation}>
+      <div>
+        <div>
           <div className={style.notice} style={{ overflow: "auto" }}>
             <div className={style.bContent1}>
               <img src={photo4} alt="photo4" />
               <b>공지사항</b>
             </div>
-            <div className={style.table1_container}>
+            <div>
               <Table responsive="sm" className={style.table1}>
                 <thead>
                   <tr>
