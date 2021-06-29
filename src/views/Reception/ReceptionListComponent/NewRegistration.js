@@ -33,7 +33,7 @@ const NewRegistration = (props) => {
                 <th className={style.tr1}>&nbsp;우편번호<input type="text" className={style.inputtext1} value={addressValue.zoneCode} readOnly/></th>
                 <th className={style.tr1}>   
                   <div>
-                    &nbsp;<button className="btn btn-sm btn-secondary" onClick={props.openPostCode}>우편번호 검색</button>
+                    &nbsp;<button className="btn btn-sm btn-light" onClick={props.openPostCode}>우편번호 검색</button>
 
                   </div>   
                 </th>             
@@ -55,10 +55,10 @@ const NewRegistration = (props) => {
                 </FindAddrDom>
             )}
           </div>
-          <Button variant="success" onClick={props.handleClose}>
+          <Button style={{backgroundColor:'#4dabf7'}} onClick={props.handleClose}>
             완료
           </Button>
-          <Button variant="danger" onClick={props.handleClose}>
+          <Button style={{backgroundColor:'#f74d4d'}} onClick={props.handleClose}>
             취소
           </Button>
         </Modal.Footer>

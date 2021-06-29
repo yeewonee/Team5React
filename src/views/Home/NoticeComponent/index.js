@@ -79,8 +79,8 @@ function Notice(props) {
           </table>
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="danger" onClick={handleClose}>
-            Close
+          <Button style={{backgroundColor:'#f74d4d'}} onClick={handleClose}>
+            닫기
           </Button>
         </Modal.Footer>
         <style jsx="true" global="true">
