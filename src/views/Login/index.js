@@ -17,15 +17,15 @@ function Login(props){
       <div style={{display:'flex', justifyContent:'center', alignItems:'center'}}>
         <form className={style.box}>
           <div className="form-group mt-3">
-            <label >병원 코드</label>
+            <div>병원 코드</div>
             <input type="text" className="form-control"/>
           </div>
           <div className="form-group">
-            <label >User ID</label>
+            <div >User ID</div>
             <input type="text" className="form-control"/>
           </div>
           <div className="form-group mt-3">
-            <label >Password</label>
+            <div >Password</div>
             <input type="text" className="form-control"/>
           </div>
           <div className={style.button}>

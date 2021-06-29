@@ -31,6 +31,11 @@ export const ModalPast = (props) => {
           </CommonTableRow>
         </CommonTable>
 
+        <div className={style.past_title}>메모</div>
+        <div className={style.past_memo}>
+          <p style={{padding:'10px'}}>{props.memo}</p>
+        </div>
+
         <div className={style.past_title}>결과 확인</div>
         <hr />
 
