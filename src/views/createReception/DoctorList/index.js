@@ -6,6 +6,7 @@ import CommonTableColumn from "views/table/CommonTableColumn";
 import { useDispatch, useSelector } from "react-redux";
 import { createSetDoctor } from "redux/createReception-reducer";
 import { useState } from "react";
+import { FaUserTimes } from 'react-icons/fa';
 
 function DoctorList(props) {
   const originDoctorList = getDoctorList();
@@ -58,6 +59,8 @@ function DoctorList(props) {
                 <button className="btn btn-outline-secondary btn-sm" type="button" onClick={searchDoctor}>검색</button>
             </div>
           </div>
+          
+          {doctorList.length !== 0 ?
           <div className={style.table_wrapper}>
           <CommonTable headersName={['', '의사번호', '이름', '진료실', '전화번호']} tstyle={"table table-sm"}>
             {doctorList.map((doctor, index) => (
@@ -71,7 +74,15 @@ function DoctorList(props) {
               ))}
           </CommonTable>
           </div>
-        </div>
+          :
+          <div>
+            <div style={{display:'flex', justifyContent:'center', alignItems:'center',flexDirection:'column',height:'25vh'}}>
+              <div><FaUserTimes size={'5em'}/></div>
+              <div style={{marginTop:'15px',fontSize:'20px'}}>일치하는 의사가 없습니다.</div>
+            </div>  
+          </div>
+        }
+      </div>
   );
 }
 
