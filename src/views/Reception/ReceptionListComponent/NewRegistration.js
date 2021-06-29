@@ -55,11 +55,11 @@ const NewRegistration = (props) => {
                 </FindAddrDom>
             )}
           </div>
-          <Button variant="danger" onClick={props.handleClose}>
-            취소
-          </Button>
           <Button variant="success" onClick={props.handleClose}>
             완료
+          </Button>
+          <Button variant="danger" onClick={props.handleClose}>
+            취소
           </Button>
         </Modal.Footer>
         <style jsx="true" global="true">{`

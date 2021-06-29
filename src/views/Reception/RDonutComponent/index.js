@@ -1,13 +1,12 @@
 import { Doughnut } from 'react-chartjs-2';
 import style from './donut.module.css';
+import getDonutData from './data';
 function RDonut(props){
   
   const expData = {
-    labels:["접수 대기","접수 완료"],
     datasets: [
       {
-        label:["접수 대기", "접수 완료"],
-        data: [30, 70],
+        data: getDonutData(),
         backgroundColor: [
           "orange",
           "skyblue"
