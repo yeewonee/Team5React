@@ -62,7 +62,7 @@ function CheckTime(props) {
       <div style={{marginTop:'20px', marginLeft:'19px'}}>
         <div className={style.radios}>
           {todayState.map((List, index) =>(
-              <label key={index} style={{backgroundColor: List.time===time ? '#006edc' : ''}}>
+              <label key={index} style={{backgroundColor: List.time===time ? '#a5d8ff' : ''}}>
               <input type="radio" name="time" value={List.time} checked={List.time===time} onChange={handleRadio}/>
               {List.time}
               </label>
