@@ -38,7 +38,7 @@ export const StateButton = (props) => {
     if (checkList.length > 1) {
       console.log("여러개");
       if (changeValue === "접수") {
-        alert.show("바코드 출력은 중복이 될 수 없습니다.");
+        alert.show("단일 접수만 가능합니다.");
         return;
       }
     }

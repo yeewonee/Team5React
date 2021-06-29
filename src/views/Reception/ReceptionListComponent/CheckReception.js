@@ -57,10 +57,10 @@ const CheckReception = (props) => {
           </table>
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="warning" onClick={updateReception}>
-          <Link to="/createReception">수정</Link>
+          <Button style={{backgroundColor:'#4dabf7'}} onClick={updateReception}>
+          <Link className={style.link_white} to="/createReception">수정</Link>
           </Button>
-          <Button variant="danger" onClick={props.handleClose1}>
+          <Button style={{backgroundColor:'#f74d4d'}} onClick={props.handleClose1}>
             닫기
           </Button>
         </Modal.Footer>

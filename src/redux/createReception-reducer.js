@@ -5,7 +5,8 @@ const initialState = { //처음에 컴포넌트가 전역데이터를 읽을 때
   doctor_id: '',
   patient_id: '',
   time: '',
-  date: moment(new Date()).format('YYYY-MM-DD')
+  date: moment(new Date()).format('YYYY-MM-DD'),
+  status: 0 //0이 수정하는 경우의 상태값이라고 두고, 1을 예약/접수 버튼을 눌렀을 경우로!
 };
 
 //액션 타입 선언

@@ -3,8 +3,11 @@ import DoctorList from "./DoctorList";
 import CheckCalendar from "./CheckCalendar";
 import CheckTime from "./CheckTime";
 import AddReception from "./AddReception";
-function createReception(props) {
+
+function CreateReception(props) {
+
   return(
+
     <div style={{fontFamily: "DoHyeon-Regular"}}>
       <div style={{marginLeft:'10px', paddingTop: '5px', paddingBottom: '5px'}}>
         <span style={{fontSize:'20px', color:'#495057'}}>예약 등록</span>
@@ -29,4 +32,4 @@ function createReception(props) {
   );
 }
 
-export default createReception;
+export default CreateReception;

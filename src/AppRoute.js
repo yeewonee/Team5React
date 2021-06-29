@@ -4,9 +4,9 @@ import Login from "./views/Login";
 import Reception from "./views/Reception/index";
 import Diagnosis from "views/Diagnosis";
 import Inspection from "views/Inspection";
-import createReception from "views/createReception";
 import Main from "views/Main/Main";
 import { useSelector } from "react-redux";
+import CreateReception from "views/createReception";
 
 function AppRoute() {
   const test = useSelector((state) => {
@@ -22,7 +22,7 @@ function AppRoute() {
           <Route path="/reception" component={Reception}/>
           <Route path="/diagnosis" component={Diagnosis}/>
           <Route path="/inspection" component={Inspection}/> 
-          <Route path="/createReception" component={createReception}/> 
+          <Route path="/createReception" component={CreateReception}/> 
           <Redirect to="/"/>
         </Switch>
       </>

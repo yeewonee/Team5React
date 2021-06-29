@@ -1,7 +1,6 @@
 import { getPatientList, getPatientListBySearch } from "./data";
 import style from "./style.module.css";
 import CommonTable from "views/table/CommonTable";
-import CommonTableRow from "views/table/CommonTableRow";
 import CommonTableColumn from "views/table/CommonTableColumn";
 import { createSetPatient } from "redux/createReception-reducer";
 import { useDispatch, useSelector } from "react-redux";

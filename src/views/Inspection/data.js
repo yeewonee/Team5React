@@ -1,5 +1,3 @@
-let lastBno = 15;
-
 let data = [
   { sequence: 1, pno: "12345", pname: "환자" + 2, sex: "male", age: 33, rtime: "15:00", tstatus: "대기" },
   { sequence: 2, pno: "2234", pname: "환자" + 3, sex: "female", age: 17, rtime: "16:00", tstatus: "진행중" },

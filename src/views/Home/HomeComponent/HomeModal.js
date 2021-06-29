@@ -8,8 +8,8 @@ function HomeModal(props){
     </Modal.Header>
     <Modal.Body>접근 권한이 없습니다.</Modal.Body>
     <Modal.Footer>
-      <Button variant="primary" onClick={props.handleClose}>
-        Close
+      <Button style={{backgroundColor:'#f74d4d'}} onClick={props.handleClose}>
+        닫기
       </Button>
     </Modal.Footer>
     <style jsx="true" global="true">{`
