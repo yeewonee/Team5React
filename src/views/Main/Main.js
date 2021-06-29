@@ -15,7 +15,7 @@ function Main(props) {
           <div className={style.contentBox}>
             <div className={style.notice}>
               <div className={style.header}>NOTICE</div>
-                <MainNotice/>
+                <div style={{height:'41.5vh',overflow:'auto'}}><MainNotice/></div>
             </div>
             <div className={style.rightBox}>
             <div className={style.priceheader}>PRICE</div>
@@ -36,7 +36,7 @@ function Main(props) {
             </div>
           </div>
           <div className={style.loginBox}>
-            <button className={style.loginButton}><Link to="/login" style={{textDecoration:'none', color:'black'}}>LOGIN</Link></button>   
+          <Link to="/login" style={{textDecoration:'none', color:'black'}}><button className={style.loginButton}>LOGIN</button></Link> 
           </div>      
         </div>
       </div>

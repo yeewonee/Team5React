@@ -12,10 +12,17 @@ function DoctorList(props) {
   const [doctorList, setDoctorList] = useState(originDoctorList);
 
   const dispatch = useDispatch();
+  const did = useSelector((state) => {
+    return state.createReceptionReducer.doctor_id
+  });
 
   const arr = Array.from({length: doctorList.length}, () => false);
   const [checkArray,setCheckArray] = useState(arr);
+
   const changeCheck = (event,index,id) =>{
+    if(did === id){
+      return
+    }
     let checkarray = checkArray
     if(event.target.value==="on"){
       dispatch(createSetDoctor(id));
@@ -25,9 +32,7 @@ function DoctorList(props) {
     setCheckArray(checkarray);
   }
 
-  useSelector((state) => {
-    return state.createReceptionReducer.doctor_id
-  });
+
 
   const [searchword, setSearchword] = useState('');
   const serachChange = (event) => {
@@ -56,13 +61,13 @@ function DoctorList(props) {
           <div className={style.table_wrapper}>
           <CommonTable headersName={['', '의사번호', '이름', '진료실', '전화번호']} tstyle={"table table-sm"}>
             {doctorList.map((doctor, index) => (
-              <CommonTableRow key={doctor.doctor_id}>
+              <tr key={doctor.doctor_id} style={{backgroundColor: doctor.doctor_id===did ? '#006edc' : ''}}>
                   <CommonTableColumn><input type="checkbox" name='doctor' onChange={(event)=>{changeCheck(event, index, doctor.doctor_id)}}  checked={checkArray[index]||''}  ></input></CommonTableColumn>
                   <CommonTableColumn>{doctor.doctor_id}</CommonTableColumn>
                   <CommonTableColumn>{doctor.doctor_name}</CommonTableColumn>
                   <CommonTableColumn>{doctor.doctor_office}</CommonTableColumn>
                   <CommonTableColumn>{doctor.doctor_phone}</CommonTableColumn>
-              </CommonTableRow>
+              </tr>
               ))}
           </CommonTable>
           </div>

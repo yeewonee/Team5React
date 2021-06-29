@@ -19,7 +19,7 @@ function Home(props){
           <HomeMenu/>
         </Col>
         <Col className="mr-3">
-          <Notice/>
+          <Notice props={props}/>
         </Col>
       </Row>
     </Container>

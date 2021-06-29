@@ -12,11 +12,18 @@ function PatientList(props) {
   const [patientList, setPatientList] = useState(originPatientList);
 
   const dispatch = useDispatch();
+  
+  const pid = useSelector((state) => {
+    return state.createReceptionReducer.patient_id
+  });
 
   let arr = Array.from({length: patientList.length}, () => false); // 환자리스트의 리스트개수만큼 false로 채워진 배열 생성
   const [checkArray,setCheckArray] = useState(arr);
 
   const changeCheck = (event,index,id) =>{
+    if(pid === id){ //리덕스에 담겨있는 값이랑 현재 체크하려는 것이 같으면 더 이상 눌리지 않게 처리해주기!
+      return 
+    }
     let checkarray = checkArray
     if(event.target.value==="on"){ //checkbox가 check되면
       dispatch(createSetPatient(id)); //createSetPatient를 호출해서 액션객체를 얻고
@@ -41,9 +48,6 @@ function PatientList(props) {
       setPatientList(patientBySearch); //list에 검색어에 맞는 목록 넣음
     }
   };
-  useSelector((state) => {
-    return state.createReceptionReducer.patient_id
-  });
 
 
   return(
@@ -57,13 +61,13 @@ function PatientList(props) {
     <div className={style.table_wrapper}>
       <CommonTable headersName={['', '환자번호', '이름', '주민등록번호', '전화번호']} tstyle={"table table-sm"}>
           {patientList.map((patient, index) => (
-            <CommonTableRow key={patient.patient_id}>
+            <tr key={patient.patient_id} style={{backgroundColor: patient.patient_id === pid ? '#006edc' : ''}}>
                 <CommonTableColumn><input type="checkbox" name='patient' onChange={(event)=>{changeCheck(event, index, patient.patient_id)}} checked={checkArray[index]||''}></input></CommonTableColumn>
                 <CommonTableColumn>{patient.patient_id}</CommonTableColumn>
                 <CommonTableColumn>{patient.patient_name}</CommonTableColumn>
                 <CommonTableColumn>{patient.patient_ssn1}-{patient.patient_ssn2}</CommonTableColumn>
                 <CommonTableColumn>{patient.patient_phone}</CommonTableColumn>
-            </CommonTableRow>
+            </tr>
             ))}
       </CommonTable>
     </div>

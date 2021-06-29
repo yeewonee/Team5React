@@ -34,7 +34,6 @@
   transition: 0.4s;
   flex-shrink: 0;
   background-color: white;
-  overflow: auto;
 }
 
 .notice:hover{

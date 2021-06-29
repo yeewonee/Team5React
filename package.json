@@ -12,6 +12,7 @@
     "global": "^4.4.0",
     "moment": "^2.29.1",
     "moment-timezone": "^0.5.33",
+    "qs": "^6.10.1",
     "react": "^17.0.2",
     "react-alert": "^7.0.3",
     "react-alert-template-basic": "^1.0.2",
