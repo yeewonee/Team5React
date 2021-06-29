@@ -28,7 +28,8 @@ body{
 }
 
 .title{
-  background-color: #CCE3F7; border:1px solid lightgray;
+  background-color: white; 
+  border:1px solid lightgray;
   height: 3vh;
 }
 
@@ -49,7 +50,7 @@ body{
 }
 
 .calendar{
-  background-color: #CCE3F7; 
+  background-color: white; 
   border:1px solid lightgray;
   height: 3vh;
 }

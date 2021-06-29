@@ -43,18 +43,12 @@ export const PatientList = (props) => {
 
   const selectPname = getPatientName(selectPatient);
 
-  const onKeyPress = (event) => {
-    if(event.key = 'Enter'){
-      keywordButton();
-    }
-  }
-
   return (
     <div>
       <div className={style.patientlist_container}>
         <div className="d-flex justify-content-between">
           <div className="input-group m-1">
-            <input type="text" name="keyword" onChange={keywordChange} value={keyword} onKeyPress={onKeyPress}/>
+            <input type="text" name="keyword" onChange={keywordChange} value={keyword}/>
             <div className="input-group-append">
               <button onClick={keywordButton} className="btn btn-outline-secondary btn-sm" type="button">
                 검색
@@ -69,14 +63,14 @@ export const PatientList = (props) => {
         <div className={style.p_list}>
           <CommonTable headersName={["회원번호", "이름", "생년월일", "휴대전화번호", ""]} tstyle={"table table-sm"}>
             {showPList.map((patient) => (
-              <CommonTableRow key={patient.patientId}>
+              <tr key={patient.patientId} className={patient.patientId === selectPatient ? style.select_Color : style.basic_Color}>
                 <CommonTableColumn>{patient.patientId}</CommonTableColumn>
                 <CommonTableColumn>{patient.patientName}</CommonTableColumn>
                 <CommonTableColumn>{patient.patientSsn1}</CommonTableColumn>
                 <CommonTableColumn>{patient.patientPhone}</CommonTableColumn>
                 <CommonTableColumn>
                   <button
-                    className="btn btn-info btn-sm"
+                    className="btn btn-outline-dark btn-sm"
                     onClick={(event) => {
                       patientSelect(event, patient.patientId);
                     }}
@@ -84,7 +78,7 @@ export const PatientList = (props) => {
                     선택
                   </button>
                 </CommonTableColumn>
-              </CommonTableRow>
+              </tr>
             ))}
           </CommonTable>
         </div>

@@ -120,9 +120,20 @@ export function getInspection(bundleCode) {
 };
 
 const dignosisDate = [
-  {patientId: "1", dDate: "2021-06-20"},
-  {patientId: "1", dDate: "2021-06-22"}
+  {patientId: "1", dDate: "2021-06-20", memo: "고열 증세 있음."},
+  {patientId: "1", dDate: "2021-06-22", memo: "고열 상태 호전, 정상 체온"}
 ]
+
+export function getMemo(patientId, day){
+  let memo;
+  for(var i=0; i<dignosisDate.length; i++){
+    if(dignosisDate[i].patientId === (patientId+"") && dignosisDate[i].dDate === day){
+      memo = dignosisDate[i].memo;
+      break;
+    }
+  }
+  return memo;
+}
 
 export function getPastRecord(patientId){
   let list = [];

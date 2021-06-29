@@ -25,3 +25,11 @@
   height: 15vh; 
   width: 100%; 
 }
+
+.select_Color{
+  background-color: #e7f5ff;
+}
+
+.basic_Color{
+  background-color: none;
+}

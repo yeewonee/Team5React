@@ -17,20 +17,20 @@ function Login(props){
       <div style={{display:'flex', justifyContent:'center', alignItems:'center'}}>
         <form className={style.box}>
           <div className="form-group mt-3">
-            <label >병원 코드</label>
+            <div>병원 코드</div>
             <input type="text" className="form-control"/>
           </div>
           <div className="form-group">
-            <label >User ID</label>
+            <div >User ID</div>
             <input type="text" className="form-control"/>
           </div>
           <div className="form-group mt-3">
-            <label >Password</label>
+            <div >Password</div>
             <input type="text" className="form-control"/>
           </div>
           <div className={style.button}>
-            <button type="submit" className="btn btn-danger mr-2"><Link to="/" style={{textDecoration:'none', color:'white'}}>Back</Link></button>
-            <button type="submit" className="btn btn-primary" onClick={handleLogin}>Login</button>
+            <button type="submit" className="btn btn-primary" style={{backgroundColor:'#4dabf7', border:'none'}} onClick={handleLogin}>로그인</button>&nbsp;
+            <button type="submit" className="btn btn-danger" style={{backgroundColor:'#f74d4d', border:'none'}}><Link to="/" style={{textDecoration:'none', color:'white'}}>취소</Link></button>
           </div>
         </form>
       </div>

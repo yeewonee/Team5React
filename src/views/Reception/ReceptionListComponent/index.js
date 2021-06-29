@@ -16,6 +16,7 @@ import CheckReception from './CheckReception';
 import NewRegistration from './NewRegistration';
 import { useEffect } from 'react';
 import CancelModal from './CancelModal';
+import CompleteModal from './CompleteModal';
 
 function ReceptionList(props){
   const day = useSelector((state) => {
@@ -96,15 +97,20 @@ function ReceptionList(props){
     closeCModal()
   }
 
+  //접수완료 확인 모달
+  const [completeShow, setcompleteShow] = useState(false);
+  const [completeIndex, setcompleteIndex] = useState("");
+  const closeComModal = () => setcompleteShow(false);
+  const openComModal = (event, index) => {
+    setcompleteIndex(index)
+    setcompleteShow(true)
+  };
+
   //접수완료
-  const completeReception = (list, index) => {
-    if(list.r_status === '접수대기'){
-      newBoards[index].r_status = "접수완료";
+  const completeReception = () => {
+      newBoards[completeIndex].r_status = "접수완료";
       setBoards(newBoards);
-    }else{
-      newBoards[index].r_status = "접수대기";
-      setBoards(newBoards);
-    }
+      closeComModal()
   }
   
   //우편번호 api
@@ -131,6 +137,13 @@ function ReceptionList(props){
       show1={show1} 
       handleClose1={handleClose1}
       />
+
+      {/* 접수완료 */}
+      <CompleteModal completeShow={completeShow} 
+      closeComModal={closeComModal} 
+      openComModal={openComModal}
+      completeReception={completeReception}
+      />
       
       {/* 예약취소 */}
       <CancelModal cancelShow={cancelShow} 
@@ -152,8 +165,8 @@ function ReceptionList(props){
               <SearchBar setSearchValue={setSearchValue}/>
             </div>
             <div className={style.button1}>
-              <Button className={style.button} onClick={buttonModal}>환자 등록</Button>
-              <Button className={style.button}><Link to="/createReception" className={style.link}>예약/접수</Link></Button>
+              <button className={style.button} onClick={buttonModal}>환자 등록</button>
+              <button className={style.button}><Link to="/createReception" className={style.link}>예약/접수</Link></button>
             </div>
           </div> 
 
@@ -167,10 +180,19 @@ function ReceptionList(props){
                     <CommonTableColumn>{list.patient_phone}</CommonTableColumn>
                     <CommonTableColumn>{list.r_date}</CommonTableColumn>
                     <CommonTableColumn>{list.r_time}</CommonTableColumn>
-                    <CommonTableColumn>{list.r_status} &nbsp;
-                    <button className="btn btn-sm btn-warning" onClick={(event) => {openCModal(event, list.r_id)}}>예약 취소</button>&nbsp;
-                    <button className="btn btn-sm btn-primary" onClick={(event) => {completeReception(list, index)}}>{list.r_status === '접수대기' ? '접수완료' : '접수대기' }</button>
-                    </CommonTableColumn>        
+                    {list.r_status === '접수완료' ? 
+                    (
+                      <CommonTableColumn>{list.r_status} &nbsp;
+                      </CommonTableColumn>  
+                    )
+                    : 
+                    (
+                      <CommonTableColumn>{list.r_status}
+                      <button className={style.buttoncolor1} onClick={(event) => {openCModal(event, list.r_id)}}>예약취소</button>&nbsp;
+                      <button className={style.buttoncolor2} onClick={(event) => {openComModal(event, index)}}>접수완료</button>
+                      </CommonTableColumn> 
+                    )}
+                          
                 </CommonTableRow>
                 ))}
             </CommonTable>

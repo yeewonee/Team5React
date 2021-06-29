@@ -18,7 +18,7 @@ const Modal = ( props ) => {
                         {props.children}
                     </main>
                     <footer>
-                        <button className="close" onClick={close}> close </button>
+                        <button onClick={close}>닫기</button>
                     </footer>
                 </section>
             ) : null }

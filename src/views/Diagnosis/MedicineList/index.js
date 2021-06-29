@@ -10,15 +10,17 @@ import CommonTable from "views/table/CommonTable";
 import { useEffect } from "react";
 
 export const MedicineList = (props) => {
-
   const originMList = getMedicineList();
-  const [medicineList, setMedicineList] = useState(originMList)
-
+  const [medicineList, setMedicineList] = useState(originMList);
 
   //DB에서 약 목록 size 받아오기
   const arr = Array.from({ length: medicineList.length }, () => false);
   const [checkArray, setCheckArray] = useState(arr);
-  const changeCheck = (event, index) => {
+  const changeCheck = (event, index, m) => {
+    if(list.mlist.includes(m) && event.target.checked){
+      return;
+    }
+
     let checkarray = checkArray;
     if (event.target.checked) {
       checkarray[index] = true;
@@ -36,35 +38,43 @@ export const MedicineList = (props) => {
   const keywordButton = (event) => {
     const keywordMedicine = getMedicineSearchList(keyword);
     setCheckArray(arr);
-    if(keyword===''){ //검색어가 없으면
+    if (keyword === "") {
+      //검색어가 없으면
       setMedicineList(originMList); //list에 전체 목록 넣어주고
-    }else{ //검색어가 있으면
+    } else {
+      //검색어가 있으면
       setMedicineList(keywordMedicine); //list에 검색어에 맞는 목록 넣음
     }
     setList({
-      mlist: props.mList
+      mlist: props.mList,
     });
   };
 
   const [list, setList] = useState({
-    mlist: []
+    mlist: [],
   });
 
   //props가 변경되었을 때 mlist를 업데이트
   useEffect(() => {
     setList({
-      mlist: props.mList
+      mlist: props.mList,
     });
   }, [props, keyword]);
-  
+
   const medicineClick = (event, m) => {
+    console.log("실행")
+    if(list.mlist.includes(m) && event.target.checked){
+      alert('이미 추가된 항목입니다.');
+      return;
+    }
+
     if (event.target.checked) {
-      setList((prevList) => {
-        return {
-          ...prevList,
-          mlist: prevList.mlist.concat(m),
-        };
-      });
+        setList((prevList) => {
+          return {
+            ...prevList,
+            mlist: prevList.mlist.concat(m),
+          };
+        });
     } else {
       setList((prevList) => {
         return {
@@ -85,18 +95,13 @@ export const MedicineList = (props) => {
     setCheckArray(checkarray);
   };
 
-  const onKeyPress = (event) => {
-    if(event.key = 'Enter'){
-      keywordButton();
-    }
-  }
 
   return (
     <>
       <div className={style.m_list_container}>
         <div className="d-flex justify-content-between">
           <div className="input-group m-1">
-            <input type="text" name="keyword" onChange={keywordChange} value={keyword} onKeyPress={onKeyPress}/>
+            <input type="text" name="keyword" onChange={keywordChange} value={keyword}/>
             <div className="input-group-append">
               <button className="btn btn-outline-secondary btn-sm" type="button" onClick={keywordButton}>
                 검색
@@ -104,30 +109,30 @@ export const MedicineList = (props) => {
             </div>
           </div>
           <div className="mr-1 mt-1">
-            <input type="button" className="btn btn-primary btn-sm" value="추가" onClick={addMedicine} />
+            <input type="button" className="btn btn-sm" style={{backgroundColor:'#4dabf7', color:'white'}} value="추가" onClick={addMedicine} />
           </div>
         </div>
 
         <div className={style.m_list}>
           <CommonTable headersName={["", "코드", "명칭", "구분", "단위"]} tstyle={"table table-sm"}>
             {medicineList.map((medicine, index) => (
-              <CommonTableRow key={medicine.mId}>
+              <tr key={medicine.mId} className={checkArray[index] ? style.select_Color : style.basic_Color}>
                 <CommonTableColumn>
                   <input
                     type="checkbox"
                     onChange={(event) => {
-                      changeCheck(event, index);
+                      changeCheck(event, index, medicine);
                     }}
-                    checked={checkArray[index] || ''}
+                    checked={checkArray[index] || ""}
                     onClick={(event) => medicineClick(event, medicine)}
-                    style={{zoom:'1.2', paddingTop:'2px'}}
+                    style={{ zoom: "1.2", paddingTop: "2px" }}
                   />
                 </CommonTableColumn>
                 <CommonTableColumn>{medicine.mId}</CommonTableColumn>
                 <CommonTableColumn>{medicine.mName}</CommonTableColumn>
                 <CommonTableColumn>{medicine.mCategory}</CommonTableColumn>
                 <CommonTableColumn>{medicine.mUnit}</CommonTableColumn>
-              </CommonTableRow>
+              </tr>
             ))}
           </CommonTable>
         </div>
