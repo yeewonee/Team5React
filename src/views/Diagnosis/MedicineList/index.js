@@ -9,15 +9,18 @@ import CommonTableColumn from "views/table/CommonTableColumn";
 import CommonTable from "views/table/CommonTable";
 import { useEffect } from "react";
 
+import { AiFillMedicineBox } from "react-icons/ai";
+
 export const MedicineList = (props) => {
   const originMList = getMedicineList();
   const [medicineList, setMedicineList] = useState(originMList);
 
   //DB에서 약 목록 size 받아오기
   const arr = Array.from({ length: medicineList.length }, () => false);
+  //checked 상태
   const [checkArray, setCheckArray] = useState(arr);
   const changeCheck = (event, index, m) => {
-    if(list.mlist.includes(m) && event.target.checked){
+    if(list.mlist.includes(m) && event.target.checked){ //이미 리덕스에 포함되어 있으면 check 금지
       return;
     }
 
@@ -40,10 +43,10 @@ export const MedicineList = (props) => {
     setCheckArray(arr);
     if (keyword === "") {
       //검색어가 없으면
-      setMedicineList(originMList); //list에 전체 목록 넣어주고
+      setMedicineList(originMList); //전체 목록 list에 저장
     } else {
       //검색어가 있으면
-      setMedicineList(keywordMedicine); //list에 검색어에 맞는 목록 넣음
+      setMedicineList(keywordMedicine); //검색어에 맞는 목록 list에 저장
     }
     setList({
       mlist: props.mList,
@@ -62,7 +65,7 @@ export const MedicineList = (props) => {
   }, [props, keyword]);
 
   const medicineClick = (event, m) => {
-    console.log("실행")
+    //리덕스에 이미 추가되어 있으면 상태 변경 전 return
     if(list.mlist.includes(m) && event.target.checked){
       alert('이미 추가된 항목입니다.');
       return;
@@ -88,9 +91,9 @@ export const MedicineList = (props) => {
   };
 
   const dispatch = useDispatch();
-  const addMedicine = (event) => {
+  const addMedicine = (event) => {  //추가 버튼
     dispatch(createSetAddMlistAction(list.mlist));
-    //DB에서 size 가져오기
+    //check 상태 초기화
     let checkarray = arr;
     setCheckArray(checkarray);
   };
@@ -113,6 +116,7 @@ export const MedicineList = (props) => {
           </div>
         </div>
 
+        {medicineList.length !== 0 ?
         <div className={style.m_list}>
           <CommonTable headersName={["", "코드", "명칭", "구분", "단위"]} tstyle={"table table-sm"}>
             {medicineList.map((medicine, index) => (
@@ -136,6 +140,16 @@ export const MedicineList = (props) => {
             ))}
           </CommonTable>
         </div>
+        :
+        <div className={style.p_list}>
+            <div style={{borderTop:'1px solid #e7f5ff', height:'100%'}}>
+              <div style={{paddingLeft:'45%', paddingTop:'5%'}}>
+                <AiFillMedicineBox size={'3em'}/>
+              </div>
+              <p style={{textAlign:'center', fontSize:'1em'}}>일치하는 약 종류가 없습니다.</p>
+            </div>
+          </div>
+         }
       </div>
     </>
   );

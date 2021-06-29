@@ -10,6 +10,17 @@ import { Memo } from "./Memo";
 import { PastRecord } from "./PastRecord";
 import { PatientList } from "./PatientList";
 
+
+import { BsCardList } from "react-icons/bs";
+import { BiCalendar } from "react-icons/bi";
+import { BiListCheck } from "react-icons/bi";
+import { BiPlusMedical } from "react-icons/bi";
+import { BsCardChecklist } from "react-icons/bs";
+import { BsList } from "react-icons/bs";
+
+
+
+
 function Diagnosis(props) {
   const day = useSelector((state) => {
     return state.diagnosisReducer.day;
@@ -38,7 +49,7 @@ function Diagnosis(props) {
             <div className="d-flex justify-content-center" style={{height:"100%"}}>
               <div className={`${style.memo} m-1 h-100`}>
                 <div className={style.title}>
-                  <p className={style.title_p}>환자 메모</p>
+                  <p className={style.title_p}><BsCardList /> 환자 메모</p>
                 </div>
                 <Memo />
               </div>
@@ -46,7 +57,7 @@ function Diagnosis(props) {
               <div className={`${style.calendar_container} m-1`}>
                 <div className={style.calendar}>
                   <div className="d-flex justify-content-between">
-                    <p className={style.title_p}>달력</p>
+                    <p className={style.title_p}><BiCalendar /> 달력</p>
                     <p className={`${style.title_p} pr-2`}>
                       <b>{day}</b>
                     </p>
@@ -59,13 +70,13 @@ function Diagnosis(props) {
             <div className="d-flex justify-content-center">
               <div className={`${style.left_list_size} m-1`}>
                 <div className={style.title}>
-                  <p className={style.title_p}>약 목록</p>
+                  <p className={style.title_p}><BiPlusMedical /> 약 목록</p>
                 </div>
                 <MedicineList mList={mList}/>
               </div>
               <div className={`${style.left_list_size} m-1`}>
                 <div className={style.title}>
-                  <p className={style.title_p}>검사 목록</p>
+                  <p className={style.title_p}><BsCardChecklist /> 검사 목록</p>
                 </div>
                 <InspectionList iList={iList}/>
               </div>
@@ -74,13 +85,13 @@ function Diagnosis(props) {
             <div className="d-flex justify-content-center">
               <div className={`${style.left_list_size} m-1`}>
                 <div className={style.title}>
-                  <p className={style.title_p}>약 처방</p>
+                  <p className={style.title_p}><BiPlusMedical /> 약 처방</p>
                 </div>
                 <MedicineResult mList={mList}/>
               </div>
               <div className={`${style.left_list_size} m-1`}>
                 <div className={style.title}>
-                  <p className={style.title_p}>검사 처방</p>
+                  <p className={style.title_p}><BsCardChecklist /> 검사 처방</p>
                 </div>
                 <InspectionResult iList={iList}/>
               </div>
@@ -90,7 +101,7 @@ function Diagnosis(props) {
           <div className={style.right_container}>
             <div className={`${style.patientlist} m-1`}>
               <div className={style.title}>
-                <p className={style.title_p}>환자 리스트</p>
+                <p className={style.title_p}><BiListCheck /> 환자 리스트</p>
               </div>
               <PatientList day={day}/>
 
@@ -98,7 +109,7 @@ function Diagnosis(props) {
                 <div className="d-flex justify-content-center">
                   <div className={`${style.past_container2} mt-1`}>
                     <div className={style.title}>
-                      <p className={style.title_p}>과거 기록</p>
+                      <p className={style.title_p}><BsList /> 과거 기록</p>
                     </div>
                     <PastRecord patientId={patientId} day={day} />
                   </div>

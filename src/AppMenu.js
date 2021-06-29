@@ -8,7 +8,7 @@ export const AppMenu = () => {
   }
   return (
     <div>
-      <nav className="navbar navbar-expand-lg">
+      <nav className="navbar navbar-expand-lg" style={{fontFamily: "DoHyeon-Regular"}}>
         <div className="collapse navbar-collapse" id="navbarNav">
           <ul className="navbar-nav" style={{height:"45px"}}>
             <li className="nav-item" style={{margin:'0'}}>

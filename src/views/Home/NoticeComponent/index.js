@@ -132,14 +132,11 @@ function Notice(props) {
                 </tbody>
               </Table>
               <div className="d-flex justify-content-center">
-                <Link to="/?pageNo=1" className={`btn ${pageNo === 1 ? "btn-danger" : "btn-outline-success"} btn-sm mr-1`}>
+                <Link to="/?pageNo=1" className={`btn ${pageNo === 1 ? "btn-danger" : "btn-outline-primary"} btn-sm mr-1`}>
                   1
                 </Link>
-                <Link to="/?pageNo=2" className={`btn ${pageNo === 2 ? "btn-danger" : "btn-outline-success"} btn-sm mr-1`}>
+                <Link to="/?pageNo=2" className={`btn ${pageNo === 2 ? "btn-danger" : "btn-outline-primary"} btn-sm mr-1`}>
                   2
-                </Link>
-                <Link to="/?pageNo=3" className={`btn ${pageNo === 3 ? "btn-danger" : "btn-outline-success"} btn-sm mr-1`}>
-                  3
                 </Link>
               </div>
             </div>

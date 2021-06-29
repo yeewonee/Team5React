@@ -26,7 +26,7 @@ function Login(props){
           </div>
           <div className="form-group mt-3">
             <div >Password</div>
-            <input type="text" className="form-control"/>
+            <input type="password" className="form-control"/>
           </div>
           <div className={style.button}>
             <button type="submit" className="btn btn-primary" style={{backgroundColor:'#4dabf7', border:'none'}} onClick={handleLogin}>로그인</button>&nbsp;

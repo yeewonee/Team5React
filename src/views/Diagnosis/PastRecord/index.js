@@ -7,6 +7,8 @@ import CommonTableRow from "views/table/CommonTableRow";
 import CommonTableColumn from "views/table/CommonTableColumn";
 import { useEffect } from "react";
 import { ModalPast } from "./ModalPast";
+import { useDispatch } from "react-redux";
+import { createSetAddIlistAction, createSetAddMlistAction, createSetMemoAction, createSetPidAction } from "redux/diagnosis-reducer";
 
 export const PastRecord = (props) => {
   const [modalOpen, setModalOpen] = useState(false);
@@ -31,10 +33,15 @@ export const PastRecord = (props) => {
 
   //환자 정보
   let patient = getPatient(props.patientId);
-  console.log(patient)
   let iResultList = getResultIList(props.patientId, dDate);
   let mResultList = getResultMList(props.patientId, dDate);
   let memo = getMemo(props.patientId, dDate);
+
+  const dispatch = useDispatch();
+  const deleteDiagnosis = () => {
+    dispatch(createSetAddMlistAction([]));
+    dispatch(createSetAddIlistAction([]));
+  };
 
   return (
     <div>
@@ -54,7 +61,7 @@ export const PastRecord = (props) => {
       </div>
       <div className="d-flex flex-row-reverse bd-highlight pt-3">
         <button className="btn btn-outline-dark mr-3">전달</button>
-        <button className="btn btn-outline-dark mr-3">임시 저장</button>
+        <button className="btn btn-outline-dark mr-3" onClick={deleteDiagnosis}>처방 초기화</button>
       </div>
 
       <ModalPast 

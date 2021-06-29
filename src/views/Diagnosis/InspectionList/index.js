@@ -8,6 +8,9 @@ import CommonTable from "views/table/CommonTable";
 import CommonTableRow from "views/table/CommonTableRow";
 import CommonTableColumn from "views/table/CommonTableColumn";
 
+import { BsCardChecklist } from "react-icons/bs";
+
+
 export const InspectionList = (props) => {
   const originIList = getInspectionList();
   const [inspectionList, setInspectionList] = useState(originIList);
@@ -114,6 +117,7 @@ export const InspectionList = (props) => {
           </div>
         </div>
 
+        {inspectionList.length !== 0 ? 
         <div className={style.i_list}>
           <CommonTable headersName={["", "그룹코드", "그룹명"]} tstyle={"table table-sm"}>
             {inspectionList.map((inspection, index) => (
@@ -135,6 +139,16 @@ export const InspectionList = (props) => {
             ))}
           </CommonTable>
         </div>
+        :
+        <div className={style.p_list}>
+        <div style={{borderTop:'1px solid #e7f5ff', height:'100%'}}>
+          <div style={{paddingLeft:'46%', paddingTop:'5%'}}>
+            <BsCardChecklist size={'3em'}/>
+          </div>
+          <p style={{textAlign:'center', fontSize:'1em'}}>일치하는 검사가 없습니다.</p>
+        </div>
+      </div>
+        }
       </div>
     </>
   );
