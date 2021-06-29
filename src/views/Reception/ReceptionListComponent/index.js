@@ -15,6 +15,7 @@ import FindAddrDom from './PostCodeComponent/FindAddrDom';
 import CheckReception from './CheckReception';
 import NewRegistration from './NewRegistration';
 import { useEffect } from 'react';
+import CancelModal from './CancelModal';
 
 function ReceptionList(props){
   const day = useSelector((state) => {
@@ -78,17 +79,32 @@ function ReceptionList(props){
   }else{
     newBoards = boards.filter(board => board.patient_name.includes(searchValue.value));
   }
-  
+
+  //예약취소 확인 모달
+  const [cancelShow, setCancelShow] = useState(false);
+  const [cancelId, setCancelId] = useState("");
+  const closeCModal = () => setCancelShow(false);
+  const openCModal = (event, r_id) => {
+    setCancelId(r_id)
+    setCancelShow(true)
+  };
+
   //예약취소
-  const cancelReception = (r_id) => {
-    newBoards = boards.filter(board => board.r_id !== r_id);
+  const cancelReception = () => {
+    newBoards = boards.filter(board => board.r_id !== cancelId);
     setBoards(newBoards);
+    closeCModal()
   }
 
   //접수완료
   const completeReception = (list, index) => {
+    if(list.r_status === '접수대기'){
       newBoards[index].r_status = "접수완료";
       setBoards(newBoards);
+    }else{
+      newBoards[index].r_status = "접수대기";
+      setBoards(newBoards);
+    }
   }
   
   //우편번호 api
@@ -116,6 +132,12 @@ function ReceptionList(props){
       handleClose1={handleClose1}
       />
       
+      {/* 예약취소 */}
+      <CancelModal cancelShow={cancelShow} 
+      closeCModal={closeCModal} 
+      openCModal={openCModal}
+      cancelReception={cancelReception}
+      />
 
       <div className={style.location}>
         <div className={style.label}>
@@ -145,7 +167,10 @@ function ReceptionList(props){
                     <CommonTableColumn>{list.patient_phone}</CommonTableColumn>
                     <CommonTableColumn>{list.r_date}</CommonTableColumn>
                     <CommonTableColumn>{list.r_time}</CommonTableColumn>
-                    <CommonTableColumn>{list.r_status} &nbsp;<button className="btn btn-sm btn-warning" onClick={(event) => {cancelReception(list.r_id)}}>예약 취소</button> <button className="btn btn-sm btn-primary" onClick={(event) => {completeReception(list, index)}}>접수 완료</button></CommonTableColumn>        
+                    <CommonTableColumn>{list.r_status} &nbsp;
+                    <button className="btn btn-sm btn-warning" onClick={(event) => {openCModal(event, list.r_id)}}>예약 취소</button>&nbsp;
+                    <button className="btn btn-sm btn-primary" onClick={(event) => {completeReception(list, index)}}>{list.r_status === '접수대기' ? '접수완료' : '접수대기' }</button>
+                    </CommonTableColumn>        
                 </CommonTableRow>
                 ))}
             </CommonTable>

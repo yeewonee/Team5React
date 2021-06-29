@@ -4,6 +4,7 @@ import photo1 from 'images/1.png';
 import photo2 from 'images/2.png';
 import photo3 from 'images/3.png';
 import { useState } from "react";
+import HomeModal from './HomeModal';
 
 function HomeMenu(props) {
   const [show, setShow] = useState(false);
@@ -12,23 +13,10 @@ function HomeMenu(props) {
 
   return (
     <>
-    <Modal show={show} onHide={handleClose} dialogClassName="custom-modal">
-      <Modal.Header closeButton>
-        <Modal.Title>알림</Modal.Title>
-      </Modal.Header>
-      <Modal.Body>접근 권한이 없습니다.</Modal.Body>
-      <Modal.Footer>
-        <Button variant="primary" onClick={handleClose}>
-          Close
-        </Button>
-      </Modal.Footer>
-      <style jsx="true" global="true">{`
-      .custom-modal {
-        font-family: "DoHyeon-Regular"; 
-      }
-      `}
-      </style>
-    </Modal>
+    <HomeModal show={show}
+    handleClose={handleClose}
+    buttonModal={buttonModal}
+    />
     <Col className={style.col1}>
       <div onClick={buttonModal} className={style.bLocation1}>
         <div className={style.button1}>
