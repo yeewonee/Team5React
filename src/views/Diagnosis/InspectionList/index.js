@@ -15,7 +15,13 @@ export const InspectionList = (props) => {
   //DB에서 약 목록 size 받아오기
   const arr = Array.from({ length: inspectionList.length }, () => false);
   const [checkArray, setCheckArray] = useState(arr);
-  const changeCheck = (event, index) => {
+  const changeCheck = (event, index, bundleCode) => {
+    let inspectionArray = list.iList;
+    for(let i=0; i<inspectionArray.length; i++){
+      if(inspectionArray[i].bundleCode === bundleCode && event.target.checked){
+        return;
+      }
+    }
     let checkarray = checkArray;
     if (event.target.checked) {
       checkarray[index] = true;
@@ -55,12 +61,20 @@ export const InspectionList = (props) => {
   }, [props, keyword]);
 
   const inspectionClick = (event, bundleCode) => {
+    let inspectionArray = list.iList;
+    for(let i=0; i<inspectionArray.length; i++){
+      if(inspectionArray[i].bundleCode === bundleCode && event.target.checked){
+        alert('이미 추가된 항목입니다.');
+        return;
+      }
+    }
+  
     if (event.target.checked) {
-      let temp = getInspection(bundleCode);
+      let addIList = getInspection(bundleCode);
       setList((prevList) => {
         return {
           ...prevList,
-          iList: prevList.iList.concat(temp)
+          iList: prevList.iList.concat(addIList)
         };
       });
     } else {
@@ -83,18 +97,12 @@ export const InspectionList = (props) => {
     setCheckArray(checkarray);
   };
 
-  const onKeyPress = (event) => {
-    if(event.key = 'Enter'){
-      keywordButton();
-    }
-  }
-
   return (
     <>
       <div className={style.i_list_container}>
         <div className="d-flex justify-content-between">
           <div className="input-group m-1">
-            <input type="text" name="keyword" onChange={keywordChange} value={keyword} onKeyPress={onKeyPress}/>
+            <input type="text" name="keyword" onChange={keywordChange} value={keyword}/>
             <div className="input-group-append">
               <button className="btn btn-outline-secondary btn-sm" type="button" onClick={keywordButton}>
                 검색
@@ -102,19 +110,19 @@ export const InspectionList = (props) => {
             </div>
           </div>
           <div className="mr-1 mt-1">
-            <input type="button" className="btn btn-primary btn-sm" value="추가" onClick={addInspection} />
+            <input type="button" className="btn btn-sm" style={{backgroundColor:'#4dabf7', color:'white'}} value="추가" onClick={addInspection} />
           </div>
         </div>
 
         <div className={style.i_list}>
           <CommonTable headersName={["", "그룹코드", "그룹명"]} tstyle={"table table-sm"}>
             {inspectionList.map((inspection, index) => (
-              <CommonTableRow key={inspection.bundleCode}>
+              <tr key={inspection.bundleCode} className={checkArray[index] ? style.select_Color : style.basic_Color}>
                 <CommonTableColumn>
                   <input
                     type="checkbox"
                     onChange={(event) => {
-                      changeCheck(event, index);
+                      changeCheck(event, index, inspection.bundleCode);
                     }}
                     checked={checkArray[index]||''}
                     onClick={(event) => inspectionClick(event, inspection.bundleCode)}
@@ -123,7 +131,7 @@ export const InspectionList = (props) => {
                 </CommonTableColumn>
                 <CommonTableColumn>{inspection.bundleCode}</CommonTableColumn>
                 <CommonTableColumn>{inspection.bundleName}</CommonTableColumn>
-              </CommonTableRow>
+              </tr>
             ))}
           </CommonTable>
         </div>

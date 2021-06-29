@@ -5,6 +5,13 @@ import CommonTable from "views/table/CommonTable";
 import CommonTableRow from "views/table/CommonTableRow";
 import CommonTableColumn from "views/table/CommonTableColumn";
 
+import { BsPerson } from "react-icons/bs";
+import { BsLayoutTextSidebarReverse } from "react-icons/bs";
+import { BsFileEarmarkText } from "react-icons/bs";
+import { BsCardChecklist } from "react-icons/bs";
+
+
+
 export const ModalPast = (props) => {
 
   const closeModal = () => {
@@ -15,7 +22,7 @@ export const ModalPast = (props) => {
     <>
       {/* 과거기록 상세보기 modal */}
       <Modal open={props.modalOpen} close={closeModal} header="검사결과 확인">
-        <div className={style.past_title}>환자 정보</div>
+        <div className={style.past_title}><BsPerson /> 환자 정보</div>
         <CommonTable headersName={["환자번호", "환자이름", "주민번호"]} tstyle={"table table-sm table-striped"}>
           <CommonTableRow key={props.patient.patientId}>
             <CommonTableColumn>{props.patient.patientId}</CommonTableColumn>
@@ -24,14 +31,19 @@ export const ModalPast = (props) => {
           </CommonTableRow>
         </CommonTable>
 
-        <div className={style.past_title}>내원일 정보</div>
+        <div className={style.past_title}><BsLayoutTextSidebarReverse /> 내원일 정보</div>
         <CommonTable headersName={["내원일자"]} tstyle={"table table-sm"}>
           <CommonTableRow>
             <CommonTableColumn>{props.dDate}</CommonTableColumn>
           </CommonTableRow>
         </CommonTable>
 
-        <div className={style.past_title}>결과 확인</div>
+        <div className={style.past_title}><BsFileEarmarkText /> 메모</div>
+        <div className={style.past_memo}>
+          <p style={{padding:'10px'}}>{props.memo}</p>
+        </div>
+
+        <div className={style.past_title}><BsCardChecklist /> 결과 확인</div>
         <hr />
 
         <div className={style.past_title2}>검사 결과</div>

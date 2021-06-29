@@ -43,7 +43,6 @@ function DetailTable(props) {
     setCheckArray(check);
   };
 
-  console.log(checkArray.indexOf(true))
 
   console.log(checkArray)
   const checkState=()=>{
@@ -112,14 +111,18 @@ function DetailTable(props) {
       setModalOpen(false);
   }
 
-  const checkColor = (ino) =>{
-    const arr = checkList.find((value)=>value.ino === ino);
-    console.log(arr)
-    if(arr){
-      return true;
+  const viewStatus = (istatus)=>{
+    if(istatus === '완료'){
+      return(<div style={{color:'rgb(255, 205, 86)'}}>완료</div>)
+    }
+    if(istatus === '대기'){
+      return(<div style={{color:'rgb(255, 99, 132)'}}>대기</div>)
+    }
+    if(istatus === '접수'){
+      return(<div style={{color:'rgb(54, 162, 235)'}}>접수</div>)
     }
   }
- 
+
   return (
     <div>
       <div className={cx(style.middle_right_bottom)}>
@@ -143,13 +146,13 @@ function DetailTable(props) {
             >
               엑셀 저장
             </CSVLink>
-        </button>
-           
+          </button>    
         </div>
+        {patient.pno!==""?
         <div className="right-table">
           <CommonTable headersName={["", "묶음코드", "처방코드", "검사명", "단위", "검사자", "상태"]} tstyle={"table table-sm"}>
             {inspectList.map((board, index) =>  (
-              <tr key={board.ino} className={checkColor(board?.ino)? cx(style.colorClass):cx(style.ncolorClass)}>
+              <tr key={board.ino} className={checkArray[index]? cx(style.colorClass):cx(style.ncolorClass)}>
                 <CommonTableColumn>
                   <input
                     id={board.ino}
@@ -166,11 +169,12 @@ function DetailTable(props) {
                 <CommonTableColumn>{board.iname}</CommonTableColumn>
                 <CommonTableColumn>{board.unit}</CommonTableColumn>
                 <CommonTableColumn>{board.inspector}</CommonTableColumn>
-                <CommonTableColumn>{board.istatus}</CommonTableColumn>
+                <CommonTableColumn>{viewStatus(board.istatus)}</CommonTableColumn>
               </tr>
             ))}
           </CommonTable>
         </div>
+        :<div>검색결과가 없습니다.</div>}
       </div>
     </div>
   );

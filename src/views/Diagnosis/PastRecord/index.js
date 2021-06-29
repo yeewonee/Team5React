@@ -2,7 +2,7 @@ import React from "react";
 import style from "./pastrecord.module.css";
 import { useState } from "react";
 import CommonTable from "views/table/CommonTable";
-import { getPastRecord, getPatient, getResultIList, getResultMList } from "../data";
+import { getPastRecord, getPatient, getResultIList, getResultMList, getMemo } from "../data";
 import CommonTableRow from "views/table/CommonTableRow";
 import CommonTableColumn from "views/table/CommonTableColumn";
 import { useEffect } from "react";
@@ -34,6 +34,7 @@ export const PastRecord = (props) => {
   console.log(patient)
   let iResultList = getResultIList(props.patientId, dDate);
   let mResultList = getResultMList(props.patientId, dDate);
+  let memo = getMemo(props.patientId, dDate);
 
   return (
     <div>
@@ -43,7 +44,7 @@ export const PastRecord = (props) => {
             <CommonTableRow key={plist.dDate}>
               <CommonTableColumn>{plist.dDate}</CommonTableColumn>
               <CommonTableColumn>
-                <button type="button" className="btn btn-dark btn-sm" onClick={(event, day)=>{openModal(event, plist.dDate)}}>
+                <button type="button" className="btn btn-outline-dark btn-sm" onClick={(event, day)=>{openModal(event, plist.dDate)}}>
                   상세보기
                 </button>
               </CommonTableColumn>
@@ -64,6 +65,7 @@ export const PastRecord = (props) => {
         modalOpen={modalOpen}
         pList={pList}
         dDate={dDate}
+        memo={memo}
       />      
      
     </div>
