@@ -28,10 +28,10 @@ function MainNotice(props) {
   };
 
   const mainBoards = [
-    {bno:1, btitle: '이번주 업데이트 내용', bcontent:'메인공지내용1', bdate:'2021-06-28', bwriter:'더존비즈온'},
-    {bno:2, btitle: '메인공지2', bcontent:'메인공지내용2', bdate:'2021-06-28', bwriter:'더존비즈온'},
-    {bno:3, btitle: '메인공지3', bcontent:'메인공지내용3', bdate:'2021-06-28', bwriter:'더존비즈온'},
-    {bno:4, btitle: '메인공지4', bcontent:'메인공지내용4', bdate:'2021-06-28', bwriter:'더존비즈온'}
+    {bno:1, btitle: '2021년 6월 28일 업데이트 내용', bcontent:'이번주 업데이트 내용입니다...', bdate:'2021-06-28', bwriter:'더존비즈온'},
+    {bno:2, btitle: '2021년 6월 1일 업데이트 내용', bcontent:'이번주 업데이트 내용입니다...', bdate:'2021-06-01', bwriter:'더존비즈온'},
+    {bno:3, btitle: 'wehago-h 이용안내', bcontent:'이용 안내 사항입니다.', bdate:'2021-06-28', bwriter:'더존비즈온'},
+    {bno:4, btitle: '고객센터 이용안내', bcontent:'문의사항이 생기시면 연락주세요 :)', bdate:'2021-06-28', bwriter:'더존비즈온'},
   ]
 
   return(
@@ -82,7 +82,7 @@ function MainNotice(props) {
             <h5 className={"mb-1"} onClick={(event) => {mainNoticeModal(event, board)}}>{board.btitle}</h5>
             <small>{board.bdate}</small>
           </div>
-          <p className="mb-1">{board.bcontent}</p>
+          <p className={"mb-1"}>{board.bcontent}</p>
         </div>
       </div>
       );
