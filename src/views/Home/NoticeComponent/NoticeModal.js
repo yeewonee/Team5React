@@ -5,7 +5,7 @@ function NoticeModal(props){
   return(
     <Modal show={props.show} onHide={props.handleClose} dialogClassName="custom-modal">
     <Modal.Header closeButton>
-      <Modal.Title>공지사항</Modal.Title>
+      <Modal.Title style={{color:'gray'}}>공지사항</Modal.Title>
     </Modal.Header>
     <Modal.Body>
       <table className="table">

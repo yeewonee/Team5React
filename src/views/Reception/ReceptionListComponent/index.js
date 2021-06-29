@@ -182,8 +182,17 @@ function ReceptionList(props){
           </div> 
 
           <div className={style.tablewidth}>
-          <CommonTable tstyle={"table"} headersName={['예약 번호', '이름', '생년월일', '전화번호', '예약 날짜', '예약 시간', '접수 상태']}>
-            {newBoards.map((list, index) => (
+            {newBoards.length === 0 ? 
+            (
+              <CommonTable tstyle={"table"} headersName={['예약 번호', '이름', '생년월일', '전화번호', '예약 날짜', '예약 시간', '접수 상태']}>
+              
+              <td colSpan='7' className={style.noList}>접수 대기중인 환자가 없습니다.</td>
+              </CommonTable>
+            ) 
+            : 
+            (
+              <CommonTable tstyle={"table"} headersName={['예약 번호', '이름', '생년월일', '전화번호', '예약 날짜', '예약 시간', '접수 상태']}>
+              {newBoards.map((list, index) => (
                 <tr className={style.list}>
                     <CommonTableColumn>{list.r_id}</CommonTableColumn>
                     <CommonTableColumn><div className={style.click} onClick={(event) => {buttonModal1(event, list)}}>{list.patient_name}</div></CommonTableColumn>
@@ -206,7 +215,9 @@ function ReceptionList(props){
                           
                   </tr>
                 ))}
-            </CommonTable>
+                </CommonTable>
+            )
+            }  
           </div>
         </div>
       </div>
