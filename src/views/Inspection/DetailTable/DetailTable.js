@@ -13,6 +13,7 @@ import Modal from "./Modal";
 import Barcode from "react-barcode";
 import { transitions, positions, Provider as AlertProvider } from 'react-alert'
 import AlertTemplate from 'react-alert-template-basic'
+import { FaSearch } from 'react-icons/fa';
 
 
 
@@ -25,6 +26,7 @@ function DetailTable(props) {
 
  
   const inspectList = props.data;
+  console.log(inspectList)
   
   const [checkArray, setCheckArray] = useState([]);
   const checkList = useSelector(state => state.inspectReducer.checked);
@@ -174,7 +176,13 @@ function DetailTable(props) {
             ))}
           </CommonTable>
         </div>
-        :<div>검색결과가 없습니다.</div>}
+
+        :<div>
+          <div style={{display:'flex', justifyContent:'center', alignItems:'center',flexDirection:'column',height:'45vh'}}>
+            <div><FaSearch size={'10em'}/></div>
+            <div style={{marginTop:'15px',fontSize:'30px'}}> 환자를 선택해주세요.</div>
+         </div>
+         </div>}
       </div>
     </div>
   );
