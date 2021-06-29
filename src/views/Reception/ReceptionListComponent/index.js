@@ -173,7 +173,7 @@ function ReceptionList(props){
           <div className={style.tablewidth}>
           <CommonTable tstyle={"table"} headersName={['예약 번호', '이름', '생년월일', '전화번호', '예약 날짜', '예약 시간', '접수 상태']}>
             {newBoards.map((list, index) => (
-                <CommonTableRow key={list.r_id}>
+                <tr className={style.list}>
                     <CommonTableColumn>{list.r_id}</CommonTableColumn>
                     <CommonTableColumn><div className={style.click} onClick={(event) => {buttonModal1(event, list)}}>{list.patient_name}</div></CommonTableColumn>
                     <CommonTableColumn>{list.patient_ssn1}</CommonTableColumn>
@@ -193,7 +193,7 @@ function ReceptionList(props){
                       </CommonTableColumn> 
                     )}
                           
-                </CommonTableRow>
+                  </tr>
                 ))}
             </CommonTable>
           </div>
