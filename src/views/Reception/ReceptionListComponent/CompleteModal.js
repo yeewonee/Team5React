@@ -9,7 +9,7 @@ const CompleteModal = (props) => {
   return(
     <Modal show={props.completeShow} onHide={props.closeComModal} dialogClassName="custom-modal">
       <Modal.Header closeButton>
-        <Modal.Title>알림</Modal.Title>
+        <Modal.Title style={{color:'gray'}}>알림</Modal.Title>
       </Modal.Header>
       <Modal.Body>접수 완료하시겠습니까?</Modal.Body>
       <Modal.Footer>

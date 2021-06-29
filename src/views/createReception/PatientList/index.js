@@ -11,7 +11,9 @@ function PatientList(props) {
   const [patientList, setPatientList] = useState(originPatientList);
 
   const dispatch = useDispatch();
-  
+  const status = useSelector((state) => {
+    return state.createReceptionReducer.status
+  })
   const pid = useSelector((state) => {
     return state.createReceptionReducer.patient_id
   });
@@ -20,21 +22,27 @@ function PatientList(props) {
   const [checkArray,setCheckArray] = useState(arr);
 
   const changeCheck = (event,index,id) =>{
-    if(pid === id){ //리덕스에 담겨있는 값이랑 현재 체크하려는 것이 같으면 더 이상 눌리지 않게 처리해주기!
-      return 
+    if(status == 1){ // 예약/접수 버튼을 통해 들어온 경우
+      if(pid === id){ //리덕스에 담겨있는 값이랑 현재 체크하려는 것이 같으면 더 이상 눌리지 않게 처리해주기!
+        return
+      } else {
+        let checkarray = checkArray
+
+        if(event.target.value==="on"){ //checkbox가 check되면
+          dispatch(createSetPatient(id)); //createSetPatient를 호출해서 액션객체를 얻고
+          checkarray = arr; 
+          checkarray[index] = true; // 체크된 환자의 배열값을 true로!!
+        }
+        setCheckArray(checkarray)
+      }
+    } else { //수정버튼을 통해 들어온 경우 => 선택된 환자가 바뀌지 않도록 해야 함!
+      return // 환자를 set해주는 이 함수를 실행시키지 않고 return 시킴.
     }
-    let checkarray = checkArray
-    if(event.target.value==="on"){ //checkbox가 check되면
-      dispatch(createSetPatient(id)); //createSetPatient를 호출해서 액션객체를 얻고
-      checkarray = arr; 
-      checkarray[index] = true; // 체크된 환자의 배열값을 true로!!
-    }
-    setCheckArray(checkarray);
   }
 
-  const [searchword, setSearchword] = useState('');
-  const serachChange = (event) => {
-    setSearchword(event.target.value);
+      const [searchword, setSearchword] = useState('');
+      const serachChange = (event) => {
+        setSearchword(event.target.value);
   };
 
   const searchPatient = (event) => {

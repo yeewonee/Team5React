@@ -6,6 +6,7 @@ import { useState } from "react";
 import { getBoardList } from "./data.js";
 import qs from "qs";
 import { Link } from "react-router-dom";
+import NoticeModal from './NoticeModal';
 
 function Notice(props) {
   const [show, setShow] = useState(false);
@@ -40,58 +41,11 @@ function Notice(props) {
 
   return (
     <>
-      <Modal show={show} onHide={handleClose} dialogClassName="custom-modal">
-        <Modal.Header closeButton>
-          <Modal.Title>공지사항</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <table className="table">
-            <thead>
-              <tr>
-                <th scope="col" className={style.table2}>
-                  공지번호
-                </th>
-                <th scope="col" className={style.table2}>
-                  {board.bno}
-                </th>
-                <th scope="col" className={style.table2}>
-                  글쓴이
-                </th>
-                <th scope="col" className={style.table2}>
-                  {board.bwriter}
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td className={style.table2}>제목</td>
-                <td colSpan="3" className={style.table2}>
-                  {board.btitle}
-                </td>
-              </tr>
-              <tr>
-                <td className={style.table2}>내용</td>
-                <td colSpan="3" className={style.table2}>
-                  {board.bcontent}
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </Modal.Body>
-        <Modal.Footer>
-          <Button style={{backgroundColor:'#f74d4d'}} onClick={handleClose}>
-            닫기
-          </Button>
-        </Modal.Footer>
-        <style jsx="true" global="true">
-          {`
-            .custom-modal {
-              font-family: "DoHyeon-Regular";
-            }
-          `}
-        </style>
-      </Modal>
-
+      <NoticeModal show={show}
+      handleClose={handleClose}
+      board={board}
+      noticeModal={noticeModal}
+      />
       <div>
         <div>
           <div className={style.notice} style={{ overflow: "auto" }}>
@@ -105,7 +59,6 @@ function Notice(props) {
                   <tr>
                     <th>번호</th>
                     <th>제목</th>
-                    <th>내용</th>
                     <th>글쓴이</th>
                   </tr>
                 </thead>
@@ -124,7 +77,6 @@ function Notice(props) {
                             {board.btitle}
                           </div>
                         </td>
-                        <td>{board.bcontent}</td>
                         <td>{board.bwriter}</td>
                       </tr>
                     );

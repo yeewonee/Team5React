@@ -17,12 +17,14 @@ import NewRegistration from './NewRegistration';
 import { useEffect } from 'react';
 import CancelModal from './CancelModal';
 import CompleteModal from './CompleteModal';
+import { createSetDate, createSetDoctor, createSetPatient, createSetStatus, createSetTime } from 'redux/createReception-reducer';
 
 function ReceptionList(props){
   const day = useSelector((state) => {
     return state.receptionReducer.day;
   });
-
+  const dispatch = useDispatch();
+  
   const [patientBoard, setPatientBoard] = useState({
     r_id: 0,
     patient_name: "",
@@ -45,6 +47,15 @@ function ReceptionList(props){
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const buttonModal = () => setShow(true);
+
+  // 예약/접수 버튼 클릭 시 동작
+  const handleReception = (event) => {
+    dispatch(createSetStatus(1));
+    dispatch(createSetPatient(''));
+    dispatch(createSetDoctor(''));
+    dispatch(createSetDate(''));
+    dispatch(createSetTime(''));
+  };
 
   //환자상세정보
   const [show1, setShow1] = useState(false);
@@ -166,13 +177,22 @@ function ReceptionList(props){
             </div>
             <div className={style.button1}>
               <button className={style.button} onClick={buttonModal}>환자 등록</button>
-              <button className={style.button}><Link to="/createReception" className={style.link}>예약/접수</Link></button>
+              <button className={style.button}><Link to="/createReception" className={style.link} onClick={handleReception}>예약/접수</Link></button>
             </div>
           </div> 
 
           <div className={style.tablewidth}>
-          <CommonTable tstyle={"table"} headersName={['예약 번호', '이름', '생년월일', '전화번호', '예약 날짜', '예약 시간', '접수 상태']}>
-            {newBoards.map((list, index) => (
+            {newBoards.length === 0 ? 
+            (
+              <CommonTable tstyle={"table"} headersName={['예약 번호', '이름', '생년월일', '전화번호', '예약 날짜', '예약 시간', '접수 상태']}>
+              
+              <td colSpan='7' className={style.noList}>접수 대기중인 환자가 없습니다.</td>
+              </CommonTable>
+            ) 
+            : 
+            (
+              <CommonTable tstyle={"table"} headersName={['예약 번호', '이름', '생년월일', '전화번호', '예약 날짜', '예약 시간', '접수 상태']}>
+              {newBoards.map((list, index) => (
                 <tr className={style.list}>
                     <CommonTableColumn>{list.r_id}</CommonTableColumn>
                     <CommonTableColumn><div className={style.click} onClick={(event) => {buttonModal1(event, list)}}>{list.patient_name}</div></CommonTableColumn>
@@ -195,7 +215,9 @@ function ReceptionList(props){
                           
                   </tr>
                 ))}
-            </CommonTable>
+                </CommonTable>
+            )
+            }  
           </div>
         </div>
       </div>

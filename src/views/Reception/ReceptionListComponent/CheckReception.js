@@ -1,7 +1,7 @@
 import style from './rlist.module.css';
 import { Button, Modal } from 'react-bootstrap';
 import { useDispatch } from 'react-redux';
-import { createSetDate, createSetDoctor, createSetPatient, createSetTime } from 'redux/createReception-reducer';
+import { createSetDate, createSetDoctor, createSetPatient, createSetStatus, createSetTime } from 'redux/createReception-reducer';
 import {Link} from "react-router-dom";
 
 const CheckReception = (props) => {
@@ -12,12 +12,14 @@ const CheckReception = (props) => {
     dispatch(createSetPatient(patientBoard.patient_id));
     dispatch(createSetDate(patientBoard.r_date));
     dispatch(createSetTime(patientBoard.r_time));
+
+    dispatch(createSetStatus(0));
   }
 
   return(
     <Modal show={props.show1} onHide={props.handleClose1} dialogClassName="custom-modal">
         <Modal.Header closeButton>
-          <Modal.Title>예약확인</Modal.Title>
+          <Modal.Title style={{color:'gray', textShadow:'1px 1px 1px'}}>예약확인</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <table className="table">
