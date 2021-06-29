@@ -13,7 +13,7 @@ const NewRegistration = (props) => {
   return(
     <Modal show={props.show} onHide={props.handleClose} className={style.font} dialogClassName="custom-modal">
         <Modal.Header closeButton>
-          <Modal.Title style={{color:'#4dabf7', textShadow:'1px 1px 1px blue'}}>신규환자 등록</Modal.Title>
+          <Modal.Title style={{color:'gray', textShadow:'1px 1px 1px'}}>신규환자 등록</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <table calss="table">
