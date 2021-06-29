@@ -96,7 +96,7 @@ function Notice(props) {
         <div>
           <div className={style.notice} style={{ overflow: "auto" }}>
             <div className={style.bContent1}>
-              <img src={photo4} alt="photo4" style={{width:'35px', margin:'10px'}}/>
+              <img src={photo4} alt="photo4" style={{width:'35px', margin:'20px'}}/>
               <b>공지사항</b>
             </div>
             <div>

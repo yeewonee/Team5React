@@ -1,4 +1,4 @@
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { getDoctor } from "../DoctorList/data";
 import { getPatient } from "../PatientList/data";
 import style from "./style.module.css";
