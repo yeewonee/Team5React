@@ -76,7 +76,7 @@ function MainNotice(props) {
     <div> 
     {mainBoards.map((board) => {
       return(
-      <div className={"list-group"}>
+      <div className={"list-group"} key={board.bno}>
         <div className={"list-group-item list-group-item-action"}>
           <div className={"d-flex w-100 justify-content-between"}>
             <h5 className={"mb-1"} onClick={(event) => {mainNoticeModal(event, board)}}>{board.btitle}</h5>
