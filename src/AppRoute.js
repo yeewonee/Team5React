@@ -18,7 +18,7 @@ function AppRoute() {
     {test === 1?
       <>
         <Switch> 
-          <Route path="/" component={Home}/>
+          <Route path="/" exact component={Home}/>
           <Route path="/reception" component={Reception}/>
           <Route path="/diagnosis" component={Diagnosis}/>
           <Route path="/inspection" component={Inspection}/> 
