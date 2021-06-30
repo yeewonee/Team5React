@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Modal } from "react-bootstrap";
+import { getMainNoticeList } from "./data";
 
 function MainNotice(props) {
   const [show, setShow] = useState(false);
@@ -23,19 +24,15 @@ function MainNotice(props) {
     setShow(true);
   };
 
-  const handleClose = () => {
+  const handleClose = () => { 
     setShow(false);
   };
 
-  const mainBoards = [
-    {bno:1, btitle: '2021년 6월 28일 업데이트 내용', bcontent:'이번주 업데이트 내용입니다...', bdate:'2021-06-28', bwriter:'더존비즈온'},
-    {bno:2, btitle: '2021년 6월 1일 업데이트 내용', bcontent:'이번주 업데이트 내용입니다...', bdate:'2021-06-01', bwriter:'더존비즈온'},
-    {bno:3, btitle: 'wehago-h 이용안내', bcontent:'이용 안내 사항입니다.', bdate:'2021-06-28', bwriter:'더존비즈온'},
-    {bno:4, btitle: '고객센터 이용안내', bcontent:'문의사항이 생기시면 연락주세요 :)', bdate:'2021-06-28', bwriter:'더존비즈온'},
-  ]
+  const mainBoards = getMainNoticeList(); //메인공지사항 리스트 가져오기
 
   return(
     <>
+    {/* 공지사항 모달로 띄워주는 부분 */}
     <Modal show={show} onHide={handleClose} dialogClassName="custom-modal">
       <Modal.Header closeButton>
         <Modal.Title>공지사항</Modal.Title>
@@ -74,19 +71,19 @@ function MainNotice(props) {
     </Modal>
 
     <div> 
-    {mainBoards.map((board) => {
-      return(
-      <div className={"list-group"} key={board.bno}>
-        <div className={"list-group-item list-group-item-action"}>
-          <div className={"d-flex w-100 justify-content-between"}>
-            <h5 className={"mb-1"} onClick={(event) => {mainNoticeModal(event, board)}}>{board.btitle}</h5>
-            <small>{board.bdate}</small>
+      {mainBoards.map((board) => {
+        return(
+        <div className={"list-group"} key={board.bno}>
+          <div className={"list-group-item list-group-item-action"}>
+            <div className={"d-flex w-100 justify-content-between"}>
+              <h5 className={"mb-1"} onClick={(event) => {mainNoticeModal(event, board)}}>{board.btitle}</h5>
+              <small>{board.bdate}</small>
+            </div>
+            <p className={"mb-1"}>{board.bcontent}</p>
           </div>
-          <p className={"mb-1"}>{board.bcontent}</p>
         </div>
-      </div>
-      );
-    })}
+        );
+      })}
     </div>
     </>
   );

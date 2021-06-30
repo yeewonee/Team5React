@@ -1,7 +1,6 @@
 import { getDoctorList, getDoctorListBySearch } from "./data";
 import style from "./style.module.css";
 import CommonTable from "views/table/CommonTable";
-import CommonTableRow from "views/table/CommonTableRow";
 import CommonTableColumn from "views/table/CommonTableColumn";
 import { useDispatch, useSelector } from "react-redux";
 import { createSetDoctor } from "redux/createReception-reducer";
@@ -21,7 +20,7 @@ function DoctorList(props) {
   const [checkArray,setCheckArray] = useState(arr);
 
   const changeCheck = (event,index,id) =>{
-    if(did === id){
+    if(did === id){ //현재 리덕스에 담긴 의사id와 일치한 id를 클릭하면 더 이상 클릭되지 않도록 처리
       return
     }
     let checkarray = checkArray
