@@ -10,6 +10,8 @@ const cx =  classNames.bind(style);
 function InspectState(props) {
 
   const patientList = props.data;
+
+  //환자 검사 상태 카운트 
   const readyRow=patientList.filter((value)=>value.tstatus === '대기')
   const proceedRow=patientList.filter((value)=>value.tstatus === '진행중')
   const completeRow=patientList.filter((value)=>value.tstatus === '완료')
