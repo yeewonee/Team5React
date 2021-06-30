@@ -26,15 +26,25 @@ function DetailTable(props) {
 
  
   const inspectList = props.data;
-  console.log(inspectList)
-  
+  const dispatch = useDispatch();
+  //체크한 항목을 담는 리스트 상태(체크박스 활성화 비활성화 여부)
   const [checkArray, setCheckArray] = useState([]);
+  //체크한 항목의 객체들을 담고 있는 리스트 상태
   const checkList = useSelector(state => state.inspectReducer.checked);
+  //체크한 환자의 상태
   const patient = useSelector(state => state.inspectReducer.patient);
+    //alert
+    const options = {
+      position: positions.MIDDLE,
+      timeout: 3000,
+      offset: '-130px',
+      transition: transitions.SCALE,
+      containerStyle: {
+        
+      }
+    }
   
-  
-  
-
+  //체크박스 활성화 비활성화 여부를 위한 함수
   const changeCheck = (event, index) => {
     let check = checkArray;
     if (event.target.checked) {
@@ -45,34 +55,17 @@ function DetailTable(props) {
     setCheckArray(check);
   };
 
-
-  console.log(checkArray)
-  const checkState=()=>{
-    checkArray.splice(0,checkArray.length)
-  }
-
+  //다른 환자 클릭시 체크상태 비워주기
   useEffect(() => {
     setCheckArray([])
   }, [patient.pno])
- 
 
-  const dispatch = useDispatch();
-
-
-  const options = {
-    // you can also just use 'bottom center'
-    position: positions.MIDDLE,
-    timeout: 3000,
-    offset: '-130px',
-    // you can also just use 'scale'
-    transition: transitions.SCALE,
-    containerStyle: {
-      
-    }
+  //체크 리스트 비워주기(stateButton 컴포넌트에서 사용)
+  const checkState=()=>{
+    checkArray.splice(0,checkArray.length);
   }
 
-
-
+  //체크된 객체 리덕스에 담는 함수
   const changeHandler = (checked,board) => {
     if (checked) {
       dispatch(createSetCheckDownAction(board));
@@ -82,6 +75,7 @@ function DetailTable(props) {
     }
   };
 
+  //중복되는 묶음코드를 하나만 보여주기 위한 함수
   let bundle = "";
   const viewBundleCode = (bno) => {
     if(bundle !== bno){
@@ -92,8 +86,7 @@ function DetailTable(props) {
     }
   }
 
-
-
+  //엑셀저장 헤더
   const headers = [
     { label: '환자번호', key: 'pno'},
     { label: '묶음코드', key: 'bno'},
@@ -104,6 +97,7 @@ function DetailTable(props) {
     { label: '검사상태', key: 'istatus'},
   ];
 
+  //바코드 모달창 열고 닫기에 대한 상태
   const [ modalOpen, setModalOpen ] = useState(false);
 
   const openModal = () => {
@@ -113,6 +107,7 @@ function DetailTable(props) {
       setModalOpen(false);
   }
 
+  //istatus에대한 글씨 색상
   const viewStatus = (istatus)=>{
     if(istatus === '완료'){
       return(<div style={{color:'rgb(255, 205, 86)'}}>완료</div>)
@@ -131,12 +126,12 @@ function DetailTable(props) {
         <div className={cx(style.buttonBox)}>
         
         <AlertProvider template={AlertTemplate} {...options}>
-          <StateButton value={'바코드 출력'} change={'접수'} check={checkArray} checkfun={checkState} list={inspectList} openModal={openModal}></StateButton>
+          <StateButton value={'바코드 출력'} change={'접수'}  checkfun={checkState} list={inspectList} openModal={openModal}></StateButton>
           <Modal open={ modalOpen } close={ closeModal } header="Modal heading">
           <Barcode value={"      "+patient.pno+patient.pno+patient.pno+patient.pno+patient.pno+"      "} style={{textAlign:'center'}}/>
           </Modal>
-          <StateButton value={'접수 취소'} change={'대기'} check={checkArray} checkfun={checkState} list={inspectList}></StateButton>
-          <StateButton value={'채혈 완료'} change={'완료'} check={checkArray} checkfun={checkState} list={inspectList}></StateButton>
+          <StateButton value={'접수 취소'} change={'대기'} checkfun={checkState} list={inspectList}></StateButton>
+          <StateButton value={'채혈 완료'} change={'완료'}  checkfun={checkState} list={inspectList}></StateButton>
           </AlertProvider>
           <button className={cx(style.stateButton)}>
             <CSVLink 
@@ -176,7 +171,6 @@ function DetailTable(props) {
             ))}
           </CommonTable>
         </div>
-
         :<div>
           <div style={{display:'flex', justifyContent:'center', alignItems:'center',flexDirection:'column',height:'45vh'}}>
             <div><FaUserCheck size={'10em'}/></div>

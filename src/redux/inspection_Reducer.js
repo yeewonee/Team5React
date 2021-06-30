@@ -19,7 +19,6 @@ const SET_PSTATUS = "inspection/setPstatus"
 
 //액션 생성 함수 선언
 export const createSetPatientAction = (patient) =>{
-    console.log(patient)
     return {type:SET_PATIENT,patient}
 };
 
@@ -31,17 +30,11 @@ export const createSetCheckUpAction = (id) =>{
     return {type:SET_CHECKUP,id}
 };
 
-// export const UpdateStatusAction = (list,status) =>{
-//     updateInspect(list,status)
-//     return {type:SET_STATUS,status}
-// };
-
 export const UpdateStatusAction = () =>{
     return {type:SET_STATUS}
 };
 
 export const UpdatePstatusAction = (status) =>{
-    console.log(status)
     return {type:SET_PSTATUS,status}
 };
 
@@ -54,7 +47,8 @@ const inspectionReducer = (state=initialState,action) => {
 
     if(action.type === SET_PATIENT){
         return {...state,patient:action.patient,checked:[]}
-    }if(state.checked===undefined){
+    }
+    if(state.checked===undefined){
         state.checked=[]
     }
     if(action.type === SET_CHECKDOWN){
@@ -63,13 +57,6 @@ const inspectionReducer = (state=initialState,action) => {
     if(action.type === SET_CHECKUP){
         return {...state,checked:state.checked.filter((el) => el !== action.id)}
     } 
-    // if(action.type === SET_STATUS){
-    //     const arr = state.checked.map((value)=>{
-    //         value.istatus = action.status
-    //         return value
-    //     })
-    //     return {...state,checked:arr} 
-    // }
     if(action.type ===SET_STATUS){
         return {...state,checked:[]}
     }

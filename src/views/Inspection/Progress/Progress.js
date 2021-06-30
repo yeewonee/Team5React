@@ -10,17 +10,23 @@ function Progress(props){
 
     const user = props.data;
     const inspectList = props.list;
+    //완료한 검사항목을 담고 있는 배열 생성
     const completeList=inspectList.filter((value)=>value.istatus==='완료');
-    useSelector(state => state.inspectReducer.checked)
-    let progress = Math.floor((completeList.length/inspectList.length)*100 ) 
-    let percent = String(progress).concat('%')
+    useSelector(state => state.inspectReducer.checked);
     
+    //진행률 퍼센트
+    let progress = Math.floor((completeList.length/inspectList.length)*100 );
+    //progressBar style에 문자열로 들어가야 하기 때문에 progress와 %를 합친 문자열 생성
+    let percent = String(progress).concat('%');
+
+    //progress  undefined일 경우
     if(!progress){
         progress=0;
         percent=0;
     }
-
-     const proceeding = inspectList.find((value)=>value.istatus==='접수')
+    
+    //진행중인 검사 찾기
+    const proceeding = inspectList.find((value)=>value.istatus==='접수')
 
     return (
         <div>

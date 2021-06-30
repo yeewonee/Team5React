@@ -15,9 +15,7 @@ function CheckCalendar(props) {
 
     if(clickDate< today){ //오늘보다 이전 날짜를 선택하는 경우
       alert("이전 날짜는 선택이 불가능합니다");
-      
-    } 
-    else { 
+    } else { 
     dispatch(createSetDate(clickDate)); 
     dispatch(createSetTime('')); //날짜 바꾸면 선택된 시간 비워주기
     }

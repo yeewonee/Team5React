@@ -10,15 +10,16 @@ const cx = classNames.bind(style);
 
 export const StateButton = (props) => {
   const buttonName = props.value;
-  const checkList = useSelector((state) => state.inspectReducer.checked);
-  const dispatch = useDispatch();
+  //대기,완료,접수
   const changeValue = props.change;
   const dcheck = props.checkfun;
+  const checkList = useSelector((state) => state.inspectReducer.checked);
+  const dispatch = useDispatch();
   const patient = useSelector((state) => state.inspectReducer.patient);
   const alert = useAlert()
-
   const inspectList = props.list;
 
+  
   const changeState = (props) => {
     //버튼 예외처리
     if (patient.tstatus === "완료") {
@@ -69,9 +70,12 @@ export const StateButton = (props) => {
     }
 
     updateInspect(checkList, changeValue);
+    //리덕스에 저장된 체크한 검사들의 객체 상태를 비워줌
     dispatch(UpdateStatusAction());
+    //props로 부모 컴포넌트에서 받은 함수
     dcheck();
 
+    //환자 tstatus를 변경
     const arr = [];
     const arr2 = [];
     let value = "";
@@ -97,7 +101,6 @@ export const StateButton = (props) => {
       value = "대기";
       dispatch(UpdatePstatusAction(value));
     }
-    console.log(value);
   };
 
   return (

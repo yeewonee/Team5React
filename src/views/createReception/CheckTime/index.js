@@ -17,9 +17,9 @@ function CheckTime(props) {
   };
 
   const state =[
-    {time: '9:00'},
-    {time: '9:30'},
-    {time: '10:00'},
+    {time: "09:00"},
+    {time: "09:30"},
+    {time: "10:00"},
     {time: '10:30'},
     {time: '11:00'},
     {time: '11:30'},
@@ -39,11 +39,10 @@ function CheckTime(props) {
     return state.createReceptionReducer.date
   });
 
-  const receptionList = getReceptionDate(doctor_id, r_date);
-  console.log(receptionList);
+  const receptionList = getReceptionDate(doctor_id, r_date); //선택된 의사의 해당 날짜의 예약된 리스트
 
   let resultTime = [];
-  for(let i=0; i<receptionList.length; i++){
+  for(let i=0; i<receptionList.length; i++){ //예약된 리스트의 길이만큼 for문을 돌면서 시간만 배열에 담아줌
     resultTime.push(receptionList[i].r_time)
   }
 
