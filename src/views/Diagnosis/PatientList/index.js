@@ -13,11 +13,12 @@ import { BsFillPersonDashFill } from "react-icons/bs";
 
 export const PatientList = (props) => {
   const originPList = getPatientList(props.day);
+  //검색에 맞는 결과를 보여주는 상태
   const [showPList, setShowPList] = useState(originPList);
 
   useEffect(() => {
     setShowPList(originPList);
-  }, [props]);
+  }, [props]); //날짜 
 
   const [keyword, setKeyword] = useState("");
   const keywordChange = (event) => {
@@ -26,7 +27,7 @@ export const PatientList = (props) => {
 
   const keywordButton = (event) => {
     const keywordPList = getPatientSearchList(props.day, keyword);
-
+    //보여줄 리스트를 상태에 저장
     if (keyword === "") {
       setShowPList(originPList);
     } else {
@@ -35,6 +36,7 @@ export const PatientList = (props) => {
   };
 
   const dispatch = useDispatch();
+  //선택된 환자의 id를 저장
   const patientSelect = (event, id) => {
     dispatch(createSetPidAction(id));
   };
@@ -42,8 +44,6 @@ export const PatientList = (props) => {
   const selectPatient = useSelector((state) => {
     return state.diagnosisReducer.pId;
   })
-
-  const selectPname = getPatientName(selectPatient);
 
   return (
     <div>
@@ -72,7 +72,8 @@ export const PatientList = (props) => {
                    <button
                      className="btn btn-outline-dark btn-sm"
                      onClick={(event) => {
-                       patientSelect(event, patient.patientId);
+                      //선택한 환자를 저장하는 이벤트
+                      patientSelect(event, patient.patientId);
                      }}
                    >
                      선택

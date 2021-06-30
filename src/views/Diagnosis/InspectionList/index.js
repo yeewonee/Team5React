@@ -5,9 +5,7 @@ import { getInspectionList, getInspection, getInspectionSearchList } from "../da
 import style from "./inspectionlist.module.css";
 import { createSetAddIlistAction } from "redux/diagnosis-reducer";
 import CommonTable from "views/table/CommonTable";
-import CommonTableRow from "views/table/CommonTableRow";
 import CommonTableColumn from "views/table/CommonTableColumn";
-
 import { BsCardChecklist } from "react-icons/bs";
 
 
@@ -73,6 +71,7 @@ export const InspectionList = (props) => {
     }
   
     if (event.target.checked) {
+      //묶음코드에 맞는 검사 리스트를 불러와 그 리스트들을 임시상태에 저장
       let addIList = getInspection(bundleCode);
       setList((prevList) => {
         return {
