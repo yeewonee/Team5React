@@ -8,10 +8,10 @@ import { useState } from "react";
 import { FaUserTimes } from 'react-icons/fa';
 
 function PatientList(props) {
+  const dispatch = useDispatch();
   const originPatientList = getPatientList(); //환자리스트 가져오기
   const [patientList, setPatientList] = useState(originPatientList);
 
-  const dispatch = useDispatch();
   const status = useSelector((state) => {
     return state.createReceptionReducer.status
   })
@@ -41,15 +41,15 @@ function PatientList(props) {
     }
   }
 
-      const [searchword, setSearchword] = useState('');
-      const serachChange = (event) => {
+    const [searchword, setSearchword] = useState('');
+    const serachChange = (event) => {
         setSearchword(event.target.value);
-  };
+    };
 
   const searchPatient = (event) => {
     const patientBySearch = getPatientListBySearch(searchword);
     setCheckArray(arr);
-    dispatch(createSetPatient('')); //검색버튼 누르면 이전에 체크됐던 값 지워줌
+    dispatch(createSetPatient('')); //검색버튼 누르면 이전에 체크됐던 환자 값을 비워줌
     if(searchword===''){ //검색어가 없으면
       setPatientList(originPatientList); //list에 전체 목록 넣어주고
     }else{ //검색어가 있으면
@@ -66,6 +66,7 @@ function PatientList(props) {
           <button className="btn btn-outline-secondary btn-sm" type="button" onClick={searchPatient}>검색</button>
       </div>
     </div>
+    
     {patientList.length !== 0 ?
     <div className={style.table_wrapper}>
       <CommonTable headersName={['', '환자번호', '이름', '주민등록번호', '전화번호']} tstyle={"table table-sm"}>
