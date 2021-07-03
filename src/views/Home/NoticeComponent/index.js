@@ -1,14 +1,28 @@
 import { Col, Table, Button, Modal } from "react-bootstrap";
 import style from "./notice.module.css";
 import photo4 from "images/4.jpg";
-import React from "react";
+import React, { useEffect } from "react";
 import { useState } from "react";
 import { getBoardList } from "./data.js";
 import qs from "qs";
 import { Link } from "react-router-dom";
 import NoticeModal from './NoticeModal';
 
+import axios from "axios";
+axios.defaults.baseURL = "http://localhost:8080/Team5";
+
+
 function Notice(props) {
+
+  const [boardList, setBoardList] = useState([]);
+  useEffect(() => {
+    const test = async() => {
+      const result = await axios.get("/boards");
+      setBoardList(result.data)
+    }
+    test()
+  }, [])
+
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const noticeModal = (event, board) => {
@@ -28,16 +42,14 @@ function Notice(props) {
   });
 
   //css를 위한 임시 페이징 처리
-  let pageNo = 1;
-  console.log(props);
-  const queryString = qs.parse(props.props.history.location.search, { ignoreQueryPrefix: true });
+  // let pageNo = 1;
+  // console.log(props);
+  // const queryString = qs.parse(props.props.history.location.search, { ignoreQueryPrefix: true });
   
-  if (queryString.pageNo) {
-    pageNo = parseInt(queryString.pageNo);
-  }
-  const boardList = getBoardList(pageNo);
+  // if (queryString.pageNo) {
+  //   pageNo = parseInt(queryString.pageNo);
+  // }
 
-  
 
   return (
     <>
@@ -65,8 +77,8 @@ function Notice(props) {
                 <tbody>
                   {boardList.map((board) => {
                     return (
-                      <tr key={board.bno}>
-                        <td>{board.bno}</td>
+                      <tr key={board.notice_id}>
+                        <td>{board.notice_id}</td>
                         <td>
                           <div
                             onClick={(event) => {
@@ -74,23 +86,23 @@ function Notice(props) {
                             }}
                             className={style.mouse}
                           >
-                            {board.btitle}
+                            {board.notice_title}
                           </div>
                         </td>
-                        <td>{board.bwriter}</td>
+                        <td>{board.user_id}</td>
                       </tr>
                     );
                   })}
                 </tbody>
               </Table>
-              <div className="d-flex justify-content-center">
+              {/* <div className="d-flex justify-content-center">
                 <Link to="/?pageNo=1" className={`btn ${pageNo === 1 ? "btn-danger" : "btn-outline-primary"} btn-sm mr-1`}>
                   1
                 </Link>
                 <Link to="/?pageNo=2" className={`btn ${pageNo === 2 ? "btn-danger" : "btn-outline-primary"} btn-sm mr-1`}>
                   2
                 </Link>
-              </div>
+              </div> */}
             </div>
           </div>
         </div>
