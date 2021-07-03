@@ -4,15 +4,14 @@ import { getMedicineList, getMedicineSearchList } from "../data";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { createSetAddMlistAction } from "redux/diagnosis-reducer";
-import CommonTableRow from "views/table/CommonTableRow";
 import CommonTableColumn from "views/table/CommonTableColumn";
 import CommonTable from "views/table/CommonTable";
 import { useEffect } from "react";
-
 import { AiFillMedicineBox } from "react-icons/ai";
 
 export const MedicineList = (props) => {
   const originMList = getMedicineList();
+  //검색어에 맞는 리스트를 저장하는 상태
   const [medicineList, setMedicineList] = useState(originMList);
 
   //DB에서 약 목록 size 받아오기
@@ -20,7 +19,7 @@ export const MedicineList = (props) => {
   //checked 상태
   const [checkArray, setCheckArray] = useState(arr);
   const changeCheck = (event, index, m) => {
-    if(list.mlist.includes(m) && event.target.checked){ //이미 리덕스에 포함되어 있으면 check 금지
+    if(list.mlist.includes(m) && event.target.checked){ //이미 추가된 약이 있으면 check 금지
       return;
     }
 
@@ -41,18 +40,18 @@ export const MedicineList = (props) => {
   const keywordButton = (event) => {
     const keywordMedicine = getMedicineSearchList(keyword);
     setCheckArray(arr);
+    //검색어에 맞는 리스트를 상태에 저장
     if (keyword === "") {
-      //검색어가 없으면
-      setMedicineList(originMList); //전체 목록 list에 저장
+      setMedicineList(originMList); 
     } else {
-      //검색어가 있으면
-      setMedicineList(keywordMedicine); //검색어에 맞는 목록 list에 저장
+      setMedicineList(keywordMedicine);
     }
     setList({
       mlist: props.mList,
     });
   };
 
+  //추가 버튼을 누르기 전 임시상태 저장
   const [list, setList] = useState({
     mlist: [],
   });

@@ -10,7 +10,6 @@ import { Memo } from "./Memo";
 import { PastRecord } from "./PastRecord";
 import { PatientList } from "./PatientList";
 
-
 import { BsCardList } from "react-icons/bs";
 import { BiCalendar } from "react-icons/bi";
 import { BiListCheck } from "react-icons/bi";
@@ -19,9 +18,9 @@ import { BsCardChecklist } from "react-icons/bs";
 import { BsList } from "react-icons/bs";
 
 
-
-
 function Diagnosis(props) {
+  
+  //날짜
   const day = useSelector((state) => {
     return state.diagnosisReducer.day;
   });
