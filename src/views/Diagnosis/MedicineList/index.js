@@ -9,13 +9,24 @@ import CommonTable from "views/table/CommonTable";
 import { useEffect } from "react";
 import { AiFillMedicineBox } from "react-icons/ai";
 
+import axios from "axios";
+axios.defaults.baseURL = "http://localhost:8080";
+
 export const MedicineList = (props) => {
-  const originMList = getMedicineList();
-  //검색어에 맞는 리스트를 저장하는 상태
-  const [medicineList, setMedicineList] = useState(originMList);
+  
+  const [mlist, setMlist] = useState([]);
+  useEffect(() => {
+    const medicine = async() => {
+      const result = await axios.get("/medicines");
+      setMlist(result.data)
+    }
+    medicine()
+  }, [])
+  
+  console.log(mlist)
 
   //DB에서 약 목록 size 받아오기
-  const arr = Array.from({ length: medicineList.length }, () => false);
+  const arr = Array.from({ length: mlist.length }, () => false);
   //checked 상태
   const [checkArray, setCheckArray] = useState(arr);
   const changeCheck = (event, index, m) => {
@@ -37,15 +48,17 @@ export const MedicineList = (props) => {
     setKeyword(event.target.value);
   };
 
+  let test = mlist;
   const keywordButton = (event) => {
-    const keywordMedicine = getMedicineSearchList(keyword);
+    
     setCheckArray(arr);
     //검색어에 맞는 리스트를 상태에 저장
     if (keyword === "") {
-      setMedicineList(originMList); 
+      test = mlist.filter(mlist => mlist.m_name !== keyword);
     } else {
-      setMedicineList(keywordMedicine);
+      test = mlist.filter(mlist => mlist.m_name.includes(keyword));
     }
+
     setList({
       mlist: props.mList,
     });
@@ -115,10 +128,10 @@ export const MedicineList = (props) => {
           </div>
         </div>
 
-        {medicineList.length !== 0 ?
+        {test.length !== 0 ?
         <div className={style.m_list}>
           <CommonTable headersName={["", "코드", "명칭", "구분", "단위"]} tstyle={"table table-sm"}>
-            {medicineList.map((medicine, index) => (
+            {test.map((medicine, index) => (
               <tr key={medicine.mId} className={checkArray[index] ? style.select_Color : style.basic_Color}>
                 <CommonTableColumn>
                   <input
