@@ -1,77 +1,48 @@
+import axios from "axios";
+axios.defaults.baseURL = "http://localhost:8080";
+
+export function getMedicineList(){
+  const promise = axios.get("/medicines");
+  return promise;
+}
+
+export function getInspectList(){
+  const promise = axios.get("/inspectionlist")
+  return promise;
+}
+
+export function getInspectAllList(){
+  const promise = axios.get("/inspections")
+  return promise;
+}
+
+export function getPatientList(day){
+  const promise = axios.get("/patientlist", {params:{day}})
+  return promise;
+}
+
+export function getPastRecordList(pId){
+  const promise = axios.get("/pastrecord", {params:{pId}})
+  return promise;
+}
+
+export function getPatient(pId){
+  if(pId !== ""){
+    const promise = axios.get("/selectpatient", {params:{pId}})
+    return promise;
+  }
+  
+}
+
+
+
+
 let size = 15;
 
-// 환자리스트
-let patientList = [
-  {patientId:"1", patientName:"정윤환", patientSsn1:"950621", patientPhone:"01012345671", dDate: "2021-06-22"},
-  {patientId:"2", patientName:"정예원", patientSsn1:"950622", patientPhone:"01012345672", dDate: "2021-06-22"},
-  {patientId:"3", patientName:"김명휘", patientSsn1:"950623", patientPhone:"01012345673", dDate: "2021-06-21"},
-  {patientId:"4", patientName:"박소라", patientSsn1:"950624", patientPhone:"01012345674", dDate: "2021-06-21"}
-];
 
-export function getPatient(pid) {
-  let patient = {};
-  for(var p=0; p<patientList.length; p++){
-    if(patientList[p].patientId === (pid+"")){
-      patient = patientList[p];
-    }
-  }
-  return patient;
-};
 
-export function getPatientList(day) {
-  let list = [];
-  for(var d=0; d<patientList.length; d++){
-    if(patientList[d].dDate === day){
-      list.push(patientList[d]);
-    }
-  }
-  return list;
-};
 
-export function getPatientName(id){
-  let p = "";
-  for(var d=0; d<patientList.length; d++){
-    if(patientList[d].patientId === id){
-      p = patientList[d].patientName;
-      break;
-    }
-  }
-  return p;
-}
 
-export function getPatientSearchList(day, keyword){
-  let list = [];
-  for(var d2=0; d2<patientList.length; d2++){
-    if(patientList[d2].dDate === day && (patientList[d2].patientName).includes(keyword)){
-      list.push(patientList[d2]);
-    }
-  }
-  return list;
-}
-
-//약 목록
-let medicineList = [];
-for(var i2=1; i2<=size; i2++) {
-  medicineList.push({
-    mId:"NIZA"+i2, 
-    mName:"AXID Cap"+i2+" mg", 
-    mCategory:"내복약", 
-    mUnit:"C"+i2, 
-  });
-}
-export function getMedicineList() {
-  return medicineList;
-};
-
-export function getMedicineSearchList(keyword){
-  let list = [];
-  for(var m=0; m<patientList.length; m++){
-    if((medicineList[m].mName).includes(keyword)){
-      list.push(medicineList[m]);
-    }
-  }
-  return list;
-}
 
 //검사 목록
 let inspectionList = [

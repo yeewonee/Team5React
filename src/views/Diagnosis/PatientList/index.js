@@ -1,9 +1,9 @@
 import React from "react";
 import style from "./patientlist.module.css";
-import { getPatientList, getPatientSearchList, getPatientName } from "../data";
+import { getPatientList } from "../data";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { createSetPidAction } from "redux/diagnosis-reducer";
+import { createSetPidAction, createSetRidAction } from "redux/diagnosis-reducer";
 import CommonTable from "views/table/CommonTable";
 import CommonTableColumn from "views/table/CommonTableColumn";
 import { useEffect } from "react";
@@ -12,33 +12,50 @@ import { BsFillPersonDashFill } from "react-icons/bs";
 
 
 export const PatientList = (props) => {
-  const originPList = getPatientList(props.day);
+
+  console.log(props.day)
   //검색에 맞는 결과를 보여주는 상태
-  const [showPList, setShowPList] = useState(originPList);
+  const [pList, setPlist] = useState([]);
+  const [showPList, setShowPList] = useState([]);
+
+  const patient = async () => {
+    try {
+      const response = await getPatientList(props.day);
+      console.log(response.data)
+      setPlist(response.data);
+      setShowPList(response.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   useEffect(() => {
-    setShowPList(originPList);
-  }, [props]); //날짜 
+    patient();
+    setShowPList(pList);
+  }, [props]);
 
+
+console.log(showPList);
   const [keyword, setKeyword] = useState("");
   const keywordChange = (event) => {
     setKeyword(event.target.value);
   };
 
   const keywordButton = (event) => {
-    const keywordPList = getPatientSearchList(props.day, keyword);
+    
     //보여줄 리스트를 상태에 저장
     if (keyword === "") {
-      setShowPList(originPList);
+      setShowPList(pList.filter(pList => pList.patientName !== keyword));
     } else {
-      setShowPList(keywordPList);
+      setShowPList(pList.filter(pList => pList.patientName.includes(keyword)));
     }
   };
 
   const dispatch = useDispatch();
   //선택된 환자의 id를 저장
-  const patientSelect = (event, id) => {
+  const patientSelect = (event, id, rid) => {
     dispatch(createSetPidAction(id));
+    dispatch(createSetRidAction(rid));
   };
 
   const selectPatient = useSelector((state) => {
@@ -73,7 +90,7 @@ export const PatientList = (props) => {
                      className="btn btn-outline-dark btn-sm"
                      onClick={(event) => {
                       //선택한 환자를 저장하는 이벤트
-                      patientSelect(event, patient.patientId);
+                      patientSelect(event, patient.patientId, patient.rId);
                      }}
                    >
                      선택

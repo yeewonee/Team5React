@@ -1,5 +1,5 @@
 import Modal from "./Modal";
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import style from "./pastrecord.module.css";
 import CommonTable from "views/table/CommonTable";
 import CommonTableRow from "views/table/CommonTableRow";
@@ -9,8 +9,7 @@ import { BsPerson } from "react-icons/bs";
 import { BsLayoutTextSidebarReverse } from "react-icons/bs";
 import { BsFileEarmarkText } from "react-icons/bs";
 import { BsCardChecklist } from "react-icons/bs";
-
-
+import { getPatient } from "../data";
 
 export const ModalPast = (props) => {
 
@@ -18,17 +17,16 @@ export const ModalPast = (props) => {
     props.closeModal();
   };
 
+
   return (
     <>
       {/* 과거기록 상세보기 modal */}
       <Modal open={props.modalOpen} close={closeModal} header="검사결과 확인">
         <div className={style.past_title}><BsPerson /> 환자 정보</div>
         <CommonTable headersName={["환자번호", "환자이름", "주민번호"]} tstyle={"table table-sm table-striped"}>
-          <CommonTableRow key={props.patient.patientId}>
             <CommonTableColumn>{props.patient.patientId}</CommonTableColumn>
             <CommonTableColumn>{props.patient.patientName}</CommonTableColumn>
             <CommonTableColumn>{props.patient.patientSsn1}</CommonTableColumn>
-          </CommonTableRow>
         </CommonTable>
 
         <div className={style.past_title}><BsLayoutTextSidebarReverse /> 내원일 정보</div>

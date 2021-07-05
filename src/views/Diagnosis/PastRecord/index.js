@@ -2,15 +2,46 @@ import React from "react";
 import style from "./pastrecord.module.css";
 import { useState } from "react";
 import CommonTable from "views/table/CommonTable";
-import { getPastRecord, getPatient, getResultIList, getResultMList, getMemo } from "../data";
+import { getPatient, getPastRecordList, getResultIList, getResultMList, getMemo } from "../data";
 import CommonTableRow from "views/table/CommonTableRow";
 import CommonTableColumn from "views/table/CommonTableColumn";
 import { useEffect } from "react";
 import { ModalPast } from "./ModalPast";
-import { useDispatch } from "react-redux";
-import { createSetAddIlistAction, createSetAddMlistAction, createSetMemoAction, createSetPidAction } from "redux/diagnosis-reducer";
+import { useDispatch, useSelector } from "react-redux";
+import { createSetAddIlistAction, createSetAddMlistAction } from "redux/diagnosis-reducer";
+
+import axios from "axios";
+axios.defaults.baseURL = "http://localhost:8080";
 
 export const PastRecord = (props) => {
+
+  //날짜, 상세보기
+  const [pastList, setPastList] = useState([]);
+  const getPatientList = async() => {
+    try {
+      const promise = await getPastRecordList(props.patientId);
+        setPastList(promise.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  //환자 정보
+  const [patient, setPatient] = useState([]);
+  const getSelectPatient = async() => {
+    try {
+      const promise = await getPatient(props.patientId);
+      setPatient(promise.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    getPatientList();
+    getSelectPatient();
+  }, [props.patientId]);
+
   const [modalOpen, setModalOpen] = useState(false);
 
   const [dDate, setDdate] = useState("");
@@ -22,25 +53,43 @@ export const PastRecord = (props) => {
     setModalOpen(false);
   };
 
-
-  //날짜, 상세보기
-  let pList = getPastRecord(props.patientId);
-  const [pastList, setPastList] = useState(pList);
-
-  useEffect(() => {
-    setPastList(pList);
-  }, [props.patientId]);
-
   //환자 정보
-  let patient = getPatient(props.patientId);
   let iResultList = getResultIList(props.patientId, dDate);
   let mResultList = getResultMList(props.patientId, dDate);
-  let memo = getMemo(props.patientId, dDate);
 
   const dispatch = useDispatch();
   const deleteDiagnosis = () => {
     dispatch(createSetAddMlistAction([]));
     dispatch(createSetAddIlistAction([]));
+  };
+
+
+  const comment = useSelector((state) => {
+    return state.diagnosisReducer.comment;
+  });
+  const patientId = useSelector((state) => {
+    return state.diagnosisReducer.pId;
+  });
+  const medicineList = useSelector((state) => {
+    return state.diagnosisReducer.mlist;
+  });
+  const inspectionList = useSelector((state) => {
+    return state.diagnosisReducer.ilist;
+  });
+  const receptionId = useSelector((state) => {
+    return state.diagnosisReducer.rId;
+  });
+  
+  let diagnosisInfo = {
+    comment,
+    patientId,
+    medicineList,
+    inspectionList,
+    receptionId
+  };
+
+  const sendDiagnosis = async() => {  
+    await axios.post("/pushdiagnosis", diagnosisInfo)
   };
 
   return (
@@ -60,7 +109,7 @@ export const PastRecord = (props) => {
         </CommonTable>
       </div>
       <div className="d-flex flex-row-reverse bd-highlight pt-3">
-        <button className="btn btn-outline-dark mr-3">전달</button>
+        <button className="btn btn-outline-dark mr-3" onClick={sendDiagnosis}>전달</button>
         <button className="btn btn-outline-dark mr-3" onClick={deleteDiagnosis}>처방 초기화</button>
       </div>
 
@@ -70,9 +119,9 @@ export const PastRecord = (props) => {
         mResultList={mResultList}
         closeModal={closeModal}
         modalOpen={modalOpen}
-        pList={pList}
+        pList={pastList}
         dDate={dDate}
-        memo={memo}
+        memo={comment}
       />      
      
     </div>
