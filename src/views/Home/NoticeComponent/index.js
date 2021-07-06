@@ -9,36 +9,36 @@ import { Link } from "react-router-dom";
 import NoticeModal from './NoticeModal';
 
 import axios from "axios";
-axios.defaults.baseURL = "http://localhost:8080/Team5";
+axios.defaults.baseURL = "http://localhost:8080";
 
 
 function Notice(props) {
 
   const [boardList, setBoardList] = useState([]);
   useEffect(() => {
-    const test = async() => {
+    const getNotice = async() => {
       const result = await axios.get("/boards");
       setBoardList(result.data)
     }
-    test()
+    getNotice()
   }, [])
 
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const noticeModal = (event, board) => {
     setBoard({
-      bno: board.bno,
-      btitle: board.btitle,
-      bcontent: board.bcontent,
-      bwriter: board.bwriter,
+      noticeId: board.noticeId,
+      noticeTitle: board.noticeTitle,
+      noticeContent: board.noticeContent,
+      userId: board.userId,
     });
     setShow(true);
   };
   const [board, setBoard] = useState({
-    bno: 0,
-    btitle: "",
-    bcontent: "",
-    bwriter: "",
+    noticeId: 0,
+    noticeTitle: "",
+    noticeContent: "",
+    userId: "",
   });
 
   //css를 위한 임시 페이징 처리
@@ -77,8 +77,8 @@ function Notice(props) {
                 <tbody>
                   {boardList.map((board) => {
                     return (
-                      <tr key={board.notice_id}>
-                        <td>{board.notice_id}</td>
+                      <tr key={board.noticeId}>
+                        <td>{board.noticeId}</td>
                         <td>
                           <div
                             onClick={(event) => {
@@ -86,10 +86,10 @@ function Notice(props) {
                             }}
                             className={style.mouse}
                           >
-                            {board.notice_title}
+                            {board.noticeTitle}
                           </div>
                         </td>
-                        <td>{board.user_id}</td>
+                        <td>{board.userId}</td>
                       </tr>
                     );
                   })}
