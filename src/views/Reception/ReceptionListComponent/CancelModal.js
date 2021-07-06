@@ -4,7 +4,7 @@ import { useState } from 'react';
 
 const CancelModal = (props) => {
   const handelCancel = () => {
-    props.cancelReception()
+    props.cancelReception(props.cancelId)
   }
   return(
     <Modal show={props.cancelShow} onHide={props.closeCModal} dialogClassName="custom-modal">

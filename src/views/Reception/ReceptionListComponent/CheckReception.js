@@ -26,19 +26,19 @@ const CheckReception = (props) => {
             <tbody>
               <tr className={style.table}>
                 <th className={style.detailth}>&nbsp;예약번호</th>
-                <td className={style.detailtd}>&nbsp;{patientBoard.r_id}</td>
+                <td className={style.detailtd}>&nbsp;{patientBoard.rId}</td>
                 <th className={style.detailth}>&nbsp;환자번호</th>
-                <td className={style.detailtd}>&nbsp;{patientBoard.patient_id}</td>
+                <td className={style.detailtd}>&nbsp;{patientBoard.patientId}</td>
               </tr>
               <tr>
                 <th className={style.detailth}>&nbsp;환자명</th>
-                <td className={style.detailtd}>&nbsp;{patientBoard.patient_name}</td>
+                <td className={style.detailtd}>&nbsp;{patientBoard.patientName}</td>
                 <th className={style.detailth}>&nbsp;주민번호</th>
-                <td className={style.detailtd}>&nbsp;{patientBoard.patient_ssn1}</td>
+                <td className={style.detailtd}>&nbsp;{patientBoard.patientSsn1}</td>
               </tr>
               <tr>
                 <th className={style.detailth}>&nbsp;전화번호</th>
-                <td className={style.detailtd}>&nbsp;{patientBoard.patient_phone}</td>
+                <td className={style.detailtd}>&nbsp;{patientBoard.patientPhone}</td>
                 <th className={style.detailth}>&nbsp;담당의사</th>
                 <td className={style.detailtd}>&nbsp;김철수</td>
               </tr>
@@ -50,9 +50,9 @@ const CheckReception = (props) => {
               </tr>
               <tr>
                 <th className={style.detailth}>&nbsp;예약날짜</th>
-                <td className={style.detailtd}>&nbsp;{patientBoard.r_date}</td>
+                <td className={style.detailtd}>&nbsp;{patientBoard.rDate}</td>
                 <th className={style.detailth}>&nbsp;예약시간</th>
-                <td className={style.detailtd}>&nbsp;{patientBoard.r_time}</td>
+                <td className={style.detailtd}>&nbsp;{patientBoard.rTime}</td>
               </tr>
 
             </tbody>

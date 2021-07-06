@@ -15,13 +15,13 @@ function NoticeModal(props){
               공지번호
             </th>
             <th scope="col" className={style.table2}>
-              {props.board.bno}
+              {props.board.noticeId}
             </th>
             <th scope="col" className={style.table2}>
               글쓴이
             </th>
             <th scope="col" className={style.table2}>
-              {props.board.bwriter}
+              {props.board.userId}
             </th>
           </tr>
         </thead>
@@ -29,13 +29,13 @@ function NoticeModal(props){
           <tr>
             <td className={style.table2}>제목</td>
             <td colSpan="3" className={style.table2}>
-              {props.board.btitle}
+              {props.board.noticeTitle}
             </td>
           </tr>
           <tr>
             <td className={style.table2}>내용</td>
             <td colSpan="3" className={style.table2}>
-              {props.board.bcontent}
+              {props.board.noticeContent}
             </td>
           </tr>
         </tbody>

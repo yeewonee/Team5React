@@ -1,9 +1,9 @@
 const data = [
-  { r_id: 5, patient_name: "박소라", patient_ssn1: 930516, patient_phone: "01059210192", r_date: "2021-06-29", r_time: "14:30", r_status:"접수완료", patient_id:"23124", doctor_id:"2"},
-  { r_id: 4, patient_name: "정예원", patient_ssn1: 950211, patient_phone: "01045678902", r_date: "2021-06-29", r_time: "14:00", r_status:"접수대기", patient_id:"34234", doctor_id:"2"},  
-  { r_id: 3, patient_name: "김명휘", patient_ssn1: 980403, patient_phone: "01038203321", r_date: "2021-06-29", r_time: "11:30", r_status:"접수대기", patient_id:"45463", doctor_id:"2"},
-  { r_id: 2, patient_name: "정예원", patient_ssn1: 950211, patient_phone: "01045678902", r_date: "2021-06-29", r_time: "11:00", r_status:"접수대기", patient_id:"34123", doctor_id:"3"},
-  { r_id: 1, patient_name: "정윤환", patient_ssn1: 960123, patient_phone: "01029872701", r_date: "2021-06-29", r_time: "10:30", r_status:"접수완료", patient_id:"32319", doctor_id:"3"},
+  { r_id: 5, patient_name: "박소라", patient_ssn1: 930516, patient_phone: "01059210192", r_date: "2021-06-30", r_time: "14:30", r_status:"접수완료", patient_id:"23124", doctor_id:"2"},
+  { r_id: 4, patient_name: "정예원", patient_ssn1: 950211, patient_phone: "01045678902", r_date: "2021-06-30", r_time: "14:00", r_status:"접수대기", patient_id:"34234", doctor_id:"2"},  
+  { r_id: 3, patient_name: "김명휘", patient_ssn1: 980403, patient_phone: "01038203321", r_date: "2021-06-30", r_time: "11:30", r_status:"접수대기", patient_id:"45463", doctor_id:"2"},
+  { r_id: 2, patient_name: "정예원", patient_ssn1: 950211, patient_phone: "01045678902", r_date: "2021-06-30", r_time: "11:00", r_status:"접수대기", patient_id:"34123", doctor_id:"3"},
+  { r_id: 1, patient_name: "정윤환", patient_ssn1: 960123, patient_phone: "01029872701", r_date: "2021-06-30", r_time: "10:30", r_status:"접수완료", patient_id:"32319", doctor_id:"3"},
 
   { r_id: 12, patient_name: "박소라", patient_ssn1: 930516, patient_phone: "01059210192", r_date: "2021-06-28", r_time: "14:30", r_status:"접수완료", patient_id:"23124", doctor_id:"2"},
   { r_id: 11, patient_name: "정예원", patient_ssn1: 950211, patient_phone: "01045678902", r_date: "2021-06-28", r_time: "14:00", r_status:"접수대기", patient_id:"34234", doctor_id:"2"},  

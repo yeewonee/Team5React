@@ -18,32 +18,44 @@ import { useEffect } from 'react';
 import CancelModal from './CancelModal';
 import CompleteModal from './CompleteModal';
 import { createSetDate, createSetDoctor, createSetPatient, createSetStatus, createSetTime } from 'redux/createReception-reducer';
+import axios from "axios";
+axios.defaults.baseURL = "http://localhost:8080";
 
 function ReceptionList(props){
   const day = useSelector((state) => {
     return state.receptionReducer.day;
   });
   const dispatch = useDispatch();
-  
-  const [patientBoard, setPatientBoard] = useState({
-    r_id: 0,
-    patient_name: "",
-    patient_ssn1: 123456,
-    patient_phone: "123-4567-8902",
-    r_date: "",
-    r_time: "",
-    r_status:"",
-    doctor_id:"",
-    patient_id:""
-  });
+
+  //날짜별 환자 리스트
+  useEffect(() => {
+    const pListFunc = async(day) => {
+      const result = await axios.get("/reception", {params:{day:day}});   
+      setPatientList(result.data)
+      setBoards(result.data)
+      props.setCBoolean(false)
+      props.setComBoolean(false)
+    }
+    pListFunc(day)
+  }, [day, props.cBoolean, props.comBoolean])  
 
   //환자리스트
-  const patientList = getPatientList(day);  
-  useEffect(() => {
-    setBoards(patientList)
-  }, [day])
-  
-  //신규환자 등록
+  const [patientList, setPatientList] = useState([]);  
+
+  //환자 상세보기
+  const [patientBoard, setPatientBoard] = useState({
+    rId: 0,
+    patientName: "",
+    patientSsn1: "",
+    patientPhone: "",
+    rDate: "",
+    rTime: "",
+    rStatus:"",
+    doctorId:"",
+    patientId:""
+  });
+
+  //신규환자 등록 모달
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const buttonModal = () => setShow(true);
@@ -62,15 +74,15 @@ function ReceptionList(props){
   const handleClose1 = () => setShow1(false);
   const buttonModal1 = (event, list) => {
     setPatientBoard({
-      r_id: list.r_id,
-      patient_name: list.patient_name,
-      patient_ssn1: list.patient_ssn1,
-      patient_phone: list.patient_phone,
-      r_date: list.r_date,
-      r_time: list.r_time,
-      r_status: list.r_status,
-      doctor_id: list.doctor_id,
-      patient_id: list.patient_id,
+      rId: list.rId,
+      patientName: list.patientName,
+      patientSsn1: list.patientSsn1,
+      patientPhone: list.patientPhone,
+      rDate: list.rDate,
+      rTime: list.rTime,
+      rStatus: list.rStatus,
+      doctorId: list.doctorId,
+      patientId: list.patientId,
     })
     setShow1(true)
   };
@@ -87,9 +99,9 @@ function ReceptionList(props){
   const [boards, setBoards] = useState(patientList);
   var newBoards = boards;
   if(searchValue.value === ""){
-    newBoards = boards.filter(board => board.patient_name !== searchValue.value);
+    newBoards = boards.filter(board => board.patientName !== searchValue.value);
   }else{
-    newBoards = boards.filter(board => board.patient_name.includes(searchValue.value));
+    newBoards = boards.filter(board => board.patientName.includes(searchValue.value));
   }
 
   //예약취소 확인 모달
@@ -102,25 +114,27 @@ function ReceptionList(props){
   };
 
   //예약취소
-  const cancelReception = () => {
-    newBoards = boards.filter(board => board.r_id !== cancelId);
-    setBoards(newBoards);
+  const cancelReception = async(cancelId, day) => {
+    //newBoards = boards.filter(board => board.rId !== cancelId);
+    await axios.delete("/reception/calcelReception", {params:{cancelId:cancelId, day:day}});
+    props.setCBoolean(true);
     closeCModal()
   }
 
   //접수완료 확인 모달
   const [completeShow, setcompleteShow] = useState(false);
-  const [completeIndex, setcompleteIndex] = useState("");
+  const [changeId, setChangeId] = useState("");
   const closeComModal = () => setcompleteShow(false);
-  const openComModal = (event, index) => {
-    setcompleteIndex(index)
+  const openComModal = (event, rId) => {
+    setChangeId(rId)
     setcompleteShow(true)
   };
 
   //접수완료
-  const completeReception = () => {
-      newBoards[completeIndex].r_status = "접수완료";
-      setBoards(newBoards);
+  const completeReception = async(changeId, day) => {
+      //newBoards[completeIndex].rStatus = "접수완료";
+      await axios.get("/reception/changeReception", {params:{changeId:changeId, day:day}})
+      props.setComBoolean(true);
       closeComModal()
   }
   
@@ -140,6 +154,7 @@ function ReceptionList(props){
       isPopupOpen={isPopupOpen}
       openPostCode={openPostCode}
       closePostCode={closePostCode}
+      
       />
       
       {/* 예약확인 */}
@@ -154,6 +169,7 @@ function ReceptionList(props){
       closeComModal={closeComModal} 
       openComModal={openComModal}
       completeReception={completeReception}
+      changeId={changeId}
       />
       
       {/* 예약취소 */}
@@ -161,6 +177,7 @@ function ReceptionList(props){
       closeCModal={closeCModal} 
       openCModal={openCModal}
       cancelReception={cancelReception}
+      cancelId={cancelId}
       />
 
       <div className={style.location}>
@@ -186,7 +203,7 @@ function ReceptionList(props){
             (
               <CommonTable tstyle={"table"} headersName={['예약 번호', '이름', '생년월일', '전화번호', '예약 날짜', '예약 시간', '접수 상태']}>
               
-              <td colSpan='7' className={style.noList}>접수 대기중인 환자가 없습니다.</td>
+              <td colSpan='7' className={style.noList}>현재 접수중인 환자가 없습니다.</td>
               </CommonTable>
             ) 
             : 
@@ -194,22 +211,22 @@ function ReceptionList(props){
               <CommonTable tstyle={"table"} headersName={['예약 번호', '이름', '생년월일', '전화번호', '예약 날짜', '예약 시간', '접수 상태']}>
               {newBoards.map((list, index) => (
                 <tr className={style.list}>
-                    <CommonTableColumn>{list.r_id}</CommonTableColumn>
-                    <CommonTableColumn><div className={style.click} onClick={(event) => {buttonModal1(event, list)}}>{list.patient_name}</div></CommonTableColumn>
-                    <CommonTableColumn>{list.patient_ssn1}</CommonTableColumn>
-                    <CommonTableColumn>{list.patient_phone}</CommonTableColumn>
-                    <CommonTableColumn>{list.r_date}</CommonTableColumn>
-                    <CommonTableColumn>{list.r_time}</CommonTableColumn>
-                    {list.r_status === '접수완료' ? 
+                    <CommonTableColumn>{list.rId}</CommonTableColumn>
+                    <CommonTableColumn><div className={style.click} onClick={(event) => {buttonModal1(event, list)}}>{list.patientName}</div></CommonTableColumn>
+                    <CommonTableColumn>{list.patientSsn1}</CommonTableColumn>
+                    <CommonTableColumn>{list.patientPhone}</CommonTableColumn>
+                    <CommonTableColumn>{list.rDate}</CommonTableColumn>
+                    <CommonTableColumn>{list.rTime}</CommonTableColumn>
+                    {list.rStatus === '접수완료' ? 
                     (
-                      <CommonTableColumn>{list.r_status} &nbsp;
+                      <CommonTableColumn>{list.rStatus} &nbsp;
                       </CommonTableColumn>  
                     )
                     : 
                     (
-                      <CommonTableColumn>{list.r_status}
-                      <button className={style.buttoncolor1} onClick={(event) => {openCModal(event, list.r_id)}}>예약취소</button>&nbsp;
-                      <button className={style.buttoncolor2} onClick={(event) => {openComModal(event, index)}}>접수완료</button>
+                      <CommonTableColumn>{list.rStatus}
+                      <button className={style.buttoncolor1} onClick={(event) => {openCModal(event, list.rId)}}>예약취소</button>&nbsp;
+                      <button className={style.buttoncolor2} onClick={(event) => {openComModal(event, list.rId)}}>접수완료</button>
                       </CommonTableColumn> 
                     )}
                           
