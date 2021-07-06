@@ -1,11 +1,17 @@
-import { useSelector } from "react-redux";
-import { getDoctor } from "../DoctorList/data";
-import { getPatient } from "../PatientList/data";
+import { useDispatch, useSelector } from "react-redux";
 import style from "./style.module.css";
 import moment from 'moment';
 import { Link } from "react-router-dom";
 
+import { createSetDate, createSetDoctor, createSetPatient, createSetTime } from "redux/createReception-reducer";
+import { insertReception } from "../data";
+
 function AddReception(props) {
+  const patientList = props.pdata;
+  const doctorList = props.ddata;
+
+  const dispatch = useDispatch();
+
   const patient_id = useSelector((state) => {
     return state.createReceptionReducer.patient_id
   });
@@ -19,9 +25,36 @@ function AddReception(props) {
     return state.createReceptionReducer.date
   })
 
-  const patient = getPatient(patient_id);
-  const doctor = getDoctor(doctor_id);
+  let clickPatient = patientList.filter((list)=>list.patient_id === patient_id);
+  const patient = clickPatient[0]
 
+  let clickDoctor = doctorList.filter((list)=>list.doctorId === doctor_id);
+  const doctor = clickDoctor[0]
+  
+  const handleReception = async (event) => {
+    const reception = {};
+ 
+    if(time === '방문접수'){
+      reception.rTime = moment().format('HH:mm');
+      reception.rRole = '방문접수'
+      reception.rStatus = '접수완료'
+    } else {
+      reception.rTime = time;
+      reception.rRole = "예약접수";
+      reception.rStatus ='접수대기'
+    }
+
+    reception.rDate = date;
+    reception.doctorId = doctor_id;
+    reception.patientId = patient_id;
+    console.log(reception)
+    await insertReception();
+    //등록완료 후에 리덕스 모든 값 비워주기
+    dispatch(createSetPatient(''));
+    dispatch(createSetDoctor(''));
+    dispatch(createSetDate(''));
+    dispatch(createSetTime(''));
+  };
   return(
     <>
       <div>
@@ -45,7 +78,7 @@ function AddReception(props) {
           </tr>
           <tr>
             <th>우편번호</th>
-            <td>{patient?.zip}</td>
+            <td>{patient?.patient_zip}</td>
           </tr>
           <tr>
             <th>주소</th>
@@ -61,11 +94,11 @@ function AddReception(props) {
           </tr>
           <tr>
             <th>담당의사</th>
-            <td>{doctor?.doctor_name}</td>
+            <td>{doctor?.doctorName}</td>
           </tr>
           <tr>
             <th>진료실</th>
-            <td>{doctor?.doctor_office}</td>
+            <td>{doctor?.doctorOffice}</td>
           </tr>
           <tr>
             <th>예약날짜</th>
@@ -91,9 +124,8 @@ function AddReception(props) {
       </table>
   </div>
   <div style={{display: 'flex', justifyContent: 'flex-end', height:'25px'}}>
-    <Link to="/reception" className="btn btn-outline-dark btn-sm" style={{marginRight:'7px'}}>뒤로 가기</Link>
-    <button className="btn btn-outline-dark btn-sm" style={{marginRight:'7px'}}>예약 완료</button>
-    <button className="btn btn-outline-dark btn-sm">접수 완료</button>
+    <Link to="/reception" className="btn btn-outline-dark btn-sm" style={{marginRight:'7px', height:'4vh'}}>뒤로 가기</Link>
+    <button className="btn btn-outline-dark btn-sm" style={{marginRight:'7px', height:'4vh'}} onClick={handleReception}>등록 완료</button>
   </div> 
 </>
   );

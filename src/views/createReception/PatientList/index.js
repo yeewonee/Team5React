@@ -1,17 +1,29 @@
-import { getPatientList, getPatientListBySearch } from "./data";
 import style from "./style.module.css";
 import CommonTable from "views/table/CommonTable";
 import CommonTableColumn from "views/table/CommonTableColumn";
 import { createSetPatient } from "redux/createReception-reducer";
 import { useDispatch, useSelector } from "react-redux";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FaUserTimes } from 'react-icons/fa';
 
-function PatientList(props) {
-  const dispatch = useDispatch();
-  const originPatientList = getPatientList(); //환자리스트 가져오기
-  const [patientList, setPatientList] = useState(originPatientList);
+import axios from "axios";
+axios.defaults.baseURL = "http://localhost:8080";
 
+function PatientList(props) {
+  const originList = props.data;
+  
+  const [patientList, setPatientList] = useState([]);
+  const [searchWord, setSearchWord] = useState(''); //검색어 상태값
+
+  useEffect(() => {
+    const test = async() => {
+      setPatientList(props.data)
+    }
+    test()
+  },[props])
+
+  const dispatch = useDispatch();
+  
   const status = useSelector((state) => {
     return state.createReceptionReducer.status
   })
@@ -21,14 +33,20 @@ function PatientList(props) {
 
   let arr = Array.from({length: patientList.length}, () => false); // 환자리스트의 리스트개수만큼 false로 채워진 배열 생성
   const [checkArray,setCheckArray] = useState(arr);
+  let checkarray = checkArray
+
+  useEffect(() => {
+    if (pid===''){ //pid을 비워주면 체크박스도 비워주기 위함
+      checkarray = arr;
+      setCheckArray(checkarray);
+    }
+  },[pid])
 
   const changeCheck = (event,index,id) =>{
     if(status == 1){ // 예약/접수 버튼을 통해 들어온 경우
       if(pid === id){ //리덕스에 담겨있는 값이랑 현재 체크하려는 것이 같으면 더 이상 눌리지 않게 처리해주기!
         return
-      } else {
-        let checkarray = checkArray
-
+      } else {    
         if(event.target.value==="on"){ //checkbox가 check되면
           dispatch(createSetPatient(id)); //createSetPatient를 호출해서 액션객체를 얻고
           checkarray = arr; 
@@ -41,29 +59,28 @@ function PatientList(props) {
     }
   }
 
-    const [searchword, setSearchword] = useState('');
     const serachChange = (event) => {
-        setSearchword(event.target.value);
+      setSearchWord(event.target.value);
     };
 
   const searchPatient = (event) => {
-    const patientBySearch = getPatientListBySearch(searchword);
-    setCheckArray(arr);
     dispatch(createSetPatient('')); //검색버튼 누르면 이전에 체크됐던 환자 값을 비워줌
-    if(searchword===''){ //검색어가 없으면
-      setPatientList(originPatientList); //list에 전체 목록 넣어주고
+    if(searchWord===''){ //검색어가 없으면
+      setPatientList(originList); //list에 전체 목록 넣어주고
     }else{ //검색어가 있으면
-      setPatientList(patientBySearch); //list에 검색어에 맞는 목록 넣음
+      let searchList = originList.filter((list)=>list.patient_name.includes(searchWord));
+      setPatientList(searchList); //list에 검색어에 맞는 목록 넣음
     }
+
   };
 
 
   return(
     <div className={style.p_list}>
     <div className="input-group m-2">
-      <input type="text" name="searchword" placeholder="환자 검색" onChange={serachChange} value={searchword}></input>
+      <input type="text" name="searchWord" placeholder="환자 검색" onChange={serachChange} value={searchWord}></input>
       <div className="input-group-append">
-          <button className="btn btn-outline-secondary btn-sm" type="button" onClick={searchPatient}>검색</button>
+          <button className="btn btn-outline-secondary btn-sm" type="button" onClick={searchPatient} value={searchWord}>검색</button>
       </div>
     </div>
     
