@@ -76,7 +76,7 @@ export const MedicineList = (props) => {
     setList({
       mlist: props.mList,
     });
-  }, [props, keyword]);
+  }, [props]);
 
   const medicineClick = (event, m) => {
     //리덕스에 이미 추가되어 있으면 상태 변경 전 return

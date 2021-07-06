@@ -2,7 +2,7 @@ import React from "react";
 import style from "./pastrecord.module.css";
 import { useState } from "react";
 import CommonTable from "views/table/CommonTable";
-import { getPatient, getPastRecordList, getResultIList, getResultMList, getMemo } from "../data";
+import { getPatient, getPastRecordList, getResultIList, getResultMList, getPastIlist } from "../data";
 import CommonTableRow from "views/table/CommonTableRow";
 import CommonTableColumn from "views/table/CommonTableColumn";
 import { useEffect } from "react";
@@ -30,8 +30,11 @@ export const PastRecord = (props) => {
   const [patient, setPatient] = useState([]);
   const getSelectPatient = async() => {
     try {
-      const promise = await getPatient(props.patientId);
-      setPatient(promise.data);
+      console.log(props.patientId)
+      if(props.patientId !== ""){
+        const promise = await getPatient(props.patientId);
+        setPatient(promise.data);
+      }
     } catch (error) {
       console.log(error);
     }
@@ -49,12 +52,14 @@ export const PastRecord = (props) => {
     setDdate(day);
     setModalOpen(true);
   };
+
+
   const closeModal = () => {
     setModalOpen(false);
   };
 
   //환자 정보
-  let iResultList = getResultIList(props.patientId, dDate);
+  
   let mResultList = getResultMList(props.patientId, dDate);
 
   const dispatch = useDispatch();
@@ -115,7 +120,6 @@ export const PastRecord = (props) => {
 
       <ModalPast 
         patient={patient} 
-        iResultList={iResultList} 
         mResultList={mResultList}
         closeModal={closeModal}
         modalOpen={modalOpen}

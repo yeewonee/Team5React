@@ -34,8 +34,11 @@ export function getPatient(pId){
   
 }
 
-
-
+export function getPastIlist(pId, day){
+  console.log("asd", day)
+  const promise = axios.get("/pastrecordilist", {params:{pId, day}})
+  return promise;
+}
 
 let size = 15;
 
