@@ -4,7 +4,6 @@ import { getMainNoticeList } from "./data";
 
 function MainNotice(props) {
   const [show, setShow] = useState(false);
-
   const [board, setBoard] = useState({
     bno: '',
     btitle: '',

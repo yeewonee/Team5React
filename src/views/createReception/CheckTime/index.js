@@ -1,9 +1,13 @@
 import { useDispatch, useSelector } from "react-redux";
 import { createSetTime } from "redux/createReception-reducer";
-import { getReceptionDate } from "./data";
 import style from "./style.module.css";
+import axios from "axios";
+import { useEffect, useState } from "react";
+import { getReceptionListByDoctor } from "../data";
+axios.defaults.baseURL = "http://localhost:8080";
 
 function CheckTime(props) {
+  const [receptionList, setReceptionList] = useState([]);
   const time = useSelector((state) => {
     return state.createReceptionReducer.time
   })
@@ -39,13 +43,27 @@ function CheckTime(props) {
     return state.createReceptionReducer.date
   });
 
-  const receptionList = getReceptionDate(doctor_id, r_date); //선택된 의사의 해당 날짜의 예약된 리스트
+  const getList = async() => {
+    try{
+      const result = await getReceptionListByDoctor(doctor_id, r_date);
+      setReceptionList(result.data);
+    } catch(error){
+      console.log(error);
+    }
+  };
 
-  let resultTime = [];
-  for(let i=0; i<receptionList.length; i++){ //예약된 리스트의 길이만큼 for문을 돌면서 시간만 배열에 담아줌
-    resultTime.push(receptionList[i].r_time)
-  }
+  useEffect(() => {
+    getList();
+  },[doctor_id, r_date]);
 
+   let resultTime = [];
+
+    for(let i=0; i<receptionList.length; i++){ //예약된 리스트의 길이만큼 for문을 돌면서 시간만 배열에 담아줌
+      resultTime.push(receptionList[i].rTime)
+    }
+
+
+  console.log(resultTime);
   let todayState = state;
 
   if(resultTime.length !== 0){
