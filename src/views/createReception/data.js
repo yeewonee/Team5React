@@ -21,3 +21,8 @@ export function insertReception(reception) {
   const promise = axios.post("/receptionUpdate/insertReception", reception);
   return promise;
 }
+
+export function updateReception(reception) {
+  const promise = axios.put("/receptionUpdate/update", reception);
+  return promise;
+}

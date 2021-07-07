@@ -24,12 +24,12 @@ function PatientList(props) {
 
   const dispatch = useDispatch();
   
-  const status = useSelector((state) => {
-    return state.createReceptionReducer.status
-  })
   const pid = useSelector((state) => {
     return state.createReceptionReducer.patient_id
   });
+  const r_id = useSelector((state) => {
+    return state.createReceptionReducer.r_id
+  })
 
   let arr = Array.from({length: patientList.length}, () => false); // 환자리스트의 리스트개수만큼 false로 채워진 배열 생성
   const [checkArray,setCheckArray] = useState(arr);
@@ -43,7 +43,7 @@ function PatientList(props) {
   },[pid])
 
   const changeCheck = (event,index,id) =>{
-    if(status == 1){ // 예약/접수 버튼을 통해 들어온 경우
+    if(r_id === ''){ // 예약/접수 버튼을 통해 들어온 경우 (신규 접수는 수정과 달리 r_id가 비어있음)
       if(pid === id){ //리덕스에 담겨있는 값이랑 현재 체크하려는 것이 같으면 더 이상 눌리지 않게 처리해주기!
         return
       } else {    
@@ -88,12 +88,12 @@ function PatientList(props) {
     <div className={style.table_wrapper}>
       <CommonTable headersName={['', '환자번호', '이름', '주민등록번호', '전화번호']} tstyle={"table table-sm"}>
           {patientList.map((patient, index) => (
-            <tr key={patient.patient_id} style={{backgroundColor: patient.patient_id === pid ? '#d0ebff' : ''}}>
-                <CommonTableColumn><input type="checkbox" name='patient' onChange={(event)=>{changeCheck(event, index, patient.patient_id)}} checked={checkArray[index]||''}></input></CommonTableColumn>
-                <CommonTableColumn>{patient.patient_id}</CommonTableColumn>
-                <CommonTableColumn>{patient.patient_name}</CommonTableColumn>
-                <CommonTableColumn>{patient.patient_ssn1}-{patient.patient_ssn2}</CommonTableColumn>
-                <CommonTableColumn>{patient.patient_phone}</CommonTableColumn>
+            <tr key={patient.patientId} style={{backgroundColor: patient.patientId === pid ? '#d0ebff' : ''}}>
+                <CommonTableColumn><input type="checkbox" name='patient' onChange={(event)=>{changeCheck(event, index, patient.patientId)}} checked={checkArray[index]||''}></input></CommonTableColumn>
+                <CommonTableColumn>{patient.patientId}</CommonTableColumn>
+                <CommonTableColumn>{patient.patientName}</CommonTableColumn>
+                <CommonTableColumn>{patient.patientSsn1}-{patient.patientSsn2}</CommonTableColumn>
+                <CommonTableColumn>{patient.patientPhone}</CommonTableColumn>
             </tr>
             ))}
       </CommonTable>

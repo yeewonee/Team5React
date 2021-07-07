@@ -6,7 +6,7 @@ const initialState = { //처음에 컴포넌트가 전역데이터를 읽을 때
   patient_id: '',
   time: '',
   date: moment(new Date()).format('YYYY-MM-DD'),
-  status: 1 //0이 수정하는 경우의 상태값이라고 두고, 1을 예약/접수 버튼을 눌렀을 경우로!
+  r_id: ''
 };
 
 //액션 타입 선언
@@ -14,7 +14,7 @@ const SET_DOCTOR = "doctor_id/setDoctor"; //이를 선언함으로써 밑에서 
 const SET_PATIENT = "patient_id/setPatient";
 const SET_TIME = "time/setTime"
 const SET_DATE = "date/setDate"
-const SET_STATUS = "status/setStatus"
+const SET_RID = "r_id/setRid"
 
 //액션 생성 함수 선언
 export const createSetDoctor = (doctor_id) => { //얘를 호출해서 얻는 걷은? 액션객체
@@ -33,8 +33,8 @@ export const createSetDate = (date) => {
   return {type:SET_DATE, date}
 }
 
-export const createSetStatus = (status) => {
-  return {type:SET_STATUS, status}
+export const createSetrId = (r_id) => {
+  return {type:SET_RID, r_id}
 }
 
 //리듀스 선언
@@ -47,8 +47,8 @@ const createReceptionReducer = (state=initialState, action) => {//값이 주어�
     return {...state, time: action.time};
   } else if(action.type === SET_DATE) {
     return {...state, date: action.date};
-  } else if(action.type === SET_STATUS) {
-    return {...state, status: action.status};
+  } else if(action.type === SET_RID) {
+    return {...state, r_id: action.r_id};
   }else {
     return state;
   }

@@ -1,19 +1,18 @@
 import style from './rlist.module.css';
 import { Button, Modal } from 'react-bootstrap';
 import { useDispatch } from 'react-redux';
-import { createSetDate, createSetDoctor, createSetPatient, createSetStatus, createSetTime } from 'redux/createReception-reducer';
+import { createSetDate, createSetDoctor, createSetPatient, createSetrId, createSetTime } from 'redux/createReception-reducer';
 import {Link} from "react-router-dom";
 
 const CheckReception = (props) => {
   const patientBoard = props.patientBoard;
   const dispatch = useDispatch();
   const updateReception = (event) => {
-    dispatch(createSetDoctor(patientBoard.doctor_id));
-    dispatch(createSetPatient(patientBoard.patient_id));
-    dispatch(createSetDate(patientBoard.r_date));
-    dispatch(createSetTime(patientBoard.r_time));
-
-    dispatch(createSetStatus(0));
+    dispatch(createSetDoctor(patientBoard.doctorId));
+    dispatch(createSetPatient(patientBoard.patientId));
+    dispatch(createSetDate(patientBoard.rDate));
+    dispatch(createSetTime(patientBoard.rTime));
+    dispatch(createSetrId(patientBoard.rId));
   }
 
   return(
