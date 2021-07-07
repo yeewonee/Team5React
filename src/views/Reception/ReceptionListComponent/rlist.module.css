@@ -153,7 +153,7 @@
   margin-top: 10px;
   margin-bottom: 10px;
   margin-right: 10px;
-  width: 68px;
+  width: 75px;
 }
 
 .inputtext3{
@@ -163,6 +163,24 @@
   margin-bottom: 10px;
   margin-right: 10px;
   width: 370px;
+}
+
+.inputphone1{
+  border: 1px solid lightgray;
+  margin-left: 10px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  margin-right: 10px;
+  width: 50px;
+}
+
+.inputphone2{
+  border: 1px solid lightgray;
+  margin-left: 10px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  margin-right: 10px;
+  width: 55px;
 }
 
 .inputsex{
