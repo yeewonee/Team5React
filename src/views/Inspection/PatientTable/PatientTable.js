@@ -13,33 +13,48 @@ const cx = classNames.bind(style);
 
 function PatientTable(props) {
   const patientList = props.data;
+  const categoryArray = props.categoryArray;
+  const changeCategory =props.fun;
+  const changeSearch = props.keywordArr
   //카테고리 리스트 배열상태
-  const [categoryArray, setCategoryArray] = useState(patientList);
+  // const [categoryArray, setCategoryArray] = useState(patientList);
   //검색어 상태
   const [keyword,setKeyword] = useState("")
   //체크한 환자의 pno와 tstatus를 객체의 속성으로 가지고 있는 상태
   const [check, setCheck] = useState({
     pno: "",
+    did:"",
     tstatus: "",
   });
 
   const dispatch = useDispatch();
-  useSelector((state) => state.inspectReducer.patient);
+  const state = useSelector((state) => state.inspectReducer.patient);
   let arr = [];
 
+
+
+for(let i =0; i<categoryArray.length; i++){
+  if(categoryArray[i].patientId===state.pno){
+    categoryArray[i].totalIstatus = state.tstatus;
+    console.log(categoryArray[i].totalIstatus)
+  }
+ }
+  console.log("카테고리어레이"+ categoryArray)
   //체크한 환자의 pno와 tstatus를 check상태값으로 상태 변화   
   const getCheck = (event) => {
-    const value = patientList.find((value) => event.target.value === value.pno);
+    const value = patientList.find((value) => event.target.value === value.patientId);
     if (event.target.checked) {
       setCheck((prevCheck) => {
         return {
           ...prevCheck,
           pno: event.target.value,
-          tstatus: value.tstatus,
+          did:value.dId,
+          tstatus: value.totalIstatus,
         };
       });
     }
   };
+
 
   //check.pno가 변경될때만 리덕스로 dispatch(선택한 환자 pno,tstatus 리덕스에서 관리)
   useEffect(() => {
@@ -47,24 +62,26 @@ function PatientTable(props) {
   }, [check.pno]);
 
   //카테고리 리스트 보여주기 위한 함수
-  const changeCategory = (value) => {
-    if (value === "전체") {
-      setCategoryArray(patientList);
-    }
-    if (value === "대기") {
-      arr = patientList.filter((list) => list.tstatus === value);
-      setCategoryArray(arr);
-    }
-    if (value === "진행중") {
-      arr = patientList.filter((list) => list.tstatus === value);
-      console.log(arr);
-      setCategoryArray(arr);
-    }
-    if (value === "완료") {
-      arr = patientList.filter((list) => list.tstatus === value);
-      setCategoryArray(arr);
-    }
-  };
+  // const changeCategory = (value) => {
+  //   // if (value === "전체") {
+  //   //   setCategoryArray(patientList);
+  //   // }
+  //   // if (value === "대기") {
+  //   //   arr = patientList.filter((list) => list.totalIstatus === value);
+  //   //   setCategoryArray(arr);
+  //   // }
+  //   // if (value === "진행중") {
+  //   //   arr = patientList.filter((list) => list.totalIstatus === value);
+  //   //   console.log(arr);
+  //   //   setCategoryArray(arr);
+  //   // }
+  //   // if (value === "완료") {
+  //   //   arr = patientList.filter((list) => list.totalIstatus === value);
+  //   //   setCategoryArray(arr);
+  //   // }
+  // };
+
+  changeCategory();
 
   //검색어 상태변화
   const inputChange = (event) =>{
@@ -78,10 +95,19 @@ function PatientTable(props) {
       return
     }
     else{
-      arr = patientList.filter((list)=>list.pname.includes(keyword))
-      setCategoryArray(arr)
+      arr = patientList.filter((list)=>list.patientName.includes(keyword))
+      changeSearch(arr)
+      // setCategoryArray(arr)
     }
   }
+
+  const viewDate = (str) =>{
+   const strArr=str.split(" ")
+   const hour =strArr[1].substr(0,5)
+   return hour 
+  }
+
+  
 
   //tstatus마다 color 설정
   const viewStatus = (tstatus)=>{
@@ -133,18 +159,18 @@ function PatientTable(props) {
         <CommonTable headersName={["", "순서", "환자번호", "성명", "성별/나이", "예약시간", "상태"]} tstyle={"table table-sm"}>
           {categoryArray.map((board, index) => (
             //삼항연산자 사용해서 체크한 row만 color
-            <tr key={board.sequence} className={board.pno === check.pno ? cx(style.colorClass) : cx(style.ncolorClass)}>
+            <tr key={index} className={board.patientId === check.pno ? cx(style.colorClass) : cx(style.ncolorClass)}>
               <CommonTableColumn>
-                <input type="checkbox" name="patient" value={board.pno} checked={board.pno === check.pno} onChange={getCheck} />
+                <input type="checkbox" name="patient" value={board.patientId} checked={board.patientId === check.pno} onChange={getCheck} />
               </CommonTableColumn>
-              <CommonTableColumn>{board.sequence}</CommonTableColumn>
-              <CommonTableColumn>{board.pno}</CommonTableColumn>
-              <CommonTableColumn>{board.pname}</CommonTableColumn>
+              <CommonTableColumn>{index+1}</CommonTableColumn>
+              <CommonTableColumn>{board.patientId}</CommonTableColumn>
+              <CommonTableColumn>{board.patientName}</CommonTableColumn>
               <CommonTableColumn>
-                {board.sex}/{board.age}
+                {board.patientSex}/{board.patientAge}
               </CommonTableColumn>
-              <CommonTableColumn>{board.rtime}</CommonTableColumn>
-              <CommonTableColumn>{viewStatus(board.tstatus)}</CommonTableColumn>
+              <CommonTableColumn>{viewDate(board.iDate)}</CommonTableColumn>
+              <CommonTableColumn>{viewStatus(board.totalIstatus)}</CommonTableColumn>
             </tr>
             // </CommonTableRow>
           ))}
@@ -160,4 +186,4 @@ function PatientTable(props) {
   );
 }
 
-export default PatientTable;
+export default React.memo(PatientTable);

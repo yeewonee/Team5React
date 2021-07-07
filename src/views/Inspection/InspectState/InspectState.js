@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import style from "./InspectState.module.css";
 import classNames from "classnames/bind";
 import { Doughnut } from "react-chartjs-2";
 import Clock from 'react-live-clock'
+import { useSelector } from "react-redux";
 
 const cx =  classNames.bind(style);
 
@@ -10,11 +11,33 @@ const cx =  classNames.bind(style);
 function InspectState(props) {
 
   const patientList = props.data;
-
+  // const row1=patientList.filter((value)=>value.total_i_status === '대기')
+  // const row2=patientList.filter((value)=>value.total_i_status === '진행중')
+  // const row3=patientList.filter((value)=>value.total_i_status === '완료');
+  const [readyRow, setReadyRow] = useState([])
+  const [proceedRow,setProceedRow]=useState([])
+  const [completeRow,setCompleteRow]=useState([])
   //환자 검사 상태 카운트 
-  const readyRow=patientList.filter((value)=>value.tstatus === '대기')
-  const proceedRow=patientList.filter((value)=>value.tstatus === '진행중')
-  const completeRow=patientList.filter((value)=>value.tstatus === '완료')
+
+  useEffect(() => {
+    let row1=patientList.filter((value)=>value.totalIstatus === '대기')
+    let row2=patientList.filter((value)=>value.totalIstatus === '진행중')
+    let row3=patientList.filter((value)=>value.totalIstatus === '완료');
+    setReadyRow(row1)
+    setProceedRow(row2);
+    setCompleteRow(row3)
+  }, [patientList])
+
+  const state = useSelector(state => state.inspectReducer.patient);
+  useEffect(() => {
+  let arr1=patientList.filter((value)=>value.totalIstatus === '대기')
+  let arr2=patientList.filter((value)=>value.totalIstatus === '진행중')
+  let arr3=patientList.filter((value)=>value.totalIstatus === '완료');
+    setReadyRow(arr1)
+    setProceedRow(arr2);
+    setCompleteRow(arr3)
+  }, [patientList, state.tstatus])
+ 
   
   const count ={
     ready:readyRow.length,

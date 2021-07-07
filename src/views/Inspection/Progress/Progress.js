@@ -11,7 +11,7 @@ function Progress(props){
     const user = props.data;
     const inspectList = props.list;
     //완료한 검사항목을 담고 있는 배열 생성
-    const completeList=inspectList.filter((value)=>value.istatus==='완료');
+    const completeList=inspectList.filter((value)=>value.iStatus==='완료');
     useSelector(state => state.inspectReducer.checked);
     
     //진행률 퍼센트
@@ -24,9 +24,19 @@ function Progress(props){
         progress=0;
         percent=0;
     }
+
+    const viewDate = (str) =>{
+         console.log(str)
+         if(str===undefined){
+             return
+         }
+         const strArr=str.split(" ")
+         const hour =strArr[1].substr(0,5)
+         return hour 
+       }
     
     //진행중인 검사 찾기
-    const proceeding = inspectList.find((value)=>value.istatus==='접수')
+    const proceeding = inspectList.find((value)=>value.iStatus==='접수')
 
     return (
         <div>
@@ -44,7 +54,7 @@ function Progress(props){
                         </div>
                         <div className={cx(style.inspectName)}>
                             <div>현재 진행중인 검사</div>
-                            {proceeding!==undefined?<div>▶ {proceeding.iname}</div>:<div>▶ 진행중인 검사가 없습니다.</div>}
+                            {proceeding!==undefined?<div>▶ {proceeding.iName}</div>:<div>▶ 진행중인 검사가 없습니다.</div>}
                         </div>
                 </div>
                 <div className={cx(style.percentData)}>
@@ -52,11 +62,11 @@ function Progress(props){
                 </div>
                 <div className={cx(style.patientInfo)}>
                     <div className={cx(style.info,'mt-3')}>
-                        <div className="ml-3 mb-1">번호 : {user?.pno} </div>
-                        <div className="ml-3 mb-1">성명: {user?.pname}</div>
-                        <div className="ml-3 mb-1">성별 : {user?.sex}</div>
-                        <div className="ml-3 mb-1">나이 : {user?.age}</div>
-                        <div className="ml-3 mb-1">예약시간 : {user?.rtime}</div>
+                        <div className="ml-3 mb-1">번호 : {user?.patientId} </div>
+                        <div className="ml-3 mb-1">성명: {user?.patientName}</div>
+                        <div className="ml-3 mb-1">성별 : {user?.patientSex}</div>
+                        <div className="ml-3 mb-1">나이 : {user?.patientAge}</div>
+                        <div className="ml-3 mb-1">예약시간 : {viewDate(user?.iDate)}</div>
                       </div>
             </div>
         </div>

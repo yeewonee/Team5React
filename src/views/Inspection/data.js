@@ -15,12 +15,12 @@ let data = [
 ];
 
 let data2 = [
-  { pno: "12345", bno: "L2001", iname: "WBC", ino: "L2010", unit: "x10^3/mm3", inspector: "김명휘", istatus: "대기" },
-  { pno: "12345", bno: "L2001", iname: "RBC", ino: "L2011", unit: "x10^3/mm3", inspector: "김명휘", istatus: "대기" },
-  { pno: "12345", bno: "L2001", iname: "Hb (광전비색법)", ino: "L2012", unit: "x10^3/mm3", inspector: "김명휘", istatus: "대기" },
-  { pno: "12345", bno: "L2001", iname: "Hct(Hematocrit)", ino: "L2013", unit: "x10^3/mm3", inspector: "김명휘", istatus: "대기" },
-  { pno: "12345", bno: "L3001", iname: "Platelet", ino: "L2014", unit: "x10^3/mm3", inspector: "김명휘", istatus: "대기" },
-  { pno: "12345", bno: "L3001", iname: "Platelet", ino: "L2030", unit: "x10^3/mm3", inspector: "김명휘", istatus: "대기" },
+  { pno: "00001", bno: "L2001", iname: "WBC", ino: "L2010", unit: "x10^3/mm3", inspector: "김명휘", istatus: "대기" },
+  { pno: "00001", bno: "L2001", iname: "RBC", ino: "L2011", unit: "x10^3/mm3", inspector: "김명휘", istatus: "대기" },
+  { pno: "00001", bno: "L2001", iname: "Hb (광전비색법)", ino: "L2012", unit: "x10^3/mm3", inspector: "김명휘", istatus: "대기" },
+  { pno: "00001", bno: "L2001", iname: "Hct(Hematocrit)", ino: "L2013", unit: "x10^3/mm3", inspector: "김명휘", istatus: "대기" },
+  { pno: "00001", bno: "L3001", iname: "Platelet", ino: "L2014", unit: "x10^3/mm3", inspector: "김명휘", istatus: "대기" },
+  { pno: "00001", bno: "L3001", iname: "Platelet", ino: "L2030", unit: "x10^3/mm3", inspector: "김명휘", istatus: "대기" },
   { pno: "546546", bno: "L3001", iname: "II응고인자정량*(11366036)", ino: "L2015", unit: "x10^3/mm3", inspector: "김명휘", istatus: "대기" },
   { pno: "546546", bno: "L3001", iname: "응고인자정량*(11366036)SCL", ino: "L2016", unit: "x10^3/mm3", inspector: "김명휘", istatus: "대기" },
   { pno: "63879", bno: "L2001", iname: "VII응고인자정량*(11366036)SCL", ino: "L2017", unit: "x10^3/mm3", inspector: "정윤환", istatus: "접수" },
@@ -81,7 +81,6 @@ export function updateInspect(board, status) {
 
 export function patientInspect(pno,status) {
   
- console.log(typeof(pno))
   const row =data.find((row)=>row.pno===pno)
   
   row.tstatus = status

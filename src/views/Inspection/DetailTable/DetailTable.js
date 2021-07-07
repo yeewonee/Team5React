@@ -14,6 +14,7 @@ import Barcode from "react-barcode";
 import { transitions, positions, Provider as AlertProvider } from 'react-alert'
 import AlertTemplate from 'react-alert-template-basic'
 import { FaUserCheck } from 'react-icons/fa';
+import axios from "axios";
 
 
 
@@ -24,7 +25,6 @@ const cx = classNames.bind(style);
 
 function DetailTable(props) {
 
- 
   const inspectList = props.data;
   const dispatch = useDispatch();
   //체크한 항목을 담는 리스트 상태(체크박스 활성화 비활성화 여부)
@@ -88,13 +88,13 @@ function DetailTable(props) {
 
   //엑셀저장 헤더
   const headers = [
-    { label: '환자번호', key: 'pno'},
-    { label: '묶음코드', key: 'bno'},
-    { label: '검사명', key: 'iname'},
-    { label: '검사번호', key: 'ino'},
-    { label: '단위', key: 'unit'},
+    { label: '환자번호', key: 'patientId'},
+    { label: '묶음코드', key: 'bundleCode'},
+    { label: '검사명', key: 'iName'},
+    { label: '검사번호', key: 'iId'},
+    { label: '단위', key: 'iUnit'},
     { label: '검사자', key: 'inspector'},
-    { label: '검사상태', key: 'istatus'},
+    { label: '검사상태', key: 'iStatus'},
   ];
 
   //바코드 모달창 열고 닫기에 대한 상태
@@ -149,7 +149,7 @@ function DetailTable(props) {
         <div className="right-table">
           <CommonTable headersName={["", "묶음코드", "처방코드", "검사명", "단위", "검사자", "상태"]} tstyle={"table table-sm"}>
             {inspectList.map((board, index) =>  (
-              <tr key={board.ino} className={checkArray[index]? cx(style.colorClass):cx(style.ncolorClass)}>
+              <tr key={index} className={checkArray[index]? cx(style.colorClass):cx(style.ncolorClass)}>
                 <CommonTableColumn>
                   <input
                     id={board.ino}
@@ -161,12 +161,12 @@ function DetailTable(props) {
                     checked={checkArray[index]||''}
                   />
                 </CommonTableColumn>
-                <CommonTableColumn>{viewBundleCode(board.bno)}</CommonTableColumn>
-                <CommonTableColumn>{board.ino}</CommonTableColumn>
-                <CommonTableColumn>{board.iname}</CommonTableColumn>
-                <CommonTableColumn>{board.unit}</CommonTableColumn>
+                <CommonTableColumn>{viewBundleCode(board.bundleCode)}</CommonTableColumn>
+                <CommonTableColumn>{board.iId}</CommonTableColumn>
+                <CommonTableColumn>{board.iName}</CommonTableColumn>
+                <CommonTableColumn>{board.iUnit}</CommonTableColumn>
                 <CommonTableColumn>{board.inspector}</CommonTableColumn>
-                <CommonTableColumn>{viewStatus(board.istatus)}</CommonTableColumn>
+                <CommonTableColumn>{viewStatus(board.iStatus)}</CommonTableColumn>
               </tr>
             ))}
           </CommonTable>
