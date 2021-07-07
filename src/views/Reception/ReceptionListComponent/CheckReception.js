@@ -11,7 +11,7 @@ const CheckReception = (props) => {
     dispatch(createSetDoctor(patientBoard.doctorId));
     dispatch(createSetPatient(patientBoard.patientId));
     dispatch(createSetDate(patientBoard.rDate));
-    dispatch(createSetTime(patientBoard.rTime));
+    // dispatch(createSetTime(patientBoard.rTime));
     dispatch(createSetrId(patientBoard.rId));
   }
 

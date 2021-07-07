@@ -3,14 +3,14 @@ import style from "./style.module.css";
 import moment from 'moment';
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
-
+import { useHistory } from "react-router";
 import { createSetDate, createSetDoctor, createSetPatient, createSetTime } from "redux/createReception-reducer";
 import { insertReception, updateReception } from "../data";
 
 function AddReception(props) {
   const patientList = props.pdata;
   const doctorList = props.ddata;
-
+  const history = useHistory();
   const dispatch = useDispatch();
 
   const patient_id = useSelector((state) => {
@@ -79,6 +79,7 @@ function AddReception(props) {
         dispatch(createSetDoctor(''));
         dispatch(createSetDate(''));
         dispatch(createSetTime(''));
+    history.goBack();
   };
 
   return(
