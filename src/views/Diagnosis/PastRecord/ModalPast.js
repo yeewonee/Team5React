@@ -9,7 +9,7 @@ import { BsPerson } from "react-icons/bs";
 import { BsLayoutTextSidebarReverse } from "react-icons/bs";
 import { BsFileEarmarkText } from "react-icons/bs";
 import { BsCardChecklist } from "react-icons/bs";
-import { getPastIlist } from "../data";
+import { getPastIlist, getPastMlist, getPastMemo } from "../data";
 
 export const ModalPast = (props) => {
 
@@ -30,11 +30,36 @@ export const ModalPast = (props) => {
      }
    };
 
+   //과거 약 처방 정보
    const [mResultList, setMresultList] = useState([]);
+   const getMresultList = async() => {
+    try {
+      if(props.patient.patientId !== "" && props.dDate !== ""){
+       const promise = await getPastMlist(props.patient.patientId, props.dDate);
+       setMresultList(promise.data);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
+  //과거 메모 정보
+   const [memo, setMemo] = useState([]);
+   const getMemo = async() => {
+    try {
+      if(props.patient.patientId !== "" && props.dDate !== ""){
+       const promise = await getPastMemo(props.patient.patientId, props.dDate);
+       setMemo(promise.data);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
    useEffect(()=>{
     getIresultList(); //모달창이 열림과 동시에 과거 검사 기록 가져오기
+    getMresultList();
+    getMemo();
    }, [props.dDate])
   
   return (
@@ -57,7 +82,7 @@ export const ModalPast = (props) => {
 
         <div className={style.past_title}><BsFileEarmarkText /> 메모</div>
         <div className={style.past_memo}>
-          <p style={{padding:'10px'}}>{props.memo}</p>
+          <p style={{padding:'10px'}}>{memo.comment}</p>
         </div>
 
         <div className={style.past_title}><BsCardChecklist /> 결과 확인</div>

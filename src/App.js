@@ -14,13 +14,13 @@ const GlobalStyle = createGlobalStyle`
 
 function App() {
 
-  const test = useSelector((state) => {
-    return state.authReducer.test;
+  const uid = useSelector((state) => {
+    return state.authReducer.uid;
   });
 
   return (
     <>
-    { test === 1 ?
+    { uid ?
       <>
         <AppHeader/>
         <AppMenu/>

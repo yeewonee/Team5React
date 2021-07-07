@@ -9,13 +9,13 @@ import { useSelector } from "react-redux";
 import CreateReception from "views/createReception";
 
 function AppRoute() {
-  const test = useSelector((state) => {
-    return state.authReducer.test;
+  const uid = useSelector((state) => {
+    return state.authReducer.uid;
   });
 
   return ( 
     <>
-    {test === 1?
+    {uid ?
       <>
         <Switch> 
           <Route path="/" exact component={Home}/>

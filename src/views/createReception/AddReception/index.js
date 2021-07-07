@@ -55,7 +55,7 @@ function AddReception(props) {
     reception.doctorId = doctor_id;
     reception.patientId = patient_id;
     console.log(reception)
-    await insertReception();
+    await insertReception(reception);
     //등록완료 후에 리덕스 모든 값 비워주기
     dispatch(createSetPatient(''));
     dispatch(createSetDoctor(''));
@@ -152,7 +152,7 @@ function AddReception(props) {
   </div>
   <div style={{display: 'flex', justifyContent: 'flex-end', height:'25px'}}>
     <Link to="/reception" className="btn btn-outline-dark btn-sm" style={{marginRight:'7px', height:'4vh'}}>뒤로 가기</Link>
-    { receptionStatus === 1?
+    { receptionStatus !== 1?
       <button className="btn btn-outline-dark btn-sm" style={{marginRight:'7px', height:'4vh'}} onClick={handleReception}>등록 완료</button>
     :
       <button className="btn btn-outline-dark btn-sm" style={{marginRight:'7px', height:'4vh'}} onClick={handleUpdate}>수정 완료</button>

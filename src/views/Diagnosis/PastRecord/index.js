@@ -60,8 +60,6 @@ export const PastRecord = (props) => {
 
   //환자 정보
   
-  let mResultList = getResultMList(props.patientId, dDate);
-
   const dispatch = useDispatch();
   const deleteDiagnosis = () => {
     dispatch(createSetAddMlistAction([]));
@@ -94,7 +92,7 @@ export const PastRecord = (props) => {
   };
 
   const sendDiagnosis = async() => {  
-    await axios.post("/pushdiagnosis", diagnosisInfo)
+    await axios.post("/diagnosis/pushdiagnosis", diagnosisInfo)
   };
 
   return (
@@ -120,12 +118,10 @@ export const PastRecord = (props) => {
 
       <ModalPast 
         patient={patient} 
-        mResultList={mResultList}
         closeModal={closeModal}
         modalOpen={modalOpen}
         pList={pastList}
         dDate={dDate}
-        memo={comment}
       />      
      
     </div>
