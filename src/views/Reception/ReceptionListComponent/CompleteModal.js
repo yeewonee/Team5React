@@ -4,7 +4,7 @@ import { useState } from 'react';
 
 const CompleteModal = (props) => {
   const handelComplete = () => {
-    props.completeReception()
+    props.completeReception(props.changeId)
   }
   return(
     <Modal show={props.completeShow} onHide={props.closeComModal} dialogClassName="custom-modal">

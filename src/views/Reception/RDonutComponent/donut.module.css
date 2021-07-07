@@ -8,6 +8,16 @@
   
 }
 
+.nocontent{
+  border: 1px solid lightgray;
+  width: 90%;
+  height: 90%;
+  padding-top: 18%;
+  margin-left: 5%;
+  margin-bottom: 5%;
+  text-align: center;
+ }
+
 .span1{
   width: 30%;
   background-color: white;

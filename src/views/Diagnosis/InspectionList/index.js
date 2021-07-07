@@ -1,25 +1,50 @@
 import React, { useEffect } from "react";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { getInspectionList, getInspection, getInspectionSearchList } from "../data";
+import { getInspectList, getInspectAllList } from "../data";
 import style from "./inspectionlist.module.css";
 import { createSetAddIlistAction } from "redux/diagnosis-reducer";
 import CommonTable from "views/table/CommonTable";
 import CommonTableColumn from "views/table/CommonTableColumn";
 import { BsCardChecklist } from "react-icons/bs";
 
-
 export const InspectionList = (props) => {
-  const originIList = getInspectionList();
-  const [inspectionList, setInspectionList] = useState(originIList);
+  //DB에서 받아온 최초 약 목록
+  const [iList, setIlist] = useState([]);
+  const [keywordList, setKeywordList] = useState([]);
+  const [inspections, setInspections] = useState([]);
+
+  const inspectList = async () => {
+    try {
+      const response = await getInspectList();
+      setIlist(response.data);
+      setKeywordList(response.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const inspect = async () => {
+    try {
+      const response = await getInspectAllList();
+      setInspections(response.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    inspectList();
+    inspect();
+  }, []);
 
   //DB에서 약 목록 size 받아오기
-  const arr = Array.from({ length: inspectionList.length }, () => false);
+  const arr = Array.from({ length: iList.length }, () => false);
   const [checkArray, setCheckArray] = useState(arr);
   const changeCheck = (event, index, bundleCode) => {
     let inspectionArray = list.iList;
-    for(let i=0; i<inspectionArray.length; i++){
-      if(inspectionArray[i].bundleCode === bundleCode && event.target.checked){
+    for (let i = 0; i < inspectionArray.length; i++) {
+      if (inspectionArray[i].bundleCode === bundleCode && event.target.checked) {
         return;
       }
     }
@@ -33,18 +58,18 @@ export const InspectionList = (props) => {
   };
 
   const [keyword, setKeyword] = useState("");
-
   const keywordChange = (event) => {
     setKeyword(event.target.value);
   };
 
+
   const keywordButton = (event) => {
-    const keywordInspection = getInspectionSearchList(keyword);
     setCheckArray(arr);
-    if(keyword===''){ //검색어가 없으면
-      setInspectionList(originIList); //list에 전체 목록 넣어주고
-    }else{ //검색어가 있으면
-      setInspectionList(keywordInspection); //list에 검색어에 맞는 목록 넣음
+    if (keyword === "") {
+      //검색어가 없으면
+      setKeywordList(iList.filter(iList => iList.bundleName !== keyword));
+    } else {
+      setKeywordList(iList.filter(iList => iList.bundleName.includes(keyword)));
     }
     setList({
       iList: props.iList,
@@ -52,7 +77,7 @@ export const InspectionList = (props) => {
   };
 
   const [list, setList] = useState({
-    iList: []
+    iList: [],
   });
 
   useEffect(() => {
@@ -63,20 +88,25 @@ export const InspectionList = (props) => {
 
   const inspectionClick = (event, bundleCode) => {
     let inspectionArray = list.iList;
-    for(let i=0; i<inspectionArray.length; i++){
-      if(inspectionArray[i].bundleCode === bundleCode && event.target.checked){
-        alert('이미 추가된 항목입니다.');
+    for (let i = 0; i < inspectionArray.length; i++) {
+      if (inspectionArray[i].bundleCode === bundleCode && event.target.checked) {
+        alert("이미 추가된 항목입니다.");
         return;
       }
     }
-  
+
     if (event.target.checked) {
       //묶음코드에 맞는 검사 리스트를 불러와 그 리스트들을 임시상태에 저장
-      let addIList = getInspection(bundleCode);
+      let tempList = []
+      for(let i=0; i<inspections.length; i++){
+        if(inspections[i].bundleCode === bundleCode){
+          tempList.push(inspections[i]);
+        }
+      }
       setList((prevList) => {
         return {
           ...prevList,
-          iList: prevList.iList.concat(addIList)
+          iList: prevList.iList.concat(tempList),
         };
       });
     } else {
@@ -104,7 +134,7 @@ export const InspectionList = (props) => {
       <div className={style.i_list_container}>
         <div className="d-flex justify-content-between">
           <div className="input-group m-1">
-            <input type="text" name="keyword" onChange={keywordChange} value={keyword}/>
+            <input type="text" name="keyword" onChange={keywordChange} value={keyword} />
             <div className="input-group-append">
               <button className="btn btn-outline-secondary btn-sm" type="button" onClick={keywordButton}>
                 검색
@@ -112,42 +142,42 @@ export const InspectionList = (props) => {
             </div>
           </div>
           <div className="mr-1 mt-1">
-            <input type="button" className="btn btn-sm" style={{backgroundColor:'#4dabf7', color:'white'}} value="추가" onClick={addInspection} />
+            <input type="button" className="btn btn-sm" style={{ backgroundColor: "#4dabf7", color: "white" }} value="추가" onClick={addInspection} />
           </div>
         </div>
 
-        {inspectionList.length !== 0 ? 
-        <div className={style.i_list}>
-          <CommonTable headersName={["", "그룹코드", "그룹명"]} tstyle={"table table-sm"}>
-            {inspectionList.map((inspection, index) => (
-              <tr key={inspection.bundleCode} className={checkArray[index] ? style.select_Color : style.basic_Color}>
-                <CommonTableColumn>
-                  <input
-                    type="checkbox"
-                    onChange={(event) => {
-                      changeCheck(event, index, inspection.bundleCode);
-                    }}
-                    checked={checkArray[index]||''}
-                    onClick={(event) => inspectionClick(event, inspection.bundleCode)}
-                    style={{zoom:'1.2', paddingTop:'2px'}}
-                  />
-                </CommonTableColumn>
-                <CommonTableColumn>{inspection.bundleCode}</CommonTableColumn>
-                <CommonTableColumn>{inspection.bundleName}</CommonTableColumn>
-              </tr>
-            ))}
-          </CommonTable>
-        </div>
-        :
-        <div className={style.p_list}>
-        <div style={{borderTop:'1px solid #e7f5ff', height:'100%'}}>
-          <div style={{paddingLeft:'46%', paddingTop:'5%'}}>
-            <BsCardChecklist size={'3em'}/>
+        {keywordList.length !== 0 ? (
+          <div className={style.i_list}>
+            <CommonTable headersName={["", "그룹코드", "그룹명"]} tstyle={"table table-sm"}>
+              {keywordList.map((inspection, index) => (
+                <tr key={inspection.bundleCode} className={checkArray[index] ? style.select_Color : style.basic_Color}>
+                  <CommonTableColumn>
+                    <input
+                      type="checkbox"
+                      onChange={(event) => {
+                        changeCheck(event, index, inspection.bundleCode);
+                      }}
+                      checked={checkArray[index] || ""}
+                      onClick={(event) => inspectionClick(event, inspection.bundleCode)}
+                      style={{ zoom: "1.2", paddingTop: "2px" }}
+                    />
+                  </CommonTableColumn>
+                  <CommonTableColumn>{inspection.bundleCode}</CommonTableColumn>
+                  <CommonTableColumn>{inspection.bundleName}</CommonTableColumn>
+                </tr>
+              ))}
+            </CommonTable>
           </div>
-          <p style={{textAlign:'center', fontSize:'1em'}}>일치하는 검사가 없습니다.</p>
-        </div>
-      </div>
-        }
+        ) : (
+          <div className={style.p_list}>
+            <div style={{ borderTop: "1px solid #e7f5ff", height: "100%" }}>
+              <div style={{ paddingLeft: "46%", paddingTop: "5%" }}>
+                <BsCardChecklist size={"3em"} />
+              </div>
+              <p style={{ textAlign: "center", fontSize: "1em" }}>일치하는 검사가 없습니다.</p>
+            </div>
+          </div>
+        )}
       </div>
     </>
   );

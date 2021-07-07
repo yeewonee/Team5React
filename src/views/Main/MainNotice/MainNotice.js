@@ -1,10 +1,10 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Modal } from "react-bootstrap";
-import { getMainNoticeList } from "./data";
+import { getMainNoticeList } from "../data";
 
 function MainNotice(props) {
+  const [mainlist, setMainList] = useState([]);
   const [show, setShow] = useState(false);
-
   const [board, setBoard] = useState({
     bno: '',
     btitle: '',
@@ -13,13 +13,26 @@ function MainNotice(props) {
     bwriter:''
   });
 
-  const mainNoticeModal = (event, board) => {
+  const getList = async() => { //메인공지사항 리스트 가져오기
+    try{
+      const list = await getMainNoticeList();
+      setMainList(list.data);
+    } catch(error){
+      console.log(error);
+    }
+  } 
+
+  useEffect(() => {
+    getList();
+  },[]);
+
+  const mainNoticeModal = (event, list) => {
     setBoard({
-      bno: board.bno,
-      btitle: board.btitle,
-      bdate: board.bdate,
-      bcontent: board.bcontent,
-      bwriter: board.bwriter
+      bno: list.mainNoticeId,
+      btitle: list.mainNoticeTitle,
+      bdate: list.mainNoticeRegdate,
+      bcontent: list.mainNoticeContent,
+      bwriter: list.mainNoticeWriter
     })
     setShow(true);
   };
@@ -28,7 +41,7 @@ function MainNotice(props) {
     setShow(false);
   };
 
-  const mainBoards = getMainNoticeList(); //메인공지사항 리스트 가져오기
+
 
   return(
     <>
@@ -71,15 +84,15 @@ function MainNotice(props) {
     </Modal>
 
     <div> 
-      {mainBoards.map((board) => {
+      {mainlist.map((list) => {
         return(
-        <div className={"list-group"} key={board.bno}>
+        <div className={"list-group"} key={list.mainNoticeId}>
           <div className={"list-group-item list-group-item-action"}>
             <div className={"d-flex w-100 justify-content-between"}>
-              <h5 className={"mb-1"} onClick={(event) => {mainNoticeModal(event, board)}}>{board.btitle}</h5>
-              <small>{board.bdate}</small>
+              <h5 className={"mb-1"} onClick={(event) => {mainNoticeModal(event, list)}}>{list.mainNoticeTitle}</h5>
+              <small>{list.mainNoticeRegdate}</small>
             </div>
-            <p className={"mb-1"}>{board.bcontent}</p>
+            <p className={"mb-1"}>{list.mainNoticeContent}</p>
           </div>
         </div>
         );

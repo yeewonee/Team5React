@@ -18,8 +18,9 @@ const FindAddr = (props) => {
       fullAddress += (extraAddress !== '' ? ` (${extraAddress})` : '');
     }
 
-    props.setAddressValue({
-      zoneCode: data.zonecode,
+    props.setPatient({
+      ...props.patient,
+      zonecode: data.zonecode,
       address: fullAddress
     })
     props.onClose()
