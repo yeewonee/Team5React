@@ -38,9 +38,9 @@ function AppRoute() {
   }
 
   let masterRole = {
-    nursePage: ROLE.ACESS,
-    doctorPage: ROLE.ACESS,
-    inspectorPage: ROLE.ACESS
+    nursePage: ROLE.ACCESS,
+    doctorPage: ROLE.ACCESS,
+    inspectorPage: ROLE.ACCESS
   }
 
   let temp
@@ -54,7 +54,7 @@ function AppRoute() {
   if(role==="inspector"){
     temp={...inspectorRole}
   }
-  if(role==="inspector"){
+  if(role==="master"){
     temp={...masterRole}
   }
  
