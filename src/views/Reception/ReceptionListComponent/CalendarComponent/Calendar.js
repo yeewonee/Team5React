@@ -4,7 +4,7 @@ import { useEffect } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { useDispatch } from "react-redux";
-import { setReceptionDay } from "redux/reception-reducer";
+import { setReceptionDay, setRday } from "redux/reception-reducer";
 
 function Calendar (props){
   const [startDate, setStartDate] = useState(new Date());
@@ -16,6 +16,8 @@ function Calendar (props){
   useEffect(() => {
     //날짜 설정
     dispatch(setReceptionDay(moment(startDate).format('YYYY-MM-DD')));
+    dispatch(setRday(moment(startDate).day()));
+    
   }, [startDate])
 
   return (
