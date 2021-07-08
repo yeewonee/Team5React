@@ -17,7 +17,6 @@ import NewRegistration from './NewRegistration';
 import { useEffect } from 'react';
 import CancelModal from './CancelModal';
 import CompleteModal from './CompleteModal';
-import Contact from './test';
 import { createSetDate, createSetDoctor, createSetPatient, createSetTime } from 'redux/createReception-reducer';
 import axios from "axios";
 axios.defaults.baseURL = "http://localhost:8080";
@@ -26,8 +25,10 @@ function ReceptionList(props){
   const day = useSelector((state) => {
     return state.receptionReducer.day;
   });
+  const setRDay = useSelector((state) => {
+    return state.receptionReducer.Rday;
+  });
   const dispatch = useDispatch();
-
   //날짜별 환자 리스트
   useEffect(() => {
     const pListFunc = async(day) => {
@@ -42,6 +43,7 @@ function ReceptionList(props){
 
   //환자리스트
   const [patientList, setPatientList] = useState([]);  
+
 
   //환자 상세보기
   const [patientBoard, setPatientBoard] = useState({
