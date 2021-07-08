@@ -3,24 +3,23 @@ import { createSetTime } from "redux/createReception-reducer";
 import style from "./style.module.css";
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { getReceptionListByDoctor } from "../data";
-axios.defaults.baseURL = "http://localhost:8080";
+import { getReceptionListByDoctor } from "apis/createReception";
 
 function CheckTime(props) {
+  const dispatch = useDispatch();
   const [receptionList, setReceptionList] = useState([]);
+  
   const time = useSelector((state) => {
     return state.createReceptionReducer.time
-  })
+  });
+  const doctor_id = useSelector((state) => {
+    return state.createReceptionReducer.doctor_id
+  });
+  const r_date = useSelector((state) => {
+    return state.createReceptionReducer.date
+  });
 
-  const dispatch = useDispatch();
-
-  const handleRadio = (event) => {
-    if(event.target.checked){
-     dispatch(createSetTime(event.target.value));
-    }
-  };
-
-  const state =[
+  const timeList =[ //병원 예약 가능한 시간 목록 (30분 간격)
     {time: "09:00"},
     {time: "09:30"},
     {time: "10:00"},
@@ -36,12 +35,11 @@ function CheckTime(props) {
     {time: '방문접수'}
   ]
 
-  const doctor_id = useSelector((state) => {
-    return state.createReceptionReducer.doctor_id
-  });
-  const r_date = useSelector((state) => {
-    return state.createReceptionReducer.date
-  });
+  const handleRadio = (event) => { //시간 선택하면
+    if(event.target.checked){
+     dispatch(createSetTime(event.target.value)); //리덕스에 선택한 시간 넣어줌
+    }
+  };
 
   const getList = async() => {
     try{
@@ -62,13 +60,11 @@ function CheckTime(props) {
       resultTime.push(receptionList[i].rTime)
     }
 
-
-  console.log(resultTime);
-  let todayState = state;
+  let todayTimeList = timeList;
 
   if(resultTime.length !== 0){
-    for(let k=0; k<todayState.length; k++){
-        todayState = todayState.filter(List => List.time !== resultTime[k]);
+    for(let k=0; k<todayTimeList.length; k++){
+      todayTimeList = todayTimeList.filter(List => List.time !== resultTime[k]);
       }
     }
 
@@ -76,7 +72,7 @@ function CheckTime(props) {
     <div className={style.time_box}>
       <div style={{marginTop:'20px', marginLeft:'19px'}}>
         <div className={style.radios}>
-          {todayState.map((List, index) =>(
+          {todayTimeList.map((List, index) =>(
               <label key={index} style={{backgroundColor: List.time===time ? '#a5d8ff' : ''}}>
               <input type="radio" name="time" value={List.time} checked={List.time===time} onChange={handleRadio}/>
               {List.time}

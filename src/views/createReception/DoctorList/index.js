@@ -17,7 +17,7 @@ function DoctorList(props) {
       setDoctorList(props.data)
     }
     test()
-  },[props])
+  },[props.data])
 
   const dispatch = useDispatch();
   const did = useSelector((state) => {
