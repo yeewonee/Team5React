@@ -9821,6 +9821,13 @@ react-live-clock@^5.2.0:
   resolved "https://registry.yarnpkg.com/react-live-clock/-/react-live-clock-5.2.0.tgz#964ea6c81edb44412161bcd291c23dbe154c0de4"
   integrity sha512-MHL+1twEIMNxmf/2HpzE/KQTfEubZlobWLjf+BrHBGLllhPxjc40V+ZR0Q6W10yb78XLlilZU1TPIQAJNwcT6w==
 
+react-loader-spinner@^4.0.0:
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/react-loader-spinner/-/react-loader-spinner-4.0.0.tgz#43d9e71b0574219f64216933c28ef5faa12262f6"
+  integrity sha512-RU2vpEej6G4ECei0h3q6bgLU10of9Lw5O+4AwF/mtkrX5oY20Sh/AxoPJ7etbrs/7Q3u4jN5qwCwGLRKCHpk6g==
+  dependencies:
+    prop-types "^15.7.2"
+
 react-minimal-pie-chart@^8.2.0:
   version "8.2.0"
   resolved "https://registry.yarnpkg.com/react-minimal-pie-chart/-/react-minimal-pie-chart-8.2.0.tgz#22b53af2363f040d818331721658dfa7a1ea847a"

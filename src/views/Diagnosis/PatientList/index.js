@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useCallback } from "react";
 import style from "./patientlist.module.css";
-import { getPatientList } from "../data";
+import { getPatientList } from "apis/diagnosis";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { createSetPidAction, createSetRidAction } from "redux/diagnosis-reducer";
@@ -11,41 +11,42 @@ import { useEffect } from "react";
 import { BsFillPersonDashFill } from "react-icons/bs";
 
 
-export const PatientList = (props) => {
-  console.log("환자목록 실행")
+export const PatientList = React.memo((props) => {
+  console.log("환자목록 렌더링")
+
+  const changeLoading = useCallback((result) => {
+    props.changeLoading(result);
+  }, [props]);
+
 
   //검색에 맞는 결과를 보여주는 상태
   const [pList, setPlist] = useState([]);
   const [showPList, setShowPList] = useState([]);
 
   const patient = async () => {
-    console.log("목록 가져오는 함수 실행")
     try {
-      console.log(props.day)
       const response = await getPatientList(props.day);
-      setPlist(response.data);
-      setShowPList(response.data);
+        setPlist(response.data);
+        setShowPList(response.data);
+        changeLoading(false)
     } catch (error) {
       console.log(error);
     }
   };
 
   useEffect(() => {
-    console.log("props가 바뀌었을때 실행")
     patient();
     setShowPList(pList);
     setColorSelect("");
-  }, [props.day]);
+  }, [props]);
 
 
   const [keyword, setKeyword] = useState("");
   const keywordChange = (event) => {
-    console.log("키 입력이 일어났을 때 실행")
     setKeyword(event.target.value);
   };
 
   const keywordButton = (event) => {
-    console.log("키 버튼을 눌렀을 때 실행")
     //보여줄 리스트를 상태에 저장
     if (keyword === "") {
       setShowPList(pList.filter(pList => pList.patientName !== keyword));
@@ -59,7 +60,6 @@ export const PatientList = (props) => {
 
   const [colorSelect, setColorSelect] = useState("");
   const patientSelect = (event, id, rid) => {
-    console.log("환자 선택했을 때 실행")
     setColorSelect(id);
     dispatch(createSetPidAction(id));
     dispatch(createSetRidAction(rid));
@@ -118,4 +118,4 @@ export const PatientList = (props) => {
       </div>
     </div>
   );
-};
+});

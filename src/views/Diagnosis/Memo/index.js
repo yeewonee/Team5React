@@ -3,7 +3,8 @@ import { useDispatch } from "react-redux";
 import { createSetMemoAction } from "redux/diagnosis-reducer";
 import style from "./memo.module.css";
 
-export const Memo = () => {
+export const Memo = React.memo(() => {
+  console.log("메모 렌더링")
   const dispatch = useDispatch();
   const handleChange = (event) => {
     dispatch(createSetMemoAction(event.target.value));
@@ -16,4 +17,4 @@ export const Memo = () => {
       </div>
     </>
   );
-};
+});
