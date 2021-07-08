@@ -6,7 +6,8 @@ import CommonTableColumn from "views/table/CommonTableColumn";
 import { useDispatch } from "react-redux";
 import { createSetRemoveIlistAction } from "redux/diagnosis-reducer";
 
-export const InspectionResult = (props) => {
+export const InspectionResult = React.memo((props) => {
+  console.log("검사 결과 렌더링")
 
   const dispatch = useDispatch();
 
@@ -43,4 +44,4 @@ export const InspectionResult = (props) => {
         </div>
     </>
   );
-};
+});

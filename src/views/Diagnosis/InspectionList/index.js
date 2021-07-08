@@ -1,14 +1,15 @@
 import React, { useEffect } from "react";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { getInspectList, getInspectAllList } from "../data";
+import { getInspectList, getInspectAllList } from "apis/diagnosis";
 import style from "./inspectionlist.module.css";
 import { createSetAddIlistAction } from "redux/diagnosis-reducer";
 import CommonTable from "views/table/CommonTable";
 import CommonTableColumn from "views/table/CommonTableColumn";
 import { BsCardChecklist } from "react-icons/bs";
 
-export const InspectionList = (props) => {
+export const InspectionList = React.memo((props) => {
+  console.log("검사목록 렌더링")
   //DB에서 받아온 최초 약 목록
   const [iList, setIlist] = useState([]);
   const [keywordList, setKeywordList] = useState([]);
@@ -71,9 +72,6 @@ export const InspectionList = (props) => {
     } else {
       setKeywordList(iList.filter(iList => iList.bundleName.includes(keyword)));
     }
-    setList({
-      iList: props.iList,
-    });
   };
 
   const [list, setList] = useState({
@@ -181,4 +179,4 @@ export const InspectionList = (props) => {
       </div>
     </>
   );
-};
+});

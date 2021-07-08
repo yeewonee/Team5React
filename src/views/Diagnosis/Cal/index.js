@@ -13,7 +13,8 @@ import { useEffect } from "react";
 import { ko } from "date-fns/esm/locale";
 registerLocale("ko", ko);
 
-export const Cal = (props) => {
+export const Cal = React.memo((props) => {
+  console.log("달력 렌더링")
   const [startDate, setStartDate] = useState(new Date());
 
   const dispatch = useDispatch();
@@ -36,4 +37,4 @@ export const Cal = (props) => {
       </div>
     </>
   );
-};
+});
