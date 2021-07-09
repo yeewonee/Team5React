@@ -32,6 +32,7 @@ function Login(props){
           //SessionStorage에 인증 내용 저장(브라우저 갱신시 사용)
           sessionStorage.setItem("uid", response.data.userid);
           sessionStorage.setItem("authToken", response.data.authToken);
+          sessionStorage.setItem("role", response.data.role);
         }else{
           alert("asd")
         }
