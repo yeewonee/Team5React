@@ -56,21 +56,21 @@ const NewRegistration = (props) => {
     if(patient.zonecode === "" || patient.detailaddress === ""){
       alert("주소를 입력해 주세요.");
       return false;
+    }else{
+      const patientRegister = {
+        patientName: patient.pname,
+        patientSsn1: patient.pssn1,
+        patientSsn2: patient.pssn2,
+        patientSex: patient.psex,
+        patientAge: patient.page,
+        patientPhone: patient.pphone1+"-"+patient.pphone2+"-"+patient.pphone3,
+        patientZip: patient.zonecode,
+        address: patient.address,
+        addressDetail: patient.detailaddress
+      }
+      props.handleClose()
+      return await axios.post("/reception/registration", patientRegister); 
     }
-
-    const patientRegister = {
-      patientName: patient.pname,
-      patientSsn1: patient.pssn1,
-      patientSsn2: patient.pssn2,
-      patientSex: patient.psex,
-      patientAge: patient.page,
-      patientPhone: patient.pphone1+"-"+patient.pphone2+"-"+patient.pphone3,
-      patientZip: patient.zonecode,
-      address: patient.address,
-      addressDetail: patient.detailaddress
-    }
-    props.handleClose()
-    return await axios.post("/reception/registration", patientRegister); 
   }
   return(
     <Modal show={props.show} onHide={props.handleClose} className={style.font} dialogClassName="custom-modal">

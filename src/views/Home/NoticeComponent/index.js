@@ -3,25 +3,31 @@ import style from "./notice.module.css";
 import photo4 from "images/4.jpg";
 import React, { useEffect } from "react";
 import { useState } from "react";
-import { getBoardList } from "./data.js";
 import qs from "qs";
 import { Link } from "react-router-dom";
 import NoticeModal from './NoticeModal';
-
+import { Loading } from "../../Diagnosis/Loading";
 import axios from "axios";
 axios.defaults.baseURL = "http://localhost:8080";
 
 
 function Notice(props) {
-
+  const [loading, setLoading] = useState(null);  
   const [boardList, setBoardList] = useState([]);
-  useEffect(() => {
-    const getNotice = async() => {
+  const getNotice = async() => {
+    setLoading(true);
+    try{
       const result = await axios.get("/boards");
-      setBoardList(result.data)
+      setBoardList(result.data)  
+      setLoading(false);    
+    }catch(error) {
+      console.log(error);
     }
-    getNotice()
-  }, [])
+  };
+
+  useEffect(() => {
+    getNotice();
+  }, []);
 
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
@@ -58,6 +64,8 @@ function Notice(props) {
       board={board}
       noticeModal={noticeModal}
       />
+      {loading ? <Loading /> 
+      :
       <div>
         <div>
           <div className={style.notice} style={{ overflow: "auto" }}>
@@ -107,6 +115,7 @@ function Notice(props) {
           </div>
         </div>
       </div>
+      }
     </>
   );
 }
