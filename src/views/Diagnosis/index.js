@@ -18,7 +18,7 @@ import { BiPlusMedical } from "react-icons/bi";
 import { BsCardChecklist } from "react-icons/bs";
 import { BsList } from "react-icons/bs";
 
-
+import Paho from "paho-mqtt";
 
 function Diagnosis(props) {
   console.log("최상위 index 렌더링")
@@ -26,11 +26,9 @@ function Diagnosis(props) {
   const [loading, setLoading] = useState(null);
 
   const changeLoading = (result) => {
-    console.log("여기에 들어옴", result)
     setLoading(result);
   }
 
-  
   const memo = useSelector((state) => {
     return state.diagnosisReducer.comment;
   });
@@ -40,16 +38,48 @@ function Diagnosis(props) {
     return state.diagnosisReducer.day;
   });
 
-  //추가된 약 목록
-  const mList = useSelector((state) => {
-    return state.diagnosisReducer.mlist;
-  });
 
-  //추가된 검사 목록
-  const iList = useSelector((state) => {
-    return state.diagnosisReducer.ilist;
+
+  const [connected, setConnected] = useState(false);
+  const [subTopic, setSubTopic] = useState("/topic1/#");
+  const [pubMessage, setPubMessage] = useState({
+    topic: "/topic1/topic2",
+    content: "Hello"
   });
-  
+  const [contents, setContents] = useState([]);
+
+  let client = useRef(null);
+  const connectMqttBroker = () => {
+    //Paho.MQTT.Clinet에서 MQTT가 빠짐
+    client.current = new Paho.Client("localhost", 61614, "client-" + new Date().getTime());
+
+    client.current.onConnectionLost = () => {
+      console.log("접속 끊김");
+      setConnected(false);
+    };
+
+    client.current.onMessageArrived = (msg) => {
+      console.log("메시지 수신");
+      var message = JSON.parse(msg.payloadString);
+      setContents((contents) => {
+        return contents.concat(message.topic + ": " + message.content);
+      });
+    };
+
+    client.current.connect({onSuccess:() => {
+      console.log("접속 성공");
+      setConnected(true);
+      sendSubTopic();
+    }});
+  };
+
+  const sendSubTopic = () => {
+    client.current.subscribe(subTopic);
+  }
+
+  useEffect(() => {
+    connectMqttBroker();
+  }, []);
 
 
   return (
@@ -86,13 +116,13 @@ function Diagnosis(props) {
                 <div className={style.title}>
                   <p className={style.title_p}><BiPlusMedical /> 약 목록</p>
                 </div>
-                <MedicineList mList={mList}/>
+                <MedicineList/>
               </div>
               <div className={`${style.left_list_size} m-1`}>
                 <div className={style.title}>
                   <p className={style.title_p}><BsCardChecklist /> 검사 목록</p>
                 </div>
-                <InspectionList iList={iList}/>
+                <InspectionList />
               </div>
             </div>
 
@@ -101,13 +131,13 @@ function Diagnosis(props) {
                 <div className={style.title}>
                   <p className={style.title_p}><BiPlusMedical /> 약 처방</p>
                 </div>
-                <MedicineResult mList={mList}/>
+                <MedicineResult/>
               </div>
               <div className={`${style.left_list_size} m-1`}>
                 <div className={style.title}>
                   <p className={style.title_p}><BsCardChecklist /> 검사 처방</p>
                 </div>
-                <InspectionResult iList={iList}/>
+                <InspectionResult />
               </div>
             </div>
           </div>
@@ -129,10 +159,9 @@ function Diagnosis(props) {
                     </div>
                     <PastRecord 
                       comment={memo}
-                      medicineList={mList}
-                      inspectionList={iList}
                       day={day}
-                      changeLoading={changeLoading} />
+                      changeLoading={changeLoading}
+                      pubMessage={pubMessage} />
                   </div>
                 </div>
               </div>
