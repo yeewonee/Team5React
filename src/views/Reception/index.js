@@ -15,12 +15,12 @@ function Reception(props) {
   const [subTopic, setSubTopic] = useState("/main/reception");
   const [pubMessage, setPubMessage] = useState({
     topic: "/main/diagnosis",
-    content: "Hello"
   });
-  const [contents, setContents] = useState([]);
-  console.log("메세지 받은거 :")
-  console.log(contents)
 
+  const [pub2ndMessage, set2ndPubMessage] = useState({
+    topic: "/main/createReception",
+  });
+  
   let client = useRef(null);
   const connectMqttBroker = () => { 
     //Paho.MQTT.Clinet에서 MQTT가 빠짐
@@ -34,9 +34,6 @@ function Reception(props) {
     client.current.onMessageArrived = (msg) => {
       console.log("메시지 수신");
       var message = JSON.parse(msg.payloadString);
-      setContents((contents) => {
-        return contents.concat(message.topic + ": " + message.content);
-      });
     };
 
     client.current.connect({onSuccess:() => {
@@ -70,6 +67,7 @@ function Reception(props) {
       <div className={style.border3}>
         <ReceptionList
         pubMessage={pubMessage}
+        pub2ndMessage={pub2ndMessage}
         setCBoolean={setCBoolean}
         setComBoolean={setComBoolean}
         cBoolean={cBoolean}

@@ -4,6 +4,7 @@ import FindAddrDom from './PostCodeComponent/FindAddrDom';
 import FindAddr from './PostCodeComponent/FindAddr';
 import { useEffect, useState } from 'react';
 import { useForm } from "react-hook-form";
+import { sendMqttMessage } from "apis/reception";
 import axios from "axios";
 axios.defaults.baseURL = "http://localhost:8080";
 //axios js파일 따로 빼기
@@ -70,6 +71,7 @@ const NewRegistration = (props) => {
       }
       props.handleClose()
       return await axios.post("/reception/registration", patientRegister); 
+      await sendMqttMessage(props.pub2ndMessage);
     }
   }
   return(

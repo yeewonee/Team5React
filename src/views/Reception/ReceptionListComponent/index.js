@@ -170,7 +170,7 @@ function ReceptionList(props){
       isPopupOpen={isPopupOpen}
       openPostCode={openPostCode}
       closePostCode={closePostCode}
-      
+      pub2ndMessage={props.pub2ndMessage}
       />
       
       {/* 예약확인 */}

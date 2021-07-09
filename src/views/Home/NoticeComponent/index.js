@@ -81,7 +81,7 @@ function Notice(props) {
                     <th>글쓴이</th>
                   </tr>
                 </thead>
-                {loading ? <div style={{marginLeft:"90%", marginTop:"10%"}}><Loading /></div> 
+                {loading ? <div style={{marginLeft:"95%", marginTop:"30%"}}><Loading height={90} width={90}/><p style={{paddingLeft:"100%"}}>Loding...</p></div> 
                  :
                 <tbody>
                   {boardList.map((board) => {
