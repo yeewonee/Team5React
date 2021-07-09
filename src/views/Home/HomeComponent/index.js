@@ -6,6 +6,7 @@ import photo3 from 'images/3.png';
 import {Link} from "react-router-dom";
 import { useState } from "react";
 import HomeModal from './HomeModal';
+import { useSelector } from "react-redux";
 
 function HomeMenu(props) {
   const [show, setShow] = useState(false);

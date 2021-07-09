@@ -53,8 +53,6 @@ function Login(props){
     upassword: ""
   })
 
-
-
   return(
     <div className={style.bg}>
       <div className={style.titleBox}><div className={style.titleContent}>Login</div></div>
