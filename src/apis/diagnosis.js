@@ -48,3 +48,7 @@ export function getPastMemo(pId, day){
   return promise;
 }
 
+export function sendMqttMessage({topic, content}) {
+  return axios.get("/sendMqttMessage", {params:{topic, content}});
+}
+
