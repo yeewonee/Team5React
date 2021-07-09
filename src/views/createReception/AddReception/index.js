@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useHistory } from "react-router";
 import { createSetDate, createSetDoctor, createSetPatient, createSetTime } from "redux/createReception-reducer";
-import { insertReception, updateReception } from "apis/createReception";
+import { insertReception, sendMqttMessage, updateReception } from "apis/createReception";
 
 function AddReception(props) {
 
@@ -33,6 +33,7 @@ function AddReception(props) {
   
   const patientList = props.pdata; //환자리스트 받기
   const doctorList = props.ddata; //의사리스트 받기
+  const pubMessage = props.pubMessage;
 
   let clickPatient = patientList.filter((list)=>list.patientId === patient_id);
   const patient = clickPatient[0]
@@ -64,6 +65,8 @@ function AddReception(props) {
     dispatch(createSetDoctor(''));
     dispatch(createSetDate(''));
     dispatch(createSetTime(''));
+
+    await sendMqttMessage(pubMessage);
   };
 
   //수정 버튼을 통해 들어온 경우
