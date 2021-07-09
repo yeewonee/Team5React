@@ -36,6 +36,10 @@ export const StateButton = (props) => {
  
   
   const changeState = (props) => {
+    if(checkList.length===0){
+      alert.show("항목을 선택해주세요")
+      return
+    }
     //버튼 예외처리
     if (patient.tstatus === "완료") {
       console.log("완료");
@@ -70,10 +74,23 @@ export const StateButton = (props) => {
           alert.show("검사를 진행해주세요");
           return;
         }
+        if(changeValue ==="대기"){
+          alert.show("대기 중인 상태입니다.")
+          return;
+        }
       }
       if (checkList[i].iStatus === "완료") {
         if (changeValue === "대기" || changeValue === "접수") {
           alert.show("완료된 검사입니다");
+          return;
+        }
+        if(changeValue==="완료"){
+          alert.show("이미 완료된 검사입니다.")
+        }
+      }
+      if (checkList[i].iStatus === "접수") {
+        if(changeValue==="접수"){
+          alert.show("이미 진행중인 검사입니다.")
           return;
         }
       }
