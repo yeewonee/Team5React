@@ -41,9 +41,6 @@ export const PatientList = React.memo((props) => {
     setColorSelect("");
   }, [props]);
 
-  useEffect(() => {
-    patient()
-  }, [props.realTime])
 
   const [keyword, setKeyword] = useState("");
   const keywordChange = (event) => {

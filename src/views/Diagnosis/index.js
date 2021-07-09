@@ -39,7 +39,7 @@ function Diagnosis(props) {
   });
 
 
-  const [realTime, setRealTime] = useState(false);
+  const [realTime, setRealTime] = useState(0);
 
   const [connected, setConnected] = useState(false);
   const [subTopic, setSubTopic] = useState("/main/diagnosis");
@@ -56,8 +56,12 @@ function Diagnosis(props) {
 
     client.current.onMessageArrived = (msg) => {
       console.log("메시지 수신");
-      setRealTime(!realTime);
-      
+      if(realTime === 0){
+        setRealTime(1);
+      }else{
+        setRealTime(0);
+      }
+       
     };
 
     client.current.connect({onSuccess:() => {
