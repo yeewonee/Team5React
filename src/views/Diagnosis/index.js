@@ -39,13 +39,10 @@ function Diagnosis(props) {
   });
 
 
+  const [realTime, setRealTime] = useState(false);
 
   const [connected, setConnected] = useState(false);
   const [subTopic, setSubTopic] = useState("/main/diagnosis");
-  const [pubMessage, setPubMessage] = useState({
-    topic: "/topic1/topic2",
-    content: "Hello"
-  });
 
   let client = useRef(null);
   const connectMqttBroker = () => {
@@ -59,6 +56,8 @@ function Diagnosis(props) {
 
     client.current.onMessageArrived = (msg) => {
       console.log("메시지 수신");
+      setRealTime(!realTime);
+      
     };
 
     client.current.connect({onSuccess:() => {
@@ -156,7 +155,7 @@ function Diagnosis(props) {
                       comment={memo}
                       day={day}
                       changeLoading={changeLoading}
-                      pubMessage={pubMessage} />
+                      realTime={realTime}/>
                   </div>
                 </div>
               </div>
