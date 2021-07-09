@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { Cal } from "./Cal";
 import style from "./diagnosis.module.css";
@@ -9,6 +9,7 @@ import { MedicineResult } from "./MedicineResult";
 import { Memo } from "./Memo";
 import { PastRecord } from "./PastRecord";
 import { PatientList } from "./PatientList";
+import { Loading } from "./Loading";
 
 import { BsCardList } from "react-icons/bs";
 import { BiCalendar } from "react-icons/bi";
@@ -19,7 +20,20 @@ import { BsList } from "react-icons/bs";
 
 
 function Diagnosis(props) {
+  console.log("최상위 index 렌더링")
   
+  const [loading, setLoading] = useState(null);
+
+  const changeLoading = (result) => {
+    console.log("여기에 들어옴", result)
+    setLoading(result);
+  }
+
+  
+  const memo = useSelector((state) => {
+    return state.diagnosisReducer.comment;
+  });
+
   //날짜
   const day = useSelector((state) => {
     return state.diagnosisReducer.day;
@@ -34,14 +48,13 @@ function Diagnosis(props) {
   const iList = useSelector((state) => {
     return state.diagnosisReducer.ilist;
   });
-
-  //환자 선택
-  const patientId = useSelector((state) => {
-    return state.diagnosisReducer.pId;
-  })
+  
 
   return (
+    
     <div style={{ fontFamily: "DoHyeon-Regular" }}>
+      {loading ? <Loading /> 
+      :
       <div className={style.d_container}>
         <div className="d-flex justify-content-center">
           <div className={style.left_container}>
@@ -102,7 +115,9 @@ function Diagnosis(props) {
               <div className={style.title}>
                 <p className={style.title_p}><BiListCheck /> 환자 리스트</p>
               </div>
-              <PatientList day={day}/>
+              <PatientList 
+                day={day}
+                changeLoading={changeLoading}/>
 
               <div className={`${style.past_container} mr-2`}>
                 <div className="d-flex justify-content-center">
@@ -110,7 +125,12 @@ function Diagnosis(props) {
                     <div className={style.title}>
                       <p className={style.title_p}><BsList /> 과거 기록</p>
                     </div>
-                    <PastRecord patientId={patientId} day={day} />
+                    <PastRecord 
+                      comment={memo}
+                      medicineList={mList}
+                      inspectionList={iList}
+                      day={day}
+                      changeLoading={changeLoading} />
                   </div>
                 </div>
               </div>
@@ -118,6 +138,7 @@ function Diagnosis(props) {
           </div>
         </div>
       </div>
+      }
     </div>
   );
 }

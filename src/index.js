@@ -7,10 +7,20 @@ import { BrowserRouter } from "react-router-dom";
 import { createStore } from "redux";
 import { Provider } from "react-redux";
 import {composeWithDevTools} from 'redux-devtools-extension'
+import { createSetAuthTokenAction, createSetUidAction, createSetRoleAction } from "redux/auth-reducer";
+import { addAuthHeader } from "apis/axiosConfig";
 import rootReducer from 'redux/root-reducer';
 
 const store = createStore(rootReducer,composeWithDevTools());
+//Redux에 인증 정보 설정
+store.dispatch(createSetUidAction(sessionStorage.getItem("uid") || ""));
+store.dispatch(createSetAuthTokenAction(sessionStorage.getItem("authToken") || ""));
+store.dispatch(createSetRoleAction(sessionStorage.getItem("role") || ""));
 
+//Axios에 인증 헤더 추가
+if(sessionStorage.getItem("authToken")){
+  addAuthHeader(sessionStorage.getItem("authToken"));
+}
 
 ReactDOM.render(
   <BrowserRouter>

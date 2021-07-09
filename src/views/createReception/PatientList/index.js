@@ -6,24 +6,19 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { FaUserTimes } from 'react-icons/fa';
 
-import axios from "axios";
-axios.defaults.baseURL = "http://localhost:8080";
-
 function PatientList(props) {
   const originList = props.data;
-  
+  const dispatch = useDispatch();
   const [patientList, setPatientList] = useState([]);
   const [searchWord, setSearchWord] = useState(''); //검색어 상태값
 
   useEffect(() => {
     const test = async() => {
-      setPatientList(props.data)
+      setPatientList(props.data);
     }
     test()
-  },[props])
+  },[props.data])
 
-  const dispatch = useDispatch();
-  
   const pid = useSelector((state) => {
     return state.createReceptionReducer.patient_id
   });

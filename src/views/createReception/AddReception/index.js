@@ -5,11 +5,10 @@ import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useHistory } from "react-router";
 import { createSetDate, createSetDoctor, createSetPatient, createSetTime } from "redux/createReception-reducer";
-import { insertReception, updateReception } from "../data";
+import { insertReception, updateReception } from "apis/createReception";
 
 function AddReception(props) {
-  const patientList = props.pdata;
-  const doctorList = props.ddata;
+
   const history = useHistory();
   const dispatch = useDispatch();
 
@@ -31,13 +30,17 @@ function AddReception(props) {
   const r_id = useSelector((state) => {
     return state.createReceptionReducer.r_id
   })
+  
+  const patientList = props.pdata; //환자리스트 받기
+  const doctorList = props.ddata; //의사리스트 받기
 
   let clickPatient = patientList.filter((list)=>list.patientId === patient_id);
   const patient = clickPatient[0]
- console.log(patient);
+ 
   let clickDoctor = doctorList.filter((list)=>list.doctorId === doctor_id);
   const doctor = clickDoctor[0]
   
+  //신규로 접수하는 경우 (예약/접수 버튼으로 들어온 경우)
   const handleReception = async (event) => {
     const reception = {};
  
@@ -63,6 +66,7 @@ function AddReception(props) {
     dispatch(createSetTime(''));
   };
 
+  //수정 버튼을 통해 들어온 경우
   const handleUpdate = async() => {
     const reception = {};
     reception.rId = r_id;
@@ -71,7 +75,7 @@ function AddReception(props) {
     reception.rTime = time;
     reception.rRole = "예약접수";
     reception.rStatus ='접수대기';
-    console.log(reception);
+    
     await updateReception(reception);
 
         //수정완료 후에 리덕스 모든 값 비워주기

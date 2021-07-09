@@ -9,9 +9,10 @@ import { BsPerson } from "react-icons/bs";
 import { BsLayoutTextSidebarReverse } from "react-icons/bs";
 import { BsFileEarmarkText } from "react-icons/bs";
 import { BsCardChecklist } from "react-icons/bs";
-import { getPastIlist, getPastMlist, getPastMemo } from "../data";
+import { getPastIlist, getPastMlist, getPastMemo } from "apis/diagnosis";
 
 export const ModalPast = (props) => {
+  console.log("과거 기록 하위 렌더링")
 
   const closeModal = () => {
     props.closeModal();
@@ -81,15 +82,20 @@ export const ModalPast = (props) => {
         </CommonTable>
 
         <div className={style.past_title}><BsFileEarmarkText /> 메모</div>
+        {memo.comment ? 
         <div className={style.past_memo}>
           <p style={{padding:'10px'}}>{memo.comment}</p>
         </div>
-
+        :
+        <div className={style.past_memo}>
+          <p style={{padding:'10px'}}>결과가 없습니다.</p>
+        </div>
+        }
         <div className={style.past_title}><BsCardChecklist /> 결과 확인</div>
         <hr />
 
         <div className={style.past_title2}>검사 결과</div>
-        {}
+        {iResultList.length !== 0 ? 
         <CommonTable headersName={["처방코드", "검사명", "검사담당자", "결과"]} tstyle={"table table-sm table-striped"}>
           {iResultList.map((iResultList, index) => (
             <CommonTableRow key={iResultList.iId}>
@@ -100,6 +106,11 @@ export const ModalPast = (props) => {
             </CommonTableRow>
           ))}
         </CommonTable>
+         :
+         <CommonTable headersName={["결과"]} tstyle={"table table-sm table-striped"}>
+               <CommonTableColumn>결과가 없습니다.</CommonTableColumn>
+         </CommonTable>
+         }
 
         <div className={style.past_title2}>약 처방</div>
         {mResultList.length !== 0 ? 

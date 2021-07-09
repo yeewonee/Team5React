@@ -4,7 +4,7 @@ import CheckCalendar from "./CheckCalendar";
 import CheckTime from "./CheckTime";
 import AddReception from "./AddReception";
 import { useEffect, useState } from "react";
-import { getDoctorList, getPatientList } from "./data";
+import { getDoctorList, getPatientList } from "apis/createReception";
 
 
 function CreateReception(props) {
