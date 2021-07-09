@@ -46,7 +46,6 @@ function Diagnosis(props) {
     topic: "/topic1/topic2",
     content: "Hello"
   });
-  const [contents, setContents] = useState([]);
 
   let client = useRef(null);
   const connectMqttBroker = () => {
@@ -60,10 +59,6 @@ function Diagnosis(props) {
 
     client.current.onMessageArrived = (msg) => {
       console.log("메시지 수신");
-      var message = JSON.parse(msg.payloadString);
-      setContents((contents) => {
-        return contents.concat(message.topic + ": " + message.content);
-      });
     };
 
     client.current.connect({onSuccess:() => {
