@@ -23,6 +23,7 @@ export const PatientList = React.memo((props) => {
   const [pList, setPlist] = useState([]);
   const [showPList, setShowPList] = useState([]);
 
+
   const patient = async () => {
     try {
       const response = await getPatientList(props.day);
@@ -40,6 +41,9 @@ export const PatientList = React.memo((props) => {
     setColorSelect("");
   }, [props]);
 
+  useEffect(() => {
+    patient()
+  }, [props.realTime])
 
   const [keyword, setKeyword] = useState("");
   const keywordChange = (event) => {

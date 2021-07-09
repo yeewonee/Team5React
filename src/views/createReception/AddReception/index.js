@@ -31,9 +31,13 @@ function AddReception(props) {
     return state.createReceptionReducer.r_id
   })
   
+  const [pubMessage, setPubMessage] = useState({
+    topic: "/topic1/topic2",
+    content: "Hello"
+  });
+
   const patientList = props.pdata; //환자리스트 받기
   const doctorList = props.ddata; //의사리스트 받기
-  const pubMessage = props.pubMessage;
 
   let clickPatient = patientList.filter((list)=>list.patientId === patient_id);
   const patient = clickPatient[0]
@@ -49,16 +53,24 @@ function AddReception(props) {
       reception.rTime = moment().format('HH:mm');
       reception.rRole = '방문접수'
       reception.rStatus = '접수완료'
+      setPubMessage({ //진료(의사)로 메세지 전송해야함
+        topic: "/main/diagnosis",
+        content: "Hello"
+      })
     } else {
       reception.rTime = time;
       reception.rRole = "예약접수";
       reception.rStatus ='접수대기';
+      setPubMessage({ //예약리스트(접수자)로 메세지 전송해야함
+        topic: "/main/reception",
+        content: "Hello"
+      })
     }
 
     reception.rDate = date;
     reception.doctorId = doctor_id;
     reception.patientId = patient_id;
-    console.log(reception)
+    
     await insertReception(reception);
     //등록완료 후에 리덕스 모든 값 비워주기
     dispatch(createSetPatient(''));
@@ -78,7 +90,6 @@ function AddReception(props) {
     reception.rTime = time;
     reception.rRole = "예약접수";
     reception.rStatus ='접수대기';
-    
     await updateReception(reception);
 
         //수정완료 후에 리덕스 모든 값 비워주기
@@ -86,6 +97,13 @@ function AddReception(props) {
         dispatch(createSetDoctor(''));
         dispatch(createSetDate(''));
         dispatch(createSetTime(''));
+
+    setPubMessage({ //예약리스트(접수자)로 메세지 전송해야함
+      topic: "/main/reception",
+      ontent: "Hello"
+    })
+
+    await sendMqttMessage(pubMessage);
     history.goBack();
   };
 

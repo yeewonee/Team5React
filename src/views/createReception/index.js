@@ -11,11 +11,18 @@ function CreateReception(props) {
   const [patientList, setPatientList] = useState([]);
   const [doctorList, setDoctorList] = useState([]);
 
-  const getList = async() => {
+  const getPatient = async() => {
     try{
       const patientResult = await getPatientList();
-      const doctorResult = await getDoctorList();
       setPatientList(patientResult.data);
+    } catch(error){
+      console.log(error);
+    }
+  };
+  
+  const getDoctor = async() => {
+    try{
+      const doctorResult = await getDoctorList();
       setDoctorList(doctorResult.data);
     } catch(error){
       console.log(error);
@@ -23,16 +30,14 @@ function CreateReception(props) {
   };
 
   useEffect(() => {
-    getList();
+    getPatient();
+    getDoctor();
   },[])
 
 //mqtt
   const [connected, setConnected] = useState(false);
-  const [subTopic, setSubTopic] = useState("/topic1/#");
-  const [pubMessage, setPubMessage] = useState({
-    topic: "/topic1/topic2",
-    content: "Hello"
-  });
+  const [subTopic, setSubTopic] = useState("/main/createReception");
+
   const [contents, setContents] = useState([]);
 
   let client = useRef(null);
@@ -47,7 +52,7 @@ function CreateReception(props) {
 
     client.current.onMessageArrived = (msg) => {
       console.log("메시지 수신");
-      
+      getPatient();
     };
 
     client.current.connect({onSuccess:() => {
@@ -83,7 +88,7 @@ function CreateReception(props) {
         </div>
 
         <div style={{flexBasis:'32%'}}>
-          <AddReception pdata={patientList} ddata={doctorList} pubMessage={pubMessage}/>
+          <AddReception pdata={patientList} ddata={doctorList}/>
         </div>
 
       </div>

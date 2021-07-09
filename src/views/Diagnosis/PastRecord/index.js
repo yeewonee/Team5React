@@ -100,6 +100,11 @@ export const PastRecord = React.memo((props) => {
     receptionId
   };
 
+  const [pubMessage, setPubMessage] = useState({
+    topic: "/topic1/topic2",
+    content: "Hello"
+  });
+
   const sendDiagnosis = async() => {  
     if(patientId){
     changeLoading(true)
@@ -112,7 +117,7 @@ export const PastRecord = React.memo((props) => {
       dispatch(createSetRidAction(""));
       changeLoading(false)
     });
-    await sendMqttMessage(props.pubMessage);
+    await sendMqttMessage(pubMessage);
     }else{
       alert("환자를 선택하십시오.")
     }
