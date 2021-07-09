@@ -61,6 +61,7 @@ function AddReception(props) {
 
       await insertReception(reception);
       await sendMqttMessage(pubMessage);
+      await sendMqttMessage(pubMessage2);
     }    
     else {//예약접수인 경우
       reception.rTime = time;

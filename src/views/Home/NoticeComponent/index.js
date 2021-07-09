@@ -72,48 +72,49 @@ function Notice(props) {
               <img src={photo4} alt="photo4" style={{width:'35px', margin:'20px'}}/>
               <b>공지사항</b>
             </div>
-            <div>
-              <Table responsive="sm" className={style.table1}>
-                <thead>
-                  <tr>
-                    <th>번호</th>
-                    <th>제목</th>
-                    <th>글쓴이</th>
-                  </tr>
-                </thead>
-                {loading ? <div style={{marginLeft:"95%", marginTop:"30%"}}><Loading height={90} width={90}/><p style={{paddingLeft:"100%"}}>Loding...</p></div> 
-                 :
-                <tbody>
-                  {boardList.map((board) => {
-                    return (
-                      <tr key={board.noticeId}>
-                        <td>{board.noticeId}</td>
-                        <td>
-                          <div
-                            onClick={(event) => {
-                              noticeModal(event, board);
-                            }}
-                            className={style.mouse}
-                          >
-                            {board.noticeTitle}
-                          </div>
-                        </td>
-                        <td>{board.userId}</td>
-                      </tr>
-                    );
-                  })}
-                </tbody>
-                }
-              </Table>
-              {/* <div className="d-flex justify-content-center">
-                <Link to="/?pageNo=1" className={`btn ${pageNo === 1 ? "btn-danger" : "btn-outline-primary"} btn-sm mr-1`}>
-                  1
-                </Link>
-                <Link to="/?pageNo=2" className={`btn ${pageNo === 2 ? "btn-danger" : "btn-outline-primary"} btn-sm mr-1`}>
-                  2
-                </Link>
-              </div> */}
-            </div>
+            {loading ? <div><div style={{}}><Loading height={90} width={90}/></div> <p style={{}}>Loding...</p></div>
+                :
+            <Table responsive="sm" className={style.table1}>
+              <thead>
+                <tr>
+                  <th>번호</th>
+                  <th>제목</th>
+                  <th>글쓴이</th>
+                </tr>
+              </thead>
+
+              <tbody>
+                {boardList.map((board) => {
+                  return (
+                    <tr key={board.noticeId}>
+                      <td>{board.noticeId}</td>
+                      <td>
+                        <div
+                          onClick={(event) => {
+                            noticeModal(event, board);
+                          }}
+                          className={style.mouse}
+                        >
+                          {board.noticeTitle}
+                        </div>
+                      </td>
+                      <td>{board.userId}</td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+              
+            </Table>
+            }
+            {/* <div className="d-flex justify-content-center">
+              <Link to="/?pageNo=1" className={`btn ${pageNo === 1 ? "btn-danger" : "btn-outline-primary"} btn-sm mr-1`}>
+                1
+              </Link>
+              <Link to="/?pageNo=2" className={`btn ${pageNo === 2 ? "btn-danger" : "btn-outline-primary"} btn-sm mr-1`}>
+                2
+              </Link>
+            </div> */}
+            
           </div>
         </div>
       </div>

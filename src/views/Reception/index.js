@@ -13,6 +13,7 @@ function Reception(props) {
 
   const [connected, setConnected] = useState(false);
   const [subTopic, setSubTopic] = useState("/main/reception");
+  const [message, setMessage] = useState("/main/reception");
   const [pubMessage, setPubMessage] = useState({
     topic: "/main/diagnosis",
   });
@@ -33,7 +34,11 @@ function Reception(props) {
 
     client.current.onMessageArrived = (msg) => {
       console.log("메시지 수신");
+      
       var message = JSON.parse(msg.payloadString);
+      console.log(message);
+
+      setMessage(message)
     };
 
     client.current.connect({onSuccess:() => {
@@ -68,6 +73,7 @@ function Reception(props) {
         <ReceptionList
         pubMessage={pubMessage}
         pub2ndMessage={pub2ndMessage}
+        message={message}
         setCBoolean={setCBoolean}
         setComBoolean={setComBoolean}
         cBoolean={cBoolean}
