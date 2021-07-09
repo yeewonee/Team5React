@@ -64,8 +64,7 @@ function Notice(props) {
       board={board}
       noticeModal={noticeModal}
       />
-      {loading ? <Loading /> 
-      :
+
       <div>
         <div>
           <div className={style.notice} style={{ overflow: "auto" }}>
@@ -82,6 +81,8 @@ function Notice(props) {
                     <th>글쓴이</th>
                   </tr>
                 </thead>
+                {loading ? <div style={{marginLeft:"95%", marginTop:"30%"}}><Loading height={90} width={90}/><p style={{paddingLeft:"100%"}}>Loding...</p></div> 
+                 :
                 <tbody>
                   {boardList.map((board) => {
                     return (
@@ -102,6 +103,7 @@ function Notice(props) {
                     );
                   })}
                 </tbody>
+                }
               </Table>
               {/* <div className="d-flex justify-content-center">
                 <Link to="/?pageNo=1" className={`btn ${pageNo === 1 ? "btn-danger" : "btn-outline-primary"} btn-sm mr-1`}>
@@ -115,7 +117,7 @@ function Notice(props) {
           </div>
         </div>
       </div>
-      }
+      
     </>
   );
 }

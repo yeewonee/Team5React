@@ -4,6 +4,7 @@ import FindAddrDom from './PostCodeComponent/FindAddrDom';
 import FindAddr from './PostCodeComponent/FindAddr';
 import { useEffect, useState } from 'react';
 import { useForm } from "react-hook-form";
+import { sendMqttMessage } from "apis/reception";
 import axios from "axios";
 axios.defaults.baseURL = "http://localhost:8080";
 //axios js파일 따로 빼기
@@ -68,6 +69,7 @@ const NewRegistration = (props) => {
         address: patient.address,
         addressDetail: patient.detailaddress
       }
+      await sendMqttMessage(props.pub2ndMessage);
       props.handleClose()
       return await axios.post("/reception/registration", patientRegister); 
     }
@@ -137,7 +139,7 @@ const NewRegistration = (props) => {
                 <th className={style.tr1}>&nbsp;나이<input type="text" className={style.inputage} name="page" maxLength="3" onChange={handleChange}
                   ref={
                     register({
-                        minLength: 3, 
+                        minLength: 1, 
                         required: true, 
                         pattern: /^[0-9]*$/
                     })
