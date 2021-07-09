@@ -153,7 +153,7 @@ function ReceptionList(props){
       console.log(error)
     }
   }
-  
+
   //우편번호 api
   const [isPopupOpen, setIsPopupOpen] = useState(false)
 	// 팝업창 열기

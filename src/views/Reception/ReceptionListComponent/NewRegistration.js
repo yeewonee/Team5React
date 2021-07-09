@@ -69,9 +69,9 @@ const NewRegistration = (props) => {
         address: patient.address,
         addressDetail: patient.detailaddress
       }
+      await sendMqttMessage(props.pub2ndMessage);
       props.handleClose()
       return await axios.post("/reception/registration", patientRegister); 
-      await sendMqttMessage(props.pub2ndMessage);
     }
   }
   return(
@@ -139,7 +139,7 @@ const NewRegistration = (props) => {
                 <th className={style.tr1}>&nbsp;나이<input type="text" className={style.inputage} name="page" maxLength="3" onChange={handleChange}
                   ref={
                     register({
-                        minLength: 3, 
+                        minLength: 1, 
                         required: true, 
                         pattern: /^[0-9]*$/
                     })

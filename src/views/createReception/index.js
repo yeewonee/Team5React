@@ -57,7 +57,7 @@ function CreateReception(props) {
 
     client.current.connect({onSuccess:() => {
       console.log("접속 성공");
-      setConnected(true);
+      setConnected(true);z
       sendSubTopic();
     }});
   };
