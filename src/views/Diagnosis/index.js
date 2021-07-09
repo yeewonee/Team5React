@@ -41,7 +41,7 @@ function Diagnosis(props) {
 
 
   const [connected, setConnected] = useState(false);
-  const [subTopic, setSubTopic] = useState("/topic1/#");
+  const [subTopic, setSubTopic] = useState("/main/diagnosis");
   const [pubMessage, setPubMessage] = useState({
     topic: "/topic1/topic2",
     content: "Hello"
