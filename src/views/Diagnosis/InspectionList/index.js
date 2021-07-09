@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { getInspectList, getInspectAllList } from "apis/diagnosis";
 import style from "./inspectionlist.module.css";
 import { createSetAddIlistAction } from "redux/diagnosis-reducer";
@@ -9,9 +9,17 @@ import CommonTableColumn from "views/table/CommonTableColumn";
 import { BsCardChecklist } from "react-icons/bs";
 
 export const InspectionList = React.memo((props) => {
+
+  
+  //추가된 검사 목록
+  const inspectionList = useSelector((state) => {
+    return state.diagnosisReducer.ilist;
+  });
+  
+
   console.log("검사목록 렌더링")
   //DB에서 받아온 최초 약 목록
-  const [iList, setIlist] = useState([]);
+  const [iList, setIlist] = useState(inspectionList);
   const [keywordList, setKeywordList] = useState([]);
   const [inspections, setInspections] = useState([]);
 
@@ -80,9 +88,9 @@ export const InspectionList = React.memo((props) => {
 
   useEffect(() => {
     setList({
-      iList: props.iList,
+      iList: inspectionList,
     });
-  }, [props, keyword]);
+  }, [inspectionList, keyword]);
 
   const inspectionClick = (event, bundleCode) => {
     let inspectionArray = list.iList;

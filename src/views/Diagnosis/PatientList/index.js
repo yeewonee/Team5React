@@ -23,6 +23,7 @@ export const PatientList = React.memo((props) => {
   const [pList, setPlist] = useState([]);
   const [showPList, setShowPList] = useState([]);
 
+
   const patient = async () => {
     try {
       const response = await getPatientList(props.day);
@@ -40,6 +41,9 @@ export const PatientList = React.memo((props) => {
     setColorSelect("");
   }, [props]);
 
+  useEffect(() => {
+    patient()
+  }, [props.realTime])
 
   const [keyword, setKeyword] = useState("");
   const keywordChange = (event) => {
@@ -90,7 +94,7 @@ export const PatientList = React.memo((props) => {
                  <CommonTableColumn>{patient.patientPhone}</CommonTableColumn>
                  <CommonTableColumn>
                    <button
-                     className="btn btn-outline-dark btn-sm"
+                     className={patient.patientId === colorSelect ? "btn btn-danger btn-sm" : "btn btn-outline-dark btn-sm"}
                      onClick={(event) => {
                       //선택한 환자를 저장하는 이벤트
                       patientSelect(event, patient.patientId, patient.rId);
