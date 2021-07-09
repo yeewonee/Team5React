@@ -39,14 +39,12 @@ function Diagnosis(props) {
   });
 
 
-  const [realTime, setRealTime] = useState(0);
-
   const [connected, setConnected] = useState(false);
   const [subTopic, setSubTopic] = useState("/main/diagnosis");
 
+
   let client = useRef(null);
   const connectMqttBroker = () => {
-    //Paho.MQTT.Clinet에서 MQTT가 빠짐
     client.current = new Paho.Client("localhost", 61614, "client-" + new Date().getTime());
 
     client.current.onConnectionLost = () => {
@@ -54,14 +52,11 @@ function Diagnosis(props) {
       setConnected(false);
     };
 
+   
     client.current.onMessageArrived = (msg) => {
-      console.log("메시지 수신");
-      if(realTime === 0){
-        setRealTime(1);
-      }else{
-        setRealTime(0);
-      }
-       
+      console.log("메시지 수신"); 
+      
+      
     };
 
     client.current.connect({onSuccess:() => {
@@ -148,7 +143,8 @@ function Diagnosis(props) {
               <PatientList 
                 day={day}
                 changeLoading={changeLoading}
-                realTime={realTime}/>
+                realTime={realTime}
+                />
 
               <div className={`${style.past_container} mr-2`}>
                 <div className="d-flex justify-content-center">

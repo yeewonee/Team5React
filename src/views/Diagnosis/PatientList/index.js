@@ -36,11 +36,11 @@ export const PatientList = React.memo((props) => {
   };
 
   useEffect(() => {
+    console.log("바뀐 값::::::::::::::::::::::", props.realTime)
     patient();
     setShowPList(pList);
     setColorSelect("");
   }, [props]);
-
 
   const [keyword, setKeyword] = useState("");
   const keywordChange = (event) => {
