@@ -26,3 +26,7 @@ export function updateReception(reception) {
   const promise = axios.put("/receptionUpdate/update", reception);
   return promise;
 }
+
+export function sendMqttMessage({topic, content}) {
+  return axios.get("/sendMqttMessage", {params:{topic, content}});
+}

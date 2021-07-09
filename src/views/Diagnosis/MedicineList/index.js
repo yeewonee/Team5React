@@ -2,7 +2,7 @@ import React from "react";
 import style from "./medecinelist.module.css";
 import { getMedicineList } from "apis/diagnosis";
 import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { createSetAddMlistAction } from "redux/diagnosis-reducer";
 import CommonTableColumn from "views/table/CommonTableColumn";
 import CommonTable from "views/table/CommonTable";
@@ -12,11 +12,17 @@ import { Loading } from "../Loading";
 
 
 export const MedicineList = React.memo((props) => {
+
+  
+  //추가된 약 목록
+  const medicineList = useSelector((state) => {
+    return state.diagnosisReducer.mlist;
+  });
   
   const [loading, setLoading] = useState(null);
   console.log("약 목록 렌더링")
   //DB에서 받아온 최초 약 목록
-  const [mList, setMlist] = useState([]);
+  const [mList, setMlist] = useState(medicineList);
 
   const medicine = async () => {
     setLoading(true);
@@ -78,9 +84,9 @@ export const MedicineList = React.memo((props) => {
   //props가 변경되었을 때 mlist를 업데이트
   useEffect(() => {
     setList({
-      mlist: props.mList,
+      mlist: medicineList,
     });
-  }, [props.mList]);
+  }, [medicineList]);
 
   const medicineClick = (event, m) => {
     //리덕스에 이미 추가되어 있으면 상태 변경 전 return

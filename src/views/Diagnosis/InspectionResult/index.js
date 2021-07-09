@@ -3,10 +3,16 @@ import style from "./inspectionresult.module.css";
 import CommonTable from "views/table/CommonTable";
 import CommonTableRow from "views/table/CommonTableRow";
 import CommonTableColumn from "views/table/CommonTableColumn";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { createSetRemoveIlistAction } from "redux/diagnosis-reducer";
 
 export const InspectionResult = React.memo((props) => {
+    
+  //추가된 검사 목록
+  const inspectionList = useSelector((state) => {
+    return state.diagnosisReducer.ilist;
+  });
+  
   console.log("검사 결과 렌더링")
 
   const dispatch = useDispatch();
@@ -21,7 +27,7 @@ export const InspectionResult = React.memo((props) => {
     <>
         <div className={style.inspection_container}>
         <CommonTable headersName={["검사코드", "검사이름", "그룹코드", ""]} tstyle={"table table-sm"}>
-           {props.iList.map((ilist, index) => (
+           {inspectionList.map((ilist, index) => (
               <CommonTableRow key={index}>
                 <CommonTableColumn>{ilist.iId}</CommonTableColumn>
                 <CommonTableColumn>{ilist.iName}</CommonTableColumn>

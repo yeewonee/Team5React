@@ -1,23 +1,19 @@
 import style from './rlist.module.css';
 import Calendar from "./CalendarComponent/Calendar";
 import SearchBar from './SearchBarComponent/SearchBar';
-import { Row, Col, Button, Modal } from 'react-bootstrap';
-import { useState } from "react";
+import { useRef, useState } from "react";
 import {Link} from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { setReception } from 'redux/reception-reducer';
-import { getPatientList } from './data';
 import CommonTable from 'views/table/CommonTable';
-import CommonTableRow from 'views/table/CommonTableRow';
 import CommonTableColumn from 'views/table/CommonTableColumn';
-import FindAddr from './PostCodeComponent/FindAddr';
-import FindAddrDom from './PostCodeComponent/FindAddrDom';
 import CheckReception from './CheckReception';
 import NewRegistration from './NewRegistration';
 import { useEffect } from 'react';
 import CancelModal from './CancelModal';
 import CompleteModal from './CompleteModal';
 import { createSetDate, createSetDoctor, createSetPatient, createSetTime } from 'redux/createReception-reducer';
+import { sendMqttMessage } from "apis/reception";
+
 import axios from "axios";
 axios.defaults.baseURL = "http://localhost:8080";
 
@@ -32,11 +28,15 @@ function ReceptionList(props){
   //날짜별 환자 리스트
   useEffect(() => {
     const pListFunc = async(day) => {
-      const result = await axios.get("/reception", {params:{day:day}});   
-      setPatientList(result.data)
-      setBoards(result.data)
-      props.setCBoolean(false)
-      props.setComBoolean(false)
+      try{
+        const result = await axios.get("/reception", {params:{day:day}});   
+        setPatientList(result.data)
+        setBoards(result.data)
+        props.setCBoolean(false)
+        props.setComBoolean(false)
+      }catch(error){
+        console.log(error)
+      }
     }
     pListFunc(day)
   }, [day, props.cBoolean, props.comBoolean])  
@@ -118,10 +118,13 @@ function ReceptionList(props){
 
   //예약취소
   const cancelReception = async(cancelId, day) => {
-    //newBoards = boards.filter(board => board.rId !== cancelId);
-    await axios.delete("/reception/cancelReception", {params:{cancelId:cancelId, day:day}});
-    props.setCBoolean(true);
-    closeCModal()
+    try{
+      await axios.delete("/reception/cancelReception", {params:{cancelId:cancelId, day:day}});
+      props.setCBoolean(true);
+      closeCModal()
+    }catch(error){
+      console.log(error)
+    }
   }
 
   //접수완료 확인 모달
@@ -135,10 +138,14 @@ function ReceptionList(props){
 
   //접수완료
   const completeReception = async(changeId, day) => {
-      //newBoards[completeIndex].rStatus = "접수완료";
+    try{
       await axios.get("/reception/changeReception", {params:{changeId:changeId, day:day}})
       props.setComBoolean(true);
       closeComModal()
+      await sendMqttMessage(props.pubMessage);
+    }catch(error){
+      console.log(error)
+    }
   }
   
   //우편번호 api
@@ -205,15 +212,16 @@ function ReceptionList(props){
             {newBoards.length === 0 ? 
             (
               <CommonTable tstyle={"table"} headersName={['예약 번호', '이름', '생년월일', '전화번호', '예약 날짜', '예약 시간', '접수 상태']}>
-              
-              <td colSpan='7' className={style.noList}>현재 접수중인 환자가 없습니다.</td>
+                <tr>
+                  <td colSpan='7' className={style.noList}>현재 접수중인 환자가 없습니다.</td>
+                </tr>
               </CommonTable>
             ) 
             : 
             (
               <CommonTable tstyle={"table"} headersName={['예약 번호', '이름', '생년월일', '전화번호', '예약 날짜', '예약 시간', '접수 상태']}>
               {newBoards.map((list, index) => (
-                <tr className={style.list}>
+                <tr className={style.list} key={list.rId}>
                     <CommonTableColumn>{list.rId}</CommonTableColumn>
                     <CommonTableColumn><div className={style.click} onClick={(event) => {buttonModal1(event, list)}}>{list.patientName}</div></CommonTableColumn>
                     <CommonTableColumn>{list.patientSsn1}</CommonTableColumn>

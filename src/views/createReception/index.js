@@ -3,19 +3,26 @@ import DoctorList from "./DoctorList";
 import CheckCalendar from "./CheckCalendar";
 import CheckTime from "./CheckTime";
 import AddReception from "./AddReception";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { getDoctorList, getPatientList } from "apis/createReception";
-
+import Paho from "paho-mqtt";
 
 function CreateReception(props) {
   const [patientList, setPatientList] = useState([]);
   const [doctorList, setDoctorList] = useState([]);
 
-  const getList = async() => {
+  const getPatient = async() => {
     try{
       const patientResult = await getPatientList();
-      const doctorResult = await getDoctorList();
       setPatientList(patientResult.data);
+    } catch(error){
+      console.log(error);
+    }
+  };
+  
+  const getDoctor = async() => {
+    try{
+      const doctorResult = await getDoctorList();
       setDoctorList(doctorResult.data);
     } catch(error){
       console.log(error);
@@ -23,8 +30,45 @@ function CreateReception(props) {
   };
 
   useEffect(() => {
-    getList();
+    getPatient();
+    getDoctor();
   },[])
+
+//mqtt
+  const [connected, setConnected] = useState(false);
+  const [subTopic, setSubTopic] = useState("/main/createReception");
+
+  const [contents, setContents] = useState([]);
+
+  let client = useRef(null);
+  const connectMqttBroker = () => {
+    //Paho.MQTT.Clinet에서 MQTT가 빠짐
+    client.current = new Paho.Client("localhost", 61614, "client-" + new Date().getTime());
+
+    client.current.onConnectionLost = () => {
+      console.log("접속 끊김");
+      setConnected(false);
+    };
+
+    client.current.onMessageArrived = (msg) => {
+      console.log("메시지 수신");
+      getPatient();
+    };
+
+    client.current.connect({onSuccess:() => {
+      console.log("접속 성공");
+      setConnected(true);
+      sendSubTopic();
+    }});
+  };
+
+  const sendSubTopic = () => {
+    client.current.subscribe(subTopic);
+  }
+
+  useEffect(() => {
+    connectMqttBroker();
+  }, []);
 
   return(
 
