@@ -1,4 +1,4 @@
-import React, { useCallback } from "react";
+import React, { useCallback, useRef } from "react";
 import style from "./pastrecord.module.css";
 import { useState } from "react";
 import CommonTable from "views/table/CommonTable";
@@ -9,9 +9,10 @@ import { useEffect } from "react";
 import { ModalPast } from "./ModalPast";
 import { useDispatch, useSelector } from "react-redux";
 import { createSetAddIlistAction, createSetAddMlistAction, createSetPidAction, createSetRidAction } from "redux/diagnosis-reducer";
+import { sendMqttMessage } from "apis/diagnosis";
+import Paho from "paho-mqtt";
 
 import axios from "axios";
-import { Loading } from "../Loading";
 
 export const PastRecord = React.memo((props) => {
 
@@ -108,8 +109,54 @@ export const PastRecord = React.memo((props) => {
       changeLoading(false)
 
     });
+    await sendMqttMessage(pubMessage);
    
   };
+
+
+  
+  const [connected, setConnected] = useState(false);
+  const [subTopic, setSubTopic] = useState("/topic1/#");
+  const [pubMessage, setPubMessage] = useState({
+    topic: "/topic1/topic2",
+    content: "Hello"
+  });
+  const [contents, setContents] = useState([]);
+
+  let client = useRef(null);
+  const connectMqttBroker = () => {
+    //Paho.MQTT.Clinet에서 MQTT가 빠짐
+    client.current = new Paho.Client("localhost", 61614, "client-" + new Date().getTime());
+
+    client.current.onConnectionLost = () => {
+      console.log("접속 끊김");
+      setConnected(false);
+    };
+
+    client.current.onMessageArrived = (msg) => {
+      console.log("메시지 수신");
+      var message = JSON.parse(msg.payloadString);
+      setContents((contents) => {
+        return contents.concat(message.topic + ": " + message.content);
+      });
+    };
+
+    client.current.connect({onSuccess:() => {
+      console.log("접속 성공");
+      setConnected(true);
+      sendSubTopic();
+    }});
+  };
+
+
+  const sendSubTopic = () => {
+    client.current.subscribe(subTopic);
+  }
+
+  useEffect(() => {
+    connectMqttBroker();
+  }, []);
+
 
   return (
     <div>

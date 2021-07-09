@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import { Cal } from "./Cal";
 import style from "./diagnosis.module.css";
@@ -17,6 +17,7 @@ import { BiListCheck } from "react-icons/bi";
 import { BiPlusMedical } from "react-icons/bi";
 import { BsCardChecklist } from "react-icons/bs";
 import { BsList } from "react-icons/bs";
+
 
 
 function Diagnosis(props) {
@@ -49,6 +50,7 @@ function Diagnosis(props) {
     return state.diagnosisReducer.ilist;
   });
   
+
 
   return (
     
