@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback } from "react";
 import style from "./medecinelist.module.css";
 import { getMedicineList } from "apis/diagnosis";
 import { useState } from "react";
@@ -123,6 +123,7 @@ export const MedicineList = React.memo((props) => {
     setCheckArray(checkarray);
   };
 
+
   return (
     <>
       <div className={style.m_list_container}>
@@ -140,6 +141,9 @@ export const MedicineList = React.memo((props) => {
         </div>
       </div>
       
+      {loading ?<div style={{marginTop:'7%', marginLeft:'45%'}}> <Loading height={30} width={30} /></div> 
+      :
+      <>
       {keywordList.length !== 0 ? (
         <div className={style.m_list}>
           <CommonTable headersName={["", "코드", "명칭", "구분", "단위"]} tstyle={"table table-sm"}>
@@ -173,7 +177,7 @@ export const MedicineList = React.memo((props) => {
             <p style={{ textAlign: "center", fontSize: "1em" }}>일치하는 약 종류가 없습니다.</p>
           </div>
         </div>
-      )}
+      )}</>}
       </div>
     </>
   );
