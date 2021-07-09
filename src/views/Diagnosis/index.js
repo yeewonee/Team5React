@@ -143,7 +143,8 @@ function Diagnosis(props) {
               </div>
               <PatientList 
                 day={day}
-                changeLoading={changeLoading}/>
+                changeLoading={changeLoading}
+                realTime={realTime}/>
 
               <div className={`${style.past_container} mr-2`}>
                 <div className="d-flex justify-content-center">
@@ -155,7 +156,7 @@ function Diagnosis(props) {
                       comment={memo}
                       day={day}
                       changeLoading={changeLoading}
-                      realTime={realTime}/>
+                      />
                   </div>
                 </div>
               </div>
