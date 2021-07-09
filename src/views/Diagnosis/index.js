@@ -110,7 +110,7 @@ function Diagnosis(props) {
                 <div className={style.title}>
                   <p className={style.title_p}><BiPlusMedical /> 약 목록</p>
                 </div>
-                <MedicineList/>
+                <MedicineList changeLoading={changeLoading}/>
               </div>
               <div className={`${style.left_list_size} m-1`}>
                 <div className={style.title}>
