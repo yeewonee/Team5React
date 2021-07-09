@@ -101,8 +101,7 @@ export const PastRecord = React.memo((props) => {
   };
 
   const [pubMessage, setPubMessage] = useState({
-    topic: "/topic1/topic2",
-    content: "Hello"
+    topic: "/main/inspection"
   });
 
   const sendDiagnosis = async() => {  

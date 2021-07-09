@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback } from "react";
 import style from "./PatientTable.module.css";
 import classNames from "classnames/bind";
 import { useState } from "react";
@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { createSetPatientAction } from "redux/inspection_Reducer";
 import { useEffect } from "react";
 import { FaUserCheck } from 'react-icons/fa';
+import { Loading } from "views/Diagnosis/Loading";
 
 const cx = classNames.bind(style);
 
@@ -15,7 +16,10 @@ function PatientTable(props) {
   const patientList = props.data;
   const categoryArray = props.categoryArray;
   const changeCategory =props.fun;
-  const changeSearch = props.keywordArr
+  const changeSearch = props.keywordArr;
+  const loading = props.loading
+
+
   //카테고리 리스트 배열상태
   // const [categoryArray, setCategoryArray] = useState(patientList);
   //검색어 상태
@@ -26,6 +30,9 @@ function PatientTable(props) {
     did:"",
     tstatus: "",
   });
+
+
+  
 
   const dispatch = useDispatch();
   const state = useSelector((state) => state.inspectReducer.patient);
@@ -154,6 +161,8 @@ for(let i =0; i<categoryArray.length; i++){
           <button onClick={searchChange}>검색</button>
         </div>
       </div>
+      {loading?<Loading/>:
+      <React.Fragment>
       {categoryArray.length!==0?
       <div className={cx(style.left_table)}>
         <CommonTable headersName={["", "순서", "환자번호", "성명", "성별/나이", "예약시간", "상태"]} tstyle={"table table-sm"}>
@@ -181,7 +190,8 @@ for(let i =0; i<categoryArray.length; i++){
         <div><FaUserCheck size={'10em'}/></div>
         <div style={{marginTop:'15px',fontSize:'30px'}}>일치하는 환자가 없습니다.</div>
      </div>
-     </div>}
+     </div>
+     }</React.Fragment>}
     </div>
   );
 }

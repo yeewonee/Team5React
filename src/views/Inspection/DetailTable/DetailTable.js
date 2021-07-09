@@ -15,6 +15,7 @@ import { transitions, positions, Provider as AlertProvider } from 'react-alert'
 import AlertTemplate from 'react-alert-template-basic'
 import { FaUserCheck } from 'react-icons/fa';
 import axios from "axios";
+import { Loading } from "views/Diagnosis/Loading";
 
 
 
@@ -145,6 +146,7 @@ function DetailTable(props) {
             </CSVLink>
           </button>    
         </div>
+    
         {patient.pno!==""?
         <div className="right-table">
           <CommonTable headersName={["", "묶음코드", "처방코드", "검사명", "단위", "검사자", "상태"]} tstyle={"table table-sm"}>
