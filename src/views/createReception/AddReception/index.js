@@ -32,8 +32,7 @@ function AddReception(props) {
   })
   
   const [pubMessage, setPubMessage] = useState({
-    topic: "/topic1/topic2",
-    content: "Hello"
+    topic: "/topic1/topic2"
   });
 
   const patientList = props.pdata; //환자리스트 받기
@@ -53,17 +52,15 @@ function AddReception(props) {
       reception.rTime = moment().format('HH:mm');
       reception.rRole = '방문접수'
       reception.rStatus = '접수완료'
-      setPubMessage({ //진료(의사)로 메세지 전송해야함
-        topic: "/main/diagnosis",
-        content: "Hello"
+      await setPubMessage({ //진료(의사)로 메세지 전송해야함
+        topic: "/main/diagnosis"
       })
     } else {
       reception.rTime = time;
       reception.rRole = "예약접수";
       reception.rStatus ='접수대기';
-      setPubMessage({ //예약리스트(접수자)로 메세지 전송해야함
-        topic: "/main/reception",
-        content: "Hello"
+      await setPubMessage({ //예약리스트(접수자)로 메세지 전송해야함
+        topic: "/main/reception"
       })
     }
 
@@ -98,9 +95,8 @@ function AddReception(props) {
         dispatch(createSetDate(''));
         dispatch(createSetTime(''));
 
-    setPubMessage({ //예약리스트(접수자)로 메세지 전송해야함
-      topic: "/main/reception",
-      ontent: "Hello"
+    await setPubMessage({ //예약리스트(접수자)로 메세지 전송해야함
+      topic: "/main/reception"
     })
 
     await sendMqttMessage(pubMessage);
