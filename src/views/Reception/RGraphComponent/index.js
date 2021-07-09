@@ -4,6 +4,7 @@ import { ResponsiveContainer } from "recharts";
 import style from './rgraph.module.css';
 import axios from "axios";
 import moment from 'moment';
+import { Loading } from "../../Diagnosis/Loading";
 import { useSelector } from 'react-redux';
 axios.defaults.baseURL = "http://localhost:8080";
 
@@ -15,8 +16,11 @@ function RGraph(props) {
     return state.receptionReducer.Rday;
   });
   const [result, setResult] = useState([]);
-  useEffect(() => {    
-    const graphFunc = async(day) => {      
+  const [loading, setLoading] = useState(null);  
+  
+  const graphFunc = async(day) => {      
+    setLoading(true);
+    try{
       const rDay1 = moment(day).add(-1,'days').format('YYYY-MM-DD');
       const rDay2 = moment(day).add(-2,'days').format('YYYY-MM-DD');
       const rDay3 = moment(day).add(-3,'days').format('YYYY-MM-DD');
@@ -99,10 +103,16 @@ function RGraph(props) {
           break;   
         default:  
           break;
-      }
+        }
+      setLoading(false); 
+    }catch(error){
+      console.log(error);
     }
-    graphFunc(day)
-  }, [day])  
+  }
+
+  useEffect(() => {
+    graphFunc(day);
+  }, [day]);
 
     return (
       <>
@@ -110,6 +120,8 @@ function RGraph(props) {
           <h5>&nbsp;요일대별 예약현황</h5> 
         </div>
         <ResponsiveContainer width="100%" height={206}>
+        {loading ? <div style={{marginLeft:"45%", width:"1%", paddingTop:"5%"}}><Loading /></div> 
+        :
         <AreaChart data={result}
           margin={{ top: 20, right: 30, left: 0, bottom: 0 }}>
           <XAxis dataKey="name" />
@@ -119,6 +131,7 @@ function RGraph(props) {
           <ReferenceLine x="Page C" stroke="green" label="Min PAGE" />
           <Area type="monotone" dataKey="예약 환자 수" stroke="#82ca9d" fill="#82ca9d" />
         </AreaChart>
+        }
       </ResponsiveContainer>
       </>
     );

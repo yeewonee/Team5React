@@ -1,9 +1,9 @@
 import { Doughnut } from 'react-chartjs-2';
 import style from './donut.module.css';
-import getDonutData from './data';
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from 'react';
+import { Loading } from "../../Diagnosis/Loading";
 import axios from "axios";
 axios.defaults.baseURL = "http://localhost:8080";
 
@@ -13,19 +13,25 @@ function RDonut(props){
   });
   // 접수대기,완료 카운트
   const [countNum, setcountNum] = useState([]);
+  const [loading, setLoading] = useState(null);  
   
-  useEffect(() => {
-    const dListFunc = async(day) => {
+  const dListFunc = async(day) => {
+    setLoading(true);
+    try{
       const count = await axios.get("/reception/countReception", {params:{day:day}});
       let data = [0,0];
       data[0] = count.data[0];
       data[1] = count.data[1];
-      setcountNum(data)        
+      setcountNum(data)
+      setLoading(false);      
+    }catch(error){
+      console.log(error)
     }
-    dListFunc(day)
-  }, [day, props.cBoolean, props.comBoolean]);
+  }
 
-  console.log(countNum)
+  useEffect(() => {
+    dListFunc(day);
+  }, [day, props.cBoolean, props.comBoolean]);
 
   const expData = {
     datasets: [
@@ -41,6 +47,9 @@ function RDonut(props){
   };
   
   return(
+    <div>
+    {loading ? <div style={{marginRight:"10%", marginTop:"10%"}}><Loading /></div> 
+    :
     <div>
     {countNum[0] === 0 && countNum[1] === 0 ? 
     (
@@ -74,6 +83,8 @@ function RDonut(props){
         </div>
       </div>
     )}
+    </div>
+    }
   </div>
   );
 }

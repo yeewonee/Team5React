@@ -11,6 +11,7 @@ import NewRegistration from './NewRegistration';
 import { useEffect } from 'react';
 import CancelModal from './CancelModal';
 import CompleteModal from './CompleteModal';
+import { Loading } from "../../Diagnosis/Loading";
 import { createSetDate, createSetDoctor, createSetPatient, createSetTime } from 'redux/createReception-reducer';
 import { sendMqttMessage } from "apis/reception";
 
@@ -25,21 +26,26 @@ function ReceptionList(props){
     return state.receptionReducer.Rday;
   });
   const dispatch = useDispatch();
+  const [loading, setLoading] = useState(null);  
+  
   //날짜별 환자 리스트
-  useEffect(() => {
-    const pListFunc = async(day) => {
-      try{
-        const result = await axios.get("/reception", {params:{day:day}});   
-        setPatientList(result.data)
-        setBoards(result.data)
-        props.setCBoolean(false)
-        props.setComBoolean(false)
-      }catch(error){
-        console.log(error)
-      }
+  const pListFunc = async(day) => {
+    setLoading(true);
+    try{
+      const result = await axios.get("/reception", {params:{day:day}});   
+      setPatientList(result.data)
+      setBoards(result.data)
+      props.setCBoolean(false)
+      props.setComBoolean(false)
+      setLoading(false);
+    }catch(error){
+      console.log(error)
     }
-    pListFunc(day)
-  }, [day, props.cBoolean, props.comBoolean])  
+  }
+
+  useEffect(() => {
+    pListFunc(day);
+  }, [day, props.cBoolean, props.comBoolean]);
 
   //환자리스트
   const [patientList, setPatientList] = useState([]);  
@@ -208,7 +214,11 @@ function ReceptionList(props){
             </div>
           </div> 
 
+          {loading ? <div style={{}}><Loading /></div> 
+          :
+           <div>
           <div className={style.tablewidth}>
+
             {newBoards.length === 0 ? 
             (
               <CommonTable tstyle={"table"} headersName={['예약 번호', '이름', '생년월일', '전화번호', '예약 날짜', '예약 시간', '접수 상태']}>
@@ -244,9 +254,12 @@ function ReceptionList(props){
                   </tr>
                 ))}
                 </CommonTable>
-            )
-            }  
+                )
+              } 
+                 
           </div>
+          </div>     
+             } 
         </div>
       </div>
     </div>
