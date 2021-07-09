@@ -32,7 +32,10 @@ function AddReception(props) {
   })
   
   const [pubMessage, setPubMessage] = useState({
-    topic: "/topic1/topic2"
+    topic: "/main/diagnosis"
+  });
+  const [pubMessage2, setPubMessage2] = useState({
+    topic: "/main/reception"
   });
 
   const patientList = props.pdata; //환자리스트 받기
@@ -48,34 +51,34 @@ function AddReception(props) {
   const handleReception = async (event) => {
     const reception = {};
  
-    if(time === '방문접수'){
+    if(time === '방문접수'){ //방문접수인 경우
       reception.rTime = moment().format('HH:mm');
       reception.rRole = '방문접수'
       reception.rStatus = '접수완료'
-      await setPubMessage({ //진료(의사)로 메세지 전송해야함
-        topic: "/main/diagnosis"
-      })
-    } else {
+      reception.rDate = date;
+      reception.doctorId = doctor_id;
+      reception.patientId = patient_id;
+
+      await insertReception(reception);
+      await sendMqttMessage(pubMessage);
+    }    
+    else {//예약접수인 경우
       reception.rTime = time;
       reception.rRole = "예약접수";
       reception.rStatus ='접수대기';
-      await setPubMessage({ //예약리스트(접수자)로 메세지 전송해야함
-        topic: "/main/reception"
-      })
-    }
+      reception.rDate = date;
+      reception.doctorId = doctor_id;
+      reception.patientId = patient_id;
 
-    reception.rDate = date;
-    reception.doctorId = doctor_id;
-    reception.patientId = patient_id;
-    
-    await insertReception(reception);
+      await insertReception(reception);
+      await sendMqttMessage(pubMessage2);
+    }
     //등록완료 후에 리덕스 모든 값 비워주기
     dispatch(createSetPatient(''));
     dispatch(createSetDoctor(''));
     dispatch(createSetDate(''));
     dispatch(createSetTime(''));
 
-    await sendMqttMessage(pubMessage);
   };
 
   //수정 버튼을 통해 들어온 경우
@@ -94,12 +97,7 @@ function AddReception(props) {
         dispatch(createSetDoctor(''));
         dispatch(createSetDate(''));
         dispatch(createSetTime(''));
-
-    await setPubMessage({ //예약리스트(접수자)로 메세지 전송해야함
-      topic: "/main/reception"
-    })
-
-    await sendMqttMessage(pubMessage);
+    await sendMqttMessage(pubMessage2);
     history.goBack();
   };
 
