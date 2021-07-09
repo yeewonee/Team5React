@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import DetailTable from './DetailTable/DetailTable';
 import './index.css';
 import InspectState from './InspectState/InspectState';
@@ -7,6 +7,8 @@ import Progress from './Progress/Progress';
 import {getInspectList, getPatientList} from "./data"
 import { useSelector } from 'react-redux';
 import axios from "axios";
+import Paho from "paho-mqtt";
+
 axios.defaults.baseURL = "http://localhost:8080/";
 
 
@@ -18,6 +20,49 @@ function Inspection(props) {
     const [patientList, setPatientList] = useState([]);
     const [categoryArray,setCategoryArray]=useState([]);
     const [inspectLists,setInspectLists] = useState([]);
+    const [connected, setConnected] = useState(false);
+    const [subTopic, setSubTopic] = useState("/topic1/#");
+    const [pubMessage, setPubMessage] = useState({
+      topic: "/topic1/topic2",
+      content: "Hello"
+    });
+
+  let client = useRef(null);
+  const connectMqttBroker = () => {
+    //Paho.MQTT.Clinet에서 MQTT가 빠짐
+    client.current = new Paho.Client("localhost", 61614, "client-" + new Date().getTime());
+
+    client.current.onConnectionLost = () => {
+      console.log("접속 끊김");
+      setConnected(false);
+    };
+
+    client.current.onMessageArrived = (msg) => {
+      console.log("메시지 수신");
+      var message = JSON.parse(msg.payloadString);
+    };
+
+    client.current.connect({onSuccess:() => {
+      console.log("접속 성공");
+      setConnected(true);
+      sendSubTopic();
+    }});
+  };
+
+  const disconnectMqttBroker = () => {
+    client.current.disconnect();
+  };
+
+  const sendSubTopic = () => {
+    client.current.subscribe(subTopic);
+  }
+
+  useEffect(() => {
+    connectMqttBroker();
+    return (() => {
+      disconnectMqttBroker();
+    });
+  }, []);
 
     const getPatientsList = async() => {
       const result = await axios.get("/inspection");

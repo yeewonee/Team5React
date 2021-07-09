@@ -30,8 +30,9 @@ function Login(props){
           dispatch(createSetAuthTokenAction(response.data.authToken));
           dispatch(createSetRoleAction(response.data.role));
           //SessionStorage에 인증 내용 저장(브라우저 갱신시 사용)
-          //  sessionStorage.setItem("uid", response.data.userid);
-          //  sessionStorage.setItem("authToken", response.data.authToken);
+          sessionStorage.setItem("uid", response.data.userid);
+          sessionStorage.setItem("authToken", response.data.authToken);
+          sessionStorage.setItem("role", response.data.role);
         }else{
           alert("asd")
         }
@@ -52,8 +53,6 @@ function Login(props){
     uid: "",
     upassword: ""
   })
-
-
 
   return(
     <div className={style.bg}>
