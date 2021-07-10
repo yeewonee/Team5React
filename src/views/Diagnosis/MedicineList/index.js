@@ -141,7 +141,13 @@ export const MedicineList = React.memo((props) => {
         </div>
       </div>
       
-      {loading ?<div style={{marginTop:'7%', marginLeft:'45%'}}> <Loading height={30} width={30} /></div> 
+      {loading ?
+      <>
+      <div style={{marginTop:'5%', marginLeft:'45%'}}> 
+        <Loading height={30} width={30}/>
+      </div> 
+      <p style={{marginLeft:'43%'}}>Loading..</p>
+      </>
       :
       <>
       {keywordList.length !== 0 ? (

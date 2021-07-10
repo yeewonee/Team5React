@@ -38,9 +38,11 @@ function Diagnosis(props) {
     return state.diagnosisReducer.day;
   });
 
+  
 
   const [connected, setConnected] = useState(false);
   const [subTopic, setSubTopic] = useState("/main/diagnosis");
+  const [message, setMessage] = useState("/main/diagnosis");
 
 
   let client = useRef(null);
@@ -56,7 +58,10 @@ function Diagnosis(props) {
     client.current.onMessageArrived = (msg) => {
       console.log("메시지 수신"); 
       
-      
+      var message = JSON.parse(msg.payloadString);
+      console.log(message);
+
+      setMessage(message)
     };
 
     client.current.connect({onSuccess:() => {
@@ -78,7 +83,13 @@ function Diagnosis(props) {
   return (
     
     <div style={{ fontFamily: "DoHyeon-Regular" }}>
-      {loading ? <Loading /> 
+      {loading ? 
+      <>
+       <div style={{marginTop:'15%', marginLeft:'47%'}}> 
+        <Loading height={90} width={90}/>
+       </div> 
+       <p style={{marginLeft:'48%'}}>Loading..</p> 
+      </>
       :
       <div className={style.d_container}>
         <div className="d-flex justify-content-center">
@@ -143,7 +154,7 @@ function Diagnosis(props) {
               <PatientList 
                 day={day}
                 changeLoading={changeLoading}
-                realTime={realTime}
+                message={message}
                 />
 
               <div className={`${style.past_container} mr-2`}>

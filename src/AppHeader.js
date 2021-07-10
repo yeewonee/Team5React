@@ -6,7 +6,7 @@ import { createSetAuthTokenAction, createSetUidAction } from "redux/auth-reducer
 import { removeAuthHeader } from "apis/axiosConfig";
 
 function AppHeader() {
-  const globalUid = useSelector((state) => state.authReducer.uid);
+  const username = useSelector((state) => state.authReducer.name);
   const dispatch = useDispatch();
 
   const logout = (event) => {
@@ -18,6 +18,8 @@ function AppHeader() {
     //SessionStorage에 인증 내용 제거
     sessionStorage.removeItem("uid")
     sessionStorage.removeItem("authToken");
+    sessionStorage.removeItem("role");
+
   };
 
   return (
@@ -26,7 +28,7 @@ function AppHeader() {
         <div className="header-container" style={{fontFamily: "DoHyeon-Regular"}}>
           <div className="logo ml-3"><Link to="/" style={{textDecoration:"none"}}>wehago-h</Link></div>
           <div className="user">
-            <div className="mr-4"><AiOutlineUser /> 김명휘</div>
+            <div className="mr-4"><AiOutlineUser /> {username}</div>
             <button type="button" className="btn btn-light">
               <Link to="/" style={{textDecoration:"none"}} onClick={logout}>로그아웃</Link>
             </button>

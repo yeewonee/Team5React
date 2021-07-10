@@ -109,7 +109,6 @@ export const PastRecord = React.memo((props) => {
     changeLoading(true)
     await axios.post("/diagnosis/pushdiagnosis", diagnosisInfo)
     .then(() => {
-      alert("진료가 완료되었습니다.");
       dispatch(createSetAddMlistAction([]));
       dispatch(createSetAddIlistAction([]));
       dispatch(createSetPidAction(""));
@@ -125,20 +124,30 @@ export const PastRecord = React.memo((props) => {
 
   return (
     <div>
-      <div className={style.past_table_container}>
-      <CommonTable headersName={["진료 날짜", "상세"]} tstyle={"table table-sm"}>
-        {pastList.map((plist, index) => (
-          <CommonTableRow key={plist.dDate}>
-            <CommonTableColumn>{plist.dDate}</CommonTableColumn>
-            <CommonTableColumn>
-              <button type="button" className="btn btn-outline-dark btn-sm" onClick={(event, day)=>{openModal(event, plist.dDate)}}>
-                상세보기
-              </button>
-            </CommonTableColumn>
-          </CommonTableRow>
-        ))}
-      </CommonTable>
-    </div>
+       <div className={style.past_table_container}>
+        {pastList.length !== 0 ?
+        
+        <CommonTable headersName={["진료 날짜", "상세"]} tstyle={"table table-sm"}>
+          {pastList.map((plist, index) => (
+            <CommonTableRow key={plist.dDate}>
+              <CommonTableColumn>{plist.dDate}</CommonTableColumn>
+              <CommonTableColumn>
+                <button type="button" className="btn btn-outline-dark btn-sm" onClick={(event, day)=>{openModal(event, plist.dDate)}}>
+                  상세보기
+                </button>
+              </CommonTableColumn>
+            </CommonTableRow>
+          ))}
+        </CommonTable>
+        :
+        <div className={style.p_list}>
+          <div style={{ borderTop: "1px solid #e7f5ff", height: "100%" }}>
+            <p style={{ textAlign: "center", fontSize: "1em", marginTop:'25%' }}>과거 기록이 없습니다.</p>
+          </div>
+        </div>
+      }
+      </div>
+     
     <div className="d-flex flex-row-reverse bd-highlight pt-3">
       <button className="btn btn-outline-dark mr-3" onClick={sendDiagnosis}>전달</button>
       <button className="btn btn-outline-dark mr-3" onClick={deleteDiagnosis}>처방 초기화</button>
