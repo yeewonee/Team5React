@@ -1,10 +1,12 @@
 import { useEffect, useState } from "react";
 import { Modal } from "react-bootstrap";
 import { getMainNoticeList } from "../data";
+import { Loading } from "views/Diagnosis/Loading";
 
 function MainNotice(props) {
   const [mainlist, setMainList] = useState([]);
   const [show, setShow] = useState(false);
+  const [loading, setLoading] = useState(null);
   const [board, setBoard] = useState({
     bno: '',
     btitle: '',
@@ -14,9 +16,11 @@ function MainNotice(props) {
   });
 
   const getList = async() => { //메인공지사항 리스트 가져오기
+    setLoading(true);
     try{
       const list = await getMainNoticeList();
       setMainList(list.data);
+      setLoading(false);
     } catch(error){
       console.log(error);
     }
@@ -82,7 +86,14 @@ function MainNotice(props) {
       `}
       </style>
     </Modal>
-
+    {loading?
+        <>
+        <div style={{marginTop:'30%', marginLeft:'43%'}}> 
+          <Loading height={60} width={60}/>
+        </div> 
+        <p style={{marginLeft:'43%'}}>Loading..</p>
+        </>
+    :
     <div> 
       {mainlist.map((list) => {
         return(
@@ -98,6 +109,7 @@ function MainNotice(props) {
         );
       })}
     </div>
+    }
     </>
   );
 }

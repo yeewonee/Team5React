@@ -74,6 +74,7 @@ function AddReception(props) {
       await insertReception(reception);
       await sendMqttMessage(pubMessage);
       await sendMqttMessage(pubMessage2);
+      alert("접수가 완료 됐습니다.");
     }    
     else {//예약접수인 경우
       reception.rTime = time;
@@ -85,6 +86,7 @@ function AddReception(props) {
 
       await insertReception(reception);
       await sendMqttMessage(pubMessage2);
+      alert("접수가 완료 됐습니다.");
     }
     //등록완료 후에 리덕스 모든 값 비워주기
     dispatch(createSetPatient(''));

@@ -84,7 +84,7 @@ function PatientList(props) {
 
     {loading ?
       <>
-      <div style={{marginTop:'25%'}}> 
+      <div style={{marginTop:'20%'}}> 
         <Loading height={60} width={60}/>
       </div> 
       <p>Loading..</p>
