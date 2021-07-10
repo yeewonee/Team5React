@@ -50,7 +50,6 @@ function AddReception(props) {
   //신규로 접수하는 경우 (예약/접수 버튼으로 들어온 경우)
   const handleReception = async (event) => {
     const reception = {};
- 
     if(time === '방문접수'){ //방문접수인 경우
       reception.rTime = moment().format('HH:mm');
       reception.rRole = '방문접수'
