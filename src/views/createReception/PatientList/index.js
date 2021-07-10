@@ -5,12 +5,15 @@ import { createSetPatient } from "redux/createReception-reducer";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { FaUserTimes } from 'react-icons/fa';
+import { Loading } from "views/Diagnosis/Loading";
 
 function PatientList(props) {
   const originList = props.data;
   const dispatch = useDispatch();
   const [patientList, setPatientList] = useState([]);
   const [searchWord, setSearchWord] = useState(''); //검색어 상태값
+  
+  const loading = props.loading;
 
   useEffect(() => {
     const test = async() => {
@@ -78,8 +81,17 @@ function PatientList(props) {
           <button className="btn btn-outline-secondary btn-sm" type="button" onClick={searchPatient} value={searchWord}>검색</button>
       </div>
     </div>
-    
-    {patientList.length !== 0 ?
+
+    {loading ?
+      <>
+      <div style={{marginTop:'25%'}}> 
+        <Loading height={60} width={60}/>
+      </div> 
+      <p>Loading..</p>
+      </>
+    :
+    <>
+    {patientList.length !== 0 ?(
     <div className={style.table_wrapper}>
       <CommonTable headersName={['', '환자번호', '이름', '주민등록번호', '전화번호']} tstyle={"table table-sm"}>
           {patientList.map((patient, index) => (
@@ -93,15 +105,14 @@ function PatientList(props) {
             ))}
       </CommonTable>
     </div>
-    :
+   ):(
     <div>
       <div style={{display:'flex', justifyContent:'center', alignItems:'center',flexDirection:'column',height:'35vh'}}>
         <div><FaUserTimes size={'5em'}/></div>
         <div style={{marginTop:'15px',fontSize:'20px'}}>일치하는 환자가 없습니다.</div>
       </div>  
     </div>
-
-    }
+    )}</>}
   </div>
   );
 

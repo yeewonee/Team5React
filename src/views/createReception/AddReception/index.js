@@ -40,6 +40,7 @@ function AddReception(props) {
 
   const patientList = props.pdata; //환자리스트 받기
   const doctorList = props.ddata; //의사리스트 받기
+  const todayReceptionList = props.rdate; //오늘 예약 리스트 받기
 
   let clickPatient = patientList.filter((list)=>list.patientId === patient_id);
   const patient = clickPatient[0]
@@ -49,6 +50,18 @@ function AddReception(props) {
   
   //신규로 접수하는 경우 (예약/접수 버튼으로 들어온 경우)
   const handleReception = async (event) => {
+    if(date === "" || doctor_id === "" || patient_id === ""||time ===""){ //하나라도 선택 안하는 경우 예외처리
+      alert("모든 값을 선택하지 않으면 예약할 수 없습니다.");
+      return;
+    }
+
+    for(let i=0; i<todayReceptionList.length; i++){ //같은 날짜에 같은 환자 접수 불가능 예외처리
+      if(patient_id === todayReceptionList[i].patientId){
+        alert("오늘 이미 접수된 환자입니다.");
+        return
+      }
+    }
+
     const reception = {};
     if(time === '방문접수'){ //방문접수인 경우
       reception.rTime = moment().format('HH:mm');

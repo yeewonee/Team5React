@@ -12,6 +12,11 @@ export function getDoctorList() {
   return promise;
 }
 
+export function getReceptionListByDate(r_date) {
+  const promise = axios.get("/receptionUpdate/receptionListByDate", {params: {r_date}});
+  return promise;
+}
+
 export function getReceptionListByDoctor(doctor_id, r_date) {
   const promise = axios.get("/receptionUpdate/receptionListByDoc", {params: {doctor_id, r_date}});
   return promise;
