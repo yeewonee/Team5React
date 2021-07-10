@@ -2,7 +2,7 @@ import { Col, Container, Row } from "react-bootstrap";
 import style from "./login.module.css";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { createSetAuthTokenAction, createSetRoleAction, createSetUidAction, createSetUser } from "redux/auth-reducer";
+import { createSetAuthTokenAction, createSetNameAction, createSetRoleAction, createSetUidAction, createSetUser } from "redux/auth-reducer";
 import { useState } from "react";
 import { addAuthHeader } from "apis/axiosConfig";
 import { login } from "apis/auth";
@@ -29,6 +29,7 @@ function Login(props){
           dispatch(createSetUidAction(response.data.userid));
           dispatch(createSetAuthTokenAction(response.data.authToken));
           dispatch(createSetRoleAction(response.data.role));
+          dispatch(createSetNameAction(response.data.name));
           //SessionStorage에 인증 내용 저장(브라우저 갱신시 사용)
           sessionStorage.setItem("uid", response.data.userid);
           sessionStorage.setItem("authToken", response.data.authToken);

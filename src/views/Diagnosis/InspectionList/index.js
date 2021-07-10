@@ -7,6 +7,7 @@ import { createSetAddIlistAction } from "redux/diagnosis-reducer";
 import CommonTable from "views/table/CommonTable";
 import CommonTableColumn from "views/table/CommonTableColumn";
 import { BsCardChecklist } from "react-icons/bs";
+import { Loading } from "../Loading";
 
 export const InspectionList = React.memo((props) => {
 
@@ -16,7 +17,7 @@ export const InspectionList = React.memo((props) => {
     return state.diagnosisReducer.ilist;
   });
   
-
+  const [loading, setLoading] = useState(null);
   console.log("검사목록 렌더링")
   //DB에서 받아온 최초 약 목록
   const [iList, setIlist] = useState(inspectionList);
@@ -24,10 +25,12 @@ export const InspectionList = React.memo((props) => {
   const [inspections, setInspections] = useState([]);
 
   const inspectList = async () => {
+    setLoading(true);
     try {
       const response = await getInspectList();
       setIlist(response.data);
       setKeywordList(response.data);
+      setLoading(false);
     } catch (error) {
       console.log(error);
     }
@@ -152,6 +155,15 @@ export const InspectionList = React.memo((props) => {
           </div>
         </div>
 
+      {loading ?
+      <>
+      <div style={{marginTop:'5%', marginLeft:'45%'}}> 
+        <Loading height={30} width={30}/>
+      </div> 
+      <p style={{marginLeft:'43%'}}>Loading..</p>
+      </>
+      :
+      <>
         {keywordList.length !== 0 ? (
           <div className={style.i_list}>
             <CommonTable headersName={["", "그룹코드", "그룹명"]} tstyle={"table table-sm"}>
@@ -183,7 +195,7 @@ export const InspectionList = React.memo((props) => {
               <p style={{ textAlign: "center", fontSize: "1em" }}>일치하는 검사가 없습니다.</p>
             </div>
           </div>
-        )}
+        )}</>}
       </div>
     </>
   );

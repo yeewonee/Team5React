@@ -45,7 +45,7 @@ function ReceptionList(props){
 
   useEffect(() => {
     pListFunc(day);
-  }, [day, props.cBoolean, props.comBoolean]);
+  }, [day, props.cBoolean, props.comBoolean, props.message]);
 
   //환자리스트
   const [patientList, setPatientList] = useState([]);  

@@ -9,27 +9,26 @@ import CommonTableColumn from "views/table/CommonTableColumn";
 import { useEffect } from "react";
 
 import { BsFillPersonDashFill } from "react-icons/bs";
+import { Loading } from "../Loading";
 
 
 export const PatientList = React.memo((props) => {
   console.log("환자목록 렌더링")
-
-  const changeLoading = useCallback((result) => {
-    props.changeLoading(result);
-  }, [props]);
 
 
   //검색에 맞는 결과를 보여주는 상태
   const [pList, setPlist] = useState([]);
   const [showPList, setShowPList] = useState([]);
 
+  const [loading, setLoading] = useState(null);
 
   const patient = async () => {
+    setLoading(true)
     try {
       const response = await getPatientList(props.day);
         setPlist(response.data);
         setShowPList(response.data);
-        changeLoading(false)
+        setLoading(false)
     } catch (error) {
       console.log(error);
     }
@@ -40,10 +39,6 @@ export const PatientList = React.memo((props) => {
     setShowPList(pList);
     setColorSelect("");
   }, [props]);
-
-  useEffect(() => {
-    patient()
-  }, [props.realTime])
 
   const [keyword, setKeyword] = useState("");
   const keywordChange = (event) => {
@@ -83,6 +78,15 @@ export const PatientList = React.memo((props) => {
           </div>
         </div>
 
+      {loading ?
+      <>
+      <div style={{marginTop:'15%', marginLeft:'45%'}}> 
+        <Loading height={30} width={30}/>
+      </div> 
+      <p style={{marginLeft:'43%'}}>Loading..</p>
+      </>
+      :
+      <>
         {showPList.length !== 0 ?
            <div className={style.p_list}>
            <CommonTable headersName={["회원번호", "이름", "생년월일", "휴대전화번호", ""]} tstyle={"table table-sm"}>
@@ -110,13 +114,13 @@ export const PatientList = React.memo((props) => {
         :
           <div className={style.p_list}>
             <div style={{borderTop:'1px solid #e7f5ff', height:'100%'}}>
-              <div style={{paddingLeft:'45%', paddingTop:'10%'}}>
-                <BsFillPersonDashFill size={'5em'}/>
+              <div style={{paddingLeft:'43%', paddingTop:'10%'}}>
+                <BsFillPersonDashFill size={'4em'}/>
               </div>
               <p style={{textAlign:'center', fontSize:'2em'}}>일치하는 환자가 없습니다.</p>
             </div>
           </div>
-        }
+        }</>}
        
 
       </div>
