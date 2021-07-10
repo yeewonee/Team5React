@@ -2,7 +2,7 @@ import React, { useCallback, useRef } from "react";
 import style from "./pastrecord.module.css";
 import { useState } from "react";
 import CommonTable from "views/table/CommonTable";
-import { getPatient, getPastRecordList } from "apis/diagnosis";
+import { getPatient, getPastRecordList, getInspectionCompareList } from "apis/diagnosis";
 import CommonTableRow from "views/table/CommonTableRow";
 import CommonTableColumn from "views/table/CommonTableColumn";
 import { useEffect } from "react";
@@ -64,10 +64,32 @@ export const PastRecord = React.memo((props) => {
     }
   };
 
+  const [inspectCompare, setInspectCompare] = useState([]);
+  const getInspectCompareList = async() => {
+    try {
+        const promise = await getInspectionCompareList();
+        console.log(promise.data)
+        setInspectCompare(promise.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   useEffect(() => {
     getPatientList();
     getSelectPatient();
+    getInspectCompareList();
   }, [patientId]);
+
+  const [temp, setTemp] = useState(true);
+  useEffect(()=> {
+    for(let i=0; i<inspectCompare.length; i++){
+      if(inspectCompare[i].pId === patientId){
+        setTemp(false);
+        break;
+      }
+    }
+  }, [inspectCompare])
 
   const [modalOpen, setModalOpen] = useState(false);
 
@@ -104,21 +126,31 @@ export const PastRecord = React.memo((props) => {
     topic: "/main/inspection"
   });
 
+  
   const sendDiagnosis = async() => {  
     if(patientId){
-    changeLoading(true)
-    await axios.post("/diagnosis/pushdiagnosis", diagnosisInfo)
-    .then(() => {
-      dispatch(createSetAddMlistAction([]));
-      dispatch(createSetAddIlistAction([]));
-      dispatch(createSetPidAction(""));
-      dispatch(createSetRidAction(""));
-      changeLoading(false)
-    });
-    await sendMqttMessage(pubMessage);
+      if(temp === true){
+        changeLoading(true)
+        await axios.post("/diagnosis/pushdiagnosis", diagnosisInfo)
+        .then(() => {
+          dispatch(createSetAddMlistAction([]));
+          dispatch(createSetAddIlistAction([]));
+          dispatch(createSetPidAction(""));
+          dispatch(createSetRidAction(""));
+          changeLoading(false)
+        });
+        await sendMqttMessage(pubMessage);
+      }else{
+        alert("이미 진료가 완료된 환자입니다.")
+        setTemp(true);
+
+      }
     }else{
       alert("환자를 선택하십시오.")
     }
+
+  
+   
   };
 
 
