@@ -161,7 +161,14 @@ for(let i =0; i<categoryArray.length; i++){
           <button onClick={searchChange}>검색</button>
         </div>
       </div>
-      {loading?<Loading/>:
+      {loading?
+      <>
+      <div style={{marginTop:'25%', marginLeft:'40%'}}> 
+      <Loading height={80} width={80}/>
+      </div> 
+      <p style={{marginLeft:'42%'}}>Loading..</p>
+      </>
+      :
       <React.Fragment>
       {categoryArray.length!==0?
       <div className={cx(style.left_table)}>
