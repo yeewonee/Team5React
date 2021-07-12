@@ -4,8 +4,9 @@ import moment from 'moment';
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useHistory } from "react-router";
-import { createSetDate, createSetDoctor, createSetPatient, createSetTime } from "redux/createReception-reducer";
+import { createSetDate, createSetDoctor, createSetPatient, createSetrId, createSetTime } from "redux/createReception-reducer";
 import { insertReception, sendMqttMessage, updateReception } from "apis/createReception";
+import Swal from 'sweetalert2' 
 
 function AddReception(props) {
 
@@ -23,13 +24,10 @@ function AddReception(props) {
   });
   const date = useSelector((state) => {
     return state.createReceptionReducer.date
-  })
-  const receptionStatus = useSelector((state) => {
-    return state.createReceptionReducer.status
-  })
+  });
   const r_id = useSelector((state) => {
     return state.createReceptionReducer.r_id
-  })
+  });
   
   const [pubMessage, setPubMessage] = useState({
     topic: "/main/diagnosis"
@@ -51,13 +49,21 @@ function AddReception(props) {
   //신규로 접수하는 경우 (예약/접수 버튼으로 들어온 경우)
   const handleReception = async (event) => {
     if(date === "" || doctor_id === "" || patient_id === ""||time ===""){ //하나라도 선택 안하는 경우 예외처리
-      alert("모든 값을 선택하지 않으면 예약할 수 없습니다.");
+      Swal.fire({
+        icon: 'error',
+        text: '모든 값을 선택하지 않으면 예약할 수 없습니다.',
+        confirmButtonColor: '#3085d6'
+      })
       return;
     }
 
     for(let i=0; i<todayReceptionList.length; i++){ //같은 날짜에 같은 환자 접수 불가능 예외처리
       if(patient_id === todayReceptionList[i].patientId){
-        alert("오늘 이미 접수된 환자입니다.");
+        Swal.fire({
+          icon: 'error',
+          text: '오늘 이미 접수된 환자입니다.',
+          confirmButtonColor: '#3085d6'
+        })
         return
       }
     }
@@ -86,7 +92,11 @@ function AddReception(props) {
 
       await insertReception(reception);
       await sendMqttMessage(pubMessage2);
-      alert("접수가 완료 됐습니다.");
+      Swal.fire({
+        icon: 'error',
+        text: '접수가 완료 됐습니다.',
+        confirmButtonColor: '#3085d6'
+      })
     }
     //등록완료 후에 리덕스 모든 값 비워주기
     dispatch(createSetPatient(''));
@@ -98,6 +108,16 @@ function AddReception(props) {
 
   //수정 버튼을 통해 들어온 경우
   const handleUpdate = async() => {
+
+    if(date === "" || doctor_id === "" || time ===""){ //하나라도 선택 안하는 경우 예외처리
+      Swal.fire({
+        icon: 'error',
+        text: '모든 값을 선택하지 않으면 예약을 수정할 수 없습니다.',
+        confirmButtonColor: '#3085d6'
+      })
+      return;
+    }
+
     const reception = {};
     reception.rId = r_id;
     reception.doctorId = doctor_id;
@@ -112,6 +132,7 @@ function AddReception(props) {
         dispatch(createSetDoctor(''));
         dispatch(createSetDate(''));
         dispatch(createSetTime(''));
+        dispatch(createSetrId(''));
     await sendMqttMessage(pubMessage2);
     history.goBack();
   };
@@ -186,7 +207,7 @@ function AddReception(props) {
   </div>
   <div style={{display: 'flex', justifyContent: 'flex-end', height:'25px'}}>
     <Link to="/reception" className="btn btn-outline-dark btn-sm" style={{marginRight:'7px', height:'4vh'}}>뒤로 가기</Link>
-    { receptionStatus !== 1?
+    { r_id === ''?
       <button className="btn btn-outline-dark btn-sm" style={{marginRight:'7px', height:'4vh'}} onClick={handleReception}>등록 완료</button>
     :
       <button className="btn btn-outline-dark btn-sm" style={{marginRight:'7px', height:'4vh'}} onClick={handleUpdate}>수정 완료</button>
