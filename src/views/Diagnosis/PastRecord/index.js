@@ -12,6 +12,7 @@ import { createSetAddIlistAction, createSetAddMlistAction, createSetPidAction, c
 import { sendMqttMessage } from "apis/diagnosis";
 import axios from "axios";
 import { Loading } from "../Loading";
+import Swal from 'sweetalert2'
 
 export const PastRecord = React.memo((props) => {
 
@@ -155,57 +156,59 @@ export const PastRecord = React.memo((props) => {
         });
         await sendMqttMessage(pubMessage);
       }else{
-        alert("이미 진료가 완료된 환자입니다.")
+        Swal.fire({
+          icon: 'error',
+          text: '이미 완료된 진료입니다.',
+          confirmButtonColor: '#3085d6'
+        })
         setException(true);
 
       }
     }else{
-      alert("환자를 선택하십시오.")
+      Swal.fire({
+        icon: 'error',
+        text: '환자를 선택해주세요.',
+        confirmButtonColor: '#3085d6'
+      })
     }
-
-  
-   
   };
-
 
   return (
     <div>
        <div className={style.past_table_container}>
-
        {loading ?
-        <>
-          <div style={{marginTop:'20%', marginLeft:'47%'}}> 
-            <Loading height={30} width={30}/>
-          </div> 
-          <p style={{marginLeft:'45%'}}>Loading..</p>
-        </>
+          <>
+            <div style={{marginTop:'20%', marginLeft:'47%'}}> 
+              <Loading height={30} width={30}/>
+            </div> 
+            <p style={{marginLeft:'45%'}}>Loading..</p>
+          </>
         :
-        <>
-        {pastList.length !== 0 ?
-        
-        <CommonTable headersName={["진료 날짜", "상세"]} tstyle={"table table-sm"}>
-          {pastList.map((plist, index) => (
-            <CommonTableRow key={plist.dDate}>
-              <CommonTableColumn>{plist.dDate}</CommonTableColumn>
-              <CommonTableColumn>
-                <button type="button" className="btn btn-outline-dark btn-sm" onClick={(event, day)=>{openModal(event, plist.dDate)}}>
-                  상세보기
-                </button>
-              </CommonTableColumn>
-            </CommonTableRow>
-          ))}
-        </CommonTable>
-        :
-        <div className={style.p_list}>
-          <div style={{ borderTop: "1px solid #e7f5ff", height: "100%" }}>
-            <p style={{ textAlign: "center", fontSize: "1em", marginTop:'25%' }}>과거 기록이 없습니다.</p>
-          </div>
-        </div>
-      }</>}
+          <>
+          {pastList.length !== 0 ?
+            <CommonTable headersName={["진료 날짜", "상세"]} tstyle={"table table-sm"}>
+              {pastList.map((plist, index) => (
+                <CommonTableRow key={plist.dDate}>
+                  <CommonTableColumn>{plist.dDate}</CommonTableColumn>
+                  <CommonTableColumn>
+                    <button type="button" className="btn btn-outline-dark btn-sm" onClick={(event, day)=>{openModal(event, plist.dDate)}}>
+                      상세보기
+                    </button>
+                  </CommonTableColumn>
+                </CommonTableRow>
+              ))}
+            </CommonTable>
+          :
+            <div className={style.p_list}>
+              <div style={{ borderTop: "1px solid #e7f5ff", height: "100%" }}>
+                <p style={{ textAlign: "center", fontSize: "1em", marginTop:'25%' }}>과거 기록이 없습니다.</p>
+              </div>
+            </div>
+           }</>}
       </div>
      
     <div className="d-flex flex-row-reverse bd-highlight pt-3">
-      <button className="btn btn-outline-dark mr-3" onClick={sendDiagnosis}>전달</button>
+      <button className="btn btn-outline-dark mr-3" onClick={sendDiagnosis}>저장</button>
       <button className="btn btn-outline-dark mr-3" onClick={deleteDiagnosis}>처방 초기화</button>
     </div>
 

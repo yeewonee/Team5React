@@ -10,14 +10,12 @@ import { Memo } from "./Memo";
 import { PastRecord } from "./PastRecord";
 import { PatientList } from "./PatientList";
 import { Loading } from "./Loading";
-
 import { BsCardList } from "react-icons/bs";
 import { BiCalendar } from "react-icons/bi";
 import { BiListCheck } from "react-icons/bi";
 import { BiPlusMedical } from "react-icons/bi";
 import { BsCardChecklist } from "react-icons/bs";
 import { BsList } from "react-icons/bs";
-
 import Paho from "paho-mqtt";
 
 function Diagnosis(props) {
@@ -29,17 +27,13 @@ function Diagnosis(props) {
     setLoading(result);
   }
 
-
   //날짜
   const day = useSelector((state) => {
     return state.diagnosisReducer.day;
   });
 
-  
-
   const [subTopic, setSubTopic] = useState("/main/diagnosis");
   const [message, setMessage] = useState("/main/diagnosis");
-
 
   let client = useRef(null);
   const connectMqttBroker = () => {
@@ -49,10 +43,8 @@ function Diagnosis(props) {
       console.log("접속 끊김");
     };
 
-   
     client.current.onMessageArrived = (msg) => {
       console.log("메시지 수신"); 
-      
       var message = JSON.parse(msg.payloadString);
       console.log(message);
 
@@ -73,9 +65,7 @@ function Diagnosis(props) {
     connectMqttBroker();
   }, []);
 
-
   return (
-    
     <div style={{ fontFamily: "DoHyeon-Regular" }}>
       {loading ? 
       <>

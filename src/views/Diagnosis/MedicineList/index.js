@@ -9,11 +9,10 @@ import CommonTable from "views/table/CommonTable";
 import { useEffect } from "react";
 import { AiFillMedicineBox } from "react-icons/ai";
 import { Loading } from "../Loading";
-
+import Swal from 'sweetalert2'
 
 export const MedicineList = React.memo((props) => {
 
-  
   //추가된 약 목록
   const medicineList = useSelector((state) => {
     return state.diagnosisReducer.mlist;
@@ -91,7 +90,11 @@ export const MedicineList = React.memo((props) => {
   const medicineClick = (event, m) => {
     //리덕스에 이미 추가되어 있으면 상태 변경 전 return
     if (list.mlist.includes(m) && event.target.checked) {
-      alert("이미 추가된 항목입니다.");
+      Swal.fire({
+        icon: 'error',
+        text: '이미 추가된 항목입니다.',
+        confirmButtonColor: '#3085d6'
+      })
       return;
     }
 

@@ -4,7 +4,6 @@ import style from "./pastrecord.module.css";
 import CommonTable from "views/table/CommonTable";
 import CommonTableRow from "views/table/CommonTableRow";
 import CommonTableColumn from "views/table/CommonTableColumn";
-
 import { BsPerson } from "react-icons/bs";
 import { BsLayoutTextSidebarReverse } from "react-icons/bs";
 import { BsFileEarmarkText } from "react-icons/bs";
@@ -62,6 +61,17 @@ export const ModalPast = (props) => {
     getMresultList();
     getMemo();
    }, [props.dDate])
+
+  //중복되는 묶음코드를 하나만 보여주기 위한 함수
+  let bundle = "";
+  const viewBundleCode = (bundleCode) => {
+    if(bundle !== bundleCode){
+      bundle = bundleCode;
+      return bundleCode;
+    }else{
+      return "";
+    }
+  }
   
   return (
     <>
@@ -96,9 +106,10 @@ export const ModalPast = (props) => {
 
         <div className={style.past_title2}>검사 결과</div>
         {iResultList.length !== 0 ? 
-        <CommonTable headersName={["처방코드", "검사명", "검사담당자", "결과"]} tstyle={"table table-sm table-striped"}>
+        <CommonTable headersName={["묶음코드", "처방코드", "검사명", "검사담당자", "결과"]} tstyle={"table table-sm table-striped"}>
           {iResultList.map((iResultList, index) => (
-            <CommonTableRow key={iResultList.iId}>
+            <CommonTableRow key={index}>
+              <CommonTableColumn>{viewBundleCode(iResultList.bundleCode)}</CommonTableColumn>
               <CommonTableColumn>{iResultList.iId}</CommonTableColumn>
               <CommonTableColumn>{iResultList.iName}</CommonTableColumn>
               <CommonTableColumn>{iResultList.inspector}</CommonTableColumn>

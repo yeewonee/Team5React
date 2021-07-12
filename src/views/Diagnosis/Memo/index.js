@@ -5,6 +5,7 @@ import style from "./memo.module.css";
 
 export const Memo = React.memo(() => {
   console.log("메모 렌더링")
+  
   const dispatch = useDispatch();
   const handleChange = (event) => {
     dispatch(createSetMemoAction(event.target.value));
