@@ -3,6 +3,7 @@ import { Button, Modal } from 'react-bootstrap';
 import FindAddrDom from './PostCodeComponent/FindAddrDom';
 import FindAddr from './PostCodeComponent/FindAddr';
 import { useEffect, useState } from 'react';
+import Swal from 'sweetalert2'
 import { useForm } from "react-hook-form";
 import { newPatient, sendMqttMessage } from "apis/reception";
 
@@ -52,7 +53,11 @@ const NewRegistration = (props) => {
   const { register, handleSubmit, errors } = useForm();
   const onSubmit = async(values) => {
     if(patient.zonecode === "" || patient.detailaddress === ""){
-      alert("주소를 입력해 주세요.");
+      Swal.fire({
+        icon: 'error',
+        text: '주소를 입력해 주세요.',
+        confirmButtonColor: '#3085d6'
+      })
       return false;
     }else{
       const patientRegister = {

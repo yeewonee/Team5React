@@ -5,20 +5,12 @@ import photo2 from 'images/2.png';
 import photo3 from 'images/3.png';
 import {Link} from "react-router-dom";
 import { useState } from "react";
-import HomeModal from './HomeModal';
 import { useSelector } from "react-redux";
 
 function HomeMenu(props) {
-  const [show, setShow] = useState(false);
-  const handleClose = () => setShow(false);
-  const buttonModal = () => setShow(true);
 
   return (
     <>
-    <HomeModal show={show}
-    handleClose={handleClose}
-    buttonModal={buttonModal}
-    />
     <div className={style.menuBox}>
 
       <b style={{fontSize:'23px'}}>
