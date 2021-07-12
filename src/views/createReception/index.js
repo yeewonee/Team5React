@@ -66,7 +66,7 @@ function CreateReception(props) {
   const [connected, setConnected] = useState(false);
   const [subTopic, setSubTopic] = useState("/main/createReception");
 
-  const [contents, setContents] = useState([]);
+  // const [contents, setContents] = useState([]);
 
   let client = useRef(null);
   const connectMqttBroker = () => {
