@@ -121,6 +121,7 @@ function DetailTable(props) {
     }
   }
 
+
   return (
     <div>
       <div className={cx(style.middle_right_bottom)}>
