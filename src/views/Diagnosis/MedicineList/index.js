@@ -1,4 +1,4 @@
-import React, { useCallback } from "react";
+import React from "react";
 import style from "./medecinelist.module.css";
 import { getMedicineList } from "apis/diagnosis";
 import { useState } from "react";
@@ -132,7 +132,7 @@ export const MedicineList = React.memo((props) => {
       <div className={style.m_list_container}>
         <div className="d-flex justify-content-between">
         <div className="input-group m-1">
-          <input type="text" name="keyword" onChange={keywordChange} value={keyword} />
+          <input type="text" name="keyword" onChange={keywordChange} value={keyword}/>
           <div className="input-group-append">
             <button className="btn btn-outline-secondary btn-sm" type="button" onClick={keywordButton}>
               검색

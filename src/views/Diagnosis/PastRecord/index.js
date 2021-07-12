@@ -173,6 +173,10 @@ export const PastRecord = React.memo((props) => {
     }
   };
 
+  const changeDateType = (d) => {
+    return d.split(' ')[0];
+  }
+
   return (
     <div>
        <div className={style.past_table_container}>
@@ -189,7 +193,7 @@ export const PastRecord = React.memo((props) => {
             <CommonTable headersName={["진료 날짜", "상세"]} tstyle={"table table-sm"}>
               {pastList.map((plist, index) => (
                 <CommonTableRow key={plist.dDate}>
-                  <CommonTableColumn>{plist.dDate}</CommonTableColumn>
+                  <CommonTableColumn>{changeDateType(plist.dDate)}</CommonTableColumn>
                   <CommonTableColumn>
                     <button type="button" className="btn btn-outline-dark btn-sm" onClick={(event, day)=>{openModal(event, plist.dDate)}}>
                       상세보기

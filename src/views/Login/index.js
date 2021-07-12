@@ -56,7 +56,7 @@ function Login(props){
 
   return(
     <div className={style.bg}>
-      <div className={style.titleBox}><div className={style.titleContent}>Login</div></div>
+      <div className={style.titleBox}><div className={style.titleContent}>LOGIN</div></div>
       <div style={{display:'flex', justifyContent:'center', alignItems:'center'}}>
         <div className={style.box}>
           <div className="form-group mt-3">
@@ -64,11 +64,11 @@ function Login(props){
             <input type="text" className="form-control" name="hid" value={user.hid} onChange={handleChange}/>
           </div>
           <div className="form-group">
-            <div >User ID</div>
+            <div >아이디</div>
             <input type="text" className="form-control" name="uid" value={user.uid} onChange={handleChange}/>
           </div>
           <div className="form-group mt-3">
-            <div >Password</div>
+            <div >비밀번호</div>
             <input type="password" className="form-control" name="upassword" value={user.upassword} onChange={handleChange}/>
           </div>
           <div className={style.button}>
