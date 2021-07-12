@@ -12,11 +12,9 @@ import { useEffect } from 'react';
 import CancelModal from './CancelModal';
 import CompleteModal from './CompleteModal';
 import { Loading } from "../../../Loading";
+import { getReceptionList, cancelReceptionFunc, changeReceptionFunc } from "apis/reception";
 import { createSetDate, createSetDoctor, createSetPatient, createSetTime } from 'redux/createReception-reducer';
 import { sendMqttMessage } from "apis/reception";
-
-import axios from "axios";
-axios.defaults.baseURL = "http://localhost:8080";
 
 function ReceptionList(props){
   const day = useSelector((state) => {
@@ -32,7 +30,7 @@ function ReceptionList(props){
   const pListFunc = async(day) => {
     setLoading(true);
     try{
-      const result = await axios.get("/reception", {params:{day:day}});   
+      const result = await getReceptionList(day);   
       setPatientList(result.data)
       setBoards(result.data)
       props.setCBoolean(false)
@@ -130,7 +128,7 @@ function ReceptionList(props){
   //예약취소
   const cancelReception = async(cancelId, day) => {
     try{
-      await axios.delete("/reception/cancelReception", {params:{cancelId:cancelId, day:day}});
+      await cancelReceptionFunc(cancelId, day)
       props.setCBoolean(true);
       closeCModal()
     }catch(error){
@@ -150,7 +148,7 @@ function ReceptionList(props){
   //접수완료
   const completeReception = async(changeId, day) => {
     try{
-      await axios.get("/reception/changeReception", {params:{changeId:changeId, day:day}})
+      await changeReceptionFunc(changeId, day)
       props.setComBoolean(true);
       closeComModal()
       await sendMqttMessage(props.pubMessage);

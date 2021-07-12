@@ -38,12 +38,12 @@ const CheckReception = (props) => {
               <tr>
                 <th className={style.detailth}>&nbsp;전화번호</th>
                 <td className={style.detailtd}>&nbsp;{patientBoard.patientPhone}</td>
-                <th className={style.detailth}>&nbsp;담당의사</th>
-                <td className={style.detailtd}>&nbsp;{patientBoard.doctorName}</td>
+                <th className={style.detailth}>&nbsp;성별</th>
+                <td className={style.detailtd}>&nbsp;{patientBoard.patientSex === 'Female' ? ("여"):("남")}</td>
               </tr>
               <tr>
-                <th className={style.detailth}>&nbsp;성별</th>
-                <td className={style.detailtd}>&nbsp;{patientBoard.patientSex}</td>
+                <th className={style.detailth}>&nbsp;담당의사</th>
+                <td className={style.detailtd}>&nbsp;{patientBoard.doctorName}</td>
                 <th className={style.detailth}>&nbsp;진료실</th>
                 <td className={style.detailtd}>&nbsp;{patientBoard.doctorOffice}</td>
               </tr>
