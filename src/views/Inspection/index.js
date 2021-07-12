@@ -4,12 +4,11 @@ import "./index.css";
 import InspectState from "./InspectState/InspectState";
 import PatientTable from "./PatientTable/PatientTable";
 import Progress from "./Progress/Progress";
-import { getInspectList, getPatientList } from "./data";
 import { useSelector } from "react-redux";
-import axios from "axios";
 import Paho from "paho-mqtt";
+import { getInspecetList, getPatientList } from "apis/inspection";
 
-axios.defaults.baseURL = "http://localhost:8080/";
+
 
 function Inspection(props) {
   //선택한 환자 pno
@@ -69,14 +68,14 @@ function Inspection(props) {
 
   const getPatientsList = async () => {
     changeLoading(true);
-    const result = await axios.get("/inspection");
+    const result = await getPatientList();
     setPatientList(result.data);
     setCategoryArray(result.data);
     changeLoading(false);
   };
 
   const getInspectsList = async (pno, did) => {
-    const result = await axios.get("/inspection/inspectList", { params: { pno, did } });
+    const result = await getInspecetList(pno,did);
     setInspectLists(result.data);
   };
 
