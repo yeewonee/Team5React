@@ -3,9 +3,9 @@ import style from './donut.module.css';
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from 'react';
+import { getCountReception } from "apis/reception";
 import { Loading } from "../../../Loading";
-import axios from "axios";
-axios.defaults.baseURL = "http://localhost:8080";
+
 
 function RDonut(props){
   const day = useSelector((state) => {
@@ -18,7 +18,7 @@ function RDonut(props){
   const dListFunc = async(day) => {
     setLoading(true);
     try{
-      const count = await axios.get("/reception/countReception", {params:{day:day}});
+      const count = await getCountReception(day);
       let data = [0,0];
       data[0] = count.data[0];
       data[1] = count.data[1];

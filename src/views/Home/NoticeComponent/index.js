@@ -10,7 +10,6 @@ import { Loading } from "../../../Loading";
 import axios from "axios";
 axios.defaults.baseURL = "http://localhost:8080";
 
-
 function Notice(props) {
   const [loading, setLoading] = useState(null);  
   const [boardList, setBoardList] = useState([]);
