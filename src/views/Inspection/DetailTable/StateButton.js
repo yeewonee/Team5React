@@ -21,6 +21,7 @@ export const StateButton = (props) => {
   
 
   const updateInspect = async(checkList,changeValue)=>{
+    
      await UpdateInspectStatus(checkList,changeValue)
   }
 
