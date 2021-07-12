@@ -48,7 +48,7 @@ function RDonut(props){
   
   return(
     <div>
-    {loading ? <div style={{marginRight:"10%", marginTop:"10%"}}><Loading /></div> 
+    {loading ? <div><div style={{marginLeft:"43%", marginTop:"20%"}}><Loading height={90} width={90}/></div> <p style={{marginLeft:"46%"}}>Loding...</p></div> 
     :
     <div>
     {countNum[0] === 0 && countNum[1] === 0 ? 

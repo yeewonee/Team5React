@@ -57,11 +57,14 @@ function ReceptionList(props){
     patientName: "",
     patientSsn1: "",
     patientPhone: "",
+    patientSex:"",
     rDate: "",
     rTime: "",
     rStatus:"",
-    doctorId:"",
-    patientId:""
+    doctorName:"",
+    doctorOffice:"",
+    patientId:"",
+    
   });
 
   //신규환자 등록 모달
@@ -87,11 +90,13 @@ function ReceptionList(props){
       patientName: list.patientName,
       patientSsn1: list.patientSsn1,
       patientPhone: list.patientPhone,
+      patientSex: list.patientSex,
       rDate: list.rDate,
       rTime: list.rTime,
       rStatus: list.rStatus,
-      doctorId: list.doctorId,
-      patientId: list.patientId,
+      doctorName: list.doctorName,
+      doctorOffice: list.doctorOffice,
+      patientId: list.patientId
     })
     setShow1(true)
   };
@@ -210,11 +215,11 @@ function ReceptionList(props){
             </div>
             <div className={style.button1}>
               <button className={style.button} onClick={buttonModal}>환자 등록</button>
-              <button className={style.button}><Link to="/createReception" className={style.link} onClick={handleReception}>예약/접수</Link></button>
+              <Link to="/createReception" className={style.link} onClick={handleReception}><button className={style.button}>예약/접수</button></Link>
             </div>
           </div> 
 
-          {loading ? <div style={{}}><Loading /></div> 
+          {loading ? <div><div style={{marginLeft:"50%", marginTop:"5%"}}><Loading height={90} width={90}/></div> <p style={{marginLeft:"51%"}}>Loding...</p></div> 
           :
            <div>
           <div className={style.tablewidth}>
