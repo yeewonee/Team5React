@@ -66,7 +66,7 @@ function PatientList(props) {
     if(searchWord===''){ //검색어가 없으면
       setPatientList(originList); //list에 전체 목록 넣어주고
     }else{ //검색어가 있으면
-      let searchList = originList.filter((list)=>list.patient_name.includes(searchWord));
+      let searchList = originList.filter((list)=>list.patientName.includes(searchWord));
       setPatientList(searchList); //list에 검색어에 맞는 목록 넣음
     }
 
