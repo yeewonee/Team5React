@@ -14,8 +14,7 @@ import Barcode from "react-barcode";
 import { transitions, positions, Provider as AlertProvider } from 'react-alert'
 import AlertTemplate from 'react-alert-template-basic'
 import { FaUserCheck } from 'react-icons/fa';
-import axios from "axios";
-import { Loading } from "views/Diagnosis/Loading";
+import Swal from 'sweetalert2'
 
 
 
@@ -121,6 +120,14 @@ function DetailTable(props) {
     }
   }
 
+  const excelNone = ()=>{
+    Swal.fire({
+      icon: 'error',
+      text: '항목을 선택해주세요',
+      confirmButtonColor: '#3085d6'
+    })
+  }
+
 
   return (
     <div>
@@ -136,6 +143,8 @@ function DetailTable(props) {
           <StateButton value={'채혈 완료'} change={'완료'}  checkfun={checkState} list={inspectList}></StateButton>
           </AlertProvider>
           <button className={cx(style.stateButton)}>
+            {checkList.length!==0?
+            <React.Fragment>
             <CSVLink 
               headers={headers} 
               data={checkList} 
@@ -145,6 +154,13 @@ function DetailTable(props) {
             >
               엑셀 저장
             </CSVLink>
+            </React.Fragment>:
+            <>
+            <div onClick={excelNone}>
+              엑셀 저장
+            </div>
+            </>
+            }
           </button>    
         </div>
     
