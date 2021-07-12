@@ -15,7 +15,6 @@ import { Loading } from "../Loading";
 export const PatientList = React.memo((props) => {
   console.log("환자목록 렌더링")
 
-
   //검색에 맞는 결과를 보여주는 상태
   const [pList, setPlist] = useState([]);
   const [showPList, setShowPList] = useState([]);

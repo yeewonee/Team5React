@@ -29,9 +29,6 @@ function Diagnosis(props) {
     setLoading(result);
   }
 
-  const memo = useSelector((state) => {
-    return state.diagnosisReducer.comment;
-  });
 
   //날짜
   const day = useSelector((state) => {
@@ -40,7 +37,6 @@ function Diagnosis(props) {
 
   
 
-  const [connected, setConnected] = useState(false);
   const [subTopic, setSubTopic] = useState("/main/diagnosis");
   const [message, setMessage] = useState("/main/diagnosis");
 
@@ -51,7 +47,6 @@ function Diagnosis(props) {
 
     client.current.onConnectionLost = () => {
       console.log("접속 끊김");
-      setConnected(false);
     };
 
    
@@ -66,7 +61,6 @@ function Diagnosis(props) {
 
     client.current.connect({onSuccess:() => {
       console.log("접속 성공");
-      setConnected(true);
       sendSubTopic();
     }});
   };
@@ -164,7 +158,6 @@ function Diagnosis(props) {
                       <p className={style.title_p}><BsList /> 과거 기록</p>
                     </div>
                     <PastRecord 
-                      comment={memo}
                       day={day}
                       changeLoading={changeLoading}
                       />
