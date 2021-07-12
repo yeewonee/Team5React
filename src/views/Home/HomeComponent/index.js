@@ -21,24 +21,34 @@ function HomeMenu(props) {
     />
     <div className={style.menuBox}>
 
-      <div className={style.box}>
-        <div>
-          <img src={photo1} alt="photo1" style={{width:'50px', marginRight:'15px'}}/><b style={{fontSize:'23px'}}><Link to="/reception" style={{textDecoration:"none", color:"black"}}>예약 / 접수</Link></b>
-        </div> 
-      </div>
+      <b style={{fontSize:'23px'}}>
+        <Link to="/reception" style={{textDecoration:"none", color:"black"}}>
+          <div className={style.box}>
+            <div>
+              <img src={photo1} alt="photo1" style={{width:'50px', marginRight:'15px'}}/>예약 / 접수
+            </div> 
+          </div>
+        </Link>
+      </b>
+      <b style={{fontSize:'23px'}}>
+        <Link to="/inspection" style={{textDecoration:"none", color:"black"}}>
+          <div className={style.box}>
+            <div>
+              <img src={photo2} alt="photo2" style={{width:'50px', marginRight:'15px'}}/>검사 / 치료
+            </div> 
+          </div>
+        </Link>
+      </b>
 
-      <div className={style.box}>
-        <div>
-          <img src={photo2} alt="photo2" style={{width:'50px', marginRight:'15px'}}/><b style={{fontSize:'23px'}}><Link to="/inspection" style={{textDecoration:"none", color:"black"}}>검사 / 치료</Link></b>
-        </div> 
-      </div>
-
-      <div className={style.box2}>
-        <div>
-          <img src={photo3} alt="photo3" style={{width:'48px', marginRight:'15px'}}/><b style={{fontSize:'23px'}}><Link to="/diagnosis" style={{textDecoration:"none", color:"black"}}>진료</Link></b>
-        </div> 
-      </div>
-
+      <b style={{fontSize:'23px'}}>
+        <Link to="/diagnosis" style={{textDecoration:"none", color:"black"}}>
+          <div className={style.box2}>
+            <div>
+              <img src={photo3} alt="photo3" style={{width:'48px', marginRight:'15px'}}/>진료
+            </div> 
+          </div>
+        </Link>
+      </b>
     </div>
     </>
       
