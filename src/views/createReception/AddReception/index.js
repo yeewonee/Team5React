@@ -60,7 +60,7 @@ function AddReception(props) {
     for(let i=0; i<todayReceptionList.length; i++){ //같은 날짜에 같은 환자 접수 불가능 예외처리
       if(patient_id === todayReceptionList[i].patientId){
         Swal.fire({
-          icon: 'error',
+          icon: 'warning',
           text: '오늘 이미 접수된 환자입니다.',
           confirmButtonColor: '#3085d6'
         })
@@ -80,7 +80,11 @@ function AddReception(props) {
       await insertReception(reception);
       await sendMqttMessage(pubMessage);
       await sendMqttMessage(pubMessage2);
-      alert("접수가 완료 됐습니다.");
+      Swal.fire({
+        icon: 'success',
+        text: '접수가 완료 됐습니다.',
+        confirmButtonColor: '#3085d6'
+      })
     }    
     else {//예약접수인 경우
       reception.rTime = time;
@@ -93,7 +97,7 @@ function AddReception(props) {
       await insertReception(reception);
       await sendMqttMessage(pubMessage2);
       Swal.fire({
-        icon: 'error',
+        icon: 'success',
         text: '접수가 완료 됐습니다.',
         confirmButtonColor: '#3085d6'
       })
@@ -134,6 +138,11 @@ function AddReception(props) {
         dispatch(createSetTime(''));
         dispatch(createSetrId(''));
     await sendMqttMessage(pubMessage2);
+    Swal.fire({
+      icon: 'success',
+      text: '수정이 완료 됐습니다.',
+      confirmButtonColor: '#3085d6'
+    })
     history.goBack();
   };
 
