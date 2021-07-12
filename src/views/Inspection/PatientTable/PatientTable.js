@@ -8,7 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { createSetPatientAction } from "redux/inspection_Reducer";
 import { useEffect } from "react";
 import { FaUserCheck } from 'react-icons/fa';
-import { Loading } from "views/Diagnosis/Loading";
+import { Loading } from "Loading";
 
 const cx = classNames.bind(style);
 

@@ -11,7 +11,7 @@ import NewRegistration from './NewRegistration';
 import { useEffect } from 'react';
 import CancelModal from './CancelModal';
 import CompleteModal from './CompleteModal';
-import { Loading } from "../../Diagnosis/Loading";
+import { Loading } from "../../../Loading";
 import { createSetDate, createSetDoctor, createSetPatient, createSetTime } from 'redux/createReception-reducer';
 import { sendMqttMessage } from "apis/reception";
 

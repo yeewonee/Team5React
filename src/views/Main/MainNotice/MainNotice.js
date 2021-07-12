@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Modal } from "react-bootstrap";
 import { getMainNoticeList } from "../data";
-import { Loading } from "views/Diagnosis/Loading";
+import { Loading } from "Loading";
 
 function MainNotice(props) {
   const [mainlist, setMainList] = useState([]);

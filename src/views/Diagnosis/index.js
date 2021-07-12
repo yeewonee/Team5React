@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Cal } from "./Cal";
 import style from "./diagnosis.module.css";
 import { InspectionList } from "./InspectionList";
@@ -9,7 +9,7 @@ import { MedicineResult } from "./MedicineResult";
 import { Memo } from "./Memo";
 import { PastRecord } from "./PastRecord";
 import { PatientList } from "./PatientList";
-import { Loading } from "./Loading";
+import { Loading } from "../../Loading";
 import { BsCardList } from "react-icons/bs";
 import { BiCalendar } from "react-icons/bi";
 import { BiListCheck } from "react-icons/bi";
@@ -17,6 +17,7 @@ import { BiPlusMedical } from "react-icons/bi";
 import { BsCardChecklist } from "react-icons/bs";
 import { BsList } from "react-icons/bs";
 import Paho from "paho-mqtt";
+import { createSetAddIlistAction, createSetAddMlistAction } from "redux/diagnosis-reducer";
 
 function Diagnosis(props) {
   console.log("최상위 index 렌더링")
@@ -61,8 +62,13 @@ function Diagnosis(props) {
     client.current.subscribe(subTopic);
   }
 
+  const dispatch = useDispatch();
   useEffect(() => {
     connectMqttBroker();
+    return() => {
+      dispatch(createSetAddMlistAction([]));
+      dispatch(createSetAddIlistAction([]));
+    }
   }, []);
 
   return (

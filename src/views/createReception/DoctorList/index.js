@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { createSetDoctor } from "redux/createReception-reducer";
 import { useEffect, useState } from "react";
 import { FaUserTimes } from 'react-icons/fa';
-import { Loading } from "views/Diagnosis/Loading";
+import { Loading } from "Loading";
 
 function DoctorList(props) {
   const originDoctorList = props.data;

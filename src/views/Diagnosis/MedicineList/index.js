@@ -8,7 +8,7 @@ import CommonTableColumn from "views/table/CommonTableColumn";
 import CommonTable from "views/table/CommonTable";
 import { useEffect } from "react";
 import { AiFillMedicineBox } from "react-icons/ai";
-import { Loading } from "../Loading";
+import { Loading } from "../../../Loading";
 import Swal from 'sweetalert2'
 
 export const MedicineList = React.memo((props) => {

@@ -4,7 +4,7 @@ import { ResponsiveContainer } from "recharts";
 import style from './rgraph.module.css';
 import axios from "axios";
 import moment from 'moment';
-import { Loading } from "../../Diagnosis/Loading";
+import { Loading } from "../../../Loading";
 import { useSelector } from 'react-redux';
 axios.defaults.baseURL = "http://localhost:8080";
 

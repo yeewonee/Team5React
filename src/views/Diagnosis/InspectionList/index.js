@@ -7,7 +7,7 @@ import { createSetAddIlistAction } from "redux/diagnosis-reducer";
 import CommonTable from "views/table/CommonTable";
 import CommonTableColumn from "views/table/CommonTableColumn";
 import { BsCardChecklist } from "react-icons/bs";
-import { Loading } from "../Loading";
+import { Loading } from "../../../Loading";
 import Swal from 'sweetalert2'
 
 

@@ -11,7 +11,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { createSetAddIlistAction, createSetAddMlistAction, createSetPidAction, createSetRidAction } from "redux/diagnosis-reducer";
 import { sendMqttMessage } from "apis/diagnosis";
 import axios from "axios";
-import { Loading } from "../Loading";
+import { Loading } from "../../../Loading";
 import Swal from 'sweetalert2'
 
 export const PastRecord = React.memo((props) => {

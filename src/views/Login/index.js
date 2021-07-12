@@ -34,6 +34,7 @@ function Login(props){
           sessionStorage.setItem("uid", response.data.userid);
           sessionStorage.setItem("authToken", response.data.authToken);
           sessionStorage.setItem("role", response.data.role);
+          sessionStorage.setItem("name", response.data.name);
         }else{
           Swal.fire({
             icon: 'error',

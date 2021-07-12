@@ -4,7 +4,7 @@ import CommonTable from "views/table/CommonTable";
 import CommonTableRow from "views/table/CommonTableRow";
 import CommonTableColumn from "views/table/CommonTableColumn";
 import { useDispatch, useSelector } from "react-redux";
-import { createSetRemoveIlistAction } from "redux/diagnosis-reducer";
+import { createSetAddIlistAction, createSetAddMlistAction, createSetRemoveIlistAction } from "redux/diagnosis-reducer";
 
 export const InspectionResult = React.memo((props) => {
     

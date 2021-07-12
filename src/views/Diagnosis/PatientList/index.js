@@ -9,7 +9,7 @@ import CommonTableColumn from "views/table/CommonTableColumn";
 import { useEffect } from "react";
 
 import { BsFillPersonDashFill } from "react-icons/bs";
-import { Loading } from "../Loading";
+import { Loading } from "../../../Loading";
 
 
 export const PatientList = React.memo((props) => {

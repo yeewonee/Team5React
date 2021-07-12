@@ -3,7 +3,7 @@ import style from './donut.module.css';
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from 'react';
-import { Loading } from "../../Diagnosis/Loading";
+import { Loading } from "../../../Loading";
 import axios from "axios";
 axios.defaults.baseURL = "http://localhost:8080";
 

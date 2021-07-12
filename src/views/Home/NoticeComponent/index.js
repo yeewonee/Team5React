@@ -6,7 +6,7 @@ import { useState } from "react";
 import qs from "qs";
 import { Link } from "react-router-dom";
 import NoticeModal from './NoticeModal';
-import { Loading } from "../../Diagnosis/Loading";
+import { Loading } from "../../../Loading";
 import axios from "axios";
 axios.defaults.baseURL = "http://localhost:8080";
 
