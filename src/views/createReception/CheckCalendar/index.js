@@ -23,7 +23,7 @@ function CheckCalendar(props) {
 
 
   return(
-    <div className={style.calendar_box} style={{marginBottom: '10px', overflow:'auto'}}>
+    <div className={style.calendar_box} style={{marginBottom: '5px', overflow:'auto'}}>
         <Calendar
         onChange={ChangeDate}
         locale="en-US"

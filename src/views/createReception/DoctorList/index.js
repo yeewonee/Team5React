@@ -5,10 +5,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { createSetDoctor } from "redux/createReception-reducer";
 import { useEffect, useState } from "react";
 import { FaUserTimes } from 'react-icons/fa';
+import { Loading } from "views/Diagnosis/Loading";
 
 function DoctorList(props) {
   const originDoctorList = props.data;
-
+  const loading = props.loading;
   const [doctorList, setDoctorList] = useState([]);
   const [searchWord, setSearchWord] = useState('');
 
@@ -71,7 +72,16 @@ function DoctorList(props) {
             </div>
           </div>
           
-          {doctorList.length !== 0 ?
+          {loading ?
+          <>
+            <div style={{marginTop:'15%'}}> 
+              <Loading height={60} width={60}/>
+            </div> 
+            <p>Loading..</p>
+          </>
+        :
+        <>
+          {doctorList.length !== 0 ? (
           <div className={style.table_wrapper}>
           <CommonTable headersName={['', '의사번호', '이름', '진료실', '전화번호']} tstyle={"table table-sm"}>
             {doctorList.map((doctor, index) => (
@@ -85,14 +95,14 @@ function DoctorList(props) {
               ))}
           </CommonTable>
           </div>
-          :
+          ):(
           <div>
             <div style={{display:'flex', justifyContent:'center', alignItems:'center',flexDirection:'column',height:'25vh'}}>
               <div><FaUserTimes size={'5em'}/></div>
               <div style={{marginTop:'15px',fontSize:'20px'}}>일치하는 의사가 없습니다.</div>
             </div>  
           </div>
-        }
+          )}</>}
       </div>
   );
 }

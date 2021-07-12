@@ -4,35 +4,63 @@ import CheckCalendar from "./CheckCalendar";
 import CheckTime from "./CheckTime";
 import AddReception from "./AddReception";
 import { useEffect, useState, useRef } from "react";
-import { getDoctorList, getPatientList } from "apis/createReception";
+import { getDoctorList, getPatientList, getReceptionListByDate } from "apis/createReception";
 import Paho from "paho-mqtt";
+import { useSelector } from "react-redux";
 
 function CreateReception(props) {
   const [patientList, setPatientList] = useState([]);
   const [doctorList, setDoctorList] = useState([]);
+  const [todayReceptionList, setTodayReceptionList] = useState([]);
+  const [loadingPatient, setLoadingPatient] = useState(null);
+  const [loadingDoctor, setLoadingDoctor] = useState(null);
+
+  const r_date = useSelector((state) => {
+    return state.createReceptionReducer.date
+  });
 
   const getPatient = async() => {
+    setLoadingPatient(true);
     try{
       const patientResult = await getPatientList();
       setPatientList(patientResult.data);
+      setLoadingPatient(false);
     } catch(error){
       console.log(error);
     }
   };
   
   const getDoctor = async() => {
+    setLoadingDoctor(true);
     try{
       const doctorResult = await getDoctorList();
       setDoctorList(doctorResult.data);
+      setLoadingDoctor(false);
     } catch(error){
       console.log(error);
     }
   };
 
+  const getTodayList = async() => {
+    try{
+      const result = await getReceptionListByDate(r_date);
+      console.log(r_date);
+      console.log(result.data);
+      setTodayReceptionList(result.data);
+    } catch(error){
+      console.log(error);
+    }
+  };
+
+
   useEffect(() => {
     getPatient();
     getDoctor();
   },[])
+
+  useEffect(() => {
+    getTodayList();
+  },[r_date]);
 
 //mqtt
   const [connected, setConnected] = useState(false);
@@ -78,8 +106,8 @@ function CreateReception(props) {
       </div>
       <div style={{display: 'flex'}}>
         <div style={{flexBasis: '40%', marginLeft:'20px', marginRight:'7px'}}>
-          <PatientList data={patientList}/>
-          <DoctorList data={doctorList}/>
+          <PatientList data={patientList} loading={loadingPatient}/>
+          <DoctorList data={doctorList} loading={loadingDoctor}/>
         </div>
 
         <div style={{flexBasis:'25%', marginRight:'7px'}}>
@@ -88,7 +116,7 @@ function CreateReception(props) {
         </div>
 
         <div style={{flexBasis:'32%'}}>
-          <AddReception pdata={patientList} ddata={doctorList}/>
+          <AddReception pdata={patientList} ddata={doctorList} rdate={todayReceptionList}/>
         </div>
 
       </div>
