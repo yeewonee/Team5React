@@ -11,6 +11,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { createSetAddIlistAction, createSetAddMlistAction, createSetPidAction, createSetRidAction } from "redux/diagnosis-reducer";
 import { sendMqttMessage } from "apis/diagnosis";
 import axios from "axios";
+import { Loading } from "../Loading";
 
 export const PastRecord = React.memo((props) => {
 
@@ -18,7 +19,9 @@ export const PastRecord = React.memo((props) => {
   const changeLoading = useCallback((result) => {
     props.changeLoading(result);
   }, [props]);
-
+  
+  const [loading, setLoading] = useState(null);
+  
   console.log("과거 기록 상위 렌더링")
   
   //환자 번호
@@ -49,9 +52,11 @@ export const PastRecord = React.memo((props) => {
   //날짜, 상세보기
   const [pastList, setPastList] = useState([]);
   const getPatientList = async() => {
+    setLoading(true)
     try {
       const promise = await getPastRecordList(patientId);
-        setPastList(promise.data);
+      setPastList(promise.data);
+      setLoading(false)
     } catch (error) {
       console.log(error);
     }
@@ -166,6 +171,16 @@ export const PastRecord = React.memo((props) => {
   return (
     <div>
        <div className={style.past_table_container}>
+
+       {loading ?
+        <>
+          <div style={{marginTop:'20%', marginLeft:'47%'}}> 
+            <Loading height={30} width={30}/>
+          </div> 
+          <p style={{marginLeft:'45%'}}>Loading..</p>
+        </>
+        :
+        <>
         {pastList.length !== 0 ?
         
         <CommonTable headersName={["진료 날짜", "상세"]} tstyle={"table table-sm"}>
@@ -186,7 +201,7 @@ export const PastRecord = React.memo((props) => {
             <p style={{ textAlign: "center", fontSize: "1em", marginTop:'25%' }}>과거 기록이 없습니다.</p>
           </div>
         </div>
-      }
+      }</>}
       </div>
      
     <div className="d-flex flex-row-reverse bd-highlight pt-3">
