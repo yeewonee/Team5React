@@ -120,7 +120,7 @@ function RGraph(props) {
           <h5>&nbsp;요일대별 예약현황</h5> 
         </div>
         <ResponsiveContainer width="100%" height={206}>
-        {loading ? <div style={{marginLeft:"45%", width:"1%", paddingTop:"5%"}}><Loading /></div> 
+        {loading ? <div><div style={{marginLeft:"45%", width:"1%", paddingTop:"5%"}}><Loading height={90} width={90}/></div><p style={{marginLeft:"46.5%"}}>Loding...</p></div> 
         :
         <AreaChart data={result}
           margin={{ top: 20, right: 30, left: 0, bottom: 0 }}>
