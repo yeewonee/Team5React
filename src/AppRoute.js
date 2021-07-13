@@ -8,6 +8,7 @@ import Main from "views/Main/Main";
 import { useSelector } from "react-redux";
 import CreateReception from "views/createReception";
 import RouteIf ,{ROLE} from "RouteIf";
+import ManagePatient from "views/ManagePatient";
 
 
 function AppRoute() {
@@ -69,6 +70,7 @@ function AppRoute() {
             <RouteIf path="/diagnosis" component={Diagnosis} role={temp?.doctorPage}/>
             <RouteIf path="/inspection" component={Inspection}role={temp?.inspectorPage}/>
             <RouteIf path="/createReception" component={CreateReception} role={temp?.nursePage}/>
+            <RouteIf path="/managePatient" component={ManagePatient} role={temp?.nursePage}/>
             <Redirect to="/" />
           </Switch>
         </>

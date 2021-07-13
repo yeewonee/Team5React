@@ -7,7 +7,6 @@ import { useDispatch, useSelector } from "react-redux";
 import CommonTable from 'views/table/CommonTable';
 import CommonTableColumn from 'views/table/CommonTableColumn';
 import CheckReception from './CheckReception';
-import NewRegistration from './NewRegistration';
 import { useEffect } from 'react';
 import CancelModal from './CancelModal';
 import CompleteModal from './CompleteModal';
@@ -166,16 +165,7 @@ function ReceptionList(props){
 
   return(
     <div className={style.font}>
-      {/* 신규환자 등록 */}
-      <NewRegistration 
-      show={show} 
-      handleClose={handleClose}
-      isPopupOpen={isPopupOpen}
-      openPostCode={openPostCode}
-      closePostCode={closePostCode}
-      pub2ndMessage={props.pub2ndMessage}
-      />
-      
+
       {/* 예약확인 */}
       <CheckReception 
       patientBoard={patientBoard} 
@@ -212,7 +202,7 @@ function ReceptionList(props){
               <SearchBar setSearchValue={setSearchValue}/>
             </div>
             <div className={style.button1}>
-              <button className={style.button} onClick={buttonModal}>환자 등록</button>
+              <Link to="/managePatient" className={style.link}><button className={style.button}>환자 관리</button></Link>
               <Link to="/createReception" className={style.link} onClick={handleReception}><button className={style.button}>예약/접수</button></Link>
             </div>
           </div> 

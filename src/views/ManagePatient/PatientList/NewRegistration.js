@@ -1,11 +1,16 @@
 import style from './rlist.module.css';
 import { Button, Modal } from 'react-bootstrap';
-import FindAddrDom from './PostCodeComponent/FindAddrDom';
-import FindAddr from './PostCodeComponent/FindAddr';
 import { useEffect, useState } from 'react';
 import Swal from 'sweetalert2'
 import { useForm } from "react-hook-form";
-import { newPatient, sendMqttMessage } from "apis/reception";
+import { sendMqttMessage } from "apis/reception";
+import axios from "axios";
+import FindAddrDom from '../PostCodeComponent/FindAddrDom';
+import FindAddr from '../PostCodeComponent/FindAddr';
+axios.defaults.baseURL = "http://localhost:8080";
+//axios js파일 따로 빼기
+
+// import { newPatient, sendMqttMessage } from "apis/reception";
 
 const NewRegistration = (props) => {
   const [setting, setSettting] = useState(false);
@@ -90,9 +95,12 @@ const NewRegistration = (props) => {
         address: patient.address,
         addressDetail: patient.detailaddress
       }
-      await sendMqttMessage(props.pub2ndMessage);
-      props.handleClose();
-      await newPatient(patientRegister);
+
+      await sendMqttMessage(props.pubMessage);
+      await sendMqttMessage(props.pubMessage2);
+      props.handleClose()
+      return await axios.post("/reception/registration", patientRegister); 
+
     }
   }
   return(
