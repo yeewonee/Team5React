@@ -19,10 +19,6 @@ import { BsList } from "react-icons/bs";
 import Paho from "paho-mqtt";
 import { createSetAddIlistAction, createSetAddMlistAction } from "redux/diagnosis-reducer";
 
-import ReactDrawer from 'react-drawer'
-import 'react-drawer/lib/react-drawer.css'
-
-
 
 function Diagnosis(props) {
   console.log("최상위 index 렌더링")
@@ -75,24 +71,6 @@ function Diagnosis(props) {
       dispatch(createSetAddIlistAction([]));
     }
   }, []);
-
-
-
-  const [state, setState] = useState({
-    open: false,
-    position: 'right',
-    noOverlay: false
-  });
-
-  const toggleDrawer = () =>  {
-    setState({ open: !state.open })
-  }
-  const closeDrawer = () => {
-    setState({ open: false })
-  }
-  const onDrawerClose = () => {
-    setState({ open: false })
-  }
 
   return (
     <div style={{ fontFamily: "DoHyeon-Regular" }}>
@@ -188,27 +166,6 @@ function Diagnosis(props) {
         </div>
       </div>
       }
-
-      <button
-            style={{ margin: 20 }}
-            onClick={toggleDrawer}
-            disabled={state.open && !state.noOverlay}
-          >
-            {!state.open ? (
-              <span>show drawer</span>
-            ) : (
-              <span>close drawer</span>
-            )}
-          </button>
-          <ReactDrawer
-          open={state.open}
-          position={state.position}
-          onClose={onDrawerClose}
-          noOverlay={state.noOverlay}
-        >
-          <i onClick={closeDrawer} className="icono-cross" />
-          <h2>What a nice drawer !</h2>
-        </ReactDrawer>
     </div>
   );
 }
