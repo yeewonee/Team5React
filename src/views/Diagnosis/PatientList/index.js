@@ -2,7 +2,7 @@ import React from "react";
 import style from "./patientlist.module.css";
 import { getPatientList } from "apis/diagnosis";
 import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { createSetPidAction, createSetRidAction } from "redux/diagnosis-reducer";
 import CommonTable from "views/table/CommonTable";
 import CommonTableColumn from "views/table/CommonTableColumn";
@@ -37,6 +37,7 @@ export const PatientList = React.memo((props) => {
     setShowPList(pList);
     setColorSelect("");
   }, [props]);
+
 
   const [keyword, setKeyword] = useState("");
   const keywordChange = (event) => {

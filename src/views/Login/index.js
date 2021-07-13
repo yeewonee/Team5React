@@ -49,7 +49,7 @@ function Login(props){
   };
 
   const [user, setUser] = useState({
-    hid:"",
+    hid:"0001",
     uid: "",
     upassword: ""
   })

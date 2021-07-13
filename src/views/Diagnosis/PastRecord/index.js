@@ -164,7 +164,6 @@ export const PastRecord = React.memo((props) => {
           confirmButtonColor: '#3085d6'
         })
         setException(true);
-
       }
     }else{
       Swal.fire({

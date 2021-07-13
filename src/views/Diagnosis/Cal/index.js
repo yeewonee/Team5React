@@ -25,6 +25,7 @@ export const Cal = React.memo((props) => {
 
   useEffect(() => {
     //날짜 설정
+    dispatch(createSetDayAction(""));
     dispatch(createSetDayAction(moment(startDate).format('YYYY-MM-DD')));
     //환자id 초기화
     dispatch(createSetPidAction(""));

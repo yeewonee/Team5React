@@ -19,6 +19,8 @@ function AppHeader() {
     sessionStorage.removeItem("uid")
     sessionStorage.removeItem("authToken");
     sessionStorage.removeItem("role");
+    sessionStorage.removeItem("name");
+
 
   };
 
