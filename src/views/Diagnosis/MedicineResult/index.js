@@ -13,7 +13,6 @@ export const MedicineResult = React.memo((props) => {
 
   console.log("약 결과 렌더링")
   const dispatch = useDispatch();
-
   const deleteMedicine = (event, mid) => {
     dispatch(createSetRemoveMlistAction(mid));
   };

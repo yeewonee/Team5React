@@ -6,10 +6,9 @@ import { useState } from "react";
 import qs from "qs";
 import { Link } from "react-router-dom";
 import NoticeModal from './NoticeModal';
-import { Loading } from "../../Diagnosis/Loading";
+import { Loading } from "../../../Loading";
 import axios from "axios";
 axios.defaults.baseURL = "http://localhost:8080";
-
 
 function Notice(props) {
   const [loading, setLoading] = useState(null);  
@@ -72,7 +71,7 @@ function Notice(props) {
               <img src={photo4} alt="photo4" style={{width:'35px', margin:'20px'}}/>
               <b>공지사항</b>
             </div>
-            {loading ? <div><div style={{}}><Loading height={90} width={90}/></div> <p style={{}}>Loding...</p></div>
+            {loading ? <div><div style={{marginLeft:"43%", marginTop:"15%"}}><Loading height={90} width={90}/></div> <p style={{marginLeft:"46%"}}>Loding...</p></div>
                 :
             <Table responsive="sm" className={style.table1}>
               <thead>

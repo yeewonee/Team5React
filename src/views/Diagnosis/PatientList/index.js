@@ -1,20 +1,18 @@
-import React, { useCallback } from "react";
+import React from "react";
 import style from "./patientlist.module.css";
 import { getPatientList } from "apis/diagnosis";
 import { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { createSetPidAction, createSetRidAction } from "redux/diagnosis-reducer";
 import CommonTable from "views/table/CommonTable";
 import CommonTableColumn from "views/table/CommonTableColumn";
 import { useEffect } from "react";
-
 import { BsFillPersonDashFill } from "react-icons/bs";
-import { Loading } from "../Loading";
+import { Loading } from "../../../Loading";
 
 
 export const PatientList = React.memo((props) => {
   console.log("환자목록 렌더링")
-
 
   //검색에 맞는 결과를 보여주는 상태
   const [pList, setPlist] = useState([]);

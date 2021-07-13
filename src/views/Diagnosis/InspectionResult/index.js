@@ -16,7 +16,6 @@ export const InspectionResult = React.memo((props) => {
   console.log("검사 결과 렌더링")
 
   const dispatch = useDispatch();
-
   //묶음코드에 중복되는 검사가 존재하는 것이 가능하기 때문에 2개 매개변수로 remove
   const deleteInspection = (event, id, bundleCode) => {
     dispatch(createSetRemoveIlistAction(id, bundleCode));

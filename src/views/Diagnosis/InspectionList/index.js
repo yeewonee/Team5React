@@ -7,7 +7,9 @@ import { createSetAddIlistAction } from "redux/diagnosis-reducer";
 import CommonTable from "views/table/CommonTable";
 import CommonTableColumn from "views/table/CommonTableColumn";
 import { BsCardChecklist } from "react-icons/bs";
-import { Loading } from "../Loading";
+import { Loading } from "../../../Loading";
+import Swal from 'sweetalert2'
+
 
 export const InspectionList = React.memo((props) => {
 
@@ -21,6 +23,7 @@ export const InspectionList = React.memo((props) => {
   console.log("검사목록 렌더링")
   //DB에서 받아온 최초 약 목록
   const [iList, setIlist] = useState(inspectionList);
+
   const [keywordList, setKeywordList] = useState([]);
   const [inspections, setInspections] = useState([]);
 
@@ -36,6 +39,7 @@ export const InspectionList = React.memo((props) => {
     }
   };
 
+  //모든 검사 목록 가져오기
   const inspect = async () => {
     try {
       const response = await getInspectAllList();
@@ -73,8 +77,7 @@ export const InspectionList = React.memo((props) => {
   const keywordChange = (event) => {
     setKeyword(event.target.value);
   };
-
-
+  
   const keywordButton = (event) => {
     setCheckArray(arr);
     if (keyword === "") {
@@ -99,7 +102,11 @@ export const InspectionList = React.memo((props) => {
     let inspectionArray = list.iList;
     for (let i = 0; i < inspectionArray.length; i++) {
       if (inspectionArray[i].bundleCode === bundleCode && event.target.checked) {
-        alert("이미 추가된 항목입니다.");
+        Swal.fire({
+          icon: 'error',
+          text: '이미 추가된 항목입니다.',
+          confirmButtonColor: '#3085d6'
+        })
         return;
       }
     }
@@ -143,7 +150,7 @@ export const InspectionList = React.memo((props) => {
       <div className={style.i_list_container}>
         <div className="d-flex justify-content-between">
           <div className="input-group m-1">
-            <input type="text" name="keyword" onChange={keywordChange} value={keyword} />
+            <input type="text" name="keyword" onChange={keywordChange} value={keyword}/>
             <div className="input-group-append">
               <button className="btn btn-outline-secondary btn-sm" type="button" onClick={keywordButton}>
                 검색

@@ -1,6 +1,7 @@
 import style from './rlist.module.css';
 import { Button, Modal } from 'react-bootstrap';
 import { useEffect, useState } from 'react';
+import Swal from 'sweetalert2'
 import { useForm } from "react-hook-form";
 import { sendMqttMessage } from "apis/reception";
 import axios from "axios";
@@ -8,6 +9,8 @@ import FindAddrDom from '../PostCodeComponent/FindAddrDom';
 import FindAddr from '../PostCodeComponent/FindAddr';
 axios.defaults.baseURL = "http://localhost:8080";
 //axios js파일 따로 빼기
+
+// import { newPatient, sendMqttMessage } from "apis/reception";
 
 const NewRegistration = (props) => {
   const [setting, setSettting] = useState(false);
@@ -51,11 +54,34 @@ const NewRegistration = (props) => {
     })
   }
 
+  const cancelFunc = (e) => {
+    setPatient({
+      pname: "",
+      pssn1:"",
+      pssn2:"",
+      psex:"",
+      page:"",
+      pphone1:"",
+      pphone2:"",
+      pphone3:"",
+      zonecode:"",
+      address:"",
+      detailaddress:""
+    })
+    setChecked1(false)
+    setChecked2(false)
+    props.handleClose()
+  }
+
   //신규환자 등록
   const { register, handleSubmit, errors } = useForm();
   const onSubmit = async(values) => {
     if(patient.zonecode === "" || patient.detailaddress === ""){
-      alert("주소를 입력해 주세요.");
+      Swal.fire({
+        icon: 'error',
+        text: '주소를 입력해 주세요.',
+        confirmButtonColor: '#3085d6'
+      })
       return false;
     }else{
       const patientRegister = {
@@ -69,10 +95,12 @@ const NewRegistration = (props) => {
         address: patient.address,
         addressDetail: patient.detailaddress
       }
+
       await sendMqttMessage(props.pubMessage);
       await sendMqttMessage(props.pubMessage2);
       props.handleClose()
       return await axios.post("/reception/registration", patientRegister); 
+
     }
   }
   return(
@@ -223,7 +251,7 @@ const NewRegistration = (props) => {
           <Button disabled={false} style={{backgroundColor:'#4dabf7'}} type="submit">
             확인
           </Button>
-          <Button style={{backgroundColor:'#f74d4d'}} onClick={props.handleClose}>
+          <Button style={{backgroundColor:'#f74d4d'}} onClick={(e) => cancelFunc(e)}>
             취소
           </Button>
         </Modal.Footer>

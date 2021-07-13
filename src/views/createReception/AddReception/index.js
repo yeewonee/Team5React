@@ -215,7 +215,6 @@ function AddReception(props) {
       </table>
   </div>
   <div style={{display: 'flex', justifyContent: 'flex-end', height:'25px'}}>
-    <Link to="/managePatient" className="btn btn-outline-dark btn-sm" style={{marginRight:'7px', height:'4vh'}}>뒤로 가기</Link>
     <Link to="/reception" className="btn btn-outline-dark btn-sm" style={{marginRight:'7px', height:'4vh'}}>뒤로 가기</Link>
     { r_id === ''?
       <button className="btn btn-outline-dark btn-sm" style={{marginRight:'7px', height:'4vh'}} onClick={handleReception}>등록 완료</button>

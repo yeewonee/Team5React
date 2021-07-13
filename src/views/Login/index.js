@@ -1,11 +1,12 @@
-import { Col, Container, Row } from "react-bootstrap";
 import style from "./login.module.css";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { createSetAuthTokenAction, createSetNameAction, createSetRoleAction, createSetUidAction, createSetUser } from "redux/auth-reducer";
+import { createSetAuthTokenAction, createSetNameAction, createSetRoleAction, createSetUidAction } from "redux/auth-reducer";
 import { useState } from "react";
 import { addAuthHeader } from "apis/axiosConfig";
 import { login } from "apis/auth";
+import Swal from 'sweetalert2'
+
 
 function Login(props){
   const dispatch = useDispatch();
@@ -16,7 +17,6 @@ function Login(props){
       [event.target.name] : event.target.value
     });
   }
-
 
   const handleLogin = async (event) => {
     try {
@@ -34,20 +34,19 @@ function Login(props){
           sessionStorage.setItem("uid", response.data.userid);
           sessionStorage.setItem("authToken", response.data.authToken);
           sessionStorage.setItem("role", response.data.role);
+          sessionStorage.setItem("name", response.data.name);
         }else{
-          alert("asd")
+          Swal.fire({
+            icon: 'error',
+            text: '로그인 정보가 올바르지 않습니다.',
+            confirmButtonColor: '#3085d6'
+          })
         }
-       
       })
-            
-       
-      
-     
     } catch (error) {
       console.log(error);
     }
   };
-
 
   const [user, setUser] = useState({
     hid:"",
@@ -57,7 +56,7 @@ function Login(props){
 
   return(
     <div className={style.bg}>
-      <div className={style.titleBox}><div className={style.titleContent}>Login</div></div>
+      <div className={style.titleBox}><div className={style.titleContent}>LOGIN</div></div>
       <div style={{display:'flex', justifyContent:'center', alignItems:'center'}}>
         <div className={style.box}>
           <div className="form-group mt-3">
@@ -65,11 +64,11 @@ function Login(props){
             <input type="text" className="form-control" name="hid" value={user.hid} onChange={handleChange}/>
           </div>
           <div className="form-group">
-            <div >User ID</div>
+            <div >아이디</div>
             <input type="text" className="form-control" name="uid" value={user.uid} onChange={handleChange}/>
           </div>
           <div className="form-group mt-3">
-            <div >Password</div>
+            <div >비밀번호</div>
             <input type="password" className="form-control" name="upassword" value={user.upassword} onChange={handleChange}/>
           </div>
           <div className={style.button}>

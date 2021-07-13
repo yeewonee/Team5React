@@ -1,4 +1,4 @@
-import React, { useCallback, useRef } from "react";
+import React, { useCallback } from "react";
 import style from "./pastrecord.module.css";
 import { useState } from "react";
 import CommonTable from "views/table/CommonTable";
@@ -10,42 +10,54 @@ import { ModalPast } from "./ModalPast";
 import { useDispatch, useSelector } from "react-redux";
 import { createSetAddIlistAction, createSetAddMlistAction, createSetPidAction, createSetRidAction } from "redux/diagnosis-reducer";
 import { sendMqttMessage } from "apis/diagnosis";
-
-
 import axios from "axios";
+import { Loading } from "../../../Loading";
+import Swal from 'sweetalert2'
 
 export const PastRecord = React.memo((props) => {
 
+  //진료 완료 로딩
   const changeLoading = useCallback((result) => {
     props.changeLoading(result);
   }, [props]);
-
-  console.log("과거 기록 상위 렌더링")
-
   
-  //환자 선택
+  const [loading, setLoading] = useState(null);
+  
+  console.log("과거 기록 상위 렌더링")
+  
+  //환자 번호
   const patientId = useSelector((state) => {
     return state.diagnosisReducer.pId;
   })
 
+  //예약 번호
   const receptionId = useSelector((state) => {
     return state.diagnosisReducer.rId;
   })
 
+  //약 목록
   const medicineList = useSelector((state) => {
     return state.diagnosisReducer.mlist;
   });
 
+  //검사 목록
   const inspectionList = useSelector((state) => {
     return state.diagnosisReducer.ilist;
+  });
+
+  //메모
+  const comment = useSelector((state) => {
+    return state.diagnosisReducer.comment;
   });
 
   //날짜, 상세보기
   const [pastList, setPastList] = useState([]);
   const getPatientList = async() => {
+    setLoading(true)
     try {
       const promise = await getPastRecordList(patientId);
-        setPastList(promise.data);
+      setPastList(promise.data);
+      setLoading(false)
     } catch (error) {
       console.log(error);
     }
@@ -64,47 +76,54 @@ export const PastRecord = React.memo((props) => {
     }
   };
 
-  const [inspectCompare, setInspectCompare] = useState([]);
-  const getInspectCompareList = async() => {
-    try {
-        const promise = await getInspectionCompareList();
-        console.log(promise.data)
-        setInspectCompare(promise.data);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
   useEffect(() => {
     getPatientList();
     getSelectPatient();
     getInspectCompareList();
   }, [patientId]);
 
-  const [temp, setTemp] = useState(true);
+    //이미 검사 예정인 환자 리스트 (예외처리)
+    const [inspectCompare, setInspectCompare] = useState([]);
+    const getInspectCompareList = async() => {
+      try {
+          const promise = await getInspectionCompareList();
+          setInspectCompare(promise.data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+  
+  //현재 날짜
+  let today = new Date();
+  let year = today.getFullYear();
+  let month = ('0' + (today.getMonth() + 1)).slice(-2);
+  let day = ('0' + today.getDate()).slice(-2);
+  let dateString = year + '-' + month  + '-' + day;
+  //예외처리 검사 상태
+  const [exception, setException] = useState(true);
   useEffect(()=> {
     for(let i=0; i<inspectCompare.length; i++){
-      if(inspectCompare[i].pId === patientId){
-        setTemp(false);
+      if(inspectCompare[i].patientId === patientId && inspectCompare[i].dDate === dateString){
+        setException(false);
         break;
       }
     }
   }, [inspectCompare])
 
-  const [modalOpen, setModalOpen] = useState(false);
+  useEffect(()=>{
+    getInspectCompareList();
+  }, [exception])
 
   const [dDate, setDdate] = useState("");
+  const [modalOpen, setModalOpen] = useState(false);
   const openModal = (event, day) => {
     setDdate(day);
     setModalOpen(true);
   };
-
-
   const closeModal = () => {
     setModalOpen(false);
   };
 
-  //환자 정보
   
   const dispatch = useDispatch();
   const deleteDiagnosis = () => {
@@ -112,8 +131,6 @@ export const PastRecord = React.memo((props) => {
     dispatch(createSetAddIlistAction([]));
   };
   
-  let comment = props.comment;
-
   let diagnosisInfo = {
     comment,
     patientId,
@@ -129,7 +146,7 @@ export const PastRecord = React.memo((props) => {
   
   const sendDiagnosis = async() => {  
     if(patientId){
-      if(temp === true){
+      if(exception === true){
         changeLoading(true)
         await axios.post("/diagnosis/pushdiagnosis", diagnosisInfo)
         .then(() => {
@@ -141,47 +158,63 @@ export const PastRecord = React.memo((props) => {
         });
         await sendMqttMessage(pubMessage);
       }else{
-        alert("이미 진료가 완료된 환자입니다.")
-        setTemp(true);
+        Swal.fire({
+          icon: 'error',
+          text: '이미 완료된 진료입니다.',
+          confirmButtonColor: '#3085d6'
+        })
+        setException(true);
 
       }
     }else{
-      alert("환자를 선택하십시오.")
+      Swal.fire({
+        icon: 'error',
+        text: '환자를 선택해주세요.',
+        confirmButtonColor: '#3085d6'
+      })
     }
-
-  
-   
   };
 
+  const changeDateType = (d) => {
+    return d.split(' ')[0];
+  }
 
   return (
     <div>
        <div className={style.past_table_container}>
-        {pastList.length !== 0 ?
-        
-        <CommonTable headersName={["진료 날짜", "상세"]} tstyle={"table table-sm"}>
-          {pastList.map((plist, index) => (
-            <CommonTableRow key={plist.dDate}>
-              <CommonTableColumn>{plist.dDate}</CommonTableColumn>
-              <CommonTableColumn>
-                <button type="button" className="btn btn-outline-dark btn-sm" onClick={(event, day)=>{openModal(event, plist.dDate)}}>
-                  상세보기
-                </button>
-              </CommonTableColumn>
-            </CommonTableRow>
-          ))}
-        </CommonTable>
+       {loading ?
+          <>
+            <div style={{marginTop:'20%', marginLeft:'47%'}}> 
+              <Loading height={30} width={30}/>
+            </div> 
+            <p style={{marginLeft:'45%'}}>Loading..</p>
+          </>
         :
-        <div className={style.p_list}>
-          <div style={{ borderTop: "1px solid #e7f5ff", height: "100%" }}>
-            <p style={{ textAlign: "center", fontSize: "1em", marginTop:'25%' }}>과거 기록이 없습니다.</p>
-          </div>
-        </div>
-      }
+          <>
+          {pastList.length !== 0 ?
+            <CommonTable headersName={["진료 날짜", "상세"]} tstyle={"table table-sm"}>
+              {pastList.map((plist, index) => (
+                <CommonTableRow key={plist.dDate}>
+                  <CommonTableColumn>{changeDateType(plist.dDate)}</CommonTableColumn>
+                  <CommonTableColumn>
+                    <button type="button" className="btn btn-outline-dark btn-sm" onClick={(event, day)=>{openModal(event, plist.dDate)}}>
+                      상세보기
+                    </button>
+                  </CommonTableColumn>
+                </CommonTableRow>
+              ))}
+            </CommonTable>
+          :
+            <div className={style.p_list}>
+              <div style={{ borderTop: "1px solid #e7f5ff", height: "100%" }}>
+                <p style={{ textAlign: "center", fontSize: "1em", marginTop:'25%' }}>과거 기록이 없습니다.</p>
+              </div>
+            </div>
+           }</>}
       </div>
      
     <div className="d-flex flex-row-reverse bd-highlight pt-3">
-      <button className="btn btn-outline-dark mr-3" onClick={sendDiagnosis}>전달</button>
+      <button className="btn btn-outline-dark mr-3" onClick={sendDiagnosis}>저장</button>
       <button className="btn btn-outline-dark mr-3" onClick={deleteDiagnosis}>처방 초기화</button>
     </div>
 

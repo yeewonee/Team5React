@@ -1,5 +1,6 @@
 import * as React from "react";
 import { Route, useHistory } from "react-router-dom";
+import Swal from 'sweetalert2'
 
 
 export const ROLE = {
@@ -14,7 +15,11 @@ const RouteIf = ({ role, component: Component, ...rest }) => {
       {...rest}
       render={props => {
         if (role === ROLE.NONE) {
-            alert("접근 권한이 없습니다")
+          Swal.fire({
+            icon: 'error',
+            text: '접근 권한이 없습니다.',
+            confirmButtonColor: '#3085d6'
+          })
             history.push("/")
             return
         }

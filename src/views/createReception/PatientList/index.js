@@ -5,7 +5,7 @@ import { createSetPatient } from "redux/createReception-reducer";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { FaUserTimes } from 'react-icons/fa';
-import { Loading } from "views/Diagnosis/Loading";
+import { Loading } from "Loading";
 
 function PatientList(props) {
   const originList = props.data;

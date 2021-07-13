@@ -3,9 +3,9 @@ import style from './donut.module.css';
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from 'react';
-import { Loading } from "../../Diagnosis/Loading";
-import axios from "axios";
-axios.defaults.baseURL = "http://localhost:8080";
+import { getCountReception } from "apis/reception";
+import { Loading } from "../../../Loading";
+
 
 function RDonut(props){
   const day = useSelector((state) => {
@@ -18,7 +18,7 @@ function RDonut(props){
   const dListFunc = async(day) => {
     setLoading(true);
     try{
-      const count = await axios.get("/reception/countReception", {params:{day:day}});
+      const count = await getCountReception(day);
       let data = [0,0];
       data[0] = count.data[0];
       data[1] = count.data[1];
@@ -31,7 +31,7 @@ function RDonut(props){
 
   useEffect(() => {
     dListFunc(day);
-  }, [day, props.cBoolean, props.comBoolean]);
+  }, [day, props.cBoolean, props.comBoolean, props.message]);
 
   const expData = {
     datasets: [
@@ -48,7 +48,7 @@ function RDonut(props){
   
   return(
     <div>
-    {loading ? <div style={{marginRight:"10%", marginTop:"10%"}}><Loading /></div> 
+    {loading ? <div><div style={{marginLeft:"43%", marginTop:"20%"}}><Loading height={90} width={90}/></div> <p style={{marginLeft:"46%"}}>Loding...</p></div> 
     :
     <div>
     {countNum[0] === 0 && countNum[1] === 0 ? 

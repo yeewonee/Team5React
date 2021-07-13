@@ -1,4 +1,4 @@
-import React, { useCallback } from "react";
+import React from "react";
 import style from "./medecinelist.module.css";
 import { getMedicineList } from "apis/diagnosis";
 import { useState } from "react";
@@ -8,12 +8,11 @@ import CommonTableColumn from "views/table/CommonTableColumn";
 import CommonTable from "views/table/CommonTable";
 import { useEffect } from "react";
 import { AiFillMedicineBox } from "react-icons/ai";
-import { Loading } from "../Loading";
-
+import { Loading } from "../../../Loading";
+import Swal from 'sweetalert2'
 
 export const MedicineList = React.memo((props) => {
 
-  
   //추가된 약 목록
   const medicineList = useSelector((state) => {
     return state.diagnosisReducer.mlist;
@@ -91,7 +90,11 @@ export const MedicineList = React.memo((props) => {
   const medicineClick = (event, m) => {
     //리덕스에 이미 추가되어 있으면 상태 변경 전 return
     if (list.mlist.includes(m) && event.target.checked) {
-      alert("이미 추가된 항목입니다.");
+      Swal.fire({
+        icon: 'error',
+        text: '이미 추가된 항목입니다.',
+        confirmButtonColor: '#3085d6'
+      })
       return;
     }
 
@@ -129,7 +132,7 @@ export const MedicineList = React.memo((props) => {
       <div className={style.m_list_container}>
         <div className="d-flex justify-content-between">
         <div className="input-group m-1">
-          <input type="text" name="keyword" onChange={keywordChange} value={keyword} />
+          <input type="text" name="keyword" onChange={keywordChange} value={keyword}/>
           <div className="input-group-append">
             <button className="btn btn-outline-secondary btn-sm" type="button" onClick={keywordButton}>
               검색

@@ -7,16 +7,13 @@ import { useDispatch, useSelector } from "react-redux";
 import CommonTable from 'views/table/CommonTable';
 import CommonTableColumn from 'views/table/CommonTableColumn';
 import CheckReception from './CheckReception';
-import NewRegistration from './NewRegistration';
 import { useEffect } from 'react';
 import CancelModal from './CancelModal';
 import CompleteModal from './CompleteModal';
-import { Loading } from "../../Diagnosis/Loading";
+import { Loading } from "../../../Loading";
+import { getReceptionList, cancelReceptionFunc, changeReceptionFunc } from "apis/reception";
 import { createSetDate, createSetDoctor, createSetPatient, createSetTime } from 'redux/createReception-reducer';
 import { sendMqttMessage } from "apis/reception";
-
-import axios from "axios";
-axios.defaults.baseURL = "http://localhost:8080";
 
 function ReceptionList(props){
   const day = useSelector((state) => {
@@ -32,7 +29,7 @@ function ReceptionList(props){
   const pListFunc = async(day) => {
     setLoading(true);
     try{
-      const result = await axios.get("/reception", {params:{day:day}});   
+      const result = await getReceptionList(day);   
       setPatientList(result.data)
       setBoards(result.data)
       props.setCBoolean(false)
@@ -57,11 +54,14 @@ function ReceptionList(props){
     patientName: "",
     patientSsn1: "",
     patientPhone: "",
+    patientSex:"",
     rDate: "",
     rTime: "",
     rStatus:"",
-    doctorId:"",
-    patientId:""
+    doctorName:"",
+    doctorOffice:"",
+    patientId:"",
+    
   });
 
   //신규환자 등록 모달
@@ -87,11 +87,13 @@ function ReceptionList(props){
       patientName: list.patientName,
       patientSsn1: list.patientSsn1,
       patientPhone: list.patientPhone,
+      patientSex: list.patientSex,
       rDate: list.rDate,
       rTime: list.rTime,
       rStatus: list.rStatus,
-      doctorId: list.doctorId,
-      patientId: list.patientId,
+      doctorName: list.doctorName,
+      doctorOffice: list.doctorOffice,
+      patientId: list.patientId
     })
     setShow1(true)
   };
@@ -125,7 +127,7 @@ function ReceptionList(props){
   //예약취소
   const cancelReception = async(cancelId, day) => {
     try{
-      await axios.delete("/reception/cancelReception", {params:{cancelId:cancelId, day:day}});
+      await cancelReceptionFunc(cancelId, day)
       props.setCBoolean(true);
       closeCModal()
     }catch(error){
@@ -145,7 +147,7 @@ function ReceptionList(props){
   //접수완료
   const completeReception = async(changeId, day) => {
     try{
-      await axios.get("/reception/changeReception", {params:{changeId:changeId, day:day}})
+      await changeReceptionFunc(changeId, day)
       props.setComBoolean(true);
       closeComModal()
       await sendMqttMessage(props.pubMessage);
@@ -163,16 +165,7 @@ function ReceptionList(props){
 
   return(
     <div className={style.font}>
-      {/* 신규환자 등록 */}
-      <NewRegistration 
-      show={show} 
-      handleClose={handleClose}
-      isPopupOpen={isPopupOpen}
-      openPostCode={openPostCode}
-      closePostCode={closePostCode}
-      pub2ndMessage={props.pub2ndMessage}
-      />
-      
+
       {/* 예약확인 */}
       <CheckReception 
       patientBoard={patientBoard} 
@@ -209,12 +202,12 @@ function ReceptionList(props){
               <SearchBar setSearchValue={setSearchValue}/>
             </div>
             <div className={style.button1}>
-              <button className={style.button} onClick={buttonModal}>환자 등록</button>
-              <button className={style.button}><Link to="/createReception" className={style.link} onClick={handleReception}>예약/접수</Link></button>
+              <Link to="/managePatient" className={style.link}><button className={style.button}>환자 관리</button></Link>
+              <Link to="/createReception" className={style.link} onClick={handleReception}><button className={style.button}>예약/접수</button></Link>
             </div>
           </div> 
 
-          {loading ? <div style={{}}><Loading /></div> 
+          {loading ? <div><div style={{marginLeft:"50%", marginTop:"5%"}}><Loading height={90} width={90}/></div> <p style={{marginLeft:"51%"}}>Loding...</p></div> 
           :
            <div>
           <div className={style.tablewidth}>

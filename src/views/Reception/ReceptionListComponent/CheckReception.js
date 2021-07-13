@@ -38,14 +38,14 @@ const CheckReception = (props) => {
               <tr>
                 <th className={style.detailth}>&nbsp;전화번호</th>
                 <td className={style.detailtd}>&nbsp;{patientBoard.patientPhone}</td>
-                <th className={style.detailth}>&nbsp;담당의사</th>
-                <td className={style.detailtd}>&nbsp;김철수</td>
+                <th className={style.detailth}>&nbsp;성별</th>
+                <td className={style.detailtd}>&nbsp;{patientBoard.patientSex === 'Female' ? ("여"):("남")}</td>
               </tr>
               <tr>
-                <th className={style.detailth}>&nbsp;우편번호</th>
-                <td className={style.detailtd}>&nbsp;04137</td>
+                <th className={style.detailth}>&nbsp;담당의사</th>
+                <td className={style.detailtd}>&nbsp;{patientBoard.doctorName}</td>
                 <th className={style.detailth}>&nbsp;진료실</th>
-                <td className={style.detailtd}>&nbsp;제1진료실</td>
+                <td className={style.detailtd}>&nbsp;{patientBoard.doctorOffice}</td>
               </tr>
               <tr>
                 <th className={style.detailth}>&nbsp;예약날짜</th>
@@ -58,9 +58,11 @@ const CheckReception = (props) => {
           </table>
         </Modal.Body>
         <Modal.Footer>
+        <Link className={style.link_white} to="/createReception">
           <Button style={{backgroundColor:'#4dabf7'}} onClick={updateReception}>
-          <Link className={style.link_white} to="/createReception">수정</Link>
+          수정
           </Button>
+          </Link>
           <Button style={{backgroundColor:'#f74d4d'}} onClick={props.handleClose1}>
             닫기
           </Button>
