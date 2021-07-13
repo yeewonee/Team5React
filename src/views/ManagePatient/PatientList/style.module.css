@@ -11,3 +11,11 @@
   height: 75vh;
   overflow: auto;
 }
+
+.select_Color{
+  background-color: #e7f5ff;
+}
+
+.basic_Color{
+  background-color: none;
+}
