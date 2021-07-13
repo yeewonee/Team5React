@@ -65,6 +65,7 @@ function CreateReception(props) {
 //mqtt
   const [connected, setConnected] = useState(false);
   const [subTopic, setSubTopic] = useState("/main/createReception");
+  const [message, setMessage] = useState("/main/createReception");
 
   // const [contents, setContents] = useState([]);
 
@@ -80,6 +81,7 @@ function CreateReception(props) {
 
     client.current.onMessageArrived = (msg) => {
       console.log("메시지 수신");
+
       getPatient();
     };
 

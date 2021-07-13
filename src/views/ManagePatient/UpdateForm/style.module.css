@@ -1,0 +1,20 @@
+.tb tr th {
+  width: 150px;
+  text-align: center;
+}
+
+.box{
+  background-color: white;
+  border-style: solid;
+  border-color: #adb5bd;
+  height: 74vh;
+}
+
+.postCodeStyle {
+  display: block;
+  position: absolute;
+  top: 50%;
+  width: 400px;
+  height: 500px;
+  padding: 7px;
+};

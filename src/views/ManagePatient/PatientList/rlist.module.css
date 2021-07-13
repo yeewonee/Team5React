@@ -1,0 +1,275 @@
+.location{
+  width: 100%;
+}
+
+.back{
+  background-color: white;
+  width: 100%;
+  height: 44vh;
+}
+
+
+.label{
+  background-color: #F2F2F2; 
+  height: 38px; 
+  padding-top: 6.5px; 
+  border-radius: 3px;
+  border: 1px solid lightgray;
+  width: 100%;
+  
+}
+
+.fontweight{
+  font-weight: bold;
+}
+
+.buttonlocation{
+ margin-left: 55%;
+}
+
+.tablewidth{
+  width: 100%;
+  height: 35vh;
+  overflow: auto;
+}
+
+
+.margin1{
+  float: left;
+  margin-left: 0.5%;
+  margin-top: 0.5%;
+}
+
+.margin2{
+  float: left;
+  margin-left: 0.6%;
+  margin-top: 0.5%;
+}
+
+.button1{
+  color:rgb(49, 49, 49);
+  float: right;
+  margin-right: 0.5%;
+  margin-top: 0.4%;
+}
+
+.width{
+  width: 100%;
+  height: 6vh;
+}
+
+.row1{
+  width: 100%;
+}
+
+.row2{
+  width: 100%;
+}
+
+.searchbar{
+  width: 30px;
+  padding-right: 100px;
+}
+
+.button{
+  background-color: #4dabf7;
+  border: none;
+  color:white;
+  border-radius: 5px;
+  width: 130px;
+  height: 35px;
+  margin-left: 10px;
+  margin-bottom: 5px;
+}
+
+.link{
+  color:white;
+  text-decoration: none;
+}
+
+.link_white{
+  color: white;
+  text-decoration: none;
+}
+
+.click{
+  cursor: pointer;
+  text-align: center;
+}
+
+.listtitle{
+  background-color: #A4E6FF;
+}
+
+.list {
+  background-color: white;
+}
+
+.list:hover {
+  color: gray;
+  background-color: rgb(241, 241, 241);
+}
+
+.list2{
+  background-color: white;
+}
+.list2:hover {
+  color: gray;
+  background-color: rgb(241, 241, 241);
+}
+
+.table{
+  border: 1px solid lightgray;
+}
+
+.tr1{
+  width: 200px;
+  border: 1px solid lightgray;
+}
+
+.tr2{
+  width: 300px;
+  border: 1px solid lightgray;
+}
+
+.th{
+  width: 30px;
+  border: 1px solid lightgray;
+  padding-right: 100px;
+}
+
+.inputtext1{
+  border: 1px solid lightgray;
+  margin-left: 10px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  margin-right: 10px;
+  width: 90px;
+}
+
+.inputtext2{
+  border: 1px solid lightgray;
+  margin-left: 10px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  margin-right: 10px;
+  width: 75px;
+}
+
+.inputtext3{
+  border: 1px solid lightgray;
+  margin-left: 10px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  margin-right: 10px;
+  width: 370px;
+}
+
+.inputphone1{
+  border: 1px solid lightgray;
+  margin-left: 10px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  margin-right: 10px;
+  width: 50px;
+}
+
+.inputphone2{
+  border: 1px solid lightgray;
+  margin-left: 10px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  margin-right: 10px;
+  width: 55px;
+}
+
+.inputsex{
+  border: 1px solid lightgray;
+  margin-left: 35px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  margin-right: 10px;
+  width: 90px;
+}
+
+.inputage{
+  border: 1px solid lightgray;
+  margin-left: 40px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  margin-right: 10px;
+  width: 90px;
+}
+
+.inputaddress{
+  border: 1px solid lightgray;
+  margin-left: 35px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  margin-right: 10px;
+  width: 370px;
+}
+
+.errortext{
+  color:rgb(255, 91, 91);
+  font-size: 3px;
+  width: 100%;
+  height: 30%;
+  text-align: center;
+}
+
+/* 
+상세확인
+*/
+
+.detailth{
+  width: 200px;
+  height: 50px;
+  border: 1px solid lightgray;
+}
+.detailtd{
+  width: 200px;
+  border: 1px solid lightgray;
+}
+
+.completecolor{
+  background-color:#4dabf7;
+  outline: none;
+}
+
+.closecolor{
+  outline: none;
+  background-color:#f74d4d;
+}
+
+.buttoncolor1{
+  background-color: #fc9c43;
+  color:white;
+  border: none;
+  border-radius: 5px;
+  width: 73px;
+  height: 25px;
+  margin-left: 10px;
+  margin-bottom: 5px;
+}
+
+.buttoncolor2{
+  background-color: #4dabf7;
+  color:white;
+  border: none;
+  border-radius: 5px;
+  width: 73px;
+  height: 25px;
+  margin-left: 1px;
+  margin-bottom: 5px;
+}
+
+.test{
+  width: 100%;
+  background-color: red;
+}
+
+.noList{
+  background-color: rgb(241, 241, 241);
+  width: 100%;
+}
