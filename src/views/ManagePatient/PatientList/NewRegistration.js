@@ -98,6 +98,19 @@ const NewRegistration = (props) => {
 
       await sendMqttMessage(props.pubMessage);
       await sendMqttMessage(props.pubMessage2);
+      setPatient({
+        pname: "",
+        pssn1:"",
+        pssn2:"",
+        psex:"",
+        page:"",
+        pphone1:"",
+        pphone2:"",
+        pphone3:"",
+        zonecode:"",
+        address:"",
+        detailaddress:""
+      })
       props.handleClose()
       return await axios.post("/reception/registration", patientRegister); 
 
