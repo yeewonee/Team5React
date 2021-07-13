@@ -93,11 +93,17 @@ export const PastRecord = React.memo((props) => {
       }
     };
   
+  //현재 날짜
+  let today = new Date();
+  let year = today.getFullYear();
+  let month = ('0' + (today.getMonth() + 1)).slice(-2);
+  let day = ('0' + today.getDate()).slice(-2);
+  let dateString = year + '-' + month  + '-' + day;
   //예외처리 검사 상태
   const [exception, setException] = useState(true);
   useEffect(()=> {
     for(let i=0; i<inspectCompare.length; i++){
-      if(inspectCompare[i].pId === patientId){
+      if(inspectCompare[i].patientId === patientId && inspectCompare[i].dDate === dateString){
         setException(false);
         break;
       }
