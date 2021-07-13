@@ -31,7 +31,7 @@ function RDonut(props){
 
   useEffect(() => {
     dListFunc(day);
-  }, [day, props.cBoolean, props.comBoolean]);
+  }, [day, props.cBoolean, props.comBoolean, props.message]);
 
   const expData = {
     datasets: [

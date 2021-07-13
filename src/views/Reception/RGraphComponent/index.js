@@ -112,7 +112,7 @@ function RGraph(props) {
 
   useEffect(() => {
     graphFunc(day);
-  }, [day]);
+  }, [day, props.message]);
 
     return (
       <>

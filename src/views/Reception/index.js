@@ -59,7 +59,7 @@ function Reception(props) {
   return (
     <div className={style.back}>
       <div className={style.border1}>
-        <RGraph/>
+        <RGraph message={message}/>
       </div>
       <div className={style.border2}>
         <RDonut
@@ -67,6 +67,7 @@ function Reception(props) {
         setComBoolean={setComBoolean}
         cBoolean={cBoolean}
         comBoolean={comBoolean}
+        message={message}
         />
       </div>
       <div className={style.border3}>

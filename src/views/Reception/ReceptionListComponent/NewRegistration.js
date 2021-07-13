@@ -49,6 +49,25 @@ const NewRegistration = (props) => {
     })
   }
 
+  const cancelFunc = (e) => {
+    setPatient({
+      pname: "",
+      pssn1:"",
+      pssn2:"",
+      psex:"",
+      page:"",
+      pphone1:"",
+      pphone2:"",
+      pphone3:"",
+      zonecode:"",
+      address:"",
+      detailaddress:""
+    })
+    setChecked1(false)
+    setChecked2(false)
+    props.handleClose()
+  }
+
   //신규환자 등록
   const { register, handleSubmit, errors } = useForm();
   const onSubmit = async(values) => {
@@ -224,7 +243,7 @@ const NewRegistration = (props) => {
           <Button disabled={false} style={{backgroundColor:'#4dabf7'}} type="submit">
             확인
           </Button>
-          <Button style={{backgroundColor:'#f74d4d'}} onClick={props.handleClose}>
+          <Button style={{backgroundColor:'#f74d4d'}} onClick={(e) => cancelFunc(e)}>
             취소
           </Button>
         </Modal.Footer>
