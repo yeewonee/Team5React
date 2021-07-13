@@ -114,20 +114,16 @@ export const PastRecord = React.memo((props) => {
     getInspectCompareList();
   }, [exception])
 
-  const [modalOpen, setModalOpen] = useState(false);
-
   const [dDate, setDdate] = useState("");
+  const [modalOpen, setModalOpen] = useState(false);
   const openModal = (event, day) => {
     setDdate(day);
     setModalOpen(true);
   };
-
-
   const closeModal = () => {
     setModalOpen(false);
   };
 
-  //환자 정보
   
   const dispatch = useDispatch();
   const deleteDiagnosis = () => {

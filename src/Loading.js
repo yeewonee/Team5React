@@ -9,7 +9,7 @@ export const Loading = (props) => {
                 color="#3d66ba"
                 height={props.height}
                 width={props.width}
-                timeout={9000}
+                timeout={30000}
             />
         </div>
     )
