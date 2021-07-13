@@ -2,11 +2,11 @@ import React, { PureComponent, useEffect, useState } from 'react';
 import { Area, AreaChart, CartesianGrid, ReferenceLine, Tooltip, XAxis, YAxis } from "recharts";
 import { ResponsiveContainer } from "recharts";
 import style from './rgraph.module.css';
-import axios from "axios";
 import moment from 'moment';
 import { Loading } from "../../../Loading";
+import { getCountDay } from "apis/reception";
 import { useSelector } from 'react-redux';
-axios.defaults.baseURL = "http://localhost:8080";
+
 
 function RGraph(props) { 
   const day = useSelector((state) => {
@@ -34,7 +34,7 @@ function RGraph(props) {
       let result ="";
       switch(setRDay){
         case 1:
-          result = await axios.get("/reception/countDay", {params:{day:day, day1:rDay6, day2:rDay7, day3:rDay8, day4:rDay9, day5:rDay10}});
+          result = await getCountDay(day, rDay6, rDay7, rDay8, rDay9, rDay10);
           setResult([
             {name: '월', "예약 환자 수": result.data[0]},
             {name: '화', "예약 환자 수": result.data[1]},
@@ -45,7 +45,7 @@ function RGraph(props) {
           ])
           break;
         case 2:
-          result = await axios.get("/reception/countDay", {params:{day:rDay1, day1:day, day2:rDay6, day3:rDay7, day4:rDay8, day5:rDay9}});
+          result = await getCountDay(rDay1, day, rDay6, rDay7, rDay8, rDay9);
           setResult([
             {name: '월', "예약 환자 수": result.data[0]},
             {name: '화', "예약 환자 수": result.data[1]},
@@ -58,7 +58,7 @@ function RGraph(props) {
           console.log(result.data)    
           break;
         case 3:
-          result = await axios.get("/reception/countDay", {params:{day:rDay2, day1:rDay1, day2:day, day3:rDay6, day4:rDay7, day5:rDay8}});
+          result = await getCountDay(rDay2, rDay1, day, rDay6, rDay7, rDay8);
           setResult([
             {name: '월', "예약 환자 수": result.data[0]},
             {name: '화', "예약 환자 수": result.data[1]},
@@ -69,7 +69,7 @@ function RGraph(props) {
           ])
           break;
         case 4:
-          result = await axios.get("/reception/countDay", {params:{day:rDay3, day1:rDay2, day2:rDay1, day3:day, day4:rDay6, day5:rDay7}});
+          result = await getCountDay(rDay3, rDay2, rDay1, day, rDay6, rDay7);
           setResult([
             {name: '월', "예약 환자 수": result.data[0]},
             {name: '화', "예약 환자 수": result.data[1]},
@@ -80,7 +80,7 @@ function RGraph(props) {
           ])
           break;
         case 5:
-          result = await axios.get("/reception/countDay", {params:{day:rDay4, day1:rDay3, day2:rDay2, day3:rDay1, day4:day, day5:rDay6}});
+          result = await getCountDay(rDay4, rDay3, rDay2, rDay1, day, rDay6);
           setResult([
             {name: '월', "예약 환자 수": result.data[0]},
             {name: '화', "예약 환자 수": result.data[1]},
@@ -91,7 +91,7 @@ function RGraph(props) {
           ])
           break;
         case 6:
-          result = await axios.get("/reception/countDay", {params:{day:rDay5, day1:rDay4, day2:rDay3, day3:rDay2, day4:rDay1, day5:day}});
+          result = await getCountDay(rDay5, rDay4, rDay3, rDay2, rDay1, day);
           setResult([
             {name: '월', "예약 환자 수": result.data[0]},
             {name: '화', "예약 환자 수": result.data[1]},

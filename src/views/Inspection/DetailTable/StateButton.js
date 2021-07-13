@@ -3,8 +3,8 @@ import classNames from "classnames/bind";
 import style from "./StateButton.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import { UpdatePstatusAction, UpdateStatusAction } from "redux/inspection_Reducer";
-import axios from "axios";
 import Swal from 'sweetalert2'
+import { UpdateInspectStatus, UpdatePatientStatus } from "apis/inspection";
 
 const cx = classNames.bind(style);
 
@@ -21,14 +21,15 @@ export const StateButton = (props) => {
   
 
   const updateInspect = async(checkList,changeValue)=>{
-     await axios.put("/inspection/updateInspect/"+changeValue,checkList[0])
+    
+     await UpdateInspectStatus(checkList,changeValue)
   }
 
   const patientInspect = async(dId,totalIstatus)=>{
     const diagnosis = {
       dId,totalIstatus
     }
-    await axios.put("inspection/updatePinspect/",diagnosis)
+    await UpdatePatientStatus(diagnosis);
   }
 
  

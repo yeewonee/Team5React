@@ -3,11 +3,9 @@ import { Button, Modal } from 'react-bootstrap';
 import FindAddrDom from './PostCodeComponent/FindAddrDom';
 import FindAddr from './PostCodeComponent/FindAddr';
 import { useEffect, useState } from 'react';
+import Swal from 'sweetalert2'
 import { useForm } from "react-hook-form";
-import { sendMqttMessage } from "apis/reception";
-import axios from "axios";
-axios.defaults.baseURL = "http://localhost:8080";
-//axios js파일 따로 빼기
+import { newPatient, sendMqttMessage } from "apis/reception";
 
 const NewRegistration = (props) => {
   const [setting, setSettting] = useState(false);
@@ -55,7 +53,11 @@ const NewRegistration = (props) => {
   const { register, handleSubmit, errors } = useForm();
   const onSubmit = async(values) => {
     if(patient.zonecode === "" || patient.detailaddress === ""){
-      alert("주소를 입력해 주세요.");
+      Swal.fire({
+        icon: 'error',
+        text: '주소를 입력해 주세요.',
+        confirmButtonColor: '#3085d6'
+      })
       return false;
     }else{
       const patientRegister = {
@@ -70,8 +72,8 @@ const NewRegistration = (props) => {
         addressDetail: patient.detailaddress
       }
       await sendMqttMessage(props.pub2ndMessage);
-      props.handleClose()
-      return await axios.post("/reception/registration", patientRegister); 
+      props.handleClose();
+      await newPatient(patientRegister);
     }
   }
   return(
