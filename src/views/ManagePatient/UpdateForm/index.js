@@ -127,7 +127,7 @@ return (
     </div>
   </form>
   </div>
-  <div style={{display:'flex', justifyContent:'flex-end'}}>
+  <div style={{display:'flex', justifyContent:'flex-end', marginBottom:'10px'}}>
   <button type="submit" className="btn btn-primary" style={{marginTop:'7px', marginRight:'5px'}} onClick={handleBack}>뒤로가기</button>
     <button type="submit" className="btn btn-primary" onClick={handleUpdate} style={{marginTop:'7px'}}>수정완료</button>
   </div>

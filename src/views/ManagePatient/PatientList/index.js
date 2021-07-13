@@ -52,7 +52,7 @@ function PatientList(props) {
 
   return(
     <div className={style.p_list}>
-    <div style={{display:'flex'}}>
+    <div style={{display:'flex', height:'50px'}}>
       <div className="input-group m-2">
         <input type="text" name="searchWord" placeholder="환자 검색" onChange={serachChange} value={searchWord}></input>
         <div className="input-group-append">
@@ -60,7 +60,7 @@ function PatientList(props) {
         </div>
       </div>
       <div style={{margin:'10px'}}>
-          <button className="btn btn-outline-secondary btn-sm" style={{width:'90px'}} onClick={buttonModal}>신규 환자 등록</button>
+          <button className="btn btn-outline-secondary btn-sm" style={{width:'100px'}} onClick={buttonModal}>신규 환자 등록</button>
       </div>
     </div>
       <div className={style.table_wrapper}>

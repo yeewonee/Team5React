@@ -2,12 +2,12 @@
   background-color: white;
   border-style: solid;
   border-color: #adb5bd;
-  height: 80vh;
+  height: 83vh;
   text-align: center;
   margin-bottom: 5px;
 }
 
 .table_wrapper{
-  height: 72.8vh;
+  height: 75vh;
   overflow: auto;
 }
