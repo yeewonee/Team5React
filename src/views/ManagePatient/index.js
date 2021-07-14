@@ -7,11 +7,14 @@ import Paho from "paho-mqtt";
 
 function ManagePatient(props) {
     const [patientList, setPatientList] = useState([]);
+    const [loading, setLoading] = useState(null);
 
     const getPatient = async() => {
+      setLoading(true);
         try{
           const patientResult = await getPatientList();
           setPatientList(patientResult.data);
+          setLoading(false);
         } catch(error){
           console.log(error);
         }
@@ -75,7 +78,7 @@ return(
       </div>
       <div style={{display: 'flex'}}>
         <div style={{flexBasis: '65%', marginLeft:'20px', marginRight:'7px'}}>
-          <PatientList data={patientList} pubMessage={pubMessage} pubMessage2={pubMessage2}></PatientList>
+          <PatientList data={patientList} pubMessage={pubMessage} pubMessage2={pubMessage2} loading={loading}></PatientList>
         </div>
 
         <div style={{flexBasis:'35%', marginRight:'7px'}}>
