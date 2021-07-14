@@ -54,7 +54,12 @@ export function getInspectionCompareList(){
 }
 
 
-export function sendMqttMessage({topic}) {
-  return axios.get("/sendMqttMessage", {params:{topic}});
+export function sendMqttMessage({topic, content}) {
+  return axios.get("/sendMqttMessage", {params:{topic, content}});
+}
+
+export function getUserList(uid){
+  const promise = axios.get("/diagnosis/userlist", {params:{uid}})
+  return promise;
 }
 

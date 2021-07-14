@@ -99,6 +99,7 @@ export const PastRecord = React.memo((props) => {
   let month = ('0' + (today.getMonth() + 1)).slice(-2);
   let day = ('0' + today.getDate()).slice(-2);
   let dateString = year + '-' + month  + '-' + day;
+  console.log(dateString)
   //예외처리 검사 상태
   const [exception, setException] = useState(true);
   useEffect(()=> {
@@ -146,6 +147,7 @@ export const PastRecord = React.memo((props) => {
   
   const sendDiagnosis = async() => {  
     if(patientId){
+      console.log(exception)
       if(exception === true){
         changeLoading(true)
         await axios.post("/diagnosis/pushdiagnosis", diagnosisInfo)
@@ -155,6 +157,11 @@ export const PastRecord = React.memo((props) => {
           dispatch(createSetPidAction(""));
           dispatch(createSetRidAction(""));
           changeLoading(false)
+          Swal.fire({
+            icon: 'success',
+            text: '진료가 완료되었습니다.',
+            confirmButtonColor: '#3085d6'
+          })
         });
         await sendMqttMessage(pubMessage);
       }else{

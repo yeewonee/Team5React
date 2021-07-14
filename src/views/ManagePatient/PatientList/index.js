@@ -5,13 +5,16 @@ import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { createSetPatient } from "redux/managePatient-reducer";
 import NewRegistration from "./NewRegistration";
-
+import { FaUserTimes } from 'react-icons/fa';
+import { Loading } from "Loading";
 
 function PatientList(props) {
   const dispatch = useDispatch();
   const originList = props.data;
   const [searchWord, setSearchWord] = useState('');
   const [patientList, setPatientList] = useState([]);
+
+  const loading = props.loading; //로딩상태값
 
     //신규환자 등록 모달
     const [show, setShow] = useState(false);
@@ -31,8 +34,7 @@ function PatientList(props) {
     }
     test()
     setColorSelect("");
-  },[props.data])
-  
+  },[props.data, props.message])
   const serachChange = (event) => {
     setSearchWord(event.target.value);
   };
@@ -67,10 +69,31 @@ function PatientList(props) {
           <button className="btn btn-outline-secondary btn-sm" style={{width:'100px'}} onClick={buttonModal}>신규 환자 등록</button>
       </div>
     </div>
+    
+      {/* 신규환자 등록 */}
+      <NewRegistration
+      show={show} 
+      handleClose={handleClose}
+      isPopupOpen={isPopupOpen}
+      openPostCode={openPostCode}
+      closePostCode={closePostCode}
+      pubMessage={props.pubMessage}
+      pubMessage2={props.pubMessage2}
+      />
+   {loading ?
+      <>
+      <div style={{marginTop:'25%'}}> 
+        <Loading height={60} width={60}/>
+      </div> 
+      <p>Loading..</p>
+      </>
+    :
+    <>
+    {patientList.length !== 0 ? (
       <div className={style.table_wrapper}>
       <CommonTable headersName={['환자번호', '이름', '주민등록번호', '전화번호', '우편번호', '주소']} tstyle={"table table-sm"}>
           {patientList.map((patient, index) => (
-            <tr key={patient.patientId} onClick={()=>handleClick(patient.patientId)} className={patient.patientId === colorSelect ? style.select_Color : style.basic_Color}>
+            <tr key={patient.patientId} onClick={()=>handleClick(patient.patientId)} className={patient.patientId === colorSelect ? style.select_Color : style.basic_Color} style={{cursor:"pointer"}}>
                 <CommonTableColumn>{patient.patientId}</CommonTableColumn>
                 <CommonTableColumn>{patient.patientName}</CommonTableColumn>
                 <CommonTableColumn>{patient.patientSsn1}-{patient.patientSsn2}</CommonTableColumn>
@@ -80,19 +103,15 @@ function PatientList(props) {
             </tr>
             ))}
       </CommonTable>
-    </div>
-
-    {/* 신규환자 등록 */}
-    <NewRegistration
-      show={show} 
-      handleClose={handleClose}
-      isPopupOpen={isPopupOpen}
-      openPostCode={openPostCode}
-      closePostCode={closePostCode}
-      pubMessage={props.pubMessage}
-      pubMessage2={props.pubMessage2}
-      />
-
+    </div> 
+  ):( 
+    <div>
+      <div style={{display:'flex', justifyContent:'center', alignItems:'center',flexDirection:'column',height:'35vh'}}>
+        <div style={{marginTop:'200px'}}><FaUserTimes size={'10em'}/></div>
+        <div style={{marginTop:'10px',fontSize:'20px'}}>일치하는 환자가 없습니다.</div>
+      </div>  
+    </div>)
+  }</>}  
     </div>
     );
 }

@@ -7,11 +7,14 @@ import Paho from "paho-mqtt";
 
 function ManagePatient(props) {
     const [patientList, setPatientList] = useState([]);
+    const [loading, setLoading] = useState(null);
 
     const getPatient = async() => {
+      setLoading(true);
         try{
           const patientResult = await getPatientList();
           setPatientList(patientResult.data);
+          setLoading(false);
         } catch(error){
           console.log(error);
         }
@@ -25,6 +28,8 @@ function ManagePatient(props) {
 
     const [connected, setConnected] = useState(false);
     const [subTopic, setSubTopic] = useState("/main/managePatient");
+    const [message, setMessage] = useState("/main/managePatient");
+  
     const [pubMessage, setPubMessage] = useState({
       topic: "/main/createReception",
     });  
@@ -43,7 +48,9 @@ function ManagePatient(props) {
       };
   
       client.current.onMessageArrived = (msg) => {
-        console.log("환자관리 메세지 수신");       
+        console.log("환자관리 메세지 수신");      
+        var message = JSON.parse(msg.payloadString); 
+        setMessage(message)
         getPatient();
       };
   
@@ -62,7 +69,7 @@ function ManagePatient(props) {
     useEffect(() => {
       connectMqttBroker();
     }, []);
-
+    
 return(
 
 <div style={{fontFamily: "DoHyeon-Regular"}}>
@@ -71,11 +78,11 @@ return(
       </div>
       <div style={{display: 'flex'}}>
         <div style={{flexBasis: '65%', marginLeft:'20px', marginRight:'7px'}}>
-          <PatientList data={patientList} pubMessage={pubMessage} pubMessage2={pubMessage2}></PatientList>
+          <PatientList data={patientList} pubMessage={pubMessage} pubMessage2={pubMessage2} loading={loading}></PatientList>
         </div>
 
         <div style={{flexBasis:'35%', marginRight:'7px'}}>
-          <UpdateForm data={patientList}></UpdateForm>
+          <UpdateForm data={patientList} message={message} pubMessage={pubMessage} pubMessage2={pubMessage2}></UpdateForm>
         </div>
 
       </div>
