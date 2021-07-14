@@ -5,6 +5,7 @@ import receptionCalStyle from "./receptionCalStyle.css";
 import { useDispatch } from "react-redux";
 import { createSetDate, createSetTime } from "redux/createReception-reducer";
 import moment from "moment";
+import Swal from 'sweetalert2' 
 
 function CheckCalendar(props) {
   const dispatch = useDispatch();
@@ -14,7 +15,11 @@ function CheckCalendar(props) {
     const clickDate= moment(event).format('YYYY-MM-DD') //선택한 날짜 구하기
 
     if(clickDate< today){ //오늘보다 이전 날짜를 선택하는 경우
-      alert("이전 날짜는 선택이 불가능합니다");
+      Swal.fire({
+        icon: 'error',
+        text: '이전 날짜는 예약 및 접수가 불가능합니다.',
+        confirmButtonColor: '#3085d6'
+      })
     } else { 
     dispatch(createSetDate(clickDate)); 
     dispatch(createSetTime('')); //날짜 바꾸면 선택된 시간 비워주기
