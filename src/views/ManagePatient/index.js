@@ -79,7 +79,7 @@ return(
         </div>
 
         <div style={{flexBasis:'35%', marginRight:'7px'}}>
-          <UpdateForm data={patientList} message={message}></UpdateForm>
+          <UpdateForm data={patientList} message={message} pubMessage={pubMessage} pubMessage2={pubMessage2}></UpdateForm>
         </div>
 
       </div>
