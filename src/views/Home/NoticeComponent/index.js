@@ -46,16 +46,6 @@ function Notice(props) {
     userId: "",
   });
 
-  //css를 위한 임시 페이징 처리
-  // let pageNo = 1;
-  // console.log(props);
-  // const queryString = qs.parse(props.props.history.location.search, { ignoreQueryPrefix: true });
-  
-  // if (queryString.pageNo) {
-  //   pageNo = parseInt(queryString.pageNo);
-  // }
-
-
   return (
     <>
       <NoticeModal show={show}
@@ -105,14 +95,6 @@ function Notice(props) {
               
             </Table>
             }
-            {/* <div className="d-flex justify-content-center">
-              <Link to="/?pageNo=1" className={`btn ${pageNo === 1 ? "btn-danger" : "btn-outline-primary"} btn-sm mr-1`}>
-                1
-              </Link>
-              <Link to="/?pageNo=2" className={`btn ${pageNo === 2 ? "btn-danger" : "btn-outline-primary"} btn-sm mr-1`}>
-                2
-              </Link>
-            </div> */}
             
           </div>
         </div>

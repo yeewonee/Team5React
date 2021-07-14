@@ -25,6 +25,8 @@ function ManagePatient(props) {
 
     const [connected, setConnected] = useState(false);
     const [subTopic, setSubTopic] = useState("/main/managePatient");
+    const [message, setMessage] = useState("/main/managePatient");
+  
     const [pubMessage, setPubMessage] = useState({
       topic: "/main/createReception",
     });  
@@ -43,7 +45,9 @@ function ManagePatient(props) {
       };
   
       client.current.onMessageArrived = (msg) => {
-        console.log("환자관리 메세지 수신");       
+        console.log("환자관리 메세지 수신");      
+        var message = JSON.parse(msg.payloadString); 
+        setMessage(message)
         getPatient();
       };
   
@@ -62,7 +66,7 @@ function ManagePatient(props) {
     useEffect(() => {
       connectMqttBroker();
     }, []);
-
+    
 return(
 
 <div style={{fontFamily: "DoHyeon-Regular"}}>
@@ -75,7 +79,7 @@ return(
         </div>
 
         <div style={{flexBasis:'35%', marginRight:'7px'}}>
-          <UpdateForm data={patientList}></UpdateForm>
+          <UpdateForm data={patientList} message={message}></UpdateForm>
         </div>
 
       </div>
