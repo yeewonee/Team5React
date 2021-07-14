@@ -31,8 +31,7 @@ function PatientList(props) {
     }
     test()
     setColorSelect("");
-  },[props.data])
-  
+  },[props.data, props.message])
   const serachChange = (event) => {
     setSearchWord(event.target.value);
   };
@@ -70,7 +69,7 @@ function PatientList(props) {
       <div className={style.table_wrapper}>
       <CommonTable headersName={['환자번호', '이름', '주민등록번호', '전화번호', '우편번호', '주소']} tstyle={"table table-sm"}>
           {patientList.map((patient, index) => (
-            <tr key={patient.patientId} onClick={()=>handleClick(patient.patientId)} className={patient.patientId === colorSelect ? style.select_Color : style.basic_Color}>
+            <tr key={patient.patientId} onClick={()=>handleClick(patient.patientId)} className={patient.patientId === colorSelect ? style.select_Color : style.basic_Color} style={{cursor:"pointer"}}>
                 <CommonTableColumn>{patient.patientId}</CommonTableColumn>
                 <CommonTableColumn>{patient.patientName}</CommonTableColumn>
                 <CommonTableColumn>{patient.patientSsn1}-{patient.patientSsn2}</CommonTableColumn>
