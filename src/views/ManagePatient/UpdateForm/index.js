@@ -7,6 +7,7 @@ import { updatePatient } from "apis/managePatient";
 import { useHistory } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import Swal from 'sweetalert2' 
+import { sendMqttMessage } from "apis/createReception";
 
 function UpdateForm(props) {
     const history = useHistory();
@@ -65,6 +66,8 @@ function UpdateForm(props) {
       patientZip: patient.patientZip,
     };
       await updatePatient(dirtyPatient);
+      await sendMqttMessage(props.pubMessage); //예약접수 화면으로 메시지 발신
+      await sendMqttMessage(props.pubMessage2); //환자관리 화면으로 메시지 발신
       Swal.fire({
         icon: 'success',
         text: '수정이 완료 됐습니다.',
