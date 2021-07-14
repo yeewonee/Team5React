@@ -4,6 +4,8 @@ import { AiOutlineUser } from "react-icons/ai";
 import { useDispatch, useSelector } from "react-redux";
 import { createSetAuthTokenAction, createSetUidAction } from "redux/auth-reducer";
 import { removeAuthHeader } from "apis/axiosConfig";
+import { useState } from "react";
+import { ModalChat } from "ModalChat";
 
 function AppHeader() {
   const username = useSelector((state) => state.authReducer.name);
@@ -24,12 +26,23 @@ function AppHeader() {
 
   };
 
+  const [modalOpen, setModalOpen] = useState(false);
+  const openModal = (event, day) => {
+    setModalOpen(true);
+  };
+  const closeModal = () => {
+    setModalOpen(false);
+  };
+
   return (
     <div>
       <header>
         <div className="header-container" style={{fontFamily: "DoHyeon-Regular"}}>
           <div className="logo ml-3"><Link to="/" style={{textDecoration:"none"}}>wehago-h</Link></div>
           <div className="user">
+            <button type="button" className="btn btn-outline-dark btn-sm" onClick={(event, day)=>{openModal(event)}}>
+                      채팅
+            </button>
             <div className="mr-4"><AiOutlineUser /> {username}</div>
             <button type="button" className="btn btn-light">
               <Link to="/" style={{textDecoration:"none"}} onClick={logout}>로그아웃</Link>
@@ -37,6 +50,10 @@ function AppHeader() {
           </div>
         </div>
       </header>
+      <ModalChat 
+        closeModal={closeModal}
+        modalOpen={modalOpen}
+      />   
     </div>
   );
 }
