@@ -35,13 +35,14 @@ export const ModalChat = (props) => {
   const [pubState, setPubState] = useState();
   const handleUserName = (event, userId) => {
     console.log("들어옴" + userId)
-    setPubMessage({
-      ...pubMessage,
-      topic: "/topic1/" + userId
+    setPubMessage((prev) => {
+      return {
+        ...prev,
+        topic:  "/topic1/#"
+      }
     });
 
-    setSubTopic2("/topic1/"+userId);
-
+    setSubTopic("/topic1/" + uid)
   }
   
   
@@ -49,19 +50,25 @@ export const ModalChat = (props) => {
   //상태 선언
   //-------------------------------------------------------------
   const [connected, setConnected] = useState(false);
-  const [subTopic, setSubTopic] = useState("/topic1/"+uid);
-  const [subTopic2, setSubTopic2] = useState("/topic1/");
+  const [subTopic, setSubTopic] = useState("/topic1/" + uid);
   const [prevSubTopic, setPrevSubTopic] = useState("/topic1/#");
   const [pubMessage, setPubMessage] = useState({
-    topic: "/topic1/" + pubState,
+    topic: "/topic1/#",
     content: "Hello"
   });
+
   const [contents, setContents] = useState([]);
 
   //입력 양식 값이 변경될 때 상태 변경
 
   const changePubMessage = (event) => {
-    setPubMessage({...pubMessage, [event.target.name]:event.target.value});
+
+    setPubMessage((prev)=>{
+      return{
+        ...prev,
+        [event.target.name]:event.target.value
+      }
+    });
   };
 
 
@@ -82,8 +89,9 @@ export const ModalChat = (props) => {
     client.current.onMessageArrived = (msg) => {
       console.log("메시지 수신");
       var message = JSON.parse(msg.payloadString);
+      console.log("asdsad", message.topic)
       setContents((contents) => {
-        return contents.concat(message.topic + ": " + message.content);
+        return contents.concat(message.content);
       });
     };
 
@@ -101,15 +109,18 @@ export const ModalChat = (props) => {
   const sendSubTopic = () => {
     client.current.unsubscribe(prevSubTopic);
     client.current.subscribe(subTopic);
-    client.current.subscribe(subTopic2);
 
     setPrevSubTopic(subTopic);
+
   }
 
   const publishTopic = async () => {
     console.log(subTopic)
     console.log(pubMessage.topic)
+    console.log(pubMessage.content)
+
     await sendMqttMessage(pubMessage);
+
   } 
 
   //-------------------------------------------------------------
@@ -121,7 +132,6 @@ export const ModalChat = (props) => {
       disconnectMqttBroker();
     });
   }, []);
-
 
 
 
@@ -147,7 +157,12 @@ export const ModalChat = (props) => {
           </div>
           <div style={{border:'1px solid black', width:'70%', marginLeft:'10px', height:'60vh'}}>
             <div style={{border:'1px solid black', width:'95%', marginTop:'10px', marginLeft:'2%', height:'50vh'}}>
-              {contents.map((content, index) => <div key={index}>{content}</div>)}
+              {contents.map((content, index) => 
+                <div key={index}>
+                  {uid}
+                  {uid}: {content}
+                </div>
+              )}
             </div>
             <div style={{border:'1px solid black', width:'95%', marginTop:'5px', marginLeft:'2%', height:'5vh'}}>
               <input type="text" name="content" value={pubMessage.content} onChange={changePubMessage}/>
