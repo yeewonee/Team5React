@@ -14,7 +14,8 @@ import Barcode from "react-barcode";
 import { transitions, positions, Provider as AlertProvider } from 'react-alert'
 import AlertTemplate from 'react-alert-template-basic'
 import { FaUserCheck } from 'react-icons/fa';
-import Swal from 'sweetalert2'
+import Swal from 'sweetalert2';
+import { UpdateInspectResult } from "apis/inspection";
 
 
 
@@ -99,6 +100,7 @@ function DetailTable(props) {
 
   //바코드 모달창 열고 닫기에 대한 상태
   const [ modalOpen, setModalOpen ] = useState(false);
+  const [ modalOpen2, setModalOpen2 ] = useState(false);
 
   const openModal = () => {
       setModalOpen(true);
@@ -106,6 +108,15 @@ function DetailTable(props) {
   const closeModal = () => {
       setModalOpen(false);
   }
+
+  const openModal2 = () => {
+    setModalOpen2(true);
+}
+const closeModal2 = () => {
+    setModalOpen2(false);
+}
+
+
 
   //istatus에대한 글씨 색상
   const viewStatus = (istatus)=>{
@@ -128,6 +139,39 @@ function DetailTable(props) {
     })
   }
 
+  const [result, setResult] = useState("0");
+
+  const handleChange = (event) =>{
+    setResult(event.target.value)
+  }
+
+  const sendResult = async() =>{
+    const DiagnosisInspection ={
+      patientId:checkList[0].patientId,
+      iId:checkList[0].iId,
+      bundleCode:checkList[0].bundleCode,
+      iResult:result
+    }
+    const response= await UpdateInspectResult(DiagnosisInspection);
+    console.log(response.data)
+    if(response.data.result ==='success'){
+      Swal.fire({
+        position: 'middle',
+        icon: 'success',
+        title: '저장되었습니다.',
+        showConfirmButton: false,
+        timer: 1500
+      })
+    }else{
+      Swal.fire({
+        icon: 'error',
+        text: '결과값을 입력해주세요.',
+        confirmButtonColor: '#3085d6'
+      })
+    }
+    setResult('');
+  }
+
 
   return (
     <div>
@@ -136,10 +180,20 @@ function DetailTable(props) {
         
         <AlertProvider template={AlertTemplate} {...options}>
           <StateButton value={'바코드 출력'} change={'접수'}  checkfun={checkState} list={inspectList} openModal={openModal}></StateButton>
-          <Modal open={ modalOpen } close={ closeModal } header="Modal heading">
+          <Modal open={ modalOpen } close={ closeModal } header="접수 바코드">
           <Barcode value={"      "+patient.pno+patient.pno+patient.pno+patient.pno+patient.pno+"      "} style={{textAlign:'center'}}/>
           </Modal>
           <StateButton value={'접수 취소'} change={'대기'} checkfun={checkState} list={inspectList}></StateButton>
+          <StateButton  value={'결과 등록'} change={'등록'} openModal2={openModal2}></StateButton>
+          <Modal open={ modalOpen2 } close={ closeModal2 } header="결과등록">
+            <div style={{display:'flex',flexDirection:'column' ,justifyContent:'center',alignItems:'center'}}>
+              <div style={{fontSize:'20px'}}>결과값을 입력해주세요.</div>
+              <div style={{display:'flex'}}>
+                <div style={{marginRight:'10px'}}><input type="text" value={result} onChange={handleChange}></input></div>
+                <div><button type='button' onClick={sendResult}>저장</button></div>
+              </div>
+            </div>
+          </Modal>
           <StateButton value={'채혈 완료'} change={'완료'}  checkfun={checkState} list={inspectList}></StateButton>
           </AlertProvider>
           <button className={cx(style.stateButton)}>

@@ -10,10 +10,10 @@ function Progress(props){
 
     const user = props.data;
     const inspectList = props.list;
+   
     //완료한 검사항목을 담고 있는 배열 생성
     const completeList=inspectList.filter((value)=>value.iStatus==='완료');
     useSelector(state => state.inspectReducer.checked);
-    
     //진행률 퍼센트
     let progress = Math.floor((completeList.length/inspectList.length)*100 );
     //progressBar style에 문자열로 들어가야 하기 때문에 progress와 %를 합친 문자열 생성
@@ -37,7 +37,7 @@ function Progress(props){
     
     //진행중인 검사 찾기
     const proceeding = inspectList.find((value)=>value.iStatus==='접수')
-
+    console.log(proceeding)
     return (
         <div>
         <div className={cx(style.middle_right_top)}>
@@ -55,6 +55,15 @@ function Progress(props){
                         <div className={cx(style.inspectName)}>
                             <div>현재 진행중인 검사</div>
                             {proceeding!==undefined?<div>▶ {proceeding.iName}</div>:<div>▶ 진행중인 검사가 없습니다.</div>}
+                        </div>
+                        <div className = {cx(style.limit)}>
+                            {proceeding!==undefined?
+                            <ul>
+                                <li>하한치 : {proceeding.lowerLimit}</li>
+                                <li>상한치 : {proceeding.lowerLimit}</li>
+                            </ul>:
+                            <></>
+                            }
                         </div>
                 </div>
                 <div className={cx(style.percentData)}>

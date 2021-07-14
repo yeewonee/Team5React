@@ -14,6 +14,11 @@ export function UpdateInspectStatus(checkList, changeValue) {
   axios.put("/inspection/updateInspect/" + changeValue, checkList[0]);
 };
 
+export function UpdateInspectResult(DiagnosisInspection) {
+  const result =axios.put("/inspection/updateInspectResult/",DiagnosisInspection)
+  return result
+};
+
 export function UpdatePatientStatus(diagnosis){
     axios.put("inspection/updatePinspect/",diagnosis)
 }
