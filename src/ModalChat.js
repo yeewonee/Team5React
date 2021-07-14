@@ -6,6 +6,8 @@ import { getUserList, sendMqttMessage } from "apis/diagnosis";
 import CommonTableRow from "views/table/CommonTableRow";
 import { useSelector } from "react-redux";
 import Paho from "paho-mqtt";
+import style from "./chat.module.css";
+
 
 
 export const ModalChat = (props) => {
@@ -32,16 +34,17 @@ export const ModalChat = (props) => {
     userList();
   }, []);
 
-  const [pubState, setPubState] = useState();
+  const [pubState, setPubState] = useState(false);
   const handleUserName = (event, userId) => {
+    setColorSelect(userId)
     console.log("들어옴" + userId)
     setPubMessage((prev) => {
       return {
         ...prev,
-        topic:  "/topic1/#"
+        topic:  "/topic1/" + userId
       }
     });
-
+    setPubState(true);
     setSubTopic("/topic1/" + uid)
   }
   
@@ -58,6 +61,7 @@ export const ModalChat = (props) => {
   });
 
   const [contents, setContents] = useState([]);
+  const [sendContents, setSendContents] = useState([]);
 
   //입력 양식 값이 변경될 때 상태 변경
 
@@ -87,11 +91,17 @@ export const ModalChat = (props) => {
     };
 
     client.current.onMessageArrived = (msg) => {
+      let today = new Date();   
+      let hours = today.getHours(); // 시
+      let minutes = today.getMinutes();  // 분
       console.log("메시지 수신");
       var message = JSON.parse(msg.payloadString);
-      console.log("asdsad", message.topic)
       setContents((contents) => {
         return contents.concat(message.content);
+      });
+
+      setSendContents((contents) => {
+        return contents.concat("시간" + hours + ':' + minutes);
       });
     };
 
@@ -115,9 +125,17 @@ export const ModalChat = (props) => {
   }
 
   const publishTopic = async () => {
-    console.log(subTopic)
-    console.log(pubMessage.topic)
-    console.log(pubMessage.content)
+    let today = new Date();   
+    let hours = today.getHours(); // 시
+    let minutes = today.getMinutes();  // 분
+
+    setSendContents((contents) => {
+      return contents.concat(pubMessage.content);
+    });
+
+    setContents((contents) => {
+      return contents.concat("시간" + hours + ':' + minutes);
+    });
 
     await sendMqttMessage(pubMessage);
 
@@ -133,45 +151,76 @@ export const ModalChat = (props) => {
     });
   }, []);
 
+const check = (content) => {
+  let temp = content.charAt(0);
+  if(temp === '시'){
+    return true;
+  }else{
+    return false;
+  }
 
+}
+
+const [colorSelect, setColorSelect] = useState("");
 
   return (
     <>
       {/* 과거기록 상세보기 modal */}
       <Modal open={props.modalOpen} close={closeModal} header="채팅">
         <div>로그인 중인 아이디 : {uid}</div>
-        <div className="d-flex justify-content-between" >
+        <div className="d-flex justify-content-between" style={{marginTop:'20px'}}>
           <div style={{border:'1px solid black', width:'30%'}}>리스트</div>
           <div style={{border:'1px solid black', width:'70%', marginLeft:'10px'}}>채팅방</div>
         </div>
 
         <div className="d-flex justify-content-between" style={{marginTop:'10px'}}>
-          <div style={{border:'1px solid black', width:'30%', height:'60vh'}}>
+          <div style={{border:'1px solid black', width:'30%', height:'45vh'}}>
           <CommonTable headersName={["이름"]} tstyle={"table table-sm"}>
             {user.map((user, index) => (
-              <CommonTableRow key={index}>
-                <CommonTableColumn><button onClick={(event)=>{handleUserName(event, user.userId)}}>{user.userName}</button></CommonTableColumn>
-              </CommonTableRow>
+              <tr key={index} onClick={(event)=>{handleUserName(event, user.userId)}} className={user.userId === colorSelect ? style.select_Color : style.basic_Color} style={{cursor:"pointer"}}>
+                <CommonTableColumn>{user.userName}</CommonTableColumn>
+              </tr>
             ))}
           </CommonTable>
           </div>
-          <div style={{border:'1px solid black', width:'70%', marginLeft:'10px', height:'60vh'}}>
-            <div style={{border:'1px solid black', width:'95%', marginTop:'10px', marginLeft:'2%', height:'50vh'}}>
-              {contents.map((content, index) => 
-                <div key={index}>
-                  {uid}
-                  {uid}: {content}
-                </div>
-              )}
-            </div>
-            <div style={{border:'1px solid black', width:'95%', marginTop:'5px', marginLeft:'2%', height:'5vh'}}>
-              <input type="text" name="content" value={pubMessage.content} onChange={changePubMessage}/>
-            </div>
-          </div>
           
+          {pubState ? 
+            <div style={{border:'1px solid black', width:'70%', marginLeft:'10px', height:'45vh', overflow:'auto'}}>
+            <div className="d-flex justify-content-between" style={{marginTop:'10px'}}>
+              <div style={{width:'95%', marginTop:'5px', marginLeft:'2%', height:'50vh'}}>
+                {contents.map((content, index) => 
+                  <div key={index} className={ check(content) ? style.basic_Color : style.select_Color} style={{height:'30px'}}>
+                    <p className={ check(content) ? style.select_Size : style.basic_Size}>{content}</p>
+                  </div>
+                )}
+              </div>
+              <div style={{width:'95%', marginTop:'5px', marginLeft:'2%', height:'50vh'}}>
+                {sendContents.map((content, index) => 
+                  <div key={index}  className={ check(content) ? style.basic_Color : style.select_Color} style={{height:'30px'}}>
+                    <p className={ check(content) ? style.select_Size : style.basic_Size} >{content}</p>
+                  </div>
+                )}
+              </div>
+            </div>
+            </div>
+          :
+          <div style={{border:'1px solid red', width:'70%', marginLeft:'10px', height:'45vh', overflow:'auto'}}>
+            <p style={{marginLeft:'38%', marginTop:'30%'}}>상대를 선택하세요.</p>
+          </div>
+          }
+         
+
         </div>
         
-        <button className="btn btn-info btn-sm ml-2" onClick={publishTopic}>보내기</button>
+        <div style={{width:'69%', marginLeft:'31%'}}>
+          <div class="input-group mb-3">
+            <input type="text" class="form-control" name="content" value={pubMessage.content} onChange={changePubMessage} />
+            <div class="input-group-append">
+              <button class="btn btn-secondary" type="button" onClick={publishTopic}>전송</button>
+            </div>
+          </div>
+        </div>
+       
         
       </Modal>
     </>
