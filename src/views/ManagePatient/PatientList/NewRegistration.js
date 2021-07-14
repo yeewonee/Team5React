@@ -3,14 +3,10 @@ import { Button, Modal } from 'react-bootstrap';
 import { useEffect, useState } from 'react';
 import Swal from 'sweetalert2'
 import { useForm } from "react-hook-form";
-import { sendMqttMessage } from "apis/reception";
+import { newPatient, sendMqttMessage } from "apis/reception";
 import axios from "axios";
 import FindAddrDom from '../PostCodeComponent/FindAddrDom';
 import FindAddr from '../PostCodeComponent/FindAddr';
-axios.defaults.baseURL = "http://localhost:8080";
-//axios js파일 따로 빼기
-
-// import { newPatient, sendMqttMessage } from "apis/reception";
 
 const NewRegistration = (props) => {
   const [setting, setSettting] = useState(false);
@@ -111,8 +107,10 @@ const NewRegistration = (props) => {
         address:"",
         detailaddress:""
       })
+      setChecked1(false)
+      setChecked2(false)
       props.handleClose()
-      return await axios.post("/reception/registration", patientRegister); 
+      return await newPatient(patientRegister); 
 
     }
   }
@@ -220,8 +218,8 @@ const NewRegistration = (props) => {
                     }
                 />
                 <div className={style.errortext}>{errors.pphone1 && "전화번호 앞자리는 숫자 3자리 입니다."}</div>                  
-                <div className={style.errortext}>{errors.pphone2 && "전화번호 중간자리는 숫자 3자리 입니다."}</div>                  
-                <div className={style.errortext}>{errors.pphone3 && "전화번호 뒷자리는 숫자 3자리 입니다."}</div>                  
+                <div className={style.errortext}>{errors.pphone2 && "전화번호 중간자리는 숫자 4자리 입니다."}</div>                  
+                <div className={style.errortext}>{errors.pphone3 && "전화번호 뒷자리는 숫자 4자리 입니다."}</div>                  
                 
 
                 </th>
