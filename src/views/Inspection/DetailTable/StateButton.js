@@ -65,7 +65,7 @@ export const StateButton = (props) => {
 
     if (checkList.length > 1) {
       console.log("여러개");
-      if (changeValue === "접수") {
+      if (changeValue === "접수" || changeValue==="등록") {
         Swal.fire({
           icon: 'error',
           text: '단일 접수만 가능합니다.',
@@ -75,7 +75,7 @@ export const StateButton = (props) => {
       }
     }
 
-    for (let i = 0; i < checkList?.length; i++) {
+    for (let i = 0; i < inspectList?.length; i++) {
       if (inspectList[i].iStatus === "접수") {
         if (changeValue === "접수") {
           Swal.fire({
@@ -86,8 +86,10 @@ export const StateButton = (props) => {
           return;
         }
       }
+    }
+    for (let i = 0; i < checkList?.length; i++) {
       if (checkList[i].iStatus === "대기") {
-        if (changeValue === "완료") {
+        if (changeValue === "완료" || changeValue==="등록") {
           Swal.fire({
             icon: 'error',
             text: '검사를 진행해주세요',
@@ -105,7 +107,7 @@ export const StateButton = (props) => {
         }
       }
       if (checkList[i].iStatus === "완료") {
-        if (changeValue === "대기" || changeValue === "접수") {
+        if (changeValue === "대기" || changeValue === "접수" || changeValue==="등록") {
           Swal.fire({
             icon: 'error',
             text: '완료된 검사입니다',
@@ -135,14 +137,18 @@ export const StateButton = (props) => {
       if (changeValue === "접수") {
         props.openModal();
       }
+      if (changeValue === "등록") {
+        props.openModal2();
+         return
+      }
     }
 
     updateInspect(checkList, changeValue);
    
     //리덕스에 저장된 체크한 검사들의 객체 상태를 비워줌
     dispatch(UpdateStatusAction());
-    for(let i =0; i<inspectList.length; i++){
-      if(checkList[0]?.iId===inspectList[i].iId&&checkList[0]?.bundleCode===inspectList[i]?.bundleCode){
+    for(let i =0; i<inspectList?.length; i++){
+      if(checkList[0]?.iId===inspectList[i]?.iId&&checkList[0]?.bundleCode===inspectList[i]?.bundleCode){
         inspectList[i].iStatus=changeValue;
       }
     }

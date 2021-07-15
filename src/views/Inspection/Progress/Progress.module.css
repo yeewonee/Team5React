@@ -57,3 +57,13 @@
     margin-bottom:10px;
     display:flex
 }
+
+.limit ul{
+    display: flex;
+    margin-top: 7px;
+}
+
+.limit ul li{
+
+    margin-right: 55px;
+}
