@@ -69,6 +69,11 @@ const NewRegistration = (props) => {
     props.handleClose()
   }
 
+  const restrictCancel = (e) => {
+    setSettting(true)
+    props.openPostCode()
+  }
+
   //신규환자 등록
   const { register, handleSubmit, errors } = useForm();
   const onSubmit = async(values) => {
@@ -115,7 +120,7 @@ const NewRegistration = (props) => {
     }
   }
   return(
-    <Modal show={props.show} onHide={props.handleClose} className={style.font} dialogClassName="custom-modal">
+    <Modal backdrop={false} show={props.show} onHide={props.handleClose} className={style.font} dialogClassName="custom-modal">
         <Modal.Header closeButton>
           <Modal.Title style={{color:'gray', textShadow:'1px 1px 1px'}}>신규환자 등록</Modal.Title>
         </Modal.Header>
@@ -228,7 +233,7 @@ const NewRegistration = (props) => {
                 <th className={style.tr1}>&nbsp;우편번호<input type="text" className={style.inputtext1} value={patient.zonecode} name="zonecode" readOnly/></th>
                 <th className={style.tr1}>   
                   <div>
-                    &nbsp;<button className="btn btn-sm btn-light" onClick={props.openPostCode}>우편번호 검색</button>
+                    &nbsp;<button className="btn btn-sm btn-light" onClick={(e) => restrictCancel(e)}>우편번호 검색</button>
 
                   </div>   
                 </th>             
@@ -255,14 +260,14 @@ const NewRegistration = (props) => {
           <div id='FindAddrDom'>
             {props.isPopupOpen && (
                 <FindAddrDom>
-                    <FindAddr setPatient={setPatient} patient={patient} onClose={props.closePostCode} />
+                    <FindAddr setPatient={setPatient} patient={patient} onClose={props.closePostCode} setSettting={setSettting}/>
                 </FindAddrDom>
             )}
           </div>
-          <Button disabled={false} style={{backgroundColor:'#4dabf7'}} type="submit">
+          <Button style={{backgroundColor:'#4dabf7'}} type="submit">
             확인
           </Button>
-          <Button style={{backgroundColor:'#f74d4d'}} onClick={(e) => cancelFunc(e)}>
+          <Button disabled={setting} style={{backgroundColor:'#f74d4d'}} onClick={(e) => cancelFunc(e)}>
             취소
           </Button>
         </Modal.Footer>
