@@ -52,7 +52,6 @@ function CreateReception(props) {
     }
   };
 
-
   useEffect(() => {
     getPatient();
     getDoctor();
@@ -81,7 +80,6 @@ function CreateReception(props) {
 
     client.current.onMessageArrived = (msg) => {
       console.log("메시지 수신");
-
       getPatient();
     };
 
