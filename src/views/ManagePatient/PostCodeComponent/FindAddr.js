@@ -23,9 +23,14 @@ const FindAddr = (props) => {
       zonecode: data.zonecode,
       address: fullAddress
     })
+    props.setSettting(false)
     props.onClose()
   }
   
+  const closeButton = () => {
+    props.setSettting(false)
+    props.onClose()
+  }
 
   const postCodeStyle = {
     display: "block",
@@ -40,7 +45,7 @@ const FindAddr = (props) => {
   return(
     <div>
       <DaumPostcode style={postCodeStyle} onComplete={handlePostCode} />
-      <button type='button' onClick={() => {props.onClose()}} className="btn btn-secondary">닫기</button>
+      <button type='button' onClick={() => {closeButton()}} className="btn btn-secondary">닫기</button>
     </div>
   )
 }
