@@ -4,7 +4,7 @@ import style from "./DetailTable.module.css";
 import CommonTable from "views/table/CommonTable";
 import CommonTableColumn from "views/table/CommonTableColumn";
 import { useDispatch, useSelector } from "react-redux";
-import { createSetCheckDownAction,createSetCheckUpAction, UpdateResult, UpdateStatusAction } from "redux/inspection_Reducer";
+import { createSetCheckDownAction,createSetCheckUpAction, UpdatePstatusAction, UpdateResult, UpdateStatusAction } from "redux/inspection_Reducer";
 import { StateButton } from "./StateButton";
 import { useState } from "react";
 import { CSVLink } from "react-csv";
@@ -156,6 +156,7 @@ const closeModal2 = () => {
     if(response.data.result ==='success'){
       findInspect();
       dispatch(UpdateResult(DiagnosisInspection))
+      dispatch(UpdatePstatusAction("진행중"))
       Swal.fire({
         position: 'middle',
         icon: 'success',
