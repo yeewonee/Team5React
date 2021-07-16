@@ -69,7 +69,6 @@ function PatientList(props) {
       let searchList = originList.filter((list)=>list.patientName.includes(searchWord));
       setPatientList(searchList); //list에 검색어에 맞는 목록 넣음
     }
-
   };
 
 

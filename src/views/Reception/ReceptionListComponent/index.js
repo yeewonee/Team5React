@@ -14,6 +14,7 @@ import { Loading } from "../../../Loading";
 import { getReceptionList, cancelReceptionFunc, changeReceptionFunc } from "apis/reception";
 import { createSetDate, createSetDoctor, createSetPatient, createSetTime } from 'redux/createReception-reducer';
 import { sendMqttMessage } from "apis/reception";
+import { createSetManagePatient } from 'redux/managePatient-reducer';
 
 function ReceptionList(props){
   const day = useSelector((state) => {
@@ -69,9 +70,13 @@ function ReceptionList(props){
   const handleClose = () => setShow(false);
   const buttonModal = () => setShow(true);
 
+  //환자 관리 버튼 클릭 시 동작
+  const handleManagePatient = () => {
+    dispatch(createSetManagePatient('')); //버튼을 눌러서 다시 들어가는 경우 선택해놓은 리덕스값 비워주기
+  };
+
   // 예약/접수 버튼 클릭 시 동작
   const handleReception = (event) => {
-  
     dispatch(createSetPatient(''));
     dispatch(createSetDoctor(''));
     dispatch(createSetDate(''));
@@ -202,7 +207,7 @@ function ReceptionList(props){
               <SearchBar setSearchValue={setSearchValue}/>
             </div>
             <div className={style.button1}>
-              <Link to="/managePatient" className={style.link}><button className={style.button}>환자 관리</button></Link>
+              <Link to="/managePatient" className={style.link} onClick={handleManagePatient}><button className={style.button}>환자 관리</button></Link>
               <Link to="/createReception" className={style.link} onClick={handleReception}><button className={style.button}>예약/접수</button></Link>
             </div>
           </div> 
