@@ -57,7 +57,7 @@ function CheckTime(props) {
     getList();
   },[doctor_id, r_date]);
 
-   let resultTime = [];
+  let resultTime = [];
 
     for(let i=0; i<receptionList.length; i++){ //예약된 리스트의 길이만큼 for문을 돌면서 시간만 배열에 담아줌
       resultTime.push(receptionList[i].rTime)
