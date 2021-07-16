@@ -3,7 +3,7 @@ import CommonTable from "views/table/CommonTable";
 import CommonTableColumn from "views/table/CommonTableColumn";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { createSetPatient } from "redux/managePatient-reducer";
+import { createSetManagePatient } from "redux/managePatient-reducer";
 import NewRegistration from "./NewRegistration";
 import { FaUserTimes } from 'react-icons/fa';
 import { Loading } from "Loading";
@@ -40,7 +40,7 @@ function PatientList(props) {
   };
 
   const searchPatient = (event) => {
-    dispatch(createSetPatient(''));
+    dispatch(createSetManagePatient(''));
     if(searchWord===''){ //검색어가 없으면
       setPatientList(originList); //list에 전체 목록 넣어주고
     }else{ //검색어가 있으면
@@ -53,7 +53,7 @@ function PatientList(props) {
   const handleClick = (pid) => {
     setColorSelect(pid)
     console.log(pid);
-    dispatch(createSetPatient(pid));
+    dispatch(createSetManagePatient(pid));
   };
 
   return(
