@@ -5,7 +5,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { createSetAuthTokenAction, createSetUidAction } from "redux/auth-reducer";
 import { removeAuthHeader } from "apis/axiosConfig";
 import { useState } from "react";
-import { ModalChat } from "ModalChat";
+import { ModalChat } from "views/Chatting/ModalChat";
+import { BsFillChatSquareDotsFill } from "react-icons/bs";
 
 function AppHeader() {
   const username = useSelector((state) => state.authReducer.name);
@@ -40,13 +41,11 @@ function AppHeader() {
         <div className="header-container" style={{fontFamily: "DoHyeon-Regular"}}>
           <div className="logo ml-3"><Link to="/" style={{textDecoration:"none"}}>wehago-h</Link></div>
           <div className="user">
-            <button type="button" className="btn btn-outline-dark btn-sm" onClick={(event, day)=>{openModal(event)}}>
-                      채팅
-            </button>
-            <div className="mr-4"><AiOutlineUser /> {username}</div>
-            <button type="button" className="btn btn-light">
-              <Link to="/" style={{textDecoration:"none"}} onClick={logout}>로그아웃</Link>
-            </button>
+            <BsFillChatSquareDotsFill style={{marginRight: '20px'}} onClick={(event, day)=>{openModal(event)}}/>
+          <div className="mr-4"><AiOutlineUser /> {username}</div>
+          <button type="button" className="btn btn-light">
+            <Link to="/" style={{textDecoration:"none"}} onClick={logout}>로그아웃</Link>
+          </button>
           </div>
         </div>
       </header>

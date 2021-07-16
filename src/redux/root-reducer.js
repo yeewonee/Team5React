@@ -5,6 +5,8 @@ import diagnosisReducer from './diagnosis-reducer';
 import receptionReducer from './reception-reducer';
 import authReducer from "./auth-reducer"
 import managePatientReducer from "./managePatient-reducer";
+import chattingReducer from "./chatting-reducer";
+
 
 const rootReducer = combineReducers({
     inspectReducer,
@@ -12,7 +14,8 @@ const rootReducer = combineReducers({
     createReceptionReducer,
     receptionReducer,
     authReducer,
-    managePatientReducer
+    managePatientReducer,
+    chattingReducer
 });
 
 export default rootReducer;
