@@ -4,7 +4,7 @@ import style from "./DetailTable.module.css";
 import CommonTable from "views/table/CommonTable";
 import CommonTableColumn from "views/table/CommonTableColumn";
 import { useDispatch, useSelector } from "react-redux";
-import { createSetCheckDownAction,createSetCheckUpAction } from "redux/inspection_Reducer";
+import { createSetCheckDownAction,createSetCheckUpAction, UpdateResult, UpdateStatusAction } from "redux/inspection_Reducer";
 import { StateButton } from "./StateButton";
 import { useState } from "react";
 import { CSVLink } from "react-csv";
@@ -139,7 +139,7 @@ const closeModal2 = () => {
     })
   }
 
-  const [result, setResult] = useState("0");
+  const [result, setResult] = useState('');
 
   const handleChange = (event) =>{
     setResult(event.target.value)
@@ -153,8 +153,9 @@ const closeModal2 = () => {
       iResult:result
     }
     const response= await UpdateInspectResult(DiagnosisInspection);
-    console.log(response.data)
     if(response.data.result ==='success'){
+      findInspect();
+      dispatch(UpdateResult(DiagnosisInspection))
       Swal.fire({
         position: 'middle',
         icon: 'success',
@@ -173,6 +174,13 @@ const closeModal2 = () => {
   }
 
 
+
+  const findInspect = () => {
+    const select =inspectList.findIndex((value)=>value.iId===checkList[0]?.iId&&value.bundleCode===checkList[0]?.bundleCode&&value.patientId===checkList[0]?.patientId);
+    inspectList[select].iResult=result;
+  }
+   
+
   return (
     <div>
       <div className={cx(style.middle_right_bottom)}>
@@ -189,9 +197,14 @@ const closeModal2 = () => {
             <div style={{display:'flex',flexDirection:'column' ,justifyContent:'center',alignItems:'center'}}>
               <div style={{fontSize:'20px'}}>결과값을 입력해주세요.</div>
               <div style={{display:'flex'}}>
-                <div style={{marginRight:'10px'}}><input type="text" value={result} onChange={handleChange}></input></div>
-                <div><button type='button' onClick={sendResult}>저장</button></div>
+                <div style={{marginRight:'10px',marginTop:'7px'}}><input type="text" value={result} onChange={handleChange}></input></div>
+                <div><button className={cx(style.stateButton)} style={{border:'1px solid black'}} type='button' onClick={sendResult}>저장</button></div>
               </div>
+              {checkList[0]?.iResult===null?
+                <div style={{marginTop:'7px'}}>저장된 결과값이 없습니다.</div>        
+              :
+                <div style={{marginTop:'7px'}}>저장된 결과값:{checkList[0]?.iResult} </div>
+               }
             </div>
           </Modal>
           <StateButton value={'채혈 완료'} change={'완료'}  checkfun={checkState} list={inspectList}></StateButton>

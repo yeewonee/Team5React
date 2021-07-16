@@ -12,6 +12,7 @@ const SET_CHECKDOWN = "inspection/setCheckDown"
 const SET_CHECKUP = "inspection/setCheckUp"
 const SET_STATUS = "inspection/setStatus"
 const SET_PSTATUS = "inspection/setPstatus"
+const SET_RESULT = "inspection/setResult"
 
 
 
@@ -38,6 +39,10 @@ export const UpdatePstatusAction = (status) =>{
     return {type:SET_PSTATUS,status}
 };
 
+export const UpdateResult = (result) =>{
+    return {type:SET_PSTATUS,result}
+};
+
 
 
 
@@ -59,6 +64,13 @@ const inspectionReducer = (state=initialState,action) => {
     } 
     if(action.type ===SET_STATUS){
         return {...state,checked:[]}
+    }
+    if(action.type === SET_RESULT){
+        return {...state,checked:state.checked.forEach((value)=>{
+            if(value.iId===action.result.iId&&value.bundleCode===action.result.bundleCode){
+                value.iResult = action.result.iResult;
+            }
+        })}
     }
     if(action.type === SET_PSTATUS){
         const newState = {

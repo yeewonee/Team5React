@@ -54,13 +54,16 @@ function Progress(props){
                         </div>
                         <div className={cx(style.inspectName)}>
                             <div>현재 진행중인 검사</div>
+                            <div style={{display:'flex',justifyContent:'space-between'}}>
                             {proceeding!==undefined?<div>▶ {proceeding.iName}</div>:<div>▶ 진행중인 검사가 없습니다.</div>}
+                            {proceeding!==undefined? <div>결과 등록 여부 : {proceeding?.iResult!==null?"O":"X"} </div>: <></>}
+                            </div>
                         </div>
                         <div className = {cx(style.limit)}>
                             {proceeding!==undefined?
                             <ul>
                                 <li>하한치 : {proceeding.lowerLimit}</li>
-                                <li>상한치 : {proceeding.lowerLimit}</li>
+                                <li>상한치 : {proceeding.upperLimit}</li>
                             </ul>:
                             <></>
                             }

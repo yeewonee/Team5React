@@ -3,7 +3,7 @@ import classNames from "classnames/bind";
 import style from "./StateButton.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import { UpdatePstatusAction, UpdateStatusAction } from "redux/inspection_Reducer";
-import Swal from 'sweetalert2'
+import Swal from "sweetalert2";
 import { UpdateInspectStatus, UpdatePatientStatus } from "apis/inspection";
 
 const cx = classNames.bind(style);
@@ -18,59 +18,63 @@ export const StateButton = (props) => {
   const patient = useSelector((state) => state.inspectReducer.patient);
   const inspectList = props.list;
 
-  
+  const updateInspect = async (checkList, changeValue) => {
+    await UpdateInspectStatus(checkList, changeValue);
+  };
 
-  const updateInspect = async(checkList,changeValue)=>{
-    
-     await UpdateInspectStatus(checkList,changeValue)
-  }
-
-  const patientInspect = async(dId,totalIstatus)=>{
+  const patientInspect = async (dId, totalIstatus) => {
     const diagnosis = {
-      dId,totalIstatus
-    }
+      dId,
+      totalIstatus,
+    };
     await UpdatePatientStatus(diagnosis);
-  }
+  };
 
- 
-  
   const changeState = (props) => {
-    if(checkList.length===0){
+    if (checkList.length === 0) {
       Swal.fire({
-        icon: 'error',
-        text: '항목을 선택해주세요',
-        confirmButtonColor: '#3085d6'
-      })
-      return
+        icon: "error",
+        text: "항목을 선택해주세요",
+        confirmButtonColor: "#3085d6",
+      });
+      return;
     }
     //버튼 예외처리
     if (patient.tstatus === "완료") {
       Swal.fire({
-        icon: 'error',
-        text: '완료된 검사입니다',
-        confirmButtonColor: '#3085d6'
-      })
+        icon: "error",
+        text: "완료된 검사입니다",
+        confirmButtonColor: "#3085d6",
+      });
       return;
     }
     if (patient.tstatus === "대기") {
       if (changeValue === "완료") {
         Swal.fire({
-          icon: 'error',
-          text: '검사를 진행해주세요.',
-          confirmButtonColor: '#3085d6'
-        })
+          icon: "error",
+          text: "검사를 진행해주세요.",
+          confirmButtonColor: "#3085d6",
+        });
         return;
       }
     }
 
     if (checkList.length > 1) {
       console.log("여러개");
-      if (changeValue === "접수" || changeValue==="등록") {
+      if (changeValue === "접수") {
         Swal.fire({
-          icon: 'error',
-          text: '단일 접수만 가능합니다.',
-          confirmButtonColor: '#3085d6'
-        })
+          icon: "error",
+          text: "단일 접수만 가능합니다.",
+          confirmButtonColor: "#3085d6",
+        });
+        return;
+      }
+      if (changeValue === "등록") {
+        Swal.fire({
+          icon: "error",
+          text: "단일 등록만 가능합니다.",
+          confirmButtonColor: "#3085d6",
+        });
         return;
       }
     }
@@ -79,58 +83,79 @@ export const StateButton = (props) => {
       if (inspectList[i].iStatus === "접수") {
         if (changeValue === "접수") {
           Swal.fire({
-            icon: 'error',
-            text: '검사가 진행중입니다.',
-            confirmButtonColor: '#3085d6'
-          })
+            icon: "error",
+            text: "검사가 진행중입니다.",
+            confirmButtonColor: "#3085d6",
+          });
           return;
         }
       }
     }
     for (let i = 0; i < checkList?.length; i++) {
       if (checkList[i].iStatus === "대기") {
-        if (changeValue === "완료" || changeValue==="등록") {
+        if (changeValue === "완료" || changeValue === "등록") {
           Swal.fire({
-            icon: 'error',
-            text: '검사를 진행해주세요',
-            confirmButtonColor: '#3085d6'
-          })
+            icon: "error",
+            text: "검사를 진행해주세요",
+            confirmButtonColor: "#3085d6",
+          });
           return;
         }
-        if(changeValue ==="대기"){
+        if (changeValue === "대기") {
           Swal.fire({
-            icon: 'error',
-            text: '대기 중인 상태입니다.',
-            confirmButtonColor: '#3085d6'
-          })
+            icon: "error",
+            text: "대기 중인 상태입니다.",
+            confirmButtonColor: "#3085d6",
+          });
           return;
         }
       }
       if (checkList[i].iStatus === "완료") {
-        if (changeValue === "대기" || changeValue === "접수" || changeValue==="등록") {
+        if (changeValue === "대기" || changeValue === "접수" || changeValue === "등록") {
           Swal.fire({
-            icon: 'error',
-            text: '완료된 검사입니다',
-            confirmButtonColor: '#3085d6'
-          })
+            icon: "error",
+            text: "완료된 검사입니다",
+            confirmButtonColor: "#3085d6",
+          });
           return;
         }
-        if(changeValue==="완료"){
+        if (changeValue === "완료") {
           Swal.fire({
-            icon: 'error',
-            text: '이미 완료된 검사입니다.',
-            confirmButtonColor: '#3085d6'
-          })
+            icon: "error",
+            text: "이미 완료된 검사입니다.",
+            confirmButtonColor: "#3085d6",
+          });
+          return;
         }
       }
       if (checkList[i].iStatus === "접수") {
-        if(changeValue==="접수"){
+        if (changeValue === "접수") {
           Swal.fire({
-            icon: 'error',
-            text: '이미 진행중인 검사입니다.',
-            confirmButtonColor: '#3085d6'
-          })
+            icon: "error",
+            text: "이미 진행중인 검사입니다.",
+            confirmButtonColor: "#3085d6",
+          });
           return;
+        }
+        if(changeValue==="완료"){
+          if(checkList[i]?.iResult===null){
+            Swal.fire({
+              icon: "error",
+              text: "결과값 등록이 필요합니다.",
+              confirmButtonColor: "#3085d6",
+            });
+            return;
+          }
+        }
+        if(changeValue==="대기"){
+          if(checkList[i]?.iResult!==null){
+            Swal.fire({
+              icon: "error",
+              text: "결과값이 등록된 접수는 취소가 불가능합니다.",
+              confirmButtonColor: "#3085d6",
+            });
+            return;
+          }
         }
       }
       //Modal
@@ -139,20 +164,20 @@ export const StateButton = (props) => {
       }
       if (changeValue === "등록") {
         props.openModal2();
-         return
+        return;
       }
     }
 
     updateInspect(checkList, changeValue);
-   
+
     //리덕스에 저장된 체크한 검사들의 객체 상태를 비워줌
     dispatch(UpdateStatusAction());
-    for(let i =0; i<inspectList?.length; i++){
-      if(checkList[0]?.iId===inspectList[i]?.iId&&checkList[0]?.bundleCode===inspectList[i]?.bundleCode){
-        inspectList[i].iStatus=changeValue;
+    for (let i = 0; i < inspectList?.length; i++) {
+      if (checkList[0]?.iId === inspectList[i]?.iId && checkList[0]?.bundleCode === inspectList[i]?.bundleCode) {
+        inspectList[i].iStatus = changeValue;
       }
     }
- 
+
     //props로 부모 컴포넌트에서 받은 함수
     dcheck();
 
@@ -166,7 +191,7 @@ export const StateButton = (props) => {
       } else if (inspectList[i].iStatus === "접수") {
         value = "진행중";
         patientInspect(inspectList[i].dId, value);
-        
+
         dispatch(UpdatePstatusAction(value));
       } else if (inspectList[i].iStatus === "대기") {
         arr2.push(inspectList[i]);
