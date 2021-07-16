@@ -150,10 +150,8 @@ export const ChatRoom = (props) => {
     console.log("시간", chat.messageDate)
     
     await addChating(chat)
-
-
+    await getChattingList(props.uid, reId);
     await sendMqttMessage(pubMessage);
-    await getChattingList(props.uid, userId);
 
     setPubMessage({
       ...pubMessage,
