@@ -9,12 +9,13 @@ import { createSetUserId } from "redux/chatting-reducer";
 import { Loading } from "Loading";
 
 export const ChatRoom = (props) => {
+  console.log("채팅 룸 실행")
 
   const [loading, setLoading] = useState(null);
   const [loading2, setLoading2] = useState(null);
 
-  
   const [user, setUser] = useState([]);
+  const [message, setMessage] = useState("");
   const userList = async () => {
     setLoading(true);
     try {
@@ -31,29 +32,25 @@ export const ChatRoom = (props) => {
   }, []);
 
  
-  const userId = useSelector((state) => {
-    return state.chattingReducer.userId;
-  });
   const [pubState, setPubState] = useState(false);
   const [chatList, setChatList] = useState([]);
 
   const dispatch = useDispatch();
 
   const [reId, setReId] = useState();
-  const handleUserName = async (event, userId) => {
-    dispatch(createSetUserId(userId));
-    setReId(userId);
+  const handleUserName = async (event, reid) => {
+    dispatch(createSetUserId(reid));
 
     setPubMessage((prev) => {
       return {
         ...prev,
-        topic: "/topic1/" + userId,
+        topic: "/topic1/" + reid,
       };
     });
     setPubState(true);
     setSubTopic("/topic1/" + props.uid);
 
-    getChattingList(props.uid, userId);
+    getChattingList(props.uid, reid);
 
   };
 
@@ -110,9 +107,8 @@ export const ChatRoom = (props) => {
 
     client.current.onMessageArrived = (msg) => {
       console.log("메시지 수신");
-      console.log("uid: " , props.uid, " userId: ", reId)
-      getChattingList(props.uid, reId);
-
+      var message = JSON.parse(msg.payloadString);
+      setMessage(message);
     };
 
     client.current.connect({
@@ -123,6 +119,10 @@ export const ChatRoom = (props) => {
       },
     });
   };
+
+  useEffect(()=>{
+    getChattingList(props.uid, props.userId);
+  }, [message])
 
   const disconnectMqttBroker = () => {
     client.current.disconnect();
@@ -140,7 +140,7 @@ export const ChatRoom = (props) => {
     let chat = {
       sender: props.uid,
       message: pubMessage.content,
-      recipient: reId,
+      recipient: props.userId,
       messageDate: new Date()
     };
 
@@ -150,7 +150,7 @@ export const ChatRoom = (props) => {
     console.log("시간", chat.messageDate)
     
     await addChating(chat)
-    await getChattingList(props.uid, reId);
+    await getChattingList(props.uid, props.userId);
     await sendMqttMessage(pubMessage);
 
     setPubMessage({
@@ -215,7 +215,7 @@ export const ChatRoom = (props) => {
                 onClick={(event) => {
                   handleUserName(event, user.userId);
                 }}
-                className={user.userId === userId ? style.select_Color : style.basic_Color}
+                className={user.userId === props.userId ? style.select_Color : style.basic_Color}
                 style={{ cursor: "pointer" }}
               >
                 <CommonTableColumn>{user.userName}({user.authority})</CommonTableColumn>

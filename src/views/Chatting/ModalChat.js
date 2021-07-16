@@ -15,6 +15,10 @@ export const ModalChat = (props) => {
     return state.authReducer.uid;
   });
 
+  const userId = useSelector((state) => {
+    return state.chattingReducer.userId;
+  });
+
   return (
     <>
       {/* 과거기록 상세보기 modal */}
@@ -27,7 +31,7 @@ export const ModalChat = (props) => {
             <p style={{float:'left', marginRight:'5px', marginBottom:'0px', fontWeight:'bold'}}>채팅방</p>
           </div>
         </div>
-        <ChatRoom uid={uid}/>
+        <ChatRoom uid={uid} userId={userId}/>
       </Modal>
     </>
   )
