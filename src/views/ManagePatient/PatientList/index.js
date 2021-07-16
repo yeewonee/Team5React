@@ -66,7 +66,7 @@ function PatientList(props) {
         </div>
       </div>
       <div style={{margin:'10px'}}>
-          <button className="btn btn-outline-secondary btn-sm" style={{width:'100px'}} onClick={buttonModal}>신규 환자 등록</button>
+          <button className="btn btn-outline-secondary btn-sm" style={{width:'90px'}} onClick={buttonModal}>신규환자 등록</button>
       </div>
     </div>
     
