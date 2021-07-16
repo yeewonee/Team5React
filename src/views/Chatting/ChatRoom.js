@@ -39,9 +39,11 @@ export const ChatRoom = (props) => {
 
   const dispatch = useDispatch();
 
+  const [reId, setReId] = useState();
   const handleUserName = async (event, userId) => {
     dispatch(createSetUserId(userId));
-    console.log("Asdasd", userId)
+    setReId(userId);
+
     setPubMessage((prev) => {
       return {
         ...prev,
@@ -108,8 +110,8 @@ export const ChatRoom = (props) => {
 
     client.current.onMessageArrived = (msg) => {
       console.log("메시지 수신");
-      console.log("uid: " , props.uid, " userId: ", userId)
-      getChattingList(props.uid, userId);
+      console.log("uid: " , props.uid, " userId: ", reId)
+      getChattingList(props.uid, reId);
 
     };
 
@@ -138,7 +140,7 @@ export const ChatRoom = (props) => {
     let chat = {
       sender: props.uid,
       message: pubMessage.content,
-      recipient: userId,
+      recipient: reId,
       messageDate: new Date()
     };
 
