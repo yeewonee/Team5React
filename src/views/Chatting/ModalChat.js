@@ -3,8 +3,6 @@ import React from 'react'
 import { useSelector } from "react-redux";
 import { ChatRoom } from "./ChatRoom";
 
-
-
 export const ModalChat = (props) => {
 
   const closeModal = () => {
@@ -15,23 +13,19 @@ export const ModalChat = (props) => {
     return state.authReducer.uid;
   });
 
-  const userId = useSelector((state) => {
-    return state.chattingReducer.userId;
-  });
-
   return (
     <>
       {/* 과거기록 상세보기 modal */}
       <Modal open={props.modalOpen} close={closeModal} header="채팅">
         <div className="d-flex justify-content-between" style={{marginTop:'20px', fontFamily: "DoHyeon-Regular" }}>
-          <div style={{width:'30%'}}>
+          <div style={{width:'30%', overflow:'auto'}}>
             <p style={{float:'left', marginRight:'5px', marginBottom:'0px', fontWeight:'bold'}}>리스트</p>
           </div>
           <div style={{width:'70%', marginLeft:'10px'}}>
             <p style={{float:'left', marginRight:'5px', marginBottom:'0px', fontWeight:'bold'}}>채팅방</p>
           </div>
         </div>
-        <ChatRoom uid={uid} userId={userId}/>
+        <ChatRoom uid={uid}/>
       </Modal>
     </>
   )
