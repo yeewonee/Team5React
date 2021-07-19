@@ -1,6 +1,4 @@
 import axios from "axios";
-axios.defaults.baseURL = "http://localhost:8080";
-
 
 export function getPatientList() {
   const promise = axios.get("/managePatient/patientList");
