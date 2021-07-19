@@ -1,6 +1,6 @@
 import axios from "axios";
 
-axios.defaults.baseURL = "http://localhost:8080"; //공통경로 설정
+axios.defaults.baseURL = "http://kosa3.iptime.org:50005"; //공통경로 설정
 
 export function addAuthHeader(authToken) { //로그인 되었을 때 authToekn이 기본적으로 추가해서 보내도록!
   axios.defaults.headers.common["authToken"] = authToken;
