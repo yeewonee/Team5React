@@ -4,7 +4,7 @@ import style from "./DetailTable.module.css";
 import CommonTable from "views/table/CommonTable";
 import CommonTableColumn from "views/table/CommonTableColumn";
 import { useDispatch, useSelector } from "react-redux";
-import { createSetCheckDownAction,createSetCheckUpAction, UpdatePstatusAction, UpdateResult, UpdateStatusAction } from "redux/inspection_Reducer";
+import { createSetCheckDownAction,createSetCheckUpAction, UpdatePstatusAction, UpdateResult } from "redux/inspection_Reducer";
 import { StateButton } from "./StateButton";
 import { useState } from "react";
 import { CSVLink } from "react-csv";
