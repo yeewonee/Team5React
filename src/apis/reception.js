@@ -1,5 +1,4 @@
 import axios from "axios";
-axios.defaults.baseURL = "http://localhost:8080";
 
 export function getReceptionList(day) {
   const promise = axios.get("/reception", {params:{day:day}});

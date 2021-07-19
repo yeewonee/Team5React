@@ -8,7 +8,6 @@ import { Link } from "react-router-dom";
 import NoticeModal from './NoticeModal';
 import { Loading } from "../../../Loading";
 import axios from "axios";
-axios.defaults.baseURL = "http://localhost:8080";
 
 function Notice(props) {
   const [loading, setLoading] = useState(null);  
