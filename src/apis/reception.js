@@ -24,11 +24,6 @@ export function getCountReception(day) {
   return promise;
 }
 
-export function newPatient(patientRegister) {
-  return axios.post("/reception/registration", patientRegister);
-
-}
-
 export function sendMqttMessage({topic, content}) {
   return axios.get("/sendMqttMessage", {params:{topic, content}});
 }

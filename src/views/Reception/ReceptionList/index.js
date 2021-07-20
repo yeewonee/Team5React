@@ -1,6 +1,6 @@
 import style from './rlist.module.css';
-import Calendar from "./CalendarComponent/Calendar";
-import SearchBar from './SearchBarComponent/SearchBar';
+import Calendar from "./Calendar/Calendar";
+import SearchBar from './SearchBar/SearchBar';
 import { useRef, useState } from "react";
 import {Link} from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
