@@ -1,7 +1,7 @@
 import style from "./reception.module.css";
-import RGraph from "./RGraphComponent";
-import RDonut from './RDonutComponent';
-import ReceptionList from "./ReceptionListComponent";
+import RGraph from "./RGraph";
+import RDonut from './RDonut';
+import ReceptionList from "./ReceptionList";
 import { useEffect } from 'react';
 import { useState, useRef } from "react";
 import Paho from "paho-mqtt";
