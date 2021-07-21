@@ -1,6 +1,6 @@
 import { Col, Container, Row } from "react-bootstrap";
-import HomeMenu from "./HomeComponent";
-import Notice from "./NoticeComponent";
+import HomeMenu from "./HomeButton";
+import Notice from "./Notice";
 import style from "./home.module.css";
 
 function Home(props){

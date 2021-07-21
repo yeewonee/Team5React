@@ -2,7 +2,7 @@ import React, { useCallback } from "react";
 import style from "./pastrecord.module.css";
 import { useState } from "react";
 import CommonTable from "views/table/CommonTable";
-import { getPatient, getPastRecordList, getInspectionCompareList } from "apis/diagnosis";
+import { getPatient, getPastRecordList, getInspectionCompareList, addDiagnosis } from "apis/diagnosis";
 import CommonTableRow from "views/table/CommonTableRow";
 import CommonTableColumn from "views/table/CommonTableColumn";
 import { useEffect } from "react";
@@ -150,7 +150,7 @@ export const PastRecord = React.memo((props) => {
       console.log(exception)
       if(exception === true){
         changeLoading(true)
-        await axios.post("/diagnosis/pushdiagnosis", diagnosisInfo)
+        await addDiagnosis(diagnosisInfo)
         .then(() => {
           dispatch(createSetAddMlistAction([]));
           dispatch(createSetAddIlistAction([]));

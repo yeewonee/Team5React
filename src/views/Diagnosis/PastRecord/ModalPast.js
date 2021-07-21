@@ -76,7 +76,7 @@ export const ModalPast = (props) => {
   return (
     <>
       {/* 과거기록 상세보기 modal */}
-      <Modal open={props.modalOpen} close={closeModal} header="검사결과 확인">
+      <Modal open={props.modalOpen} close={closeModal} header="과거기록 확인">
         <div className={style.past_title}><BsPerson /> 환자 정보</div>
         <CommonTable headersName={["환자번호", "환자이름", "주민번호"]} tstyle={"table table-sm table-striped"}>
             <CommonTableColumn>{props.patient.patientId}</CommonTableColumn>

@@ -17,7 +17,6 @@ export const ChatRoom = (props) => {
 
   //로딩 상태
   const [loading, setLoading] = useState(null);
-  const [loading2, setLoading2] = useState(null);
 
   //직원 리스트 가져오기
   const [user, setUser] = useState([]);
@@ -55,11 +54,9 @@ export const ChatRoom = (props) => {
 
   //이전 채팅 리스트 가져오기
   const getChattingList = async (uid, reid) => {
-    setLoading2(true);
     try {
       const promise = await getChatting(uid, reid);
       setChatList(promise.data);
-      setLoading2(false);
     } catch (error) {
       console.log(error);
     }
@@ -173,7 +170,7 @@ export const ChatRoom = (props) => {
 
   useEffect(() => {
     scrollToBottom();
-  }, [loading2]);
+  }, [chatList]);
 
   //Enter키 입력 시 전송
   const onKeyPress = (event) => {
@@ -215,15 +212,6 @@ export const ChatRoom = (props) => {
         {pubState ? (
           <>
             <div className={style.slimscroll} style={{ border: "1px solid #e5dbff", backgroundColor: "#e5dbff", width: "70%", marginLeft: "10px", height: "45vh", borderRadius: "1em" }}>
-              {loading2 ? (
-                <>
-                  <div style={{ marginTop: "25%", marginLeft: "47%" }}>
-                    <Loading height={30} width={30} />
-                  </div>
-                  <p style={{ marginLeft: "45%" }}>Loading..</p>
-                </>
-              ) : (
-                <>
                   <div ref={scrollRef}>
                     {chatList.length !== 0 ? (
                       <>
@@ -252,8 +240,6 @@ export const ChatRoom = (props) => {
                         </div>
                     )}
                   </div>
-                </>
-              )}
             </div>
           </>
         ) : (
@@ -268,15 +254,15 @@ export const ChatRoom = (props) => {
             <div className="input-group mb-3 mt-2">
               <input type="text" className="form-control" name="content" value={pubMessage.content} onChange={changePubMessage} onKeyPress={onKeyPress} />
               <div className="input-group-append">
-                {loading2 ? (
+                {/* {loading2 ? (
                   <button className="btn btn-secondary" type="button">
                     wait..
                   </button>
-                ) : (
+                ) : ( */}
                   <button className="btn btn-secondary" type="button" onClick={publishTopic}>
                     전송
                   </button>
-                )}
+                {/* )} */}
               </div>
             </div>
           </div>
