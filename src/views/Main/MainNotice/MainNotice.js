@@ -50,7 +50,7 @@ function MainNotice(props) {
   return(
     <>
     {/* 공지사항 모달로 띄워주는 부분 */}
-    <Modal show={show} onHide={handleClose} dialogClassName="custom-modal">
+    <Modal backdrop={false} show={show} onHide={handleClose} dialogClassName="custom-modal">
       <Modal.Header closeButton>
         <Modal.Title>공지사항</Modal.Title>
       </Modal.Header>
