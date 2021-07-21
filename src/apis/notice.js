@@ -2,11 +2,11 @@ import axios from "axios";
 
 
 export function getMainNoticeList() {
-  const promise = axios.get("/boards/main");
+  const promise = axios.get("/api/boards/main");
   return promise;
 }
 
 export function getNoticeList() {
-  const promise = axios.get("/boards");
+  const promise = axios.get("/api/boards");
   return promise;
 }

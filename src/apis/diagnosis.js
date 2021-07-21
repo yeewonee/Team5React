@@ -39,17 +39,17 @@ export function getPastIlist(pId, day){
 }
 
 export function getPastMlist(pId, day){
-  const promise = axios.get("/diagnosis/pastrecordmlist", {params:{pId, day}})
+  const promise = axios.get("/api/diagnosis/pastrecordmlist", {params:{pId, day}})
   return promise;
 }
 
 export function getPastMemo(pId, day){
-  const promise = axios.get("/diagnosis/pastrecordmemo", {params:{pId, day}})
+  const promise = axios.get("/api/diagnosis/pastrecordmemo", {params:{pId, day}})
   return promise;
 }
 
 export function getInspectionCompareList(){
-  const promise = axios.get("/diagnosis/inspectioncompare")
+  const promise = axios.get("/api/diagnosis/inspectioncompare")
   return promise;
 }
 
@@ -59,6 +59,6 @@ export function sendMqttMessage({topic, content}) {
 }
 
 export function addDiagnosis(diagnosisInfo) {
-  return axios.post("/diagnosis/pushdiagnosis", diagnosisInfo)
+  return axios.post("/api/diagnosis/pushdiagnosis", diagnosisInfo)
 }
 

@@ -5,17 +5,17 @@ export function sendMqttMessage({topic, content}) {
   }
 
 export function getUserList(uid){
-    const promise = axios.get("/chat/userlist", {params:{uid}})
+    const promise = axios.get("/api/chat/userlist", {params:{uid}})
     return promise;
   }
   
   
   export function addChat(chat) {
-    return axios.post("/chat/addchat", chat);
+    return axios.post("/api/chat/addchat", chat);
   }
   
   
   export function getChatting(uid, userId) {
-    return axios.get("/chat/chatroom", {params:{uid, userId}});
+    return axios.get("/api/chat/chatroom", {params:{uid, userId}});
   }
   

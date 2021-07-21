@@ -36,7 +36,7 @@ function Main(props) {
             </div>
           </div>
           <div className={style.loginBox}>
-          <Link to="/login" style={{textDecoration:'none', color:'black'}}><div className={style.loginButton}>LOGIN</div></Link> 
+          <Link to="/hlogin" style={{textDecoration:'none', color:'black'}}><div className={style.loginButton}>LOGIN</div></Link> 
           </div>      
         </div>
       </div>

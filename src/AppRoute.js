@@ -78,7 +78,7 @@ function AppRoute() {
         <>
           <Switch>
             <Route path="/" exact component={Main} />
-            <Route path="/login" component={Login} />
+            <Route path="/hlogin" component={Login} />
             <Redirect to="/" />
           </Switch>
         </>
