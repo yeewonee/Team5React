@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Modal } from "react-bootstrap";
-import { getMainNoticeList } from "../data";
+import { getMainNoticeList } from "../../../apis/notice";
 import { Loading } from "Loading";
 
 function MainNotice(props) {
