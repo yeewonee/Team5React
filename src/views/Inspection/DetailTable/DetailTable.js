@@ -208,7 +208,7 @@ const closeModal2 = () => {
                }
             </div>
           </Modal>
-          <StateButton value={'채혈 완료'} change={'완료'}  checkfun={checkState} list={inspectList}></StateButton>
+          <StateButton value={'검사 완료'} change={'완료'}  checkfun={checkState} list={inspectList}></StateButton>
           </AlertProvider>
           <button className={cx(style.stateButton)}>
             {checkList.length!==0?
