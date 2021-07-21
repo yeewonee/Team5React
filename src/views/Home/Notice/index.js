@@ -7,6 +7,7 @@ import qs from "qs";
 import { Link } from "react-router-dom";
 import NoticeModal from './NoticeModal';
 import { Loading } from "../../../Loading";
+import { getNoticeList } from "apis/notice";
 import axios from "axios";
 
 function Notice(props) {
@@ -15,7 +16,7 @@ function Notice(props) {
   const getNotice = async() => {
     setLoading(true);
     try{
-      const result = await axios.get("/boards");
+      const result = await getNoticeList();
       setBoardList(result.data)  
       setLoading(false);    
     }catch(error) {
