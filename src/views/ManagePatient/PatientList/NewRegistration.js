@@ -3,7 +3,8 @@ import { Button, Modal } from 'react-bootstrap';
 import { useEffect, useState } from 'react';
 import Swal from 'sweetalert2'
 import { useForm } from "react-hook-form";
-import { newPatient, sendMqttMessage } from "apis/reception";
+import { sendMqttMessage } from "apis/reception";
+import { newPatient } from "apis/managePatient";
 import axios from "axios";
 import FindAddrDom from '../PostCodeComponent/FindAddrDom';
 import FindAddr from '../PostCodeComponent/FindAddr';

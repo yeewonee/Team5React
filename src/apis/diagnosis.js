@@ -58,3 +58,7 @@ export function sendMqttMessage({topic, content}) {
   return axios.get("/sendMqttMessage", {params:{topic, content}});
 }
 
+export function addDiagnosis(diagnosisInfo) {
+  return axios.post("/diagnosis/pushdiagnosis", diagnosisInfo)
+}
+
