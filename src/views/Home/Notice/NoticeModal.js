@@ -3,7 +3,7 @@ import style from "./notice.module.css";
 
 function NoticeModal(props){
   return(
-    <Modal show={props.show} onHide={props.handleClose} dialogClassName="custom-modal">
+    <Modal backdrop={false} show={props.show} onHide={props.handleClose} dialogClassName="custom-modal">
     <Modal.Header closeButton>
       <Modal.Title style={{color:'gray'}}>공지사항</Modal.Title>
     </Modal.Header>

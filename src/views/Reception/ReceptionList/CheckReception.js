@@ -16,7 +16,7 @@ const CheckReception = (props) => {
   }
 
   return(
-    <Modal show={props.show1} onHide={props.handleClose1} dialogClassName="custom-modal">
+    <Modal backdrop={false} show={props.show1} onHide={props.handleClose1} dialogClassName="custom-modal">
         <Modal.Header closeButton>
           <Modal.Title style={{color:'gray', textShadow:'1px 1px 1px'}}>예약확인</Modal.Title>
         </Modal.Header>

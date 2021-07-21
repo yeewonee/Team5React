@@ -7,7 +7,7 @@ const CancelModal = (props) => {
     props.cancelReception(props.cancelId)
   }
   return(
-    <Modal show={props.cancelShow} onHide={props.closeCModal} dialogClassName="custom-modal">
+    <Modal backdrop={false} show={props.cancelShow} onHide={props.closeCModal} dialogClassName="custom-modal">
       <Modal.Header closeButton>
         <Modal.Title style={{color:'gray'}}>알림</Modal.Title>
       </Modal.Header>

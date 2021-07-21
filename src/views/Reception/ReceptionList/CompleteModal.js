@@ -7,7 +7,7 @@ const CompleteModal = (props) => {
     props.completeReception(props.changeId)
   }
   return(
-    <Modal show={props.completeShow} onHide={props.closeComModal} dialogClassName="custom-modal">
+    <Modal backdrop={false} show={props.completeShow} onHide={props.closeComModal} dialogClassName="custom-modal">
       <Modal.Header closeButton>
         <Modal.Title style={{color:'gray'}}>알림</Modal.Title>
       </Modal.Header>
