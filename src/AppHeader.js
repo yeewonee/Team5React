@@ -2,7 +2,7 @@
 import { Link } from "react-router-dom";
 import { AiOutlineUser } from "react-icons/ai";
 import { useDispatch, useSelector } from "react-redux";
-import { createSetAuthTokenAction, createSetUidAction } from "redux/auth-reducer";
+import { createSetAuthTokenAction, createSetNameAction, createSetRoleAction, createSetUidAction } from "redux/auth-reducer";
 import { removeAuthHeader } from "apis/axiosConfig";
 import { useEffect, useState } from "react";
 import { ModalChat } from "views/Chatting/ModalChat";
@@ -16,6 +16,8 @@ function AppHeader() {
     //Redux 이용
     dispatch(createSetUidAction(""));
     dispatch(createSetAuthTokenAction(""));
+    dispatch(createSetRoleAction(""));
+    dispatch(createSetNameAction(""));
     removeAuthHeader();
 
     //SessionStorage에 인증 내용 제거

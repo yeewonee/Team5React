@@ -71,7 +71,7 @@ function CreateReception(props) {
   let client = useRef(null);
   const connectMqttBroker = () => {
     //Paho.MQTT.Clinet에서 MQTT가 빠짐
-    client.current = new Paho.Client("localhost", 61614, "client-" + new Date().getTime());
+    client.current = new Paho.Client("kosa3.iptime.org", 50015, "client-" + new Date().getTime());
 
     client.current.onConnectionLost = () => {
       console.log("접속 끊김");

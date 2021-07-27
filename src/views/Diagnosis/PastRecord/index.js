@@ -103,6 +103,7 @@ export const PastRecord = React.memo((props) => {
   //예외처리 검사 상태
   const [exception, setException] = useState(true);
   useEffect(()=> {
+    setException(true);
     for(let i=0; i<inspectCompare.length; i++){
       if(inspectCompare[i].patientId === patientId && inspectCompare[i].dDate === dateString){
         setException(false);
