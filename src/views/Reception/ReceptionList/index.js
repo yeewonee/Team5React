@@ -12,7 +12,7 @@ import CancelModal from './CancelModal';
 import CompleteModal from './CompleteModal';
 import { Loading } from "../../../Loading";
 import { getReceptionList, cancelReceptionFunc, changeReceptionFunc } from "apis/reception";
-import { createSetDate, createSetDoctor, createSetPatient, createSetTime } from 'redux/createReception-reducer';
+import { createSetDate, createSetDoctor, createSetPatient, createSetrId, createSetTime } from 'redux/createReception-reducer';
 import { sendMqttMessage } from "apis/reception";
 import { createSetManagePatient } from 'redux/managePatient-reducer';
 
@@ -81,6 +81,7 @@ function ReceptionList(props){
     dispatch(createSetDoctor(''));
     dispatch(createSetDate(''));
     dispatch(createSetTime(''));
+    dispatch(createSetrId(''));
   };
 
   //환자상세정보
