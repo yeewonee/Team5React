@@ -62,7 +62,7 @@ function ReceptionList(props){
     doctorName:"",
     doctorOffice:"",
     patientId:"",
-    
+    doctorId:""
   });
 
   //신규환자 등록 모달
@@ -98,7 +98,8 @@ function ReceptionList(props){
       rStatus: list.rStatus,
       doctorName: list.doctorName,
       doctorOffice: list.doctorOffice,
-      patientId: list.patientId
+      patientId: list.patientId,
+      doctorId: list.doctorId
     })
     setShow1(true)
   };
