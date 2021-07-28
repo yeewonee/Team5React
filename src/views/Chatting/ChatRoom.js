@@ -235,7 +235,7 @@ export const ChatRoom = (props) => {
                     ) : (
                         <div style={{ width: "95%", marginTop: "5px", marginLeft: "2%", height: "5vh" }}>
                           <div>
-                            <p style={{ marginLeft: "38%", marginTop: "30%" }}>지난 채팅이 없습니다.</p>
+                            <p style={{ marginLeft: "38%", marginTop: "30%" }}>지난 대화가 없습니다.</p>
                           </div>
                         </div>
                     )}
