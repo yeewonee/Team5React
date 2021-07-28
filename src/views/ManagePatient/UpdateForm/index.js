@@ -119,7 +119,7 @@ return (
     </div>
     <div className="form-group">
       <div>전화번호</div>
-      <input type="text" name="patientPhone1" maxLength="3" defaultValue={patient.patientPhone1||''} onChange={handleChange} style={{width:"60px"}} 
+      <input type="text" name="patientPhone1" maxLength="3" value={patient.patientPhone1||''} onChange={handleChange} style={{width:"60px"}} 
       ref={
         register({
             minLength: 3, 
@@ -127,7 +127,7 @@ return (
             pattern: /^[0-9]*$/
         })
       } />&nbsp;-&nbsp;
-      <input type="text" name="patientPhone2" maxLength="4" defaultValue={patient.patientPhone2||''} onChange={handleChange} style={{width:"60px"}} 
+      <input type="text" name="patientPhone2" maxLength="4" value={patient.patientPhone2||''} onChange={handleChange} style={{width:"60px"}} 
       ref={
         register({
             minLength: 4, 
@@ -135,7 +135,7 @@ return (
             pattern: /^[0-9]*$/
         })
       }/>&nbsp;-&nbsp;
-      <input type="text" name="patientPhone3" maxLength="4" defaultValue={patient.patientPhone3||''} onChange={handleChange} style={{width:"60px"}} 
+      <input type="text" name="patientPhone3" maxLength="4" value={patient.patientPhone3||''} onChange={handleChange} style={{width:"60px"}} 
       ref={
         register({
             minLength: 4, 
@@ -169,7 +169,7 @@ return (
     </div>
     <div className="form-group">
       <div>상세주소</div>
-      <input type="text" className="form-control" id="addressDetail" name="addressDetail" defaultValue={patient.addressDetail||''} onChange={handleChange} 
+      <input type="text" className="form-control" id="addressDetail" name="addressDetail" value={patient.addressDetail||''} onChange={handleChange} 
         ref={
           register({
             minLength: 1,
