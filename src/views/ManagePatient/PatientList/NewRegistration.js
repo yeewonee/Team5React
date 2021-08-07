@@ -98,8 +98,7 @@ const NewRegistration = (props) => {
         addressDetail: patient.detailaddress
       }
 
-      await sendMqttMessage(props.pubMessage);
-      await sendMqttMessage(props.pubMessage2);
+    
       setPatient({
         pname: "",
         pssn1:"",
@@ -116,7 +115,9 @@ const NewRegistration = (props) => {
       setChecked1(false)
       setChecked2(false)
       props.handleClose()
-      return await newPatient(patientRegister); 
+      await newPatient(patientRegister); 
+      await sendMqttMessage(props.pubMessage);
+      await sendMqttMessage(props.pubMessage2);
 
     }
   }
